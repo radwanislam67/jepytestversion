@@ -1,13 +1,28 @@
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Mail, MessageCircle, Calendar, Check, ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+
+export const Route = createFileRoute("/contact")({
+  head: () => ({
+    meta: [
+      { title: "Contact — Jepy" },
+      { name: "description", content: "Start a project with Jepy. Send a brief, book a call, or reach us on WhatsApp." },
+      { property: "og:title", content: "Contact — Jepy" },
+      { property: "og:description", content: "Start a project with Jepy." },
+      { property: "og:url", content: "/contact" },
+    ],
+    links: [{ rel: "canonical", href: "/contact" }],
+  }),
+  component: Contact,
+});
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/your-form-id";
 const CALENDLY_URL = "https://calendly.com/your-handle/intro";
 const WHATSAPP_URL = "https://wa.me/10000000000";
 const EMAIL = "hello@jepy.studio";
 
-export function ContactSection() {
+function Contact() {
   const [tz, setTz] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -25,7 +40,11 @@ export function ContactSection() {
     if ((data.get("_gotcha") as string)?.length) return;
     setSubmitting(true);
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, { method: "POST", headers: { Accept: "application/json" }, body: data });
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
       if (!res.ok) throw new Error("Submission failed");
       setDone(true);
       form.reset();
@@ -37,13 +56,13 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative py-32 md:py-40 scroll-mt-24">
+    <div className="pt-40 pb-24">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">Contact</div>
         <Reveal>
-          <h2 className="font-display text-5xl md:text-[7rem] leading-[0.95] tracking-tighter">
-            Tell us <span className="text-[var(--accent)] text-glow">the story.</span>
-          </h2>
+          <h1 className="font-display text-6xl md:text-[8rem] leading-[0.95] tracking-tighter">
+            Tell us<br /><span className="text-[var(--accent)] text-glow">the story.</span>
+          </h1>
         </Reveal>
         <Reveal delay={120}>
           <p className="mt-8 max-w-xl text-foreground/70">
@@ -89,7 +108,7 @@ export function ContactSection() {
                 {done ? (
                   <div className="py-16 text-center">
                     <div className="mx-auto h-16 w-16 rounded-full glow-ring flex items-center justify-center text-[var(--accent)]"><Check size={26} /></div>
-                    <h3 className="mt-6 font-display text-3xl md:text-4xl tracking-tight">Brief received.</h3>
+                    <h2 className="mt-6 font-display text-3xl md:text-4xl tracking-tight">Brief received.</h2>
                     <p className="mt-3 text-foreground/70">We&apos;ll reply within 24 hours. Cinematic things ahead.</p>
                   </div>
                 ) : (
@@ -121,19 +140,23 @@ export function ContactSection() {
           </Reveal>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 
 function Label({ children }: { children: React.ReactNode }) {
   return <label className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">{children}</label>;
 }
+
 function Field(props: React.InputHTMLAttributes<HTMLInputElement> & { label: string }) {
   const { label, className, ...rest } = props;
   return (
     <div>
       <Label>{label}</Label>
-      <input {...rest} className={`w-full mt-2 rounded-2xl border border-white/10 bg-background px-4 py-3 outline-none focus:border-[var(--accent)] transition-colors ${className ?? ""}`} />
+      <input
+        {...rest}
+        className={`w-full mt-2 rounded-2xl border border-white/10 bg-background px-4 py-3 outline-none focus:border-[var(--accent)] transition-colors ${className ?? ""}`}
+      />
     </div>
   );
 }

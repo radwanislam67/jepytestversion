@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Logo } from "./Logo";
 
 export function Loader() {
   const [pct, setPct] = useState(0);
@@ -22,12 +21,18 @@ export function Loader() {
   return (
     <div
       aria-hidden={done}
-      style={{ opacity: done ? 0 : 1, pointerEvents: done ? "none" : "auto", transition: "opacity 700ms ease" }}
+      style={{
+        opacity: done ? 0 : 1,
+        pointerEvents: done ? "none" : "auto",
+        transition: "opacity 700ms ease",
+      }}
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background"
     >
       <div className="aurora" />
       <div className="relative z-10 flex flex-col items-center gap-8">
-        <Logo className="h-16 md:h-24 w-auto drop-shadow-[0_0_40px_rgba(83,255,47,0.35)]" />
+        <div className="font-display text-7xl md:text-9xl tracking-tighter text-glow">
+          <span style={{ color: "var(--accent)" }}>J</span>epy
+        </div>
         <div className="h-px w-64 bg-white/10 overflow-hidden">
           <div
             style={{

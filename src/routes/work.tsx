@@ -1,7 +1,21 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowUpRight, Play } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { scrollToSection } from "@/lib/scrollToSection";
+
+export const Route = createFileRoute("/work")({
+  head: () => ({
+    meta: [
+      { title: "Work — Jepy" },
+      { name: "description", content: "Selected post-production work: cinematic edits, motion graphics, color grading, short-form and long-form video." },
+      { property: "og:title", content: "Work — Jepy" },
+      { property: "og:description", content: "Selected cinematic post-production work." },
+      { property: "og:url", content: "/work" },
+    ],
+    links: [{ rel: "canonical", href: "/work" }],
+  }),
+  component: WorkPage,
+});
 
 const CATEGORIES = [
   "All",
@@ -27,17 +41,17 @@ const ITEMS: { title: string; category: Exclude<Cat, "All">; desc: string; hue: 
   { title: "Atelier 01", category: "Commercial Ads", desc: "Product hero spot, 15s and 30s cuts.", hue: 120 },
 ];
 
-export function WorkSection() {
+function WorkPage() {
   const [cat, setCat] = useState<Cat>("All");
   const filtered = cat === "All" ? ITEMS : ITEMS.filter((i) => i.category === cat);
   return (
-    <section id="work" className="relative py-32 md:py-40 scroll-mt-24">
+    <div className="pt-40 pb-24">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">Portfolio</div>
         <Reveal>
-          <h2 className="font-display text-5xl md:text-[7rem] leading-[0.95] tracking-tighter">
-            Selected <span className="text-[var(--accent)] text-glow">work.</span>
-          </h2>
+          <h1 className="font-display text-6xl md:text-[8rem] leading-[0.95] tracking-tighter">
+            Selected<br /><span className="text-[var(--accent)] text-glow">work.</span>
+          </h1>
         </Reveal>
         <Reveal delay={120}>
           <p className="mt-8 max-w-xl text-foreground/70">
@@ -45,7 +59,7 @@ export function WorkSection() {
           </p>
         </Reveal>
 
-        <div className="mt-12 flex flex-wrap gap-2">
+        <div className="mt-16 flex flex-wrap gap-2">
           {CATEGORIES.map((c) => (
             <button
               key={c}
@@ -64,11 +78,7 @@ export function WorkSection() {
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((p, i) => (
             <Reveal key={p.title} delay={(i % 6) * 60}>
-              <a
-                href="#case-studies"
-                onClick={(e) => { e.preventDefault(); scrollToSection("case-studies"); }}
-                className="group block rounded-3xl overflow-hidden border border-white/5"
-              >
+              <Link to="/case-studies" className="group block rounded-3xl overflow-hidden border border-white/5">
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <div
                     className="absolute inset-0 transition-transform duration-[1400ms] ease-out group-hover:scale-110"
@@ -92,11 +102,11 @@ export function WorkSection() {
                   <span className="text-xs text-muted-foreground">Case study</span>
                   <ArrowUpRight size={16} className="text-foreground/70 group-hover:text-[var(--accent)] transition-colors" />
                 </div>
-              </a>
+              </Link>
             </Reveal>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }

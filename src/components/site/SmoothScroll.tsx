@@ -9,7 +9,6 @@ export function SmoothScroll() {
       const Lenis = (await import("lenis")).default;
       if (cancelled) return;
       lenis = new Lenis({ lerp: 0.085, smoothWheel: true });
-      (window as any).__lenis = lenis;
       const loop = (t: number) => {
         lenis.raf(t);
         raf = requestAnimationFrame(loop);
@@ -20,7 +19,6 @@ export function SmoothScroll() {
       cancelled = true;
       cancelAnimationFrame(raf);
       lenis?.destroy?.();
-      try { delete (window as any).__lenis; } catch {}
     };
   }, []);
   return null;

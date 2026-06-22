@@ -1,37 +1,28 @@
+import { Link } from "@tanstack/react-router";
 import { Instagram, Linkedin, Youtube, Twitter, ArrowUpRight } from "lucide-react";
-import { Logo } from "./Logo";
-import { scrollToSection } from "@/lib/scrollToSection";
-
-const NAV = [
-  { id: "work", label: "Work" },
-  { id: "services", label: "Services" },
-  { id: "about", label: "About" },
-  { id: "case-studies", label: "Case Studies" },
-  { id: "contact", label: "Contact" },
-];
 
 export function Footer() {
-  const go = (id: string) => (e: React.MouseEvent) => { e.preventDefault(); scrollToSection(id); };
   return (
     <footer className="relative mt-32 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-5 md:px-8 py-20">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <Logo className="h-10 md:h-12 w-auto mb-8" />
             <div className="font-display text-5xl md:text-7xl tracking-tighter">
               Let&apos;s craft<br />something
               <span className="text-[var(--accent)] text-glow"> exceptional.</span>
             </div>
-            <a href="#contact" onClick={go("contact")} className="btn-primary mt-8">
+            <Link to="/contact" className="btn-primary mt-8">
               Book A Call <ArrowUpRight size={18} />
-            </a>
+            </Link>
           </div>
           <div>
             <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground mb-5">Navigate</div>
             <ul className="space-y-3 text-foreground/80">
-              {NAV.map((n) => (
-                <li key={n.id}><a href={`#${n.id}`} onClick={go(n.id)} className="hover:text-[var(--accent)] transition-colors">{n.label}</a></li>
-              ))}
+              <li><Link to="/work" className="hover:text-[var(--accent)] transition-colors">Work</Link></li>
+              <li><Link to="/services" className="hover:text-[var(--accent)] transition-colors">Services</Link></li>
+              <li><Link to="/about" className="hover:text-[var(--accent)] transition-colors">About</Link></li>
+              <li><Link to="/case-studies" className="hover:text-[var(--accent)] transition-colors">Case Studies</Link></li>
+              <li><Link to="/contact" className="hover:text-[var(--accent)] transition-colors">Contact</Link></li>
             </ul>
           </div>
           <div>
