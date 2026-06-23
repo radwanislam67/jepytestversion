@@ -50,35 +50,13 @@ function Home() {
 
 function Hero() {
   return (
-    <section className="relative min-h-[100svh] flex items-center overflow-hidden pt-32 pb-20 bg-[#050505]">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
-        <iframe
-          src="https://player.vimeo.com/video/1203748455?autoplay=1&muted=1&loop=1&background=1&autopause=0"
-          allow="autoplay; fullscreen; picture-in-picture"
-          title="Hero background video"
-          frameBorder={0}
-          className="absolute top-1/2 left-1/2 border-0"
-          style={{
-            width: "100vw",
-            height: "56.25vw",
-            minHeight: "100%",
-            minWidth: "177.77vh",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
+    <section className="relative min-h-[100svh] flex items-center overflow-hidden pt-32 pb-20">
+      <div className="aurora" />
+      <Particles count={36} />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#050505_85%)]" />
       </div>
-      <div
-        className="absolute top-0 left-0 w-full h-full pointer-events-none"
-        style={{ background: "rgba(0,0,0,0.4)", zIndex: 1 }}
-      />
-      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 2 }}>
-        <div className="aurora" />
-        <Particles count={36} />
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(5,5,5,0.6)_85%)]" />
-        </div>
-      </div>
-      <div className="relative mx-auto max-w-7xl px-5 md:px-8 w-full" style={{ zIndex: 3 }}>
+      <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full">
         <h1 className="font-display text-[14vw] md:text-[10vw] leading-[0.92] tracking-[-0.04em]">
           <Reveal>Your Content,</Reveal>
           <Reveal delay={120}>
