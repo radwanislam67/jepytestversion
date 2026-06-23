@@ -103,7 +103,7 @@ export function Header() {
               className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full text-white"
               style={{ color: open ? "var(--accent)" : "#ffffff" }}
             >
-              {open ? <Menu size={20} className="opacity-0" /> : <Menu size={20} />}
+              {open ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
