@@ -1,6 +1,7 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import jepyLogo from "@/assets/jepy-logo.png.asset.json";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -34,9 +35,13 @@ export function Header() {
             scrolled ? "glass px-5 py-3" : "px-2 py-2"
           }`}
         >
-          <Link to="/" className="flex items-center gap-2 font-display text-xl tracking-tight">
-            <span className="inline-block h-2 w-2 rounded-full bg-[var(--accent)] shadow-[0_0_12px_var(--accent)]" />
-            Jepy
+          <Link to="/" aria-label="Jepy home" className="flex items-center">
+            <img
+              src={jepyLogo.url}
+              alt="Jepy"
+              className="h-7 md:h-8 w-auto select-none"
+              draggable={false}
+            />
           </Link>
           <nav className="hidden lg:flex items-center gap-1">
             {NAV.map((n) => (

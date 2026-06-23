@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import jepyLogo from "@/assets/jepy-logo.png.asset.json";
 
 export function Loader() {
   const [pct, setPct] = useState(0);
@@ -30,9 +31,12 @@ export function Loader() {
     >
       <div className="aurora" />
       <div className="relative z-10 flex flex-col items-center gap-8">
-        <div className="font-display text-7xl md:text-9xl tracking-tighter text-glow">
-          <span style={{ color: "var(--accent)" }}>J</span>epy
-        </div>
+        <img
+          src={jepyLogo.url}
+          alt="Jepy"
+          className="h-20 md:h-28 w-auto select-none drop-shadow-[0_0_40px_var(--accent)]"
+          draggable={false}
+        />
         <div className="h-px w-64 bg-white/10 overflow-hidden">
           <div
             style={{
