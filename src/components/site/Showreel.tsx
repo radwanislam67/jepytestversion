@@ -42,7 +42,7 @@ export function Showreel() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-background py-16 md:py-24"
+      className="relative w-full bg-background pt-16 md:pt-24 pb-0"
       aria-label="Showreel"
     >
       <div className="mx-auto max-w-7xl px-5 md:px-8">
