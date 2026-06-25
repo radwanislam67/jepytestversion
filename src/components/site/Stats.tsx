@@ -81,7 +81,7 @@ function StatItem({ stat, delay }: { stat: Stat; delay: number }) {
 
 export function Stats() {
   return (
-    <section className="relative w-full bg-background py-16 md:py-24 border-t border-white/5">
+    <section className="relative w-full bg-background pt-0 pb-16 md:pb-24 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 md:gap-y-0">
           {STATS.map((s, i) => (
