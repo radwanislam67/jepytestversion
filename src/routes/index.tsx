@@ -5,6 +5,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { Marquee } from "@/components/site/Marquee";
 import { Magnetic } from "@/components/site/Magnetic";
 import { Showreel } from "@/components/site/Showreel";
+import { Stats } from "@/components/site/Stats";
 import { WhatGoesIn } from "@/components/site/WhatGoesIn";
 import { WorkPreview } from "@/components/site/WorkPreview";
 import { ServicesPreview } from "@/components/site/ServicesPreview";
@@ -36,6 +37,7 @@ function Home() {
       <Hero />
       <Marquee />
       <Showreel />
+      <Stats />
       <WhatGoesIn />
       <WorkPreview />
       <ServicesPreview />

@@ -10,22 +10,26 @@ export function Showreel() {
   const [muted, setMuted] = useState(true);
 
   useEffect(() => {
-    const section = sectionRef.current;
     const box = boxRef.current;
-    if (!section || !box) return;
-
-    const onScroll = () => {
-      const rect = section.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const p = Math.min(1, Math.max(0, (vh - rect.top) / (vh + rect.height)));
-      const scale = 1 - p * 0.15;
-      const radius = 16 + p * 16;
-      box.style.transform = `scale(${scale})`;
-      box.style.borderRadius = `${radius}px`;
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    if (!box) return;
+    box.style.opacity = "0";
+    box.style.transform = "translateY(60px) scale(0.95)";
+    box.style.transition =
+      "opacity 0.8s cubic-bezier(.2,.8,.2,1), transform 0.8s cubic-bezier(.2,.8,.2,1)";
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            box.style.opacity = "1";
+            box.style.transform = "translateY(0) scale(1)";
+            io.unobserve(box);
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(box);
+    return () => io.disconnect();
   }, []);
 
   const toggleMute = () => {
@@ -44,8 +48,7 @@ export function Showreel() {
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div
           ref={boxRef}
-          className="relative mx-auto w-full overflow-hidden will-change-transform aspect-video max-h-[50vh] md:max-h-[70vh]"
-          style={{ transition: "border-radius 200ms ease", borderRadius: 16 }}
+          className="relative mx-auto w-full overflow-hidden will-change-transform aspect-video max-h-[50vh] md:max-h-[70vh] rounded-2xl"
         >
           <video
             ref={videoRef}
