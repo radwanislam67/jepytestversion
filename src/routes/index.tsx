@@ -37,6 +37,7 @@ function Home() {
       <Hero />
       <Marquee />
       <Showreel />
+      <Stats />
       <WhatGoesIn />
       <WorkPreview />
       <ServicesPreview />
