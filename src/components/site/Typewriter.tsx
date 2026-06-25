@@ -6,7 +6,7 @@ const WORDS = [
   "High-Converting Ads",
   "Viral Short-Form",
   "Channel-Growing Edits",
-  "Cinematic Color",
+  "Cinematic Color Grading",
   "Hook-First Content",
   "Scroll-Stopping Reels",
 ];
