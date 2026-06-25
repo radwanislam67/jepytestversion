@@ -7,7 +7,7 @@ export function ShowreelCTA() {
   return (
     <div
       ref={ref}
-      className={`flex justify-center pt-2 pb-4 md:pt-3 md:pb-6 transition-all duration-700 ease-out ${
+      className={`flex justify-center pt-6 pb-0 transition-all duration-700 ease-out ${
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       }`}
     >
