@@ -1,8 +1,4 @@
 const ROW_1 = ["OCTAVE", "PIXELRUN", "FORMA", "HALCYON", "VANTA", "LUMEN", "STRATA"];
-const ROW_2 = [
-  "VIDEO EDITING", "MOTION DESIGN", "COLOR GRADING", "SHORT FORM",
-  "YOUTUBE EDITING", "COMMERCIAL ADS", "REELS",
-];
 
 function Row({ items, dir }: { items: string[]; dir: "left" | "right" }) {
   const seq = [...items, ...items, ...items, ...items];
