@@ -7,18 +7,18 @@ export function ShowreelCTA() {
   return (
     <div
       ref={ref}
-      className={`flex justify-center py-12 md:py-16 transition-all duration-700 ease-out ${
+      className={`flex justify-center py-6 md:py-8 transition-all duration-700 ease-out ${
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       }`}
     >
       <Link
         to="/contact"
-        className="group inline-flex items-center gap-2 rounded-full border border-[var(--accent)] px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--accent)] transition-colors duration-300 hover:bg-[var(--accent)] hover:text-black"
+        className="group inline-flex items-center gap-1.5 rounded-full border border-[var(--accent)] px-4 py-1.5 text-[11px] md:text-xs font-medium uppercase tracking-[0.16em] text-[var(--accent)] transition-colors duration-300 hover:bg-[var(--accent)] hover:text-black"
       >
         Let's Make Yours
         <ArrowUpRight
-          size={18}
-          className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+          size={13}
+          className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
         />
       </Link>
     </div>
