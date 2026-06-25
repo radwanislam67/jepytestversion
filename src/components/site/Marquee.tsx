@@ -1,18 +1,46 @@
-const CLIENTS = ["NORTHWAVE", "STRATA", "LUMEN", "OCTAVE", "PIXELRUN", "FORMA", "HALCYON", "VANTA", "ATELIER", "MERIDIAN"];
+const ROW_1 = ["OCTAVE", "PIXELRUN", "FORMA", "HALCYON", "VANTA", "LUMEN", "STRATA"];
+const ROW_2 = [
+  "VIDEO EDITING", "MOTION DESIGN", "COLOR GRADING", "SHORT FORM",
+  "YOUTUBE EDITING", "COMMERCIAL ADS", "REELS",
+];
 
-export function Marquee() {
-  const row = [...CLIENTS, ...CLIENTS];
+function Row({ items, dir }: { items: string[]; dir: "left" | "right" }) {
+  const seq = [...items, ...items, ...items, ...items];
   return (
-    <div className="relative overflow-hidden py-10 border-y border-white/5">
-      <div className="marquee-track flex gap-16 whitespace-nowrap will-change-transform">
-        {row.map((c, i) => (
-          <div key={i} className="font-display text-2xl md:text-4xl tracking-[0.2em] text-foreground/40 hover:text-foreground transition-colors">
-            {c}
+    <div className="relative overflow-hidden py-4 group">
+      <div
+        className="flex gap-10 whitespace-nowrap will-change-transform"
+        style={{
+          animation: `${dir === "left" ? "marquee-left" : "marquee-right"} 38s linear infinite`,
+        }}
+      >
+        {seq.map((c, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-10 font-display text-xl md:text-3xl uppercase"
+            style={{
+              letterSpacing: "0.1em",
+              color: "rgba(255,255,255,0.4)",
+            }}
+          >
+            <span>{c}</span>
+            <span style={{ color: "var(--accent)" }}>✦</span>
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+export function Marquee() {
+  return (
+    <section
+      className="relative border-y border-white/5 py-6 marquee-pauseable"
+    >
+      <Row items={ROW_1} dir="left" />
+      <Row items={ROW_2} dir="right" />
       <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent" />
-    </div>
+    </section>
   );
 }

@@ -14,8 +14,30 @@ export function ScrollProgress() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   return (
-    <div className="scroll-bar" aria-hidden>
-      <div ref={ref} />
+    <div
+      aria-hidden
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        height: "3px",
+        zIndex: 9998,
+        pointerEvents: "none",
+      }}
+    >
+      <div
+        ref={ref}
+        style={{
+          height: "100%",
+          width: "100%",
+          background: "#00FF00",
+          boxShadow: "0 0 12px #00FF00",
+          transform: "scaleX(0)",
+          transformOrigin: "left",
+          transition: "transform 80ms linear",
+        }}
+      />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import jepyLogo from "@/assets/jepy-logo.png.asset.json";
+import jepyLogo from "@/assets/jepy-logo.png";
 
 export function Loader() {
   const [pct, setPct] = useState(0);
@@ -32,7 +32,7 @@ export function Loader() {
       <div className="aurora" />
       <div className="relative z-10 flex flex-col items-center gap-8">
         <img
-          src={jepyLogo.url}
+          src={jepyLogo}
           alt="Jepy"
           className="h-20 md:h-28 w-auto select-none drop-shadow-[0_0_40px_var(--accent)]"
           draggable={false}
