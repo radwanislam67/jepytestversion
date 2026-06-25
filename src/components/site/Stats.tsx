@@ -83,7 +83,7 @@ export function Stats() {
   return (
     <section className="relative w-full bg-background py-16 md:py-24 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div class‌Name="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-10 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-10 md:gap-8">
           {STATS.map((s, i) => (
             <StatItem key={s.label} stat={s} delay={i * 100} />
           ))}
