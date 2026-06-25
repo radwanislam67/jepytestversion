@@ -60,22 +60,19 @@ function StatItem({ stat, delay }: { stat: Stat; delay: number }) {
   }, [stat.value, delay]);
 
   return (
-    <div
-      ref={wrapRef}
-      className="stat-card relative will-change-transform min-w-0 bg-white/[0.03] border-t-2 border-t-[var(--accent)] px-5 py-8 md:px-6 md:py-10 text-center md:text-left"
-    >
+    <div ref={wrapRef} className="text-center md:text-left will-change-transform min-w-0">
       <div
         ref={numRef}
-        className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold tabular-nums leading-none whitespace-nowrap"
+        className="font-display text-3xl sm:text-4xl md:text-6xl font-semibold tabular-nums leading-none break-words"
         style={{
           color: "var(--accent)",
           animation: done ? "stat-glow 1.6s ease-out 1" : undefined,
         }}
       >
-        <span>{n.toLocaleString()}</span>
-        <span>{stat.suffix}</span>
+        {n.toLocaleString()}
+        {stat.suffix}
       </div>
-      <div className="mt-3 md:mt-4 text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.18em] text-foreground/50 whitespace-nowrap">
+      <div className="mt-2 md:mt-3 text-[11px] sm:text-xs md:text-base uppercase tracking-[0.15em] md:tracking-[0.18em] text-foreground/50">
         {stat.label}
       </div>
     </div>
@@ -86,7 +83,7 @@ export function Stats() {
   return (
     <section className="relative w-full bg-background py-16 md:py-24 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-10 md:gap-8">
           {STATS.map((s, i) => (
             <StatItem key={s.label} stat={s} delay={i * 100} />
           ))}
