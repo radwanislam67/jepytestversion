@@ -62,7 +62,7 @@ function Hero() {
       <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full">
         <h1 className="font-display text-[14vw] md:text-[10vw] leading-[0.92] tracking-[-0.04em]">
           <Reveal>Your Content,</Reveal>
-          <Reveal delay={120}>
+          <Reveal delay={600} y={32}>
             <span className="text-[var(--accent)] text-glow">Elevated.</span>
           </Reveal>
         </h1>
