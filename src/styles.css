@@ -293,6 +293,11 @@
   100% { text-shadow: 0 0 0 transparent; }
 }
 
+@keyframes stat-breath {
+  0%, 100% { text-shadow: 0 0 6px color-mix(in oklab, var(--accent) 25%, transparent); }
+  50% { text-shadow: 0 0 18px color-mix(in oklab, var(--accent) 55%, transparent), 0 0 32px color-mix(in oklab, var(--glow) 30%, transparent); }
+}
+
 input, textarea, select {
   background: transparent;
 }
