@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 
 export function ShowreelCTA() {
-  const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.2, once: true });
+  const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.2 }, { once: true });
   return (
     <div
       ref={ref}
