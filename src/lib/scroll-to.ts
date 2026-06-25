@@ -1,5 +1,3 @@
-import type { Router } from "@tanstack/react-router";
-
 export function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return false;
@@ -10,7 +8,7 @@ export function scrollToId(id: string) {
 }
 
 export function navigateToSection(
-  router: Router<any, any, any, any>,
+  router: { navigate: (opts: any) => Promise<unknown> | void },
   pathname: string,
   id: string,
 ) {
@@ -18,7 +16,11 @@ export function navigateToSection(
     scrollToId(id);
     return;
   }
-  router.navigate({ to: "/", hash: id }).then(() => {
-    setTimeout(() => scrollToId(id), 80);
-  });
+  const result = router.navigate({ to: "/", hash: id });
+  const after = () => setTimeout(() => scrollToId(id), 120);
+  if (result && typeof (result as Promise<unknown>).then === "function") {
+    (result as Promise<unknown>).then(after);
+  } else {
+    after();
+  }
 }
