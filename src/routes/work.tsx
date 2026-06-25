@@ -1,112 +1,80 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowUpRight, Play } from "lucide-react";
+import { Play } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+import { VideoModal } from "@/components/site/VideoModal";
 
 export const Route = createFileRoute("/work")({
   head: () => ({
     meta: [
-      { title: "Work — Jepy" },
-      { name: "description", content: "Selected post-production work: cinematic edits, motion graphics, color grading, short-form and long-form video." },
-      { property: "og:title", content: "Work — Jepy" },
-      { property: "og:description", content: "Selected cinematic post-production work." },
-      { property: "og:url", content: "/work" },
+      { title: "Our Work — Jepy" },
+      { name: "description", content: "Selected edits, films and motion work from the Jepy studio." },
+      { property: "og:title", content: "Our Work — Jepy" },
+      { property: "og:description", content: "Every frame tells a story." },
     ],
-    links: [{ rel: "canonical", href: "/work" }],
   }),
   component: WorkPage,
 });
 
-const CATEGORIES = [
-  "All",
-  "Video Editing",
-  "Motion Graphics",
-  "Short-form Reels",
-  "Long-form YouTube",
-  "Commercial Ads",
-  "Color Grading",
-] as const;
-
-type Cat = typeof CATEGORIES[number];
-
-const ITEMS: { title: string; category: Exclude<Cat, "All">; desc: string; hue: number }[] = [
-  { title: "Northwave Anthem", category: "Commercial Ads", desc: "60s brand film for a Series-B launch.", hue: 145 },
-  { title: "Lumen Drop", category: "Motion Graphics", desc: "Kinetic typography product reveal.", hue: 95 },
-  { title: "Octave Docu Ep.04", category: "Long-form YouTube", desc: "Docu-series edited for retention.", hue: 175 },
-  { title: "Strata Sprint", category: "Short-form Reels", desc: "30-day short-form sprint.", hue: 65 },
-  { title: "Halcyon Teaser", category: "Video Editing", desc: "Cinematic teaser for a film festival.", hue: 200 },
-  { title: "Forma Look-dev", category: "Color Grading", desc: "LUTs and grade for a fashion campaign.", hue: 35 },
-  { title: "Vanta Reel", category: "Motion Graphics", desc: "Pitch reel with custom typography.", hue: 280 },
-  { title: "Meridian Series", category: "Long-form YouTube", desc: "8-episode founder interview series.", hue: 220 },
-  { title: "Atelier 01", category: "Commercial Ads", desc: "Product hero spot, 15s and 30s cuts.", hue: 120 },
+const ITEMS = [
+  { id: "w1", title: "Northwave — Brand Film", category: "Commercial", youtubeId: "dQw4w9WgXcQ" },
+  { id: "w2", title: "Lumen — Product Reel", category: "Motion Design", youtubeId: "dQw4w9WgXcQ" },
+  { id: "w3", title: "Octave — Creator Series", category: "YouTube", youtubeId: "dQw4w9WgXcQ" },
+  { id: "w4", title: "Strata — Shorts Sprint", category: "Short Form", youtubeId: "dQw4w9WgXcQ" },
+  { id: "w5", title: "Halcyon — Launch Film", category: "Commercial", youtubeId: "dQw4w9WgXcQ" },
+  { id: "w6", title: "Pixelrun — Promo", category: "Motion Design", youtubeId: "dQw4w9WgXcQ" },
 ];
 
 function WorkPage() {
-  const [cat, setCat] = useState<Cat>("All");
-  const filtered = cat === "All" ? ITEMS : ITEMS.filter((i) => i.category === cat);
+  const [active, setActive] = useState<string | null>(null);
+  const current = ITEMS.find((i) => i.id === active);
   return (
-    <div className="pt-40 pb-24">
+    <section className="relative pt-40 pb-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">Portfolio</div>
         <Reveal>
-          <h1 className="font-display text-6xl md:text-[8rem] leading-[0.95] tracking-tighter">
-            Selected<br /><span className="text-[var(--accent)] text-glow">work.</span>
+          <h1 className="font-display text-6xl md:text-8xl tracking-tighter">
+            Our <span className="text-[var(--accent)] text-glow">Work</span>
           </h1>
         </Reveal>
         <Reveal delay={120}>
-          <p className="mt-8 max-w-xl text-foreground/70">
-            A cross-section of edits, motion and color for SaaS, creators and brands.
-          </p>
+          <p className="mt-5 text-foreground/70 text-lg">Every frame tells a story.</p>
         </Reveal>
-
-        <div className="mt-16 flex flex-wrap gap-2">
-          {CATEGORIES.map((c) => (
-            <button
-              key={c}
-              onClick={() => setCat(c)}
-              className={`px-4 py-2 rounded-full text-xs uppercase tracking-[0.2em] border transition-all ${
-                cat === c
-                  ? "bg-[var(--accent)] text-[var(--accent-foreground)] border-transparent"
-                  : "border-white/10 text-foreground/70 hover:border-[var(--accent)]/60 hover:text-foreground"
-              }`}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filtered.map((p, i) => (
-            <Reveal key={p.title} delay={(i % 6) * 60}>
-              <Link to="/case-studies" className="group block rounded-3xl overflow-hidden border border-white/5">
-                <div className="relative aspect-[4/5] overflow-hidden">
-                  <div
-                    className="absolute inset-0 transition-transform duration-[1400ms] ease-out group-hover:scale-110"
-                    style={{
-                      background: `radial-gradient(120% 80% at 30% 30%, hsl(${p.hue} 80% 55% / 0.55), transparent 60%), radial-gradient(80% 60% at 80% 70%, hsl(${(p.hue + 40) % 360} 70% 50% / 0.45), transparent 60%), #0a0a0a`,
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,rgba(0,0,0,0.85)_100%)]" />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="h-14 w-14 rounded-full glass flex items-center justify-center glow-ring">
-                      <Play size={18} className="text-[var(--accent)]" fill="currentColor" />
-                    </div>
-                  </div>
-                  <div className="absolute left-5 bottom-5 right-5">
-                    <div className="text-[10px] uppercase tracking-[0.3em] text-[var(--accent)]">{p.category}</div>
-                    <div className="mt-1 font-display text-2xl tracking-tight">{p.title}</div>
-                    <div className="mt-1 text-sm text-white/60 line-clamp-1">{p.desc}</div>
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {ITEMS.map((w, i) => (
+            <Reveal key={w.id} delay={i * 80}>
+              <button
+                type="button"
+                onClick={() => setActive(w.id)}
+                className="group relative block w-full text-left aspect-video rounded-2xl overflow-hidden border border-white/10 transition-all duration-500 hover:scale-[1.02] hover:border-[var(--accent)]/60"
+                style={{ background: "linear-gradient(135deg, #0a0a0a, #050505)" }}
+              >
+                <div
+                  className="absolute inset-0 opacity-70 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{ background: "radial-gradient(ellipse at center, rgba(83,255,47,0.18), transparent 70%)" }}
+                />
+                <div className="absolute inset-0 transition-shadow duration-500 group-hover:shadow-[0_0_60px_-10px_rgba(83,255,47,0.6)] rounded-2xl" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="h-14 w-14 rounded-full bg-[var(--accent)] text-[var(--accent-foreground)] flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+                    <Play size={20} fill="currentColor" />
                   </div>
                 </div>
-                <div className="flex items-center justify-between px-5 py-4 bg-[var(--surface)]">
-                  <span className="text-xs text-muted-foreground">Case study</span>
-                  <ArrowUpRight size={16} className="text-foreground/70 group-hover:text-[var(--accent)] transition-colors" />
+                <div className="absolute bottom-0 inset-x-0 p-5 flex items-end justify-between gap-4 bg-gradient-to-t from-black/80 to-transparent">
+                  <div className="text-base font-medium">{w.title}</div>
+                  <span className="text-[10px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-full border border-[var(--accent)]/40 text-[var(--accent)]">
+                    {w.category}
+                  </span>
                 </div>
-              </Link>
+              </button>
             </Reveal>
           ))}
         </div>
       </div>
-    </div>
+      <VideoModal
+        open={!!current}
+        onClose={() => setActive(null)}
+        youtubeId={current?.youtubeId ?? ""}
+        title={current?.title}
+      />
+    </section>
   );
 }

@@ -10,6 +10,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import jepyLogo from "@/assets/jepy-logo.png";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -72,8 +73,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", type: "image/png", href: "/__l5e/assets-v1/ebcff590-9c19-4a6e-828a-58348f0a7fc0/jepy-logo-v3.png" },
-      { rel: "apple-touch-icon", href: "/__l5e/assets-v1/ebcff590-9c19-4a6e-828a-58348f0a7fc0/jepy-logo-v3.png" },
+      { rel: "icon", type: "image/png", href: jepyLogo },
+      { rel: "apple-touch-icon", href: jepyLogo },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" },

@@ -1,20 +1,21 @@
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link, useLocation, useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import jepyLogo from "@/assets/jepy-logo.png.asset.json";
+import jepyLogo from "@/assets/jepy-logo.png";
+import { navigateToSection } from "@/lib/scroll-to";
 
-const NAV = [
-  { to: "/", label: "Home" },
-  { to: "/work", label: "Work" },
-  { to: "/services", label: "Services" },
-  { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact" },
+const SECTIONS = [
+  { id: "work", label: "Work" },
+  { id: "services", label: "Services" },
+  { id: "pricing", label: "Pricing" },
+  { id: "about", label: "About" },
 ] as const;
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -23,23 +24,23 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  useEffect(() => { setOpen(false); }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [open]);
+
+  const goTo = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    setOpen(false);
+    navigateToSection(router, pathname, id);
+  };
 
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-          scrolled ? "py-3" : "py-5"
-        }`}
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? "py-3" : "py-5"}`}
       >
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div
@@ -48,13 +49,12 @@ export function Header() {
               background: "rgba(10,10,10,0.65)",
               backdropFilter: "blur(20px) saturate(160%)",
               border: "1px solid rgba(255,255,255,0.08)",
-              boxShadow:
-                "0 10px 40px -10px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04)",
+              boxShadow: "0 10px 40px -10px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04)",
             }}
           >
             <Link to="/" aria-label="Jepy home" className="flex items-center shrink-0">
               <img
-                src={jepyLogo.url}
+                src={jepyLogo}
                 alt="Jepy"
                 className="h-6 sm:h-7 md:h-8 w-auto select-none"
                 draggable={false}
@@ -62,22 +62,17 @@ export function Header() {
             </Link>
 
             <nav className="hidden md:flex items-center gap-1">
-              {NAV.map((n) => {
-                const active = pathname === n.to;
-                return (
-                  <Link
-                    key={n.to}
-                    to={n.to}
-                    className="relative px-3.5 py-2 text-[12px] uppercase tracking-[0.14em] whitespace-nowrap transition-colors duration-300 hover:text-[var(--accent)]"
-                    style={{
-                      color: active ? "var(--accent)" : "rgba(255,255,255,0.85)",
-                      fontWeight: active ? 600 : 500,
-                    }}
-                  >
-                    {n.label}
-                  </Link>
-                );
-              })}
+              {SECTIONS.map((n) => (
+                <a
+                  key={n.id}
+                  href={`/#${n.id}`}
+                  onClick={goTo(n.id)}
+                  className="relative px-3.5 py-2 text-[12px] uppercase tracking-[0.14em] whitespace-nowrap transition-colors duration-300 hover:text-[var(--accent)]"
+                  style={{ color: "rgba(255,255,255,0.85)", fontWeight: 500 }}
+                >
+                  {n.label}
+                </a>
+              ))}
             </nav>
 
             <div className="hidden md:block">
@@ -87,8 +82,7 @@ export function Header() {
                 style={{
                   background: "var(--accent)",
                   color: "var(--accent-foreground)",
-                  boxShadow:
-                    "0 8px 30px -8px color-mix(in oklab, var(--accent) 70%, transparent)",
+                  boxShadow: "0 8px 30px -8px color-mix(in oklab, var(--accent) 70%, transparent)",
                 }}
               >
                 Get Started
@@ -109,7 +103,6 @@ export function Header() {
         </div>
       </header>
 
-      {/* Mobile menu */}
       <div
         className="fixed inset-0 z-40 md:hidden transition-opacity duration-500"
         style={{
@@ -129,10 +122,11 @@ export function Header() {
           <X size={22} />
         </button>
         <nav className="flex h-full flex-col items-center justify-center gap-8 px-6">
-          {NAV.map((n, i) => (
-            <Link
-              key={n.to}
-              to={n.to}
+          {SECTIONS.map((n, i) => (
+            <a
+              key={n.id}
+              href={`/#${n.id}`}
+              onClick={goTo(n.id)}
               className="text-2xl uppercase tracking-[0.18em] text-white transition-colors hover:text-[var(--accent)]"
               style={{
                 fontWeight: 500,
@@ -142,7 +136,7 @@ export function Header() {
               }}
             >
               {n.label}
-            </Link>
+            </a>
           ))}
           <Link
             to="/contact"
@@ -150,11 +144,10 @@ export function Header() {
             style={{
               background: "var(--accent)",
               color: "var(--accent-foreground)",
-              boxShadow:
-                "0 10px 40px -10px color-mix(in oklab, var(--accent) 70%, transparent)",
+              boxShadow: "0 10px 40px -10px color-mix(in oklab, var(--accent) 70%, transparent)",
               opacity: open ? 1 : 0,
               transform: open ? "translateY(0)" : "translateY(12px)",
-              transition: `opacity 500ms ease ${NAV.length * 60}ms, transform 500ms ease ${NAV.length * 60}ms`,
+              transition: `opacity 500ms ease ${SECTIONS.length * 60}ms, transform 500ms ease ${SECTIONS.length * 60}ms`,
             }}
           >
             Get Started
