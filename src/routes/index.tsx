@@ -12,6 +12,7 @@ import { Pricing } from "@/components/site/Pricing";
 import { Reviews } from "@/components/site/Reviews";
 import { FAQ } from "@/components/site/FAQ";
 import { CTASection } from "@/components/site/CTASection";
+import { Typewriter } from "@/components/site/Typewriter";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const FLOATING = ["VIDEO EDITING", "MOTION DESIGN", "COMMERCIAL ADS", "SHORT FORM", "YOUTUBE EDITING", "COLOR GRADING"];
+
 
 function Home() {
   return (
@@ -81,15 +82,11 @@ function Hero() {
           </div>
         </Reveal>
 
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-3 max-w-3xl">
-          {FLOATING.map((w, i) => (
-            <Reveal key={w} delay={500 + i * 70}>
-              <div className="font-display text-xs md:text-sm tracking-[0.3em] text-foreground/40 hover:text-[var(--accent)] transition-colors">
-                — {w}
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal delay={500}>
+          <div className="mt-16 font-display text-2xl md:text-4xl tracking-tight text-foreground/90">
+            We craft <Typewriter />
+          </div>
+        </Reveal>
       </div>
     </section>
   );
