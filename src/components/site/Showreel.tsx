@@ -56,6 +56,22 @@ export function Showreel() {
             playsInline
             className="h-full w-full object-cover"
           />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-6 flex flex-col items-center gap-2">
+            <div
+              className="text-xs md:text-sm uppercase tracking-[0.4em] text-white/85"
+              style={{ animation: "fade-in 1.6s ease both" }}
+            >
+              Our Showreel
+            </div>
+            <div
+              className="text-[var(--accent)] text-2xl"
+              style={{ animation: "arrow-pulse 1.8s ease-in-out infinite" }}
+              aria-hidden
+            >
+              ↓
+            </div>
+          </div>
           <button
             type="button"
             onClick={toggleMute}
