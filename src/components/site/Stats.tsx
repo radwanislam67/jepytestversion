@@ -60,19 +60,19 @@ function StatItem({ stat, delay }: { stat: Stat; delay: number }) {
   }, [stat.value, delay]);
 
   return (
-    <div ref={wrapRef} className="text-center md:text-left will-change-transform min-w-0">
+    <div ref={wrapRef} className="text-center will-change-transform min-w-0 px-2 md:px-4">
       <div
         ref={numRef}
-        className="font-display text-3xl sm:text-4xl md:text-6xl font-semibold tabular-nums leading-none break-words"
+        className="font-display text-2xl sm:text-3xl md:text-5xl font-semibold tabular-nums leading-none whitespace-nowrap"
         style={{
           color: "var(--accent)",
-          animation: done ? "stat-glow 1.6s ease-out 1" : undefined,
+          animation: done ? "stat-glow 1.6s ease-out 1, stat-breath 3.6s ease-in-out 1.6s infinite" : undefined,
         }}
       >
         {n.toLocaleString()}
         {stat.suffix}
       </div>
-      <div className="mt-2 md:mt-3 text-[11px] sm:text-xs md:text-base uppercase tracking-[0.15em] md:tracking-[0.18em] text-foreground/50">
+      <div className="mt-2 md:mt-3 text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.15em] md:tracking-[0.18em] text-foreground/50">
         {stat.label}
       </div>
     </div>
@@ -83,9 +83,18 @@ export function Stats() {
   return (
     <section className="relative w-full bg-background py-16 md:py-24 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-10 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 md:gap-y-0">
           {STATS.map((s, i) => (
-            <StatItem key={s.label} stat={s} delay={i * 100} />
+            <div
+              key={s.label}
+              className={
+                i > 0
+                  ? "md:border-l border-[color-mix(in_oklab,var(--accent)_30%,transparent)]"
+                  : ""
+              }
+            >
+              <StatItem stat={s} delay={i * 100} />
+            </div>
           ))}
         </div>
       </div>
