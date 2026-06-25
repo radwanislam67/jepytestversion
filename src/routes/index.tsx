@@ -91,9 +91,6 @@ function Hero() {
           ))}
         </div>
       </div>
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.4em] text-foreground/40 font-mono">
-        Scroll
-      </div>
     </section>
   );
 }
