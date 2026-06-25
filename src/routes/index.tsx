@@ -88,7 +88,7 @@ function Hero() {
         </Reveal>
 
         <Reveal delay={500}>
-          <div className="mt-16 font-display text-2xl md:text-4xl tracking-tight text-foreground/90">
+          <div className="mt-16 font-display text-2xl md:text-4xl tracking-tight text-foreground/90 min-h-[4.5rem] md:min-h-[5.5rem]">
             We craft <Typewriter />
           </div>
         </Reveal>
