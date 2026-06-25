@@ -287,6 +287,12 @@
   50.01%, 100% { opacity: 0; }
 }
 
+@keyframes stat-glow {
+  0% { text-shadow: 0 0 0 transparent; }
+  40% { text-shadow: 0 0 24px var(--accent), 0 0 48px color-mix(in oklab, var(--glow) 60%, transparent); }
+  100% { text-shadow: 0 0 0 transparent; }
+}
+
 input, textarea, select {
   background: transparent;
 }
