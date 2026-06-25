@@ -12,6 +12,7 @@ import { Pricing } from "@/components/site/Pricing";
 import { Reviews } from "@/components/site/Reviews";
 import { FAQ } from "@/components/site/FAQ";
 import { CTASection } from "@/components/site/CTASection";
+import { Typewriter } from "@/components/site/Typewriter";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const FLOATING = ["VIDEO EDITING", "MOTION DESIGN", "COMMERCIAL ADS", "SHORT FORM", "YOUTUBE EDITING", "COLOR GRADING"];
+
 
 function Home() {
   return (
