@@ -13,6 +13,7 @@ import { Pricing } from "@/components/site/Pricing";
 import { Reviews } from "@/components/site/Reviews";
 import { FAQ } from "@/components/site/FAQ";
 import { CTASection } from "@/components/site/CTASection";
+import { ShowreelCTA } from "@/components/site/ShowreelCTA";
 import { Typewriter } from "@/components/site/Typewriter";
 
 export const Route = createFileRoute("/")({
@@ -37,6 +38,7 @@ function Home() {
       <Hero />
       <Marquee />
       <Showreel />
+      <ShowreelCTA />
       <Stats />
       <WhatGoesIn />
       <WorkPreview />
