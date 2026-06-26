@@ -36,7 +36,7 @@ export function Marquee() {
   return (
     <section
       ref={ref}
-      className="relative border-y border-white/5 py-10 md:py-12 marquee-pauseable"
+      className="relative border-y border-white/5 pt-8 md:pt-12 pb-10 md:pb-12 marquee-pauseable"
     >
       <div className="mx-auto max-w-7xl px-5 md:px-8 mb-6">
         <span className="text-[11px] uppercase tracking-[0.28em] text-white/40">
