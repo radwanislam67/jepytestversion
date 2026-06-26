@@ -308,6 +308,16 @@
   50% { transform: translateX(6px); }
 }
 
+@keyframes ken-burns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.15) translate(-1.5%, -1.5%); }
+}
+
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50% { transform: translateY(10px); opacity: 1; }
+}
+
 input, textarea, select {
   background: transparent;
 }
