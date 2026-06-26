@@ -70,7 +70,7 @@ function Hero() {
         </h1>
         <Reveal delay={260}>
           <p className="mt-8 max-w-xl text-base md:text-lg text-foreground/70 leading-relaxed">
-            Raw footage to high-converting content —<br />
+            Raw footage to high-converting content<br />
             for creators, brands, and SaaS teams worldwide.
           </p>
         </Reveal>
