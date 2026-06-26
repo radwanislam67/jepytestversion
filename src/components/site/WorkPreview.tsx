@@ -15,7 +15,7 @@ export function WorkPreview() {
   const current = WORK_ITEMS.find((w) => w.id === active);
 
   return (
-    <section id="work" className="relative py-32 md:py-40 scroll-mt-24">
+    <section id="work" className="relative py-16 md:py-20 scroll-mt-24">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
           <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4">

@@ -63,7 +63,7 @@ const CASES = [
 
 function CaseStudies() {
   return (
-    <div className="pt-40 pb-24">
+    <div className="pt-32 md:pt-36 pb-16 md:pb-20">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">Case Studies</div>
         <Reveal>
