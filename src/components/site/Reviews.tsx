@@ -60,9 +60,10 @@ function Card({ r, index, visible }: { r: Review; index: number; visible: boolea
     <div
       className="flex flex-col gap-4 h-full"
       style={{
-        background: "rgba(255,255,255,0.03)",
-        border: "1px solid rgba(0,255,0,0.2)",
+        background: "rgba(255,255,255,0.04)",
+        border: "1px solid rgba(83,255,47,0.28)",
         borderRadius: 12,
+
         padding: 24,
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -189,12 +190,12 @@ export function Reviews() {
   }, []);
 
   return (
-    <section id="reviews" className="relative py-32 md:py-40 scroll-mt-24">
+    <section id="reviews" className="relative py-16 md:py-20 scroll-mt-24">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
           <h2
             className="font-display text-5xl md:text-7xl tracking-tighter text-center"
-            style={{ marginBottom: 48, color: "#fff" }}
+            style={{ marginBottom: 32, color: "#fff" }}
           >
             Don&rsquo;t Take{" "}
             <span style={{ color: "#00FF00" }} className="text-glow">
@@ -203,6 +204,10 @@ export function Reviews() {
             For It
           </h2>
         </Reveal>
+
+        <div className="flex justify-center mb-12">
+          <SummaryPill />
+        </div>
 
         <div
           ref={ref}
@@ -213,11 +218,8 @@ export function Reviews() {
             <Card key={i} r={r} index={i} visible={visible} />
           ))}
         </div>
-
-        <div className="flex justify-center" style={{ marginTop: 40 }}>
-          <SummaryPill />
-        </div>
       </div>
     </section>
   );
 }
+
