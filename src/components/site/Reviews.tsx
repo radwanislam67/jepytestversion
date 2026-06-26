@@ -135,10 +135,7 @@ function SummaryPill() {
         {Array.from({ length: 4 }).map((_, i) => (
           <Star key={i} size={12} fill="#FFD700" stroke="#FFD700" />
         ))}
-        <span className="relative inline-block" style={{ width: 12, height: 12 }}>
-          <Star size={12} stroke="#FFD700" fill="none" className="absolute inset-0" />
-          <StarHalf size={12} fill="#FFD700" stroke="#FFD700" className="absolute inset-0" />
-        </span>
+        <Star size={12} fill="#FFD700" stroke="#FFD700" style={{ opacity: 0.4 }} />
       </div>
       <span className="text-sm font-bold text-white">4.9</span>
       <span className="text-sm text-muted-foreground">50+ Clients Worldwide</span>
