@@ -25,27 +25,20 @@ export const Route = createFileRoute("/about")({
   component: About,
 });
 
-function PhotoPlaceholder({ label }: { label: string }) {
+function PhotoPlaceholder({ src, alt }: { src: string; alt: string }) {
   return (
-    <div
+    <img
+      src={src}
+      alt={alt}
       className="w-full"
       style={{
         aspectRatio: "1 / 1",
+        objectFit: "cover",
         borderRadius: 12,
         border: "1px solid rgba(0,255,0,0.5)",
-        background: "linear-gradient(135deg, rgba(0,255,0,0.1), rgba(0,0,0,0.8))",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "rgba(255,255,255,0.4)",
-        fontSize: 13,
-        letterSpacing: "0.18em",
-        textTransform: "uppercase",
         boxShadow: "0 0 28px rgba(0,255,0,0.15)",
       }}
-    >
-      {label}
-    </div>
+    />
   );
 }
 

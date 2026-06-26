@@ -3,13 +3,13 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 
-const SLIDES: { bg: string; label: string }[] = [
+const SLIDES: { src: string; label: string }[] = [
   {
-    bg: "linear-gradient(135deg, rgba(0,255,0,0.18), rgba(0,0,0,0.85)), radial-gradient(circle at 30% 30%, rgba(83,255,47,0.25), transparent 60%)",
+    src: "https://picsum.photos/seed/jepy-about-1/800/600",
     label: "Studio Frame 01",
   },
   {
-    bg: "linear-gradient(135deg, rgba(0,255,0,0.12), rgba(0,0,0,0.85)), radial-gradient(circle at 70% 60%, rgba(184,255,106,0.22), transparent 60%)",
+    src: "https://picsum.photos/seed/jepy-about-2/800/600",
     label: "Studio Frame 02",
   },
 ];
@@ -40,30 +40,19 @@ function Carousel() {
             transition: "opacity 1200ms ease",
           }}
         >
-          <div
+          <img
+            src={s.src}
+            alt={s.label}
             style={{
               position: "absolute",
               inset: 0,
-              background: s.bg,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
               animation: i === idx ? "ken-burns 8s ease-out forwards" : "none",
               willChange: "transform",
             }}
           />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "rgba(255,255,255,0.35)",
-              fontSize: 13,
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-            }}
-          >
-            {s.label}
-          </div>
         </div>
       ))}
     </div>
