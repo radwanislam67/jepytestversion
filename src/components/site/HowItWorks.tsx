@@ -28,32 +28,56 @@ export function HowItWorks() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [active, setActive] = useState(0);
+  const [visualIdx, setVisualIdx] = useState(0);
+  const [visualVisible, setVisualVisible] = useState(true);
   const [progress, setProgress] = useState(0);
 
+  // IntersectionObserver to track which step is most visible (threshold 0.5)
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return;
+    const visibility = new Map<number, number>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          const idx = Number((e.target as HTMLElement).dataset.idx);
+          visibility.set(idx, e.intersectionRatio);
+        });
+        let best = -1;
+        let bestRatio = 0;
+        visibility.forEach((ratio, idx) => {
+          if (ratio >= 0.5 && ratio > bestRatio) {
+            bestRatio = ratio;
+            best = idx;
+          }
+        });
+        if (best !== -1) setActive(best);
+      },
+      { threshold: [0, 0.25, 0.5, 0.75, 1] },
+    );
+    stepRefs.current.forEach((el) => el && io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  // Fade out → swap → fade in (200ms) when active step changes
+  useEffect(() => {
+    if (active === visualIdx) return;
+    setVisualVisible(false);
+    const t = setTimeout(() => {
+      setVisualIdx(active);
+      setVisualVisible(true);
+    }, 200);
+    return () => clearTimeout(t);
+  }, [active, visualIdx]);
+
+  // Left progress line (scroll-driven)
   useEffect(() => {
     const onScroll = () => {
-      const vpMid = window.innerHeight / 2;
-      let best = 0;
-      let bestDist = Infinity;
-      stepRefs.current.forEach((el, i) => {
-        if (!el) return;
-        const r = el.getBoundingClientRect();
-        const mid = r.top + r.height / 2;
-        const d = Math.abs(mid - vpMid);
-        if (d < bestDist) {
-          bestDist = d;
-          best = i;
-        }
-      });
-      setActive(best);
-
       const sec = sectionRef.current;
-      if (sec) {
-        const r = sec.getBoundingClientRect();
-        const total = r.height - window.innerHeight;
-        const passed = Math.min(Math.max(-r.top, 0), Math.max(total, 1));
-        setProgress(total > 0 ? passed / total : 0);
-      }
+      if (!sec) return;
+      const r = sec.getBoundingClientRect();
+      const total = r.height - window.innerHeight;
+      const passed = Math.min(Math.max(-r.top, 0), Math.max(total, 1));
+      setProgress(total > 0 ? passed / total : 0);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
