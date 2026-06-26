@@ -5,10 +5,27 @@ import { Reveal } from "@/components/site/Reveal";
 import { VideoModal } from "@/components/site/VideoModal";
 
 export const WORK_ITEMS = [
-  { id: "p1", title: "Northwave — Brand Film", category: "Commercial Ads", youtubeId: "dQw4w9WgXcQ" },
-  { id: "p2", title: "Lumen — Product Reel", category: "Motion Design", youtubeId: "dQw4w9WgXcQ" },
-  { id: "p3", title: "Octave — Creator Series", category: "YouTube Editing", youtubeId: "dQw4w9WgXcQ" },
-  { id: "p4", title: "Vanta — Short Form", category: "Short Form", youtubeId: "dQw4w9WgXcQ" },
+  {
+    id: "p1",
+    title: "Northwave — Brand Film",
+    category: "Commercial Ads",
+    youtubeId: "dQw4w9WgXcQ",
+    gradient: "linear-gradient(135deg, #1f2937, #030712)",
+  },
+  {
+    id: "p2",
+    title: "Lumen — Product Reel",
+    category: "Motion Design",
+    youtubeId: "dQw4w9WgXcQ",
+    gradient: "linear-gradient(135deg, #111827, rgba(5,46,22,0.2))",
+  },
+  {
+    id: "p3",
+    title: "Octave — Creator Series",
+    category: "YouTube Editing",
+    youtubeId: "dQw4w9WgXcQ",
+    gradient: "linear-gradient(135deg, #1f2937, #111827)",
+  },
 ];
 
 export function WorkPreview() {
@@ -16,47 +33,37 @@ export function WorkPreview() {
   const current = WORK_ITEMS.find((w) => w.id === active);
 
   return (
-    <section id="work" className="relative py-16 md:py-20 scroll-mt-24">
+    <section id="work" className="relative py-16 scroll-mt-24">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
-          <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4">
+          <div className="text-xs uppercase tracking-[0.3em] text-[var(--accent)] mb-4">
             Featured Work
           </div>
         </Reveal>
         <Reveal delay={80}>
-          <h2 className="font-display text-5xl md:text-7xl tracking-tighter">
+          <h2 className="font-display text-5xl md:text-7xl tracking-tighter text-left">
             Selected frames from <span className="text-[var(--accent)] text-glow">recent edits.</span>
           </h2>
         </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
           {WORK_ITEMS.map((w, i) => (
             <Reveal key={w.id} delay={i * 120}>
               <button
                 type="button"
                 onClick={() => setActive(w.id)}
-                className="group relative block w-full text-left aspect-video rounded-2xl overflow-hidden border border-gray-800 transition-all duration-300 hover:scale-105 hover:border-[var(--accent)]/60 hover:shadow-[0_0_60px_-10px_rgba(83,255,47,0.5)]"
-                style={{
-                  background: "linear-gradient(135deg, #111827, #000000)",
-                }}
+                className="group relative block w-full text-left rounded-2xl overflow-hidden border border-gray-700/50 transition-all duration-300 hover:scale-[1.02] hover:border-green-500/40 hover:shadow-[0_0_20px_rgba(34,197,94,0.15)]"
               >
-                <div
-                  className="absolute inset-0 transition-opacity duration-500 opacity-60 group-hover:opacity-100"
-                  style={{
-                    background:
-                      "radial-gradient(ellipse at center, rgba(83,255,47,0.15), transparent 70%)",
-                  }}
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="h-12 w-12 rounded-full bg-[var(--accent)] text-[var(--accent-foreground)] flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(83,255,47,0.8)]">
-                    <Play size={18} fill="currentColor" />
+                <div className="relative aspect-video" style={{ background: w.gradient }}>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="h-10 w-10 rounded-full bg-[var(--accent)] text-[var(--accent-foreground)] flex items-center justify-center transition-shadow duration-300 group-hover:shadow-[0_0_24px_rgba(83,255,47,0.7)]">
+                      <Play size={14} fill="currentColor" />
+                    </div>
                   </div>
                 </div>
-                <div className="absolute bottom-0 inset-x-0 p-4 flex items-end justify-between gap-4 bg-gradient-to-t from-black/80 to-transparent">
-                  <div className="text-lg font-bold text-white">{w.title}</div>
-                  <span
-                    className="text-[10px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-full border border-[var(--accent)]/40 text-[var(--accent)]"
-                  >
+                <div className="p-4 flex items-center justify-between gap-4">
+                  <div className="text-base font-medium text-white">{w.title}</div>
+                  <span className="text-xs uppercase tracking-[0.15em] px-2 py-1 rounded-full border border-green-500/60 text-green-400 whitespace-nowrap">
                     {w.category}
                   </span>
                 </div>
