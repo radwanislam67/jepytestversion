@@ -26,8 +26,8 @@ function Carousel() {
       style={{
         aspectRatio: "4 / 3",
         borderRadius: 12,
-        border: "1px solid rgba(0,255,0,0.35)",
-        boxShadow: "0 0 32px rgba(0,255,0,0.18), inset 0 0 60px rgba(0,255,0,0.05)",
+        border: "1px solid rgba(83,255,47,0.45)",
+        boxShadow: "0 0 40px rgba(83,255,47,0.22), inset 0 0 60px rgba(83,255,47,0.04)",
       }}
     >
       {SLIDES.map((s, i) => (
@@ -49,6 +49,7 @@ function Carousel() {
               width: "100%",
               height: "100%",
               objectFit: "cover",
+              filter: "brightness(1.15) contrast(1.05) saturate(1.1)",
               animation: i === idx ? "ken-burns 8s ease-out forwards" : "none",
               willChange: "transform",
             }}
@@ -64,7 +65,7 @@ export function AboutPreview() {
     <section
       id="about"
       className="relative scroll-mt-24"
-      style={{ paddingTop: "clamp(48px, 8vw, 80px)", paddingBottom: "clamp(48px, 8vw, 80px)" }}
+      style={{ paddingTop: "clamp(48px, 8vw, 80px)", paddingBottom: "64px" }}
     >
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
@@ -92,7 +93,7 @@ export function AboutPreview() {
               <p className="mt-4 text-foreground/70 leading-relaxed max-w-xl">
                 That&rsquo;s still what we show up for. Every frame. Every client. Every time.
               </p>
-              <div className="mt-8">
+              <div className="mt-6">
                 <Link
                   to="/about"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[var(--accent)] text-[var(--accent)] bg-transparent font-medium transition-colors duration-200 hover:bg-[var(--accent)] hover:text-black"
