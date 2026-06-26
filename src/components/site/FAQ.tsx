@@ -18,31 +18,32 @@ const FAQS = [
 
 export function FAQ() {
   return (
-    <section id="faq" className="relative py-32 md:py-40 scroll-mt-24">
+    <section id="faq" className="relative py-16 md:py-20 scroll-mt-24">
       <div className="mx-auto max-w-3xl px-5 md:px-8">
         <Reveal>
-          <h2 className="font-display text-4xl md:text-6xl tracking-tighter text-center mb-14">
+          <h2 className="font-display text-4xl md:text-6xl tracking-tighter text-center mb-8">
             Frequently Asked <span className="text-[var(--accent)] text-glow">Questions</span>
           </h2>
         </Reveal>
         <Reveal delay={100}>
-          <Accordion type="single" collapsible className="w-full">
+          <Accordion type="single" collapsible className="w-full mt-8">
             {FAQS.map((f, i) => (
               <AccordionItem
                 key={i}
                 value={`item-${i}`}
-                className="border-white/10"
+                className="border-b border-white/15 bg-white/[0.02] rounded-md px-4 mb-2 hover:bg-white/[0.04] transition-colors"
               >
-                <AccordionTrigger className="text-left text-base md:text-lg py-5 hover:text-[var(--accent)]">
+                <AccordionTrigger className="text-left text-base md:text-lg py-5 text-foreground/90 hover:text-[var(--accent)] [&>svg]:text-foreground/60 [&>svg]:h-5 [&>svg]:w-5">
                   {f.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-foreground/70 leading-relaxed">
+                <AccordionContent className="text-foreground/75 leading-relaxed">
                   {f.a}
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
         </Reveal>
+
         <Reveal delay={200}>
           <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
             <span className="text-foreground/70">Still have questions?</span>
