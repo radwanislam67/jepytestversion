@@ -495,10 +495,10 @@ function About() {
             }}
             className="studio-grid"
           >
-            <StudioTile area="a" label="Studio Frame 01" delay={0} />
-            <StudioTile area="b" label="Studio Frame 02" delay={150} />
-            <StudioTile area="c" label="Studio Frame 03" delay={300} />
-            <StudioTile area="d" label="Studio Frame 04" delay={450} />
+            <StudioTile area="a" label="Studio Frame 01" src="https://picsum.photos/seed/studio-a/800/600" delay={0} />
+            <StudioTile area="b" label="Studio Frame 02" src="https://picsum.photos/seed/studio-b/800/600" delay={150} />
+            <StudioTile area="c" label="Studio Frame 03" src="https://picsum.photos/seed/studio-c/800/600" delay={300} />
+            <StudioTile area="d" label="Studio Frame 04" src="https://picsum.photos/seed/studio-d/800/600" delay={450} />
           </div>
           <style>{`
             @media (min-width: 768px) {
