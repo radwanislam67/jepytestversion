@@ -26,7 +26,7 @@ const DETAIL: Record<string, string[]> = {
 
 function ServicesPage() {
   return (
-    <section className="relative pt-40 pb-32">
+    <section className="relative pt-32 md:pt-36 pb-16 md:pb-20">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
           <h1 className="font-display text-6xl md:text-8xl tracking-tighter">

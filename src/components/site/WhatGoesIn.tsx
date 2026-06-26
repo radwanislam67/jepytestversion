@@ -34,7 +34,7 @@ function Media() {
 
 export function WhatGoesIn() {
   return (
-    <section className="relative pt-32 md:pt-40 pb-16">
+    <section className="relative py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="text-center mb-12">
           <Reveal>

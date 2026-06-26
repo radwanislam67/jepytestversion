@@ -396,7 +396,7 @@ function About() {
       </section>
 
       {/* FOUNDERS */}
-      <section className="relative py-24 md:py-32">
+      <section className="relative py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <Reveal>
             <h2 className="font-display text-5xl md:text-7xl tracking-tighter text-center">
@@ -452,7 +452,7 @@ function About() {
       </section>
 
       {/* WHAT DRIVES US */}
-      <section className="relative py-24 md:py-32">
+      <section className="relative py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <Reveal>
             <h2 className="font-display text-5xl md:text-7xl tracking-tighter text-center mb-16">
@@ -464,7 +464,7 @@ function About() {
       </section>
 
       {/* OUR STUDIO */}
-      <section className="relative py-24 md:py-32">
+      <section className="relative py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <Reveal>
             <div
@@ -523,7 +523,7 @@ function About() {
       </section>
 
       {/* CTA */}
-      <section className="relative py-24">
+      <section className="relative py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div
             className="relative overflow-hidden rounded-[36px] border border-[var(--accent)]/30 p-10 md:p-20 text-center"

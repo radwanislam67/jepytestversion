@@ -13,7 +13,7 @@ export const SERVICES = [
 
 export function ServicesPreview() {
   return (
-    <section id="services" className="relative py-32 md:py-40 scroll-mt-24">
+    <section id="services" className="relative py-16 md:py-20 scroll-mt-24">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
           <h2 className="font-display text-5xl md:text-7xl tracking-tighter text-center">

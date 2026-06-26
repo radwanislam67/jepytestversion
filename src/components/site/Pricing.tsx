@@ -28,7 +28,7 @@ const TIERS = [
 
 export function Pricing() {
   return (
-    <section id="pricing" className="relative py-32 md:py-40 scroll-mt-24">
+    <section id="pricing" className="relative py-16 md:py-20 scroll-mt-24">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="text-center mb-16">
           <Reveal>
