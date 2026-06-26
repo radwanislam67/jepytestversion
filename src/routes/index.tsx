@@ -16,6 +16,7 @@ import { CTASection } from "@/components/site/CTASection";
 import { ShowreelCTA } from "@/components/site/ShowreelCTA";
 import { Typewriter } from "@/components/site/Typewriter";
 import { HowItWorks } from "@/components/site/HowItWorks";
+import { AboutPreview } from "@/components/site/AboutPreview";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -47,6 +48,7 @@ function Home() {
       <HowItWorks />
       <Pricing />
       <Reviews />
+      <AboutPreview />
       <FAQ />
       <CTASection />
     </>
