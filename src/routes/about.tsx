@@ -403,7 +403,7 @@ function About() {
             {/* Founder 1 */}
             <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
               <SlideIn from="left">
-                <PhotoPlaceholder label="Photo Coming Soon" />
+                <PhotoPlaceholder src="https://picsum.photos/seed/radwan/400/400" alt="Radwan Islam" />
               </SlideIn>
               <SlideIn from="right" delay={120}>
                 <div>
@@ -439,7 +439,7 @@ function About() {
                 </div>
               </SlideIn>
               <SlideIn from="right">
-                <PhotoPlaceholder label="Photo Coming Soon" />
+                <PhotoPlaceholder src="https://picsum.photos/seed/sojol/400/400" alt="Sojol Sheikh" />
               </SlideIn>
             </div>
           </div>
