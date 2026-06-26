@@ -54,29 +54,30 @@ export function HowItWorks() {
   }, []);
 
   return (
-    <section className="relative py-32 md:py-40">
+    <section className="relative py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="text-center mb-20">
+        <div className="text-center mb-12">
           <Reveal>
             <h2 className="font-display text-5xl md:text-7xl tracking-tighter">
               How It <span className="text-[var(--accent)] text-glow">Works</span>
             </h2>
           </Reveal>
           <Reveal delay={120}>
-            <p className="mt-5 text-foreground/70">Four steps. Zero confusion.</p>
+            <p className="mt-4 text-foreground/70">Four steps. Zero confusion.</p>
           </Reveal>
         </div>
 
         <div className="relative pl-10 md:pl-14">
           {/* Vertical track */}
           <div
-            className="absolute left-3 md:left-4 top-2 bottom-2 w-px"
-            style={{ background: "color-mix(in oklab, var(--accent) 18%, transparent)" }}
+            className="absolute left-3 md:left-4 top-2 bottom-2 w-[3px] rounded-full"
+            style={{ background: "color-mix(in oklab, var(--accent) 22%, transparent)" }}
             aria-hidden
           />
           {/* Active progress overlay */}
           <div
-            className="absolute left-3 md:left-4 top-2 w-px origin-top"
+            className="absolute left-3 md:left-4 top-2 w-[3px] rounded-full origin-top"
+
             style={{
               height: `calc((100% - 16px) * ${(active + 1) / STEPS.length})`,
               background: "linear-gradient(180deg, var(--accent), var(--glow))",
