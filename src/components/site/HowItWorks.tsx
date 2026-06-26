@@ -87,7 +87,7 @@ export function HowItWorks() {
             aria-hidden
           />
 
-          <div className="flex flex-col gap-12">
+          <div className="flex flex-col gap-16 md:gap-20">
             {STEPS.map((s, i) => {
               const isActive = i === active;
               return (
