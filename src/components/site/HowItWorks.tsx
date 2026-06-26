@@ -129,10 +129,11 @@ export function HowItWorks() {
                 return (
                   <div
                     key={s.n}
+                    data-idx={i}
                     ref={(el) => {
                       stepRefs.current[i] = el;
                     }}
-                    className="relative"
+                    className="relative min-h-[60vh]"
                   >
                     {/* Node dot */}
                     <span
