@@ -5,8 +5,8 @@ import jepyLogo from "@/assets/jepy-logo.png";
 import { navigateToSection } from "@/lib/scroll-to";
 
 const SECTIONS = [
-  { id: "work", label: "Work" },
   { id: "services", label: "Services" },
+  { id: "work", label: "Work" },
   { id: "pricing", label: "Pricing" },
   { id: "about", label: "About" },
 ] as const;
