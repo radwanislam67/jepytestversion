@@ -223,10 +223,12 @@ function ValuesGrid() {
 function StudioTile({
   area,
   label,
+  src,
   delay,
 }: {
   area: string;
   label: string;
+  src: string;
   delay: number;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -286,13 +288,16 @@ function StudioTile({
         if (overlay) overlay.style.opacity = "0";
       }}
     >
-      <div
+      <img
         className="studio-inner"
+        src={src}
+        alt={label}
         style={{
           position: "absolute",
           inset: 0,
-          background:
-            "radial-gradient(circle at 30% 40%, rgba(83,255,47,0.18), transparent 60%), #0a0a0a",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
           transition: "transform 0.6s ease",
         }}
       />
