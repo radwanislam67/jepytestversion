@@ -561,6 +561,3 @@ function About() {
     </>
   );
 }
-
-// keep CTASection import referenced to avoid tree-shake warnings if unused later
-void CTASection;
