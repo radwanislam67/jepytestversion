@@ -91,11 +91,8 @@ export function Footer() {
               </a>
             </div>
           </div>
-        </div>
+      </div>
 
-        <div className="mt-10 pt-6 border-t border-white/5 text-xs text-muted-foreground text-center">
-          © 2026 Jepy. All rights reserved.
-        </div>
       </div>
     </footer>
   );
