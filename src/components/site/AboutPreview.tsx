@@ -62,7 +62,7 @@ function Carousel() {
 export function AboutPreview() {
   return (
     <section
-      id="about-preview"
+      id="about"
       className="relative scroll-mt-24"
       style={{ paddingTop: "clamp(48px, 8vw, 80px)", paddingBottom: "clamp(48px, 8vw, 80px)" }}
     >
