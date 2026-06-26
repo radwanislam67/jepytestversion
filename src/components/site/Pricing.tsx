@@ -120,15 +120,15 @@ export function Pricing() {
             >
               ✦ Smaller Budget? We Got You
             </span>
-            <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-5 text-center sm:text-left">
-              <p className="font-display text-2xl md:text-3xl tracking-tight">
+            <p className="font-display text-2xl md:text-3xl tracking-tight text-center flex flex-wrap items-center justify-center gap-x-3 gap-y-3">
+              <span>
                 <span className="text-white">Start small.</span>{" "}
                 <span className="text-[var(--accent)] text-glow">Look expensive.</span>
                 <span className="text-foreground/50"> — Tell us your budget.</span>
-              </p>
+              </span>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em] whitespace-nowrap transition-colors duration-200"
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em] whitespace-nowrap transition-colors duration-200 align-middle"
                 style={{
                   border: "1px solid var(--accent)",
                   color: "var(--accent)",
@@ -141,9 +141,9 @@ export function Pricing() {
                   e.currentTarget.style.background = "transparent";
                 }}
               >
-                Start Here →
+                Let&apos;s Talk →
               </Link>
-            </div>
+            </p>
           </div>
         </Reveal>
       </div>
