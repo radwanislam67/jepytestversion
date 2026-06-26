@@ -48,6 +48,7 @@ function Home() {
       <HowItWorks />
       <Pricing />
       <Reviews />
+      <AboutPreview />
       <FAQ />
       <CTASection />
     </>
