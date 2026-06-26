@@ -1,5 +1,37 @@
-import { Star } from "lucide-react";
+import { Star, ChevronRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+
+function SummaryPill() {
+  const avatars = ["#53FF2F", "#B8FF6A", "#8a8a8a", "#F7F7F7"];
+  return (
+    <div
+      className="group inline-flex items-center gap-3 rounded-full transition-all duration-300 hover:shadow-[0_0_24px_color-mix(in_oklab,var(--accent)_45%,transparent)]"
+      style={{
+        background: "rgba(11,11,11,0.85)",
+        border: "1px solid color-mix(in oklab, var(--accent) 35%, transparent)",
+        padding: "10px 20px",
+      }}
+    >
+      <div className="flex -space-x-2">
+        {avatars.map((c, i) => (
+          <span
+            key={i}
+            className="inline-block h-6 w-6 rounded-full border-2"
+            style={{ background: c, borderColor: "#0b0b0b" }}
+          />
+        ))}
+      </div>
+      <div className="flex gap-0.5">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star key={i} size={12} fill="#FFD700" stroke="#FFD700" />
+        ))}
+      </div>
+      <span className="text-sm font-bold text-foreground">4.9</span>
+      <span className="text-sm text-muted-foreground">50+ Clients Worldwide</span>
+      <ChevronRight size={14} className="text-muted-foreground" />
+    </div>
+  );
+}
 
 const REVIEWS = [
   { quote: "Jepy turned six hours of raw footage into the most-watched launch film we've ever shipped.", name: "Amelia Reyes", company: "Northwave" },
