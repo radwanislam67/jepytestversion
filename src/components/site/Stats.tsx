@@ -89,7 +89,7 @@ export function Stats() {
               key={s.label}
               className={
                 i > 0
-                  ? "md:border-l border-[color-mix(in_oklab,var(--accent)_30%,transparent)]"
+                  ? "md:border-l border-white/10"
                   : ""
               }
             >
