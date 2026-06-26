@@ -151,12 +151,13 @@ export function HowItWorks() {
 
                   {/* Right: placeholder box */}
                   <div
-                    className="relative w-full rounded-2xl border border-[var(--accent)]/15 overflow-hidden"
+                    className="relative w-full rounded-2xl border border-[var(--accent)]/30 overflow-hidden"
                     style={{
                       height: 280,
                       background:
-                        "radial-gradient(ellipse at 30% 30%, rgba(83,255,47,0.12), transparent 60%), linear-gradient(135deg, #0a1a0d, #050a06 70%)",
+                        "radial-gradient(ellipse at 30% 30%, rgba(83,255,47,0.32), transparent 60%), linear-gradient(135deg, #143d20, #0a1f10 70%)",
                       boxShadow: isActive
+
                         ? "0 30px 80px -30px color-mix(in oklab, var(--accent) 25%, transparent)"
                         : "none",
                       transition: "box-shadow 400ms ease",
