@@ -51,7 +51,7 @@ export function FAQ() {
               className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em]"
               style={{ background: "var(--accent)", color: "var(--accent-foreground)" }}
             >
-              Get Started <ArrowUpRight size={16} />
+              Let&rsquo;s Talk <ArrowUpRight size={16} />
             </Link>
           </div>
         </Reveal>
