@@ -60,9 +60,10 @@ function Card({ r, index, visible }: { r: Review; index: number; visible: boolea
     <div
       className="flex flex-col gap-4 h-full"
       style={{
-        background: "rgba(255,255,255,0.03)",
-        border: "1px solid rgba(0,255,0,0.2)",
+        background: "rgba(255,255,255,0.04)",
+        border: "1px solid rgba(83,255,47,0.28)",
         borderRadius: 12,
+
         padding: 24,
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(20px)",
