@@ -58,7 +58,7 @@ const REVIEWS: Review[] = [
 function Card({ r, index, visible }: { r: Review; index: number; visible: boolean }) {
   return (
     <div
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-4 h-full"
       style={{
         background: "rgba(255,255,255,0.03)",
         border: "1px solid rgba(0,255,0,0.2)",
