@@ -303,6 +303,11 @@
   50% { box-shadow: 0 0 18px color-mix(in oklab, var(--accent) 70%, transparent), 0 0 40px color-mix(in oklab, var(--glow) 45%, transparent); }
 }
 
+@keyframes arrow-slide {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
 input, textarea, select {
   background: transparent;
 }

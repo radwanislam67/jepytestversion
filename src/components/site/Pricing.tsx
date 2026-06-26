@@ -121,10 +121,14 @@ export function Pricing() {
               ✦ Smaller Budget? We Got You
             </span>
             <p className="font-display text-2xl md:text-3xl tracking-tight text-center flex flex-wrap items-center justify-center gap-x-3 gap-y-3">
-              <span>
-                <span className="text-white">Start small.</span>{" "}
-                <span className="text-[var(--accent)] text-glow">Look expensive.</span>
-                <span className="text-foreground/50"> — Tell us your budget.</span>
+              <span className="text-white">Start small.</span>
+              <span className="text-[var(--accent)] text-glow">Look expensive.</span>
+              <span
+                aria-hidden
+                className="text-[var(--accent)] inline-block"
+                style={{ animation: "arrow-slide 1.6s ease-in-out infinite" }}
+              >
+                →
               </span>
               <Link
                 to="/contact"
@@ -141,7 +145,7 @@ export function Pricing() {
                   e.currentTarget.style.background = "transparent";
                 }}
               >
-                Let&apos;s Talk →
+                Tell Yours
               </Link>
             </p>
           </div>
