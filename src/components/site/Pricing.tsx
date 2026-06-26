@@ -45,9 +45,9 @@ export function Pricing() {
           {TIERS.map((t, i) => (
             <Reveal key={t.name} delay={i * 100}>
               <div
-                className={`relative h-full rounded-3xl p-8 flex flex-col transition-all duration-500 ${
+                className={`relative h-full rounded-3xl p-8 flex flex-col transition-all duration-200 ${
                   t.highlighted
-                    ? "border-2 border-[var(--accent)] -translate-y-2"
+                    ? "border-2 border-[var(--accent)] -translate-y-3 py-10"
                     : "border border-white/10 hover:border-white/25"
                 }`}
                 style={{
@@ -57,6 +57,16 @@ export function Pricing() {
                   boxShadow: t.highlighted
                     ? "0 0 60px -10px rgba(83,255,47,0.35)"
                     : undefined,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = t.highlighted
+                    ? "0 0 60px -8px rgba(83,255,47,0.5)"
+                    : "0 0 28px -4px rgba(83,255,47,0.25)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = t.highlighted
+                    ? "0 0 60px -10px rgba(83,255,47,0.35)"
+                    : "";
                 }}
               >
                 {t.highlighted && (
@@ -79,7 +89,7 @@ export function Pricing() {
                 </ul>
                 <Link
                   to="/contact"
-                  className={`mt-8 inline-flex items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold uppercase tracking-[0.16em] transition-transform duration-300 hover:scale-[1.03] ${
+                  className={`mt-8 inline-flex items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold uppercase tracking-[0.16em] transition-transform duration-200 hover:scale-[1.03] ${
                     t.highlighted ? "" : "border border-white/15"
                   }`}
                   style={
@@ -88,7 +98,7 @@ export function Pricing() {
                       : { color: "#fff" }
                   }
                 >
-                  Get Started <ArrowUpRight size={16} />
+                  {t.cta}
                 </Link>
               </div>
             </Reveal>
