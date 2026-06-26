@@ -80,16 +80,16 @@ function StatItem({ stat, delay }: { stat: Stat; delay: number }) {
 
 export function Stats() {
   return (
-    <section className="relative w-full bg-background pt-16 pb-16 md:pb-24 border-t border-white/5">
+    <section className="relative w-full bg-background pt-12 pb-12 md:pb-16 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 md:gap-y-0">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 md:gap-y-0">
           {STATS.map((s, i) => (
             <div
               key={s.label}
               className={
                 i > 0
-                  ? "md:border-l border-[color-mix(in_oklab,var(--accent)_30%,transparent)]"
-                  : ""
+                  ? "md:border-l border-[color-mix(in_oklab,var(--accent)_30%,transparent)] text-center"
+                  : "text-center"
               }
             >
               <StatItem stat={s} delay={i * 100} />
