@@ -36,8 +36,13 @@ export function Marquee() {
   return (
     <section
       ref={ref}
-      className="relative border-y border-white/5 py-6 marquee-pauseable"
+      className="relative border-y border-white/5 py-10 md:py-12 marquee-pauseable"
     >
+      <div className="mx-auto max-w-7xl px-5 md:px-8 mb-6">
+        <span className="text-[11px] uppercase tracking-[0.28em] text-white/40">
+          <span style={{ color: "var(--accent)" }}>✦</span> Trusted By
+        </span>
+      </div>
       <Row items={ROW_1} dir="left" active={inView} />
       <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent" />
