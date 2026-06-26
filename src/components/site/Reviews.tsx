@@ -189,12 +189,12 @@ export function Reviews() {
   }, []);
 
   return (
-    <section id="reviews" className="relative py-32 md:py-40 scroll-mt-24">
+    <section id="reviews" className="relative py-16 md:py-20 scroll-mt-24">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
           <h2
             className="font-display text-5xl md:text-7xl tracking-tighter text-center"
-            style={{ marginBottom: 48, color: "#fff" }}
+            style={{ marginBottom: 32, color: "#fff" }}
           >
             Don&rsquo;t Take{" "}
             <span style={{ color: "#00FF00" }} className="text-glow">
@@ -203,6 +203,10 @@ export function Reviews() {
             For It
           </h2>
         </Reveal>
+
+        <div className="flex justify-center mb-12">
+          <SummaryPill />
+        </div>
 
         <div
           ref={ref}
@@ -213,11 +217,8 @@ export function Reviews() {
             <Card key={i} r={r} index={i} visible={visible} />
           ))}
         </div>
-
-        <div className="flex justify-center" style={{ marginTop: 40 }}>
-          <SummaryPill />
-        </div>
       </div>
     </section>
   );
 }
+
