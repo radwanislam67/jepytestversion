@@ -184,7 +184,7 @@ export function Reviews() {
 
         <div
           ref={ref}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch"
           style={{ gap: 24 }}
         >
           {REVIEWS.map((r, i) => (
