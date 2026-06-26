@@ -1,15 +1,115 @@
-import { Star, ChevronRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Star, StarHalf, ChevronRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+
+type Review = {
+  quote: string;
+  name: string;
+  company: string;
+  rating: number; // supports .5
+};
+
+const REVIEWS: Review[] = [
+  {
+    quote: "Jepy turned our raw footage into the most-watched video we've ever launched. Insane quality.",
+    name: "Amelia Reyes",
+    company: "Northwave",
+    rating: 5,
+  },
+  {
+    quote: "Their motion work feels cinematic, not just edited. We won't go anywhere else.",
+    name: "Hiroshi Tanaka",
+    company: "Lumen Labs",
+    rating: 5,
+  },
+  {
+    quote: "Every cut has purpose. Our retention jumped the week we switched to Jepy.",
+    name: "Priya Sharma",
+    company: "Octave",
+    rating: 4.5,
+  },
+  {
+    quote: "Fastest turnaround we've seen. Brief to final delivery in under 48 hours.",
+    name: "Marcus Lee",
+    company: "Strata",
+    rating: 5,
+  },
+  {
+    quote: "Our short-form content hit 14M views in 30 days after Jepy started editing for us.",
+    name: "Sofia Martinez",
+    company: "Halcyon",
+    rating: 4.5,
+  },
+  {
+    quote: "Premium quality from first frame to final color. Worth every dollar.",
+    name: "Daniel Kim",
+    company: "Pixelrun",
+    rating: 5,
+  },
+];
+
+function Stars({ rating }: { rating: number }) {
+  const full = Math.floor(rating);
+  const half = rating - full >= 0.5;
+  return (
+    <div className="flex gap-1">
+      {Array.from({ length: full }).map((_, i) => (
+        <Star key={`f-${i}`} size={14} fill="#FFD700" stroke="#FFD700" />
+      ))}
+      {half && (
+        <span className="relative inline-block" style={{ width: 14, height: 14 }}>
+          <Star size={14} stroke="#FFD700" fill="none" className="absolute inset-0" />
+          <StarHalf size={14} fill="#FFD700" stroke="#FFD700" className="absolute inset-0" />
+        </span>
+      )}
+    </div>
+  );
+}
+
+function Card({ r, index, visible }: { r: Review; index: number; visible: boolean }) {
+  return (
+    <div
+      className="flex flex-col gap-4"
+      style={{
+        background: "rgba(255,255,255,0.03)",
+        border: "1px solid rgba(0,255,0,0.2)",
+        borderRadius: 12,
+        padding: 24,
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(20px)",
+        transition: `opacity 0.5s ease ${index * 100}ms, transform 0.5s ease ${index * 100}ms, border-color 0.3s ease, box-shadow 0.3s ease`,
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = "rgba(0,255,0,0.8)";
+        e.currentTarget.style.boxShadow = "0 0 20px rgba(0,255,0,0.2)";
+        e.currentTarget.style.transform = "translateY(0) scale(1.02)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "rgba(0,255,0,0.2)";
+        e.currentTarget.style.boxShadow = "none";
+        e.currentTarget.style.transform = "translateY(0) scale(1)";
+      }}
+    >
+      <Stars rating={r.rating} />
+      <p className="text-sm text-foreground/85 leading-relaxed">&ldquo;{r.quote}&rdquo;</p>
+      <div className="mt-auto">
+        <div className="text-sm font-medium">{r.name}</div>
+        <div className="text-xs text-muted-foreground">{r.company}</div>
+      </div>
+    </div>
+  );
+}
 
 function SummaryPill() {
   const avatars = ["#53FF2F", "#B8FF6A", "#8a8a8a", "#F7F7F7"];
   return (
     <div
-      className="group inline-flex items-center gap-3 rounded-full transition-all duration-300 hover:shadow-[0_0_24px_color-mix(in_oklab,var(--accent)_45%,transparent)]"
+      className="group inline-flex items-center gap-3 transition-all duration-300 hover:shadow-[0_0_24px_rgba(0,255,0,0.35)]"
       style={{
         background: "rgba(11,11,11,0.85)",
-        border: "1px solid color-mix(in oklab, var(--accent) 35%, transparent)",
-        padding: "10px 20px",
+        border: "1px solid rgba(0,255,0,0.3)",
+        borderRadius: 999,
+        padding: "10px 24px",
       }}
     >
       <div className="flex -space-x-2">
@@ -21,78 +121,73 @@ function SummaryPill() {
           />
         ))}
       </div>
-      <div className="flex gap-0.5">
-        {Array.from({ length: 5 }).map((_, i) => (
+      <div className="flex gap-0.5 items-center">
+        {Array.from({ length: 4 }).map((_, i) => (
           <Star key={i} size={12} fill="#FFD700" stroke="#FFD700" />
         ))}
+        <span className="relative inline-block" style={{ width: 12, height: 12 }}>
+          <Star size={12} stroke="#FFD700" fill="none" className="absolute inset-0" />
+          <StarHalf size={12} fill="#FFD700" stroke="#FFD700" className="absolute inset-0" />
+        </span>
       </div>
-      <span className="text-sm font-bold text-foreground">4.9</span>
+      <span className="text-sm font-bold text-white">4.9</span>
       <span className="text-sm text-muted-foreground">50+ Clients Worldwide</span>
       <ChevronRight size={14} className="text-muted-foreground" />
     </div>
   );
 }
 
-const REVIEWS = [
-  { quote: "Jepy turned six hours of raw footage into the most-watched launch film we've ever shipped.", name: "Amelia Reyes", company: "Northwave" },
-  { quote: "Their color and motion work feels like cinema, not content. We won't edit anywhere else.", name: "Hiroshi Tanaka", company: "Lumen Labs" },
-  { quote: "Every cut has intent. Our retention curves changed the week we started working with them.", name: "Priya Sharma", company: "Octave" },
-  { quote: "Insanely fast turnaround without ever sacrificing quality. They get the brief instantly.", name: "Marcus Lee", company: "Strata" },
-  { quote: "The hooks they craft made our short-form take off. 14M views in 30 days.", name: "Sofia Martinez", company: "Halcyon" },
-  { quote: "From storyboard to final color, it just felt premium. Worth every dollar.", name: "Daniel Kim", company: "Pixelrun" },
-];
-
-function Card({ r }: { r: (typeof REVIEWS)[number] }) {
-  return (
-    <div
-      className="shrink-0 rounded-xl border border-[var(--accent)]/30 p-6 mx-3 flex flex-col gap-4"
-      style={{
-        minWidth: "320px",
-        maxWidth: "360px",
-        background: "rgba(11,11,11,0.8)",
-      }}
-    >
-      <div className="flex gap-1">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Star key={i} size={14} fill="#FFD700" stroke="#FFD700" />
-        ))}
-      </div>
-      <p className="text-sm text-foreground/85 leading-relaxed">&ldquo;{r.quote}&rdquo;</p>
-      <div className="mt-auto">
-        <div className="text-sm font-medium">{r.name}</div>
-        <div className="text-xs text-muted-foreground">{r.company}</div>
-      </div>
-    </div>
-  );
-}
-
 export function Reviews() {
-  const row = [...REVIEWS, ...REVIEWS];
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setVisible(true);
+            io.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <section id="reviews" className="relative py-32 md:py-40 scroll-mt-24 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-5 md:px-8 mb-14 text-center">
+    <section id="reviews" className="relative py-32 md:py-40 scroll-mt-24">
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
-          <h2 className="font-display text-5xl md:text-7xl tracking-tighter">
-            Don&rsquo;t Take <span className="text-[var(--accent)] text-glow">Our Word</span> For It
+          <h2
+            className="font-display text-5xl md:text-7xl tracking-tighter text-center"
+            style={{ marginBottom: 48, color: "#fff" }}
+          >
+            Don&rsquo;t Take{" "}
+            <span style={{ color: "#00FF00" }} className="text-glow">
+              Our Word
+            </span>{" "}
+            For It
           </h2>
         </Reveal>
-      </div>
-      <div className="pill-wrapper mx-auto max-w-7xl px-5 md:px-8 mb-14 flex justify-center">
-        <Reveal delay={150}>
-          <SummaryPill />
-        </Reveal>
-      </div>
-      <div className="marquee-wrapper relative">
+
         <div
-          className="flex will-change-transform"
-          style={{ animation: "marquee-left 50s linear infinite" }}
+          ref={ref}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          style={{ gap: 24 }}
         >
-          {row.map((r, i) => (
-            <Card key={i} r={r} />
+          {REVIEWS.map((r, i) => (
+            <Card key={i} r={r} index={i} visible={visible} />
           ))}
         </div>
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent" />
+
+        <div className="flex justify-center" style={{ marginTop: 40 }}>
+          <SummaryPill />
+        </div>
       </div>
     </section>
   );
