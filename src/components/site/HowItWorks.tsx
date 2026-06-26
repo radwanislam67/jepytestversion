@@ -25,14 +25,9 @@ const STEPS = [
 ];
 
 export function HowItWorks() {
-  const sectionRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [active, setActive] = useState(0);
-  const [visualIdx, setVisualIdx] = useState(0);
-  const [visualVisible, setVisualVisible] = useState(true);
-  const [progress, setProgress] = useState(0);
 
-  // IntersectionObserver to track which step is most visible (threshold 0.5)
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return;
     const visibility = new Map<number, number>();
@@ -58,38 +53,8 @@ export function HowItWorks() {
     return () => io.disconnect();
   }, []);
 
-  // Fade out → swap → fade in (200ms) when active step changes
-  useEffect(() => {
-    if (active === visualIdx) return;
-    setVisualVisible(false);
-    const t = setTimeout(() => {
-      setVisualIdx(active);
-      setVisualVisible(true);
-    }, 200);
-    return () => clearTimeout(t);
-  }, [active, visualIdx]);
-
-  // Left progress line (scroll-driven)
-  useEffect(() => {
-    const onScroll = () => {
-      const sec = sectionRef.current;
-      if (!sec) return;
-      const r = sec.getBoundingClientRect();
-      const total = r.height - window.innerHeight;
-      const passed = Math.min(Math.max(-r.top, 0), Math.max(total, 1));
-      setProgress(total > 0 ? passed / total : 0);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
   return (
-    <section ref={sectionRef} className="relative py-32 md:py-40">
+    <section className="relative py-32 md:py-40">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="text-center mb-20">
           <Reveal>
@@ -102,52 +67,59 @@ export function HowItWorks() {
           </Reveal>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-10 md:gap-20 items-start">
-          {/* Left: steps with vertical line */}
-          <div className="relative">
-            {/* Track */}
-            <div
-              className="absolute left-3 md:left-4 top-2 bottom-2 w-px"
-              style={{ background: "color-mix(in oklab, var(--accent) 18%, transparent)" }}
-              aria-hidden
-            />
-            {/* Progress line */}
-            <div
-              className="absolute left-3 md:left-4 top-2 w-px origin-top"
-              style={{
-                height: `calc((100% - 16px) * ${progress})`,
-                background: "linear-gradient(180deg, var(--accent), var(--glow))",
-                boxShadow: "0 0 12px var(--accent)",
-                transition: "height 200ms linear",
-              }}
-              aria-hidden
-            />
+        <div className="relative pl-10 md:pl-14">
+          {/* Vertical track */}
+          <div
+            className="absolute left-3 md:left-4 top-2 bottom-2 w-px"
+            style={{ background: "color-mix(in oklab, var(--accent) 18%, transparent)" }}
+            aria-hidden
+          />
+          {/* Active progress overlay */}
+          <div
+            className="absolute left-3 md:left-4 top-2 w-px origin-top"
+            style={{
+              height: `calc((100% - 16px) * ${(active + 1) / STEPS.length})`,
+              background: "linear-gradient(180deg, var(--accent), var(--glow))",
+              boxShadow: "0 0 12px var(--accent)",
+              transition: "height 400ms ease",
+            }}
+            aria-hidden
+          />
 
-            <div className="flex flex-col gap-24 md:gap-36 pl-10 md:pl-14">
-              {STEPS.map((s, i) => {
-                const isActive = i === active;
-                return (
-                  <div
-                    key={s.n}
-                    data-idx={i}
-                    ref={(el) => {
-                      stepRefs.current[i] = el;
+          <div className="flex flex-col gap-12">
+            {STEPS.map((s, i) => {
+              const isActive = i === active;
+              return (
+                <div
+                  key={s.n}
+                  data-idx={i}
+                  ref={(el) => {
+                    stepRefs.current[i] = el;
+                  }}
+                  className="relative grid md:grid-cols-2 gap-8 md:gap-12 items-center"
+                >
+                  {/* Node dot */}
+                  <span
+                    className="absolute -left-[34px] md:-left-[42px] top-6 w-3 h-3 rounded-full transition-all duration-500"
+                    style={{
+                      background: isActive
+                        ? "var(--accent)"
+                        : "color-mix(in oklab, var(--accent) 25%, transparent)",
+                      boxShadow: isActive
+                        ? "0 0 14px var(--accent), 0 0 28px color-mix(in oklab, var(--glow) 50%, transparent)"
+                        : "none",
                     }}
-                    className="relative min-h-[60vh]"
-                  >
-                    {/* Node dot */}
-                    <span
-                      className="absolute -left-[34px] md:-left-[42px] top-2 w-3 h-3 rounded-full transition-all duration-500"
-                      style={{
-                        background: isActive ? "var(--accent)" : "color-mix(in oklab, var(--accent) 25%, transparent)",
-                        boxShadow: isActive ? "0 0 14px var(--accent), 0 0 28px color-mix(in oklab, var(--glow) 50%, transparent)" : "none",
-                      }}
-                      aria-hidden
-                    />
+                    aria-hidden
+                  />
+
+                  {/* Left: text */}
+                  <div>
                     <div
                       className="font-mono text-sm tracking-[0.3em] mb-3 transition-colors duration-500"
                       style={{
-                        color: isActive ? "var(--accent)" : "color-mix(in oklab, var(--foreground) 30%, transparent)",
+                        color: isActive
+                          ? "var(--accent)"
+                          : "color-mix(in oklab, var(--foreground) 30%, transparent)",
                       }}
                     >
                       {s.n}
@@ -155,7 +127,9 @@ export function HowItWorks() {
                     <h3
                       className="font-display text-3xl md:text-5xl tracking-tighter mb-4 transition-colors duration-500"
                       style={{
-                        color: isActive ? "var(--foreground)" : "color-mix(in oklab, var(--foreground) 35%, transparent)",
+                        color: isActive
+                          ? "var(--foreground)"
+                          : "color-mix(in oklab, var(--foreground) 35%, transparent)",
                       }}
                     >
                       {s.title}
@@ -170,47 +144,30 @@ export function HowItWorks() {
                     >
                       {s.body}
                     </p>
-
-                    {/* Mobile visual */}
-                    <div
-                      className="md:hidden mt-6 aspect-square w-full rounded-2xl border border-[var(--accent)]/15"
-                      style={{
-                        background:
-                          "radial-gradient(ellipse at 30% 30%, rgba(83,255,47,0.10), transparent 60%), linear-gradient(135deg, #0a0a0a, #050505 70%)",
-                      }}
-                      aria-hidden
-                    />
                   </div>
-                );
-              })}
-            </div>
-          </div>
 
-          {/* Right: sticky visual */}
-          <div className="hidden md:block">
-            <div className="sticky top-28">
-              <div
-                className="aspect-square w-full rounded-3xl border border-[var(--accent)]/15 overflow-hidden relative transition-all duration-500"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at 30% 30%, rgba(83,255,47,0.14), transparent 60%), linear-gradient(135deg, #0a0a0a, #050505 70%)",
-                  boxShadow: "0 30px 80px -30px color-mix(in oklab, var(--accent) 25%, transparent)",
-                }}
-              >
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    opacity: visualVisible ? 1 : 0,
-                    transition: "opacity 200ms ease",
-                  }}
-                >
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(83,255,47,0.10),transparent_60%)]" />
-                  <div className="absolute bottom-5 left-5 font-mono text-xs tracking-[0.3em] text-[var(--accent)]/70">
-                    {STEPS[visualIdx].n} — {STEPS[visualIdx].title.toUpperCase()}
+                  {/* Right: placeholder box */}
+                  <div
+                    className="relative w-full rounded-2xl border border-[var(--accent)]/15 overflow-hidden"
+                    style={{
+                      height: 280,
+                      background:
+                        "radial-gradient(ellipse at 30% 30%, rgba(83,255,47,0.12), transparent 60%), linear-gradient(135deg, #0a1a0d, #050a06 70%)",
+                      boxShadow: isActive
+                        ? "0 30px 80px -30px color-mix(in oklab, var(--accent) 25%, transparent)"
+                        : "none",
+                      transition: "box-shadow 400ms ease",
+                    }}
+                    aria-hidden
+                  >
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(83,255,47,0.08),transparent_60%)]" />
+                    <div className="absolute bottom-5 left-5 font-mono text-xs tracking-[0.3em] text-[var(--accent)]/70">
+                      {s.n} — {s.title.toUpperCase()}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </div>
