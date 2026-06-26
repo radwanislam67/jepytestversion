@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Star, StarHalf, ChevronRight } from "lucide-react";
+import { Star, ChevronRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 
 type Review = {
@@ -58,7 +58,7 @@ const REVIEWS: Review[] = [
 function Card({ r, index, visible }: { r: Review; index: number; visible: boolean }) {
   return (
     <div
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-4 h-full"
       style={{
         background: "rgba(255,255,255,0.03)",
         border: "1px solid rgba(0,255,0,0.2)",
@@ -135,10 +135,7 @@ function SummaryPill() {
         {Array.from({ length: 4 }).map((_, i) => (
           <Star key={i} size={12} fill="#FFD700" stroke="#FFD700" />
         ))}
-        <span className="relative inline-block" style={{ width: 12, height: 12 }}>
-          <Star size={12} stroke="#FFD700" fill="none" className="absolute inset-0" />
-          <StarHalf size={12} fill="#FFD700" stroke="#FFD700" className="absolute inset-0" />
-        </span>
+        <Star size={12} fill="#FFD700" stroke="#FFD700" style={{ opacity: 0.4 }} />
       </div>
       <span className="text-sm font-bold text-white">4.9</span>
       <span className="text-sm text-muted-foreground">50+ Clients Worldwide</span>
@@ -187,7 +184,7 @@ export function Reviews() {
 
         <div
           ref={ref}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch"
           style={{ gap: 24 }}
         >
           {REVIEWS.map((r, i) => (
