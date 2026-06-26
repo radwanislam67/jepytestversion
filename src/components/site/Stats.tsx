@@ -9,8 +9,7 @@ type Stat = {
 const STATS: Stat[] = [
   { value: 2000, suffix: "+", label: "Videos Delivered" },
   { value: 60, suffix: "M+", label: "Views Generated" },
-  { value: 5, suffix: " Years", label: "Experience" },
-  { value: 100, suffix: "+", label: "Projects Completed" },
+  { value: 50, suffix: "+", label: "Clients Worldwide" },
 ];
 
 function StatItem({ stat, delay }: { stat: Stat; delay: number }) {
