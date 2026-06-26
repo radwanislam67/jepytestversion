@@ -107,8 +107,11 @@ export function Pricing() {
 
         <Reveal delay={200}>
           <div
-            className="mt-20 pt-10 flex flex-col items-center gap-6"
-            style={{ borderTop: "1px solid color-mix(in oklab, var(--accent) 55%, transparent)" }}
+            className="mt-20 py-10 flex flex-col items-center gap-6"
+            style={{
+              borderTop: "1px solid color-mix(in oklab, var(--accent) 55%, transparent)",
+              borderBottom: "1px solid color-mix(in oklab, var(--accent) 55%, transparent)",
+            }}
           >
             <span
               className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]"
