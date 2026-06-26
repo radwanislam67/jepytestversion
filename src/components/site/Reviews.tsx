@@ -76,13 +76,13 @@ export function Reviews() {
             Don&rsquo;t Take <span className="text-[var(--accent)] text-glow">Our Word</span> For It
           </h2>
         </Reveal>
+      </div>
+      <div className="pill-wrapper mx-auto max-w-7xl px-5 md:px-8 mb-14 flex justify-center">
         <Reveal delay={150}>
-          <div className="mt-8 flex justify-center">
-            <SummaryPill />
-          </div>
+          <SummaryPill />
         </Reveal>
       </div>
-      <div className="relative">
+      <div className="marquee-wrapper relative">
         <div
           className="flex will-change-transform"
           style={{ animation: "marquee-left 50s linear infinite" }}
