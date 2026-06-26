@@ -106,15 +106,27 @@ export function Pricing() {
         </div>
 
         <Reveal delay={200}>
-          <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
-            <span className="text-foreground/70">Working with a smaller budget? Let&apos;s talk.</span>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em]"
-              style={{ background: "var(--accent)", color: "var(--accent-foreground)" }}
+          <div className="mt-16 flex flex-col items-center justify-center gap-5 text-center">
+            <span
+              className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]"
+              style={{
+                background: "var(--accent)",
+                color: "var(--accent-foreground)",
+                animation: "budget-pulse 2.8s ease-in-out infinite",
+              }}
             >
-              Let&apos;s Talk →
-            </Link>
+              ✦ Smaller Budget? We Got You
+            </span>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <span className="text-foreground/70">Working with a smaller budget? Let&apos;s talk.</span>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em]"
+                style={{ background: "var(--accent)", color: "var(--accent-foreground)" }}
+              >
+                Let&apos;s Talk →
+              </Link>
+            </div>
           </div>
         </Reveal>
       </div>
