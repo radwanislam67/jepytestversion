@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Star, StarHalf, ChevronRight } from "lucide-react";
+import { Star, ChevronRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 
 type Review = {
