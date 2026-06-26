@@ -8,18 +8,21 @@ const TIERS = [
     price: "Starting at $X",
     features: ["1 edited video", "Up to 60 seconds", "Color & sound polish", "2 revisions"],
     highlighted: false,
+    cta: "Ship My First Video →",
   },
   {
     name: "Standard",
     price: "Starting at $XX",
     features: ["4 edited videos / mo", "Up to 3 minutes each", "Motion graphics", "Unlimited revisions", "Priority delivery"],
     highlighted: true,
+    cta: "Scale My Content →",
   },
   {
     name: "Premium",
     price: "Starting at $XXX",
     features: ["Full retainer", "Long & short form", "Custom motion design", "Dedicated editor", "24h turnaround"],
     highlighted: false,
+    cta: "Go Full Retainer →",
   },
 ];
 
