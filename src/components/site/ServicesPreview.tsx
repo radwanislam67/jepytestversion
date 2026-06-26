@@ -46,7 +46,10 @@ export function ServicesPreview() {
         </div>
 
         <div className="mt-12 text-center">
-          <Link to="/services" className="inline-flex items-center gap-2 text-[var(--accent)] hover:underline">
+          <Link
+            to="/services"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[var(--accent)] text-[var(--accent)] bg-transparent font-medium transition-colors duration-200 hover:bg-[var(--accent)] hover:text-black"
+          >
             View All Services <ArrowUpRight size={16} />
           </Link>
         </div>
