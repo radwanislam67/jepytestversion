@@ -6,7 +6,8 @@ type Review = {
   quote: string;
   name: string;
   company: string;
-  rating: number; // supports .5
+  initials: string;
+  gradient: string;
 };
 
 const REVIEWS: Review[] = [
@@ -14,57 +15,45 @@ const REVIEWS: Review[] = [
     quote: "Jepy turned our raw footage into the most-watched video we've ever launched. Insane quality.",
     name: "Amelia Reyes",
     company: "Northwave",
-    rating: 5,
+    initials: "AR",
+    gradient: "linear-gradient(135deg, #8B5CF6, #3B82F6)",
   },
   {
     quote: "Their motion work feels cinematic, not just edited. We won't go anywhere else.",
     name: "Hiroshi Tanaka",
     company: "Lumen Labs",
-    rating: 5,
+    initials: "HT",
+    gradient: "linear-gradient(135deg, #F97316, #EF4444)",
   },
   {
     quote: "Every cut has purpose. Our retention jumped the week we switched to Jepy.",
     name: "Priya Sharma",
     company: "Octave",
-    rating: 4.5,
+    initials: "PS",
+    gradient: "linear-gradient(135deg, #22C55E, #14B8A6)",
   },
   {
     quote: "Fastest turnaround we've seen. Brief to final delivery in under 48 hours.",
     name: "Marcus Lee",
     company: "Strata",
-    rating: 5,
+    initials: "ML",
+    gradient: "linear-gradient(135deg, #3B82F6, #6366F1)",
   },
   {
     quote: "Our short-form content hit 14M views in 30 days after Jepy started editing for us.",
     name: "Sofia Martinez",
     company: "Halcyon",
-    rating: 4.5,
+    initials: "SM",
+    gradient: "linear-gradient(135deg, #EC4899, #A855F7)",
   },
   {
     quote: "Premium quality from first frame to final color. Worth every dollar.",
     name: "Daniel Kim",
     company: "Pixelrun",
-    rating: 5,
+    initials: "DK",
+    gradient: "linear-gradient(135deg, #EAB308, #F97316)",
   },
 ];
-
-function Stars({ rating }: { rating: number }) {
-  const full = Math.floor(rating);
-  const half = rating - full >= 0.5;
-  return (
-    <div className="flex gap-1">
-      {Array.from({ length: full }).map((_, i) => (
-        <Star key={`f-${i}`} size={14} fill="#FFD700" stroke="#FFD700" />
-      ))}
-      {half && (
-        <span className="relative inline-block" style={{ width: 14, height: 14 }}>
-          <Star size={14} stroke="#FFD700" fill="none" className="absolute inset-0" />
-          <StarHalf size={14} fill="#FFD700" stroke="#FFD700" className="absolute inset-0" />
-        </span>
-      )}
-    </div>
-  );
-}
 
 function Card({ r, index, visible }: { r: Review; index: number; visible: boolean }) {
   return (
@@ -90,11 +79,32 @@ function Card({ r, index, visible }: { r: Review; index: number; visible: boolea
         e.currentTarget.style.transform = "translateY(0) scale(1)";
       }}
     >
-      <Stars rating={r.rating} />
       <p className="text-sm text-foreground/85 leading-relaxed">&ldquo;{r.quote}&rdquo;</p>
-      <div className="mt-auto">
-        <div className="text-sm font-medium">{r.name}</div>
-        <div className="text-xs text-muted-foreground">{r.company}</div>
+      <div
+        className="mt-auto flex items-center"
+        style={{ gap: 12, marginTop: 16 }}
+      >
+        <div
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: "50%",
+            background: r.gradient,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 12,
+            fontWeight: "bold",
+            color: "#fff",
+            flexShrink: 0,
+          }}
+        >
+          {r.initials}
+        </div>
+        <div>
+          <div className="text-sm font-bold text-white">{r.name}</div>
+          <div className="text-xs text-muted-foreground">{r.company}</div>
+        </div>
       </div>
     </div>
   );
