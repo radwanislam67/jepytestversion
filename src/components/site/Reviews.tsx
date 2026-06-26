@@ -73,8 +73,13 @@ export function Reviews() {
       <div className="mx-auto max-w-7xl px-5 md:px-8 mb-14 text-center">
         <Reveal>
           <h2 className="font-display text-5xl md:text-7xl tracking-tighter">
-            What <span className="text-[var(--accent)] text-glow">Clients Say</span>
+            Don&rsquo;t Take <span className="text-[var(--accent)] text-glow">Our Word</span> For It
           </h2>
+        </Reveal>
+        <Reveal delay={150}>
+          <div className="mt-8 flex justify-center">
+            <SummaryPill />
+          </div>
         </Reveal>
       </div>
       <div className="relative">
