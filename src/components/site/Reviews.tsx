@@ -135,7 +135,21 @@ function SummaryPill() {
         {Array.from({ length: 4 }).map((_, i) => (
           <Star key={i} size={12} fill="#FFD700" stroke="#FFD700" />
         ))}
-        <Star size={12} fill="#FFD700" stroke="#FFD700" style={{ filter: "drop-shadow(0 0 4px #FFD700)" }} />
+        <svg width="12" height="12" viewBox="0 0 24 24" style={{ filter: "drop-shadow(0 0 4px #FFD700)" }}>
+          <defs>
+            <linearGradient id="star90" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="90%" stopColor="#FFD700" />
+              <stop offset="90%" stopColor="#FFD700" stopOpacity="0.2" />
+            </linearGradient>
+          </defs>
+          <polygon
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+            fill="url(#star90)"
+            stroke="#FFD700"
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+        </svg>
       </div>
       <span className="text-sm font-bold text-white">4.9</span>
       <span className="text-sm text-muted-foreground">50+ Clients Worldwide</span>
