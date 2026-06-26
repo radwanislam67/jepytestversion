@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Check, ArrowUpRight } from "lucide-react";
+import { Check } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 
 const TIERS = [
@@ -8,18 +8,21 @@ const TIERS = [
     price: "Starting at $X",
     features: ["1 edited video", "Up to 60 seconds", "Color & sound polish", "2 revisions"],
     highlighted: false,
+    cta: "Ship My First Video →",
   },
   {
     name: "Standard",
     price: "Starting at $XX",
     features: ["4 edited videos / mo", "Up to 3 minutes each", "Motion graphics", "Unlimited revisions", "Priority delivery"],
     highlighted: true,
+    cta: "Scale My Content →",
   },
   {
     name: "Premium",
     price: "Starting at $XXX",
     features: ["Full retainer", "Long & short form", "Custom motion design", "Dedicated editor", "24h turnaround"],
     highlighted: false,
+    cta: "Go Full Retainer →",
   },
 ];
 
@@ -42,9 +45,9 @@ export function Pricing() {
           {TIERS.map((t, i) => (
             <Reveal key={t.name} delay={i * 100}>
               <div
-                className={`relative h-full rounded-3xl p-8 flex flex-col transition-all duration-500 ${
+                className={`relative h-full rounded-3xl p-8 flex flex-col transition-all duration-200 ${
                   t.highlighted
-                    ? "border-2 border-[var(--accent)] -translate-y-2"
+                    ? "border-2 border-[var(--accent)] -translate-y-3 py-10"
                     : "border border-white/10 hover:border-white/25"
                 }`}
                 style={{
@@ -54,6 +57,16 @@ export function Pricing() {
                   boxShadow: t.highlighted
                     ? "0 0 60px -10px rgba(83,255,47,0.35)"
                     : undefined,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = t.highlighted
+                    ? "0 0 60px -8px rgba(83,255,47,0.5)"
+                    : "0 0 28px -4px rgba(83,255,47,0.25)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = t.highlighted
+                    ? "0 0 60px -10px rgba(83,255,47,0.35)"
+                    : "";
                 }}
               >
                 {t.highlighted && (
@@ -76,7 +89,7 @@ export function Pricing() {
                 </ul>
                 <Link
                   to="/contact"
-                  className={`mt-8 inline-flex items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold uppercase tracking-[0.16em] transition-transform duration-300 hover:scale-[1.03] ${
+                  className={`mt-8 inline-flex items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold uppercase tracking-[0.16em] transition-transform duration-200 hover:scale-[1.03] ${
                     t.highlighted ? "" : "border border-white/15"
                   }`}
                   style={
@@ -85,7 +98,7 @@ export function Pricing() {
                       : { color: "#fff" }
                   }
                 >
-                  Get Started <ArrowUpRight size={16} />
+                  {t.cta}
                 </Link>
               </div>
             </Reveal>
@@ -100,7 +113,7 @@ export function Pricing() {
               className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em]"
               style={{ background: "var(--accent)", color: "var(--accent-foreground)" }}
             >
-              Get Started <ArrowUpRight size={16} />
+              Let&apos;s Talk →
             </Link>
           </div>
         </Reveal>
