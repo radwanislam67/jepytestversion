@@ -8,6 +8,7 @@ export const WORK_ITEMS = [
   { id: "p1", title: "Northwave — Brand Film", category: "Commercial Ads", youtubeId: "dQw4w9WgXcQ" },
   { id: "p2", title: "Lumen — Product Reel", category: "Motion Design", youtubeId: "dQw4w9WgXcQ" },
   { id: "p3", title: "Octave — Creator Series", category: "YouTube Editing", youtubeId: "dQw4w9WgXcQ" },
+  { id: "p4", title: "Vanta — Short Form", category: "Short Form", youtubeId: "dQw4w9WgXcQ" },
 ];
 
 export function WorkPreview() {
