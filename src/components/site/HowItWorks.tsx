@@ -54,29 +54,30 @@ export function HowItWorks() {
   }, []);
 
   return (
-    <section className="relative py-32 md:py-40">
+    <section className="relative py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="text-center mb-20">
+        <div className="text-center mb-12">
           <Reveal>
             <h2 className="font-display text-5xl md:text-7xl tracking-tighter">
               How It <span className="text-[var(--accent)] text-glow">Works</span>
             </h2>
           </Reveal>
           <Reveal delay={120}>
-            <p className="mt-5 text-foreground/70">Four steps. Zero confusion.</p>
+            <p className="mt-4 text-foreground/70">Four steps. Zero confusion.</p>
           </Reveal>
         </div>
 
         <div className="relative pl-10 md:pl-14">
           {/* Vertical track */}
           <div
-            className="absolute left-3 md:left-4 top-2 bottom-2 w-px"
-            style={{ background: "color-mix(in oklab, var(--accent) 18%, transparent)" }}
+            className="absolute left-3 md:left-4 top-2 bottom-2 w-[3px] rounded-full"
+            style={{ background: "color-mix(in oklab, var(--accent) 22%, transparent)" }}
             aria-hidden
           />
           {/* Active progress overlay */}
           <div
-            className="absolute left-3 md:left-4 top-2 w-px origin-top"
+            className="absolute left-3 md:left-4 top-2 w-[3px] rounded-full origin-top"
+
             style={{
               height: `calc((100% - 16px) * ${(active + 1) / STEPS.length})`,
               background: "linear-gradient(180deg, var(--accent), var(--glow))",
@@ -86,7 +87,7 @@ export function HowItWorks() {
             aria-hidden
           />
 
-          <div className="flex flex-col gap-12">
+          <div className="flex flex-col gap-16 md:gap-20">
             {STEPS.map((s, i) => {
               const isActive = i === active;
               return (
@@ -100,17 +101,19 @@ export function HowItWorks() {
                 >
                   {/* Node dot */}
                   <span
-                    className="absolute -left-[34px] md:-left-[42px] top-6 w-3 h-3 rounded-full transition-all duration-500"
+                    className="absolute -left-[36px] md:-left-[44px] top-6 w-4 h-4 rounded-full border-2 transition-all duration-500"
                     style={{
                       background: isActive
                         ? "var(--accent)"
-                        : "color-mix(in oklab, var(--accent) 25%, transparent)",
+                        : "color-mix(in oklab, var(--accent) 30%, transparent)",
+                      borderColor: "var(--accent)",
                       boxShadow: isActive
-                        ? "0 0 14px var(--accent), 0 0 28px color-mix(in oklab, var(--glow) 50%, transparent)"
-                        : "none",
+                        ? "0 0 16px var(--accent), 0 0 32px color-mix(in oklab, var(--glow) 55%, transparent)"
+                        : "0 0 6px color-mix(in oklab, var(--accent) 40%, transparent)",
                     }}
                     aria-hidden
                   />
+
 
                   {/* Left: text */}
                   <div>
@@ -148,12 +151,13 @@ export function HowItWorks() {
 
                   {/* Right: placeholder box */}
                   <div
-                    className="relative w-full rounded-2xl border border-[var(--accent)]/15 overflow-hidden"
+                    className="relative w-full rounded-2xl border border-[var(--accent)]/30 overflow-hidden"
                     style={{
                       height: 280,
                       background:
-                        "radial-gradient(ellipse at 30% 30%, rgba(83,255,47,0.12), transparent 60%), linear-gradient(135deg, #0a1a0d, #050a06 70%)",
+                        "radial-gradient(ellipse at 30% 30%, rgba(83,255,47,0.32), transparent 60%), linear-gradient(135deg, #143d20, #0a1f10 70%)",
                       boxShadow: isActive
+
                         ? "0 30px 80px -30px color-mix(in oklab, var(--accent) 25%, transparent)"
                         : "none",
                       transition: "box-shadow 400ms ease",
