@@ -57,7 +57,7 @@ function Home() {
 
 function Hero() {
   return (
-    <section className="relative min-h-[100svh] flex items-center overflow-hidden pt-32 pb-20">
+    <section className="relative min-h-[100svh] flex items-center overflow-hidden pt-36 md:pt-40 pb-24">
       <div className="aurora" />
       <Particles count={36} />
       <div className="absolute inset-0 pointer-events-none">
@@ -65,19 +65,18 @@ function Hero() {
       </div>
       <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full">
         <h1 className="font-display text-[14vw] md:text-[10vw] leading-[0.92] tracking-[-0.04em]">
-          <Reveal>Your Content,</Reveal>
+          <Reveal>Your Content,&nbsp;</Reveal>
           <Reveal delay={600} y={32}>
             <span className="text-[var(--accent)] text-glow">Elevated.</span>
           </Reveal>
         </h1>
         <Reveal delay={260}>
-          <p className="mt-8 max-w-xl text-base md:text-lg text-foreground/70 leading-relaxed">
-            Raw footage to high-converting content<br />
-            for creators, brands, and SaaS teams worldwide.
+          <p className="mt-8 max-w-xl text-base md:text-lg text-foreground/70 leading-relaxed break-words">
+            Raw footage to high-converting content for creators, brands, and SaaS teams worldwide.
           </p>
         </Reveal>
         <Reveal delay={360}>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
+          <div className="mt-10 flex flex-wrap items-center gap-6">
             <Magnetic>
               <Link to="/work" className="btn-primary">
                 View Work <ArrowUpRight size={18} />
