@@ -89,7 +89,7 @@ export function Pricing() {
                 </ul>
                 <Link
                   to="/contact"
-                  className={`mt-8 inline-flex items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold uppercase tracking-[0.16em] transition-transform duration-200 hover:scale-[1.03] ${
+                  className={`mt-8 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-[12px] font-semibold uppercase tracking-[0.14em] whitespace-nowrap transition-transform duration-200 hover:scale-[1.03] ${
                     t.highlighted ? "" : "border border-white/15"
                   }`}
                   style={
