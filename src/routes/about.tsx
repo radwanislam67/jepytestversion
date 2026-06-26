@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Zap, Heart, Rocket } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { CTASection } from "@/components/site/CTASection";
+
 
 export const Route = createFileRoute("/about")({
   head: () => ({
