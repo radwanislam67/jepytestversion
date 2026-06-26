@@ -65,7 +65,7 @@ export function AboutPreview() {
     <section
       id="about"
       className="relative scroll-mt-24"
-      style={{ paddingTop: "clamp(48px, 8vw, 80px)", paddingBottom: "clamp(48px, 8vw, 80px)" }}
+      style={{ paddingTop: "clamp(48px, 8vw, 80px)", paddingBottom: "64px" }}
     >
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
