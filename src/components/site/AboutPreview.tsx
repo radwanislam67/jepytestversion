@@ -93,7 +93,7 @@ export function AboutPreview() {
               <p className="mt-4 text-foreground/70 leading-relaxed max-w-xl">
                 That&rsquo;s still what we show up for. Every frame. Every client. Every time.
               </p>
-              <div className="mt-8">
+              <div className="mt-6">
                 <Link
                   to="/about"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[var(--accent)] text-[var(--accent)] bg-transparent font-medium transition-colors duration-200 hover:bg-[var(--accent)] hover:text-black"
