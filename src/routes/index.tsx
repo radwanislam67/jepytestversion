@@ -42,9 +42,9 @@ function Home() {
       <ShowreelCTA />
       <Stats />
       <WhatGoesIn />
+      <ServicesPreview />
       <WorkPreview />
       <HowItWorks />
-      <ServicesPreview />
       <Pricing />
       <Reviews />
       <FAQ />
