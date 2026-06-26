@@ -135,7 +135,7 @@ function SummaryPill() {
         {Array.from({ length: 4 }).map((_, i) => (
           <Star key={i} size={12} fill="#FFD700" stroke="#FFD700" />
         ))}
-        <Star size={12} fill="#FFD700" stroke="#FFD700" style={{ opacity: 0.4 }} />
+        <Star size={12} fill="#FFD700" stroke="#FFD700" style={{ opacity: 0.35 }} />
       </div>
       <span className="text-sm font-bold text-white">4.9</span>
       <span className="text-sm text-muted-foreground">50+ Clients Worldwide</span>
