@@ -5,7 +5,7 @@ import { Magnetic } from "@/components/site/Magnetic";
 
 export function CTASection() {
   return (
-    <section className="relative py-32">
+    <section className="relative pt-12 pb-24">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <div
           className="relative overflow-hidden rounded-[36px] border border-[var(--accent)]/30 p-10 md:p-20 text-center"
@@ -31,7 +31,7 @@ export function CTASection() {
             <Reveal delay={220}>
               <div className="mt-10">
                 <Magnetic>
-                  <Link to="/contact" className="btn-primary">
+                  <Link to="/contact" className="btn-primary transition-transform duration-200 hover:scale-105">
                     Start Your Project <ArrowUpRight size={18} />
                   </Link>
                 </Magnetic>
