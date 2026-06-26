@@ -25,27 +25,20 @@ export const Route = createFileRoute("/about")({
   component: About,
 });
 
-function PhotoPlaceholder({ label }: { label: string }) {
+function PhotoPlaceholder({ src, alt }: { src: string; alt: string }) {
   return (
-    <div
+    <img
+      src={src}
+      alt={alt}
       className="w-full"
       style={{
         aspectRatio: "1 / 1",
+        objectFit: "cover",
         borderRadius: 12,
         border: "1px solid rgba(0,255,0,0.5)",
-        background: "linear-gradient(135deg, rgba(0,255,0,0.1), rgba(0,0,0,0.8))",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "rgba(255,255,255,0.4)",
-        fontSize: 13,
-        letterSpacing: "0.18em",
-        textTransform: "uppercase",
         boxShadow: "0 0 28px rgba(0,255,0,0.15)",
       }}
-    >
-      {label}
-    </div>
+    />
   );
 }
 
@@ -230,10 +223,12 @@ function ValuesGrid() {
 function StudioTile({
   area,
   label,
+  src,
   delay,
 }: {
   area: string;
   label: string;
+  src: string;
   delay: number;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -293,13 +288,16 @@ function StudioTile({
         if (overlay) overlay.style.opacity = "0";
       }}
     >
-      <div
+      <img
         className="studio-inner"
+        src={src}
+        alt={label}
         style={{
           position: "absolute",
           inset: 0,
-          background:
-            "radial-gradient(circle at 30% 40%, rgba(83,255,47,0.18), transparent 60%), #0a0a0a",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
           transition: "transform 0.6s ease",
         }}
       />
@@ -410,7 +408,7 @@ function About() {
             {/* Founder 1 */}
             <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
               <SlideIn from="left">
-                <PhotoPlaceholder label="Photo Coming Soon" />
+                <PhotoPlaceholder src="https://picsum.photos/seed/radwan/400/400" alt="Radwan Islam" />
               </SlideIn>
               <SlideIn from="right" delay={120}>
                 <div>
@@ -446,7 +444,7 @@ function About() {
                 </div>
               </SlideIn>
               <SlideIn from="right">
-                <PhotoPlaceholder label="Photo Coming Soon" />
+                <PhotoPlaceholder src="https://picsum.photos/seed/sojol/400/400" alt="Sojol Sheikh" />
               </SlideIn>
             </div>
           </div>
@@ -497,10 +495,10 @@ function About() {
             }}
             className="studio-grid"
           >
-            <StudioTile area="a" label="Studio Frame 01" delay={0} />
-            <StudioTile area="b" label="Studio Frame 02" delay={150} />
-            <StudioTile area="c" label="Studio Frame 03" delay={300} />
-            <StudioTile area="d" label="Studio Frame 04" delay={450} />
+            <StudioTile area="a" label="Studio Frame 01" src="https://picsum.photos/seed/studio-a/800/600" delay={0} />
+            <StudioTile area="b" label="Studio Frame 02" src="https://picsum.photos/seed/studio-b/800/600" delay={150} />
+            <StudioTile area="c" label="Studio Frame 03" src="https://picsum.photos/seed/studio-c/800/600" delay={300} />
+            <StudioTile area="d" label="Studio Frame 04" src="https://picsum.photos/seed/studio-d/800/600" delay={450} />
           </div>
           <style>{`
             @media (min-width: 768px) {
