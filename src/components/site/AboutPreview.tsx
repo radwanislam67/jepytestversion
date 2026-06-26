@@ -26,8 +26,8 @@ function Carousel() {
       style={{
         aspectRatio: "4 / 3",
         borderRadius: 12,
-        border: "1px solid rgba(0,255,0,0.35)",
-        boxShadow: "0 0 32px rgba(0,255,0,0.18), inset 0 0 60px rgba(0,255,0,0.05)",
+        border: "1px solid rgba(83,255,47,0.45)",
+        boxShadow: "0 0 40px rgba(83,255,47,0.22), inset 0 0 60px rgba(83,255,47,0.04)",
       }}
     >
       {SLIDES.map((s, i) => (
@@ -49,6 +49,7 @@ function Carousel() {
               width: "100%",
               height: "100%",
               objectFit: "cover",
+              filter: "brightness(1.15) contrast(1.05) saturate(1.1)",
               animation: i === idx ? "ken-burns 8s ease-out forwards" : "none",
               willChange: "transform",
             }}
