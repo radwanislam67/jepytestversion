@@ -52,7 +52,17 @@ export function Header() {
               boxShadow: "0 10px 40px -10px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04)",
             }}
           >
-            <Link to="/" aria-label="Jepy home" className="flex items-center shrink-0">
+            <Link
+              to="/"
+              aria-label="Jepy home"
+              className="flex items-center shrink-0"
+              onClick={(e) => {
+                if (pathname === "/") {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
+            >
               <img
                 src={jepyLogo}
                 alt="Jepy"
