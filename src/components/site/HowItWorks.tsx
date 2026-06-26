@@ -101,17 +101,19 @@ export function HowItWorks() {
                 >
                   {/* Node dot */}
                   <span
-                    className="absolute -left-[34px] md:-left-[42px] top-6 w-3 h-3 rounded-full transition-all duration-500"
+                    className="absolute -left-[36px] md:-left-[44px] top-6 w-4 h-4 rounded-full border-2 transition-all duration-500"
                     style={{
                       background: isActive
                         ? "var(--accent)"
-                        : "color-mix(in oklab, var(--accent) 25%, transparent)",
+                        : "color-mix(in oklab, var(--accent) 30%, transparent)",
+                      borderColor: "var(--accent)",
                       boxShadow: isActive
-                        ? "0 0 14px var(--accent), 0 0 28px color-mix(in oklab, var(--glow) 50%, transparent)"
-                        : "none",
+                        ? "0 0 16px var(--accent), 0 0 32px color-mix(in oklab, var(--glow) 55%, transparent)"
+                        : "0 0 6px color-mix(in oklab, var(--accent) 40%, transparent)",
                     }}
                     aria-hidden
                   />
+
 
                   {/* Left: text */}
                   <div>
