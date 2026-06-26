@@ -197,9 +197,17 @@ export function HowItWorks() {
                   boxShadow: "0 30px 80px -30px color-mix(in oklab, var(--accent) 25%, transparent)",
                 }}
               >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(83,255,47,0.10),transparent_60%)]" />
-                <div className="absolute bottom-5 left-5 font-mono text-xs tracking-[0.3em] text-[var(--accent)]/70">
-                  {STEPS[active].n} — {STEPS[active].title.toUpperCase()}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    opacity: visualVisible ? 1 : 0,
+                    transition: "opacity 200ms ease",
+                  }}
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(83,255,47,0.10),transparent_60%)]" />
+                  <div className="absolute bottom-5 left-5 font-mono text-xs tracking-[0.3em] text-[var(--accent)]/70">
+                    {STEPS[visualIdx].n} — {STEPS[visualIdx].title.toUpperCase()}
+                  </div>
                 </div>
               </div>
             </div>
