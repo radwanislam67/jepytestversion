@@ -106,7 +106,10 @@ export function Pricing() {
         </div>
 
         <Reveal delay={200}>
-          <div className="mt-16 flex flex-col items-center justify-center gap-5 text-center">
+          <div
+            className="mt-20 pt-10 flex flex-col items-center gap-6"
+            style={{ borderTop: "1px solid color-mix(in oklab, var(--accent) 55%, transparent)" }}
+          >
             <span
               className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]"
               style={{
@@ -117,12 +120,25 @@ export function Pricing() {
             >
               ✦ Smaller Budget? We Got You
             </span>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <span className="text-foreground/70">Working with a smaller budget? Let&apos;s talk.</span>
+            <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-5 text-center sm:text-left">
+              <p className="font-display text-2xl md:text-3xl tracking-tight">
+                <span className="text-white">Start small.</span>{" "}
+                <span className="text-[var(--accent)] text-glow">Look expensive.</span>
+              </p>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em]"
-                style={{ background: "var(--accent)", color: "var(--accent-foreground)" }}
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em] whitespace-nowrap transition-colors duration-200"
+                style={{
+                  border: "1px solid var(--accent)",
+                  color: "var(--accent)",
+                  background: "transparent",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "color-mix(in oklab, var(--accent) 12%, transparent)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                }}
               >
                 Let&apos;s Talk →
               </Link>
