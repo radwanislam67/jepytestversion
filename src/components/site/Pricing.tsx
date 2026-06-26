@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Check, ArrowUpRight } from "lucide-react";
+import { Check } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 
 const TIERS = [
