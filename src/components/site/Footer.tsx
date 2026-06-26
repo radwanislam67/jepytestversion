@@ -93,9 +93,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-muted-foreground">
-          <div>© 2026 Jepy. All rights reserved.</div>
-          <div>Crafted with intention.</div>
+        <div className="mt-10 pt-6 border-t border-white/5 text-xs text-muted-foreground">
+          © 2026 Jepy. All rights reserved.
         </div>
       </div>
     </footer>
