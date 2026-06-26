@@ -124,6 +124,7 @@ export function Pricing() {
               <p className="font-display text-2xl md:text-3xl tracking-tight">
                 <span className="text-white">Start small.</span>{" "}
                 <span className="text-[var(--accent)] text-glow">Look expensive.</span>
+                <span className="text-foreground/50"> — Tell us your budget.</span>
               </p>
               <Link
                 to="/contact"
@@ -140,7 +141,7 @@ export function Pricing() {
                   e.currentTarget.style.background = "transparent";
                 }}
               >
-                Let&apos;s Talk →
+                Start Here →
               </Link>
             </div>
           </div>
