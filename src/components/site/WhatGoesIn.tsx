@@ -21,33 +21,33 @@ const ITEMS = [
 function Media() {
   return (
     <div
-      className="aspect-video w-full rounded-2xl border border-[var(--accent)]/20 overflow-hidden relative"
+      className="aspect-video w-full rounded-2xl border border-[var(--accent)]/30 overflow-hidden relative"
       style={{
         background:
-          "radial-gradient(ellipse at 30% 30%, rgba(83,255,47,0.18), transparent 60%), linear-gradient(135deg, #061a09, #050505 70%)",
+          "radial-gradient(ellipse at 30% 30%, rgba(83,255,47,0.35), transparent 60%), linear-gradient(135deg, #103a1c, #0a1f10 70%)",
       }}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(83,255,47,0.12),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(184,255,106,0.25),transparent_60%)]" />
     </div>
   );
 }
 
 export function WhatGoesIn() {
   return (
-    <section className="relative py-32 md:py-40">
+    <section className="relative pt-32 md:pt-40 pb-16">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="text-center mb-20">
+        <div className="text-center mb-12">
           <Reveal>
             <h2 className="font-display text-5xl md:text-7xl tracking-tighter">
               What Goes Into <span className="text-[var(--accent)] text-glow">Every Video</span>
             </h2>
           </Reveal>
           <Reveal delay={120}>
-            <p className="mt-5 text-foreground/70">Three things we bring in every edit.</p>
+            <p className="mt-4 text-foreground/70">Three things we bring in every edit.</p>
           </Reveal>
         </div>
 
-        <div className="flex flex-col gap-24 md:gap-32">
+        <div className="flex flex-col gap-12 md:gap-16">
           {ITEMS.map((it, i) => {
             const mediaLeft = i % 2 === 0;
             return (
@@ -80,3 +80,4 @@ export function WhatGoesIn() {
     </section>
   );
 }
+
