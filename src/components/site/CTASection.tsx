@@ -32,7 +32,7 @@ export function CTASection() {
               <div className="mt-10">
                 <Magnetic>
                   <Link to="/contact" className="btn-primary">
-                    Get Started <ArrowUpRight size={18} />
+                    Start Your Project <ArrowUpRight size={18} />
                   </Link>
                 </Magnetic>
               </div>
