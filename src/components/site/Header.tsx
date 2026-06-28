@@ -65,15 +65,14 @@ export function Header() {
 
             <nav className="hidden md:flex items-center gap-1">
               {SECTIONS.map((n) => (
-                <a
-                  key={n.id}
-                  href={`/#${n.id}`}
-                  onClick={goTo(n.id)}
+                <Link
+                  key={n.to}
+                  to={n.to}
                   className="relative px-3.5 py-2 text-[12px] uppercase tracking-[0.14em] whitespace-nowrap transition-colors duration-300 hover:text-[var(--accent)]"
                   style={{ color: "rgba(255,255,255,0.85)", fontWeight: 500 }}
                 >
                   {n.label}
-                </a>
+                </Link>
               ))}
             </nav>
 
