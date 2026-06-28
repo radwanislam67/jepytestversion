@@ -136,7 +136,7 @@ function ServicesPage() {
       </section>
       <CTASection />
       <div className="-mt-10 mb-16 text-center">
-        <Link to="/pricing" className="btn-ghost">
+        <Link to="/pricing" preload="render" className="btn-ghost">
           View Pricing →
         </Link>
       </div>
