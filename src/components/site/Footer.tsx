@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Linkedin, Twitter, Mail, Phone } from "lucide-react";
+import { Instagram, Linkedin, Twitter, Mail } from "lucide-react";
 import jepyLogo from "@/assets/jepy-logo.png";
 
 export function Footer() {
@@ -21,13 +21,6 @@ export function Footer() {
                 className="inline-flex items-center gap-2 hover:text-[var(--accent)] transition-colors"
               >
                 <Mail size={14} /> hello@jepy.studio
-              </a>
-              <br />
-              <a
-                href="tel:+10000000000"
-                className="inline-flex items-center gap-2 hover:text-[var(--accent)] transition-colors"
-              >
-                <Phone size={14} /> +1 (000) 000-0000
               </a>
             </div>
           </div>

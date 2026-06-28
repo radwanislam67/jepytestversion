@@ -4,6 +4,7 @@ import jepyLogo from "@/assets/jepy-logo.png";
 export function Loader() {
   const [pct, setPct] = useState(0);
   const [done, setDone] = useState(false);
+  const [removed, setRemoved] = useState(false);
   useEffect(() => {
     let p = 0;
     const id = setInterval(() => {
@@ -13,12 +14,14 @@ export function Loader() {
         clearInterval(id);
         setPct(100);
         setTimeout(() => setDone(true), 450);
+        setTimeout(() => setRemoved(true), 450 + 800);
       } else {
         setPct(Math.floor(p));
       }
     }, 120);
     return () => clearInterval(id);
   }, []);
+  if (removed) return null;
   return (
     <div
       aria-hidden={done}

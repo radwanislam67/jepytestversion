@@ -330,6 +330,189 @@ function StudioTile({
   );
 }
 
+const MILESTONES = [
+  { year: "2021", text: "Jepy Founded. Two editors. One standard." },
+  { year: "2023", text: "500+ videos delivered." },
+  { year: "2024", text: "40M+ views generated." },
+  { year: "2025", text: "2,000+ videos. 70+ projects completed." },
+  { year: "2026", text: "Chapter ongoing." },
+];
+
+function Timeline() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [active, setActive] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (es) =>
+        es.forEach((e) => {
+          if (e.isIntersecting) {
+            setActive(true);
+            io.unobserve(el);
+          }
+        }),
+      { threshold: 0.3 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const drawMs = 1400;
+  const perDot = drawMs / MILESTONES.length;
+
+  return (
+    <section className="relative py-16 md:py-20">
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
+        <Reveal>
+          <div
+            style={{
+              color: "#00FF00",
+              fontSize: 12,
+              letterSpacing: "0.18em",
+              marginBottom: 16,
+              textTransform: "uppercase",
+              fontWeight: 600,
+              textAlign: "center",
+            }}
+          >
+            Our Journey
+          </div>
+        </Reveal>
+        <Reveal delay={100}>
+          <h2 className="font-display text-5xl md:text-7xl tracking-tighter text-center mb-16">
+            Built <span className="text-[var(--accent)] text-glow">Over Time.</span>
+          </h2>
+        </Reveal>
+
+        <div ref={ref}>
+          {/* Desktop: horizontal */}
+          <div className="hidden md:block relative" style={{ paddingTop: 40, paddingBottom: 20 }}>
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                top: "50%",
+                height: 2,
+                background: "rgba(255,255,255,0.08)",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                top: "50%",
+                height: 2,
+                width: "100%",
+                background: "linear-gradient(90deg, var(--accent), var(--glow, var(--accent)))",
+                boxShadow: "0 0 12px var(--accent)",
+                transform: active ? "scaleX(1)" : "scaleX(0)",
+                transformOrigin: "left",
+                transition: `transform ${drawMs}ms cubic-bezier(.2,.8,.2,1)`,
+              }}
+            />
+            <div className="relative grid" style={{ gridTemplateColumns: `repeat(${MILESTONES.length}, 1fr)` }}>
+              {MILESTONES.map((m, i) => {
+                const dotDelay = i * perDot;
+                const textDelay = dotDelay + 200;
+                return (
+                  <div key={m.year} className="relative flex flex-col items-center text-center px-3">
+                    <div
+                      style={{
+                        width: 16,
+                        height: 16,
+                        borderRadius: 999,
+                        background: "#00FF00",
+                        boxShadow: "0 0 18px rgba(0,255,0,0.7)",
+                        opacity: active ? 1 : 0,
+                        transform: active ? "scale(1)" : "scale(0.2)",
+                        transition: `transform 500ms cubic-bezier(.34,1.56,.64,1) ${dotDelay}ms, opacity 300ms ease ${dotDelay}ms`,
+                      }}
+                    />
+                    <div
+                      style={{
+                        marginTop: 18,
+                        opacity: active ? 1 : 0,
+                        transform: active ? "translateY(0)" : "translateY(10px)",
+                        transition: `opacity 500ms ease ${textDelay}ms, transform 500ms ease ${textDelay}ms`,
+                      }}
+                    >
+                      <div style={{ color: "#00FF00", fontWeight: 700, fontSize: 20 }}>{m.year}</div>
+                      <div className="text-sm text-foreground/70 mt-2 leading-relaxed">{m.text}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Mobile: vertical */}
+          <div className="md:hidden relative" style={{ paddingLeft: 28 }}>
+            <div
+              style={{
+                position: "absolute",
+                left: 7,
+                top: 0,
+                bottom: 0,
+                width: 2,
+                background: "rgba(255,255,255,0.08)",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                left: 7,
+                top: 0,
+                width: 2,
+                height: "100%",
+                background: "linear-gradient(180deg, var(--accent), var(--glow, var(--accent)))",
+                boxShadow: "0 0 12px var(--accent)",
+                transform: active ? "scaleY(1)" : "scaleY(0)",
+                transformOrigin: "top",
+                transition: `transform ${drawMs}ms cubic-bezier(.2,.8,.2,1)`,
+              }}
+            />
+            {MILESTONES.map((m, i) => {
+              const dotDelay = i * perDot;
+              const textDelay = dotDelay + 200;
+              return (
+                <div key={m.year} className="relative" style={{ paddingBottom: 32 }}>
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: -28,
+                      top: 4,
+                      width: 16,
+                      height: 16,
+                      borderRadius: 999,
+                      background: "#00FF00",
+                      boxShadow: "0 0 18px rgba(0,255,0,0.7)",
+                      opacity: active ? 1 : 0,
+                      transform: active ? "scale(1)" : "scale(0.2)",
+                      transition: `transform 500ms cubic-bezier(.34,1.56,.64,1) ${dotDelay}ms, opacity 300ms ease ${dotDelay}ms`,
+                    }}
+                  />
+                  <div
+                    style={{
+                      opacity: active ? 1 : 0,
+                      transform: active ? "translateY(0)" : "translateY(10px)",
+                      transition: `opacity 500ms ease ${textDelay}ms, transform 500ms ease ${textDelay}ms`,
+                    }}
+                  >
+                    <div style={{ color: "#00FF00", fontWeight: 700, fontSize: 20 }}>{m.year}</div>
+                    <div className="text-sm text-foreground/70 mt-1 leading-relaxed">{m.text}</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function About() {
   return (
     <>
@@ -339,7 +522,7 @@ function About() {
         style={{ paddingTop: 120, paddingBottom: 48 }}
       >
         <div className="aurora" />
-        <div className="relative z-10 mx-auto max-w-3xl px-5 md:px-8 text-center">
+        <div className="relative z-10 mx-auto px-5 md:px-8 text-center" style={{ maxWidth: 680 }}>
           <Reveal>
             <div
               style={{
@@ -401,6 +584,9 @@ function About() {
       </section>
 
 
+      {/* OUR JOURNEY TIMELINE */}
+      <Timeline />
+
       {/* FOUNDERS */}
       <section className="relative py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
@@ -411,33 +597,13 @@ function About() {
           </Reveal>
 
           <div className="mt-20 grid gap-20">
-            {/* Founder 1 */}
+            {/* Founder 1 — Sojol (photo LEFT, text RIGHT) */}
             <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
               <SlideIn from="left">
-                <PhotoPlaceholder src="https://picsum.photos/seed/radwan/400/400" alt="Radwan Islam" />
+                <PhotoPlaceholder src="https://picsum.photos/seed/sojol/400/400" alt="Sojol Sheikh" />
               </SlideIn>
               <SlideIn from="right" delay={120}>
                 <div>
-                  <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fff" }}>
-                    Radwan Islam
-                  </h3>
-                  <div style={{ fontSize: 14, color: "#00FF00", marginTop: 4 }}>
-                    Co-Founder &amp; CEO
-                  </div>
-                  <p className="mt-6 text-foreground/75 leading-relaxed">
-                    Radwan is the Co-Founder and driving force behind Jepy. His passion for visual storytelling and sharp eye for detail shape every creative and business decision at the studio. As AI reshapes the content landscape, Radwan keeps Jepy ahead of the curve by combining human creative judgment with the best tools available to deliver work that no algorithm alone could produce.
-                  </p>
-                  <p className="mt-4 text-foreground/75 leading-relaxed">
-                    For him, every frame should serve a purpose and every client deserves work that goes beyond the brief.
-                  </p>
-                </div>
-              </SlideIn>
-            </div>
-
-            {/* Founder 2 */}
-            <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
-              <SlideIn from="left" delay={120}>
-                <div className="md:order-1 order-2">
                   <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fff" }}>
                     Sojol Sheikh
                   </h3>
@@ -449,8 +615,28 @@ function About() {
                   </p>
                 </div>
               </SlideIn>
+            </div>
+
+            {/* Founder 2 — Radwan (text LEFT, photo RIGHT) */}
+            <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+              <SlideIn from="left" delay={120}>
+                <div className="md:order-1 order-2">
+                  <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fff" }}>
+                    Radwan Islam
+                  </h3>
+                  <div style={{ fontSize: 14, color: "#00FF00", marginTop: 4 }}>
+                    Co-Founder &amp; Managing Director
+                  </div>
+                  <p className="mt-6 text-foreground/75 leading-relaxed">
+                    Radwan is the Co-Founder and driving force behind Jepy. His passion for visual storytelling and sharp eye for detail shape every creative and business decision at the studio. As AI reshapes the content landscape, Radwan keeps Jepy ahead of the curve by combining human creative judgment with the best tools available to deliver work that no algorithm alone could produce.
+                  </p>
+                  <p className="mt-4 text-foreground/75 leading-relaxed">
+                    For him, every frame should serve a purpose and every client deserves work that goes beyond the brief.
+                  </p>
+                </div>
+              </SlideIn>
               <SlideIn from="right">
-                <PhotoPlaceholder src="https://picsum.photos/seed/sojol/400/400" alt="Sojol Sheikh" />
+                <PhotoPlaceholder src="https://picsum.photos/seed/radwan/400/400" alt="Radwan Islam" />
               </SlideIn>
             </div>
           </div>

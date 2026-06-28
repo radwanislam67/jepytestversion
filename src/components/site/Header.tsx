@@ -1,21 +1,19 @@
-import { Link, useLocation, useRouter } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import jepyLogo from "@/assets/jepy-logo.png";
-import { navigateToSection } from "@/lib/scroll-to";
 
 const SECTIONS = [
-  { id: "services", label: "Services" },
-  { id: "work", label: "Work" },
-  { id: "pricing", label: "Pricing" },
-  { id: "about", label: "About" },
+  { to: "/services", label: "Services" },
+  { to: "/work", label: "Work" },
+  { to: "/pricing", label: "Pricing" },
+  { to: "/about", label: "About" },
 ] as const;
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
-  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -30,12 +28,6 @@ export function Header() {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [open]);
-
-  const goTo = (id: string) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    setOpen(false);
-    navigateToSection(router, pathname, id);
-  };
 
   return (
     <>
@@ -73,15 +65,14 @@ export function Header() {
 
             <nav className="hidden md:flex items-center gap-1">
               {SECTIONS.map((n) => (
-                <a
-                  key={n.id}
-                  href={`/#${n.id}`}
-                  onClick={goTo(n.id)}
+                <Link
+                  key={n.to}
+                  to={n.to}
                   className="relative px-3.5 py-2 text-[12px] uppercase tracking-[0.14em] whitespace-nowrap transition-colors duration-300 hover:text-[var(--accent)]"
                   style={{ color: "rgba(255,255,255,0.85)", fontWeight: 500 }}
                 >
                   {n.label}
-                </a>
+                </Link>
               ))}
             </nav>
 
@@ -133,10 +124,10 @@ export function Header() {
         </button>
         <nav className="flex h-full flex-col items-center justify-center gap-8 px-6">
           {SECTIONS.map((n, i) => (
-            <a
-              key={n.id}
-              href={`/#${n.id}`}
-              onClick={goTo(n.id)}
+            <Link
+              key={n.to}
+              to={n.to}
+              onClick={() => setOpen(false)}
               className="text-2xl uppercase tracking-[0.18em] text-white transition-colors hover:text-[var(--accent)]"
               style={{
                 fontWeight: 500,
@@ -146,7 +137,7 @@ export function Header() {
               }}
             >
               {n.label}
-            </a>
+            </Link>
           ))}
           <Link
             to="/contact"
