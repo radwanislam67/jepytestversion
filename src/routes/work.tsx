@@ -17,12 +17,12 @@ export const Route = createFileRoute("/work")({
 });
 
 const ITEMS = [
-  { id: "w1", title: "Northwave — Brand Film", category: "Commercial", youtubeId: "dQw4w9WgXcQ" },
-  { id: "w2", title: "Lumen — Product Reel", category: "Motion Design", youtubeId: "dQw4w9WgXcQ" },
-  { id: "w3", title: "Octave — Creator Series", category: "YouTube", youtubeId: "dQw4w9WgXcQ" },
-  { id: "w4", title: "Strata — Shorts Sprint", category: "Short Form", youtubeId: "dQw4w9WgXcQ" },
-  { id: "w5", title: "Halcyon — Launch Film", category: "Commercial", youtubeId: "dQw4w9WgXcQ" },
-  { id: "w6", title: "Pixelrun — Promo", category: "Motion Design", youtubeId: "dQw4w9WgXcQ" },
+  { id: "w1", title: "Northwave — Brand Film", subtitle: "Cinematic brand story for a premium lifestyle label.", category: "Commercial", youtubeId: "dQw4w9WgXcQ" },
+  { id: "w2", title: "Lumen — Product Reel", subtitle: "High-energy product showcase with motion graphics.", category: "Motion Design", youtubeId: "dQw4w9WgXcQ" },
+  { id: "w3", title: "Octave — Creator Series", subtitle: "Long-form YouTube series edited for retention.", category: "YouTube", youtubeId: "dQw4w9WgXcQ" },
+  { id: "w4", title: "Strata — Shorts Sprint", subtitle: "Scroll-stopping short form content for social.", category: "Short Form", youtubeId: "dQw4w9WgXcQ" },
+  { id: "w5", title: "Halcyon — Launch Film", subtitle: "Product launch film built for maximum impact.", category: "Commercial", youtubeId: "dQw4w9WgXcQ" },
+  { id: "w6", title: "Pixelrun — Promo", subtitle: "Motion-led promo crafted for brand awareness.", category: "Motion Design", youtubeId: "dQw4w9WgXcQ" },
 ];
 
 function WorkPage() {
@@ -45,22 +45,21 @@ function WorkPage() {
               <button
                 type="button"
                 onClick={() => setActive(w.id)}
-                className="group relative block w-full text-left aspect-video rounded-2xl overflow-hidden border border-white/10 transition-all duration-500 hover:scale-[1.02] hover:border-[var(--accent)]/60"
-                style={{ background: "linear-gradient(135deg, #0a0a0a, #050505)" }}
+                className="group relative block w-full text-left rounded-2xl overflow-hidden border border-gray-700/50 bg-gradient-to-br from-gray-800 via-gray-900 to-black transition-all duration-300 hover:scale-[1.02] hover:border-green-500/40 hover:shadow-[0_0_20px_rgba(34,197,94,0.15)]"
               >
-                <div
-                  className="absolute inset-0 opacity-70 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{ background: "radial-gradient(ellipse at center, rgba(83,255,47,0.18), transparent 70%)" }}
-                />
-                <div className="absolute inset-0 transition-shadow duration-500 group-hover:shadow-[0_0_60px_-10px_rgba(83,255,47,0.6)] rounded-2xl" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="h-14 w-14 rounded-full bg-[var(--accent)] text-[var(--accent-foreground)] flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                    <Play size={20} fill="currentColor" />
+                <div className="relative aspect-video">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="h-10 w-10 rounded-full bg-[var(--accent)] text-[var(--accent-foreground)] flex items-center justify-center transition-shadow duration-300 group-hover:shadow-[0_0_24px_rgba(83,255,47,0.7)]">
+                      <Play size={14} fill="currentColor" />
+                    </div>
                   </div>
                 </div>
-                <div className="absolute bottom-0 inset-x-0 p-5 flex items-end justify-between gap-4 bg-gradient-to-t from-black/80 to-transparent">
-                  <div className="text-base font-medium">{w.title}</div>
-                  <span className="text-[10px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-full border border-[var(--accent)]/40 text-[var(--accent)]">
+                <div className="p-4 flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <div className="text-base font-medium text-white">{w.title}</div>
+                    <div className="text-sm text-gray-400 mt-1">{w.subtitle}</div>
+                  </div>
+                  <span className="text-xs uppercase tracking-[0.15em] px-2 py-1 rounded-full border border-green-500/60 text-green-400 whitespace-nowrap">
                     {w.category}
                   </span>
                 </div>
