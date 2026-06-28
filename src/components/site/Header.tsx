@@ -1,14 +1,13 @@
-import { Link, useLocation, useRouter } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import jepyLogo from "@/assets/jepy-logo.png";
-import { navigateToSection } from "@/lib/scroll-to";
 
 const SECTIONS = [
-  { id: "services", label: "Services" },
-  { id: "work", label: "Work" },
-  { id: "pricing", label: "Pricing" },
-  { id: "about", label: "About" },
+  { to: "/services", label: "Services" },
+  { to: "/work", label: "Work" },
+  { to: "/pricing", label: "Pricing" },
+  { to: "/about", label: "About" },
 ] as const;
 
 export function Header() {
