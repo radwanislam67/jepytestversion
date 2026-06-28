@@ -48,20 +48,18 @@ function WorkPage() {
                 className="group relative block w-full text-left rounded-2xl overflow-hidden border border-gray-700/50 bg-gradient-to-br from-gray-800 via-gray-900 to-black transition-all duration-300 hover:scale-[1.02] hover:border-green-500/40 hover:shadow-[0_0_20px_rgba(34,197,94,0.15)]"
               >
                 <div className="relative aspect-video">
+                  <span className="absolute top-3 left-3 z-10 text-xs uppercase tracking-[0.15em] px-2 py-1 rounded-full border border-green-500/60 text-green-400 bg-black/70 backdrop-blur-sm">
+                    {w.category}
+                  </span>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="h-10 w-10 rounded-full bg-[var(--accent)] text-[var(--accent-foreground)] flex items-center justify-center transition-shadow duration-300 group-hover:shadow-[0_0_24px_rgba(83,255,47,0.7)]">
                       <Play size={14} fill="currentColor" />
                     </div>
                   </div>
                 </div>
-                <div className="p-4 flex items-start justify-between gap-4">
-                  <div className="min-w-0">
-                    <div className="text-base font-medium text-white">{w.title}</div>
-                    <div className="text-sm text-gray-400 mt-1">{w.subtitle}</div>
-                  </div>
-                  <span className="text-xs uppercase tracking-[0.15em] px-2 py-1 rounded-full border border-green-500/60 text-green-400 whitespace-nowrap">
-                    {w.category}
-                  </span>
+                <div className="p-4">
+                  <div className="text-base font-medium text-white">{w.title}</div>
+                  <div className="text-sm text-gray-400 mt-1">{w.subtitle}</div>
                 </div>
               </button>
             </Reveal>
