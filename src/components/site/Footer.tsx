@@ -23,13 +23,6 @@ export function Footer() {
                 <Mail size={14} /> hello@jepy.studio
               </a>
             </div>
-              <a
-                href="tel:+10000000000"
-                className="inline-flex items-center gap-2 hover:text-[var(--accent)] transition-colors"
-              >
-                <Phone size={14} /> +1 (000) 000-0000
-              </a>
-            </div>
           </div>
 
           {/* Navigate */}
