@@ -401,6 +401,9 @@ function About() {
       </section>
 
 
+      {/* OUR JOURNEY TIMELINE */}
+      <Timeline />
+
       {/* FOUNDERS */}
       <section className="relative py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
@@ -411,33 +414,13 @@ function About() {
           </Reveal>
 
           <div className="mt-20 grid gap-20">
-            {/* Founder 1 */}
+            {/* Founder 1 — Sojol (photo LEFT, text RIGHT) */}
             <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
               <SlideIn from="left">
-                <PhotoPlaceholder src="https://picsum.photos/seed/radwan/400/400" alt="Radwan Islam" />
+                <PhotoPlaceholder src="https://picsum.photos/seed/sojol/400/400" alt="Sojol Sheikh" />
               </SlideIn>
               <SlideIn from="right" delay={120}>
                 <div>
-                  <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fff" }}>
-                    Radwan Islam
-                  </h3>
-                  <div style={{ fontSize: 14, color: "#00FF00", marginTop: 4 }}>
-                    Co-Founder &amp; CEO
-                  </div>
-                  <p className="mt-6 text-foreground/75 leading-relaxed">
-                    Radwan is the Co-Founder and driving force behind Jepy. His passion for visual storytelling and sharp eye for detail shape every creative and business decision at the studio. As AI reshapes the content landscape, Radwan keeps Jepy ahead of the curve by combining human creative judgment with the best tools available to deliver work that no algorithm alone could produce.
-                  </p>
-                  <p className="mt-4 text-foreground/75 leading-relaxed">
-                    For him, every frame should serve a purpose and every client deserves work that goes beyond the brief.
-                  </p>
-                </div>
-              </SlideIn>
-            </div>
-
-            {/* Founder 2 */}
-            <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
-              <SlideIn from="left" delay={120}>
-                <div className="md:order-1 order-2">
                   <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fff" }}>
                     Sojol Sheikh
                   </h3>
@@ -449,8 +432,28 @@ function About() {
                   </p>
                 </div>
               </SlideIn>
+            </div>
+
+            {/* Founder 2 — Radwan (text LEFT, photo RIGHT) */}
+            <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+              <SlideIn from="left" delay={120}>
+                <div className="md:order-1 order-2">
+                  <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fff" }}>
+                    Radwan Islam
+                  </h3>
+                  <div style={{ fontSize: 14, color: "#00FF00", marginTop: 4 }}>
+                    Co-Founder &amp; Managing Director
+                  </div>
+                  <p className="mt-6 text-foreground/75 leading-relaxed">
+                    Radwan is the Co-Founder and driving force behind Jepy. His passion for visual storytelling and sharp eye for detail shape every creative and business decision at the studio. As AI reshapes the content landscape, Radwan keeps Jepy ahead of the curve by combining human creative judgment with the best tools available to deliver work that no algorithm alone could produce.
+                  </p>
+                  <p className="mt-4 text-foreground/75 leading-relaxed">
+                    For him, every frame should serve a purpose and every client deserves work that goes beyond the brief.
+                  </p>
+                </div>
+              </SlideIn>
               <SlideIn from="right">
-                <PhotoPlaceholder src="https://picsum.photos/seed/sojol/400/400" alt="Sojol Sheikh" />
+                <PhotoPlaceholder src="https://picsum.photos/seed/radwan/400/400" alt="Radwan Islam" />
               </SlideIn>
             </div>
           </div>
