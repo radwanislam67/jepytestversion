@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Linkedin, Twitter, Mail, Phone } from "lucide-react";
+import { Instagram, Linkedin, Twitter, Mail } from "lucide-react";
 import jepyLogo from "@/assets/jepy-logo.png";
 
 export function Footer() {
