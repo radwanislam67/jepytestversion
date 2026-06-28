@@ -124,10 +124,10 @@ export function Header() {
         </button>
         <nav className="flex h-full flex-col items-center justify-center gap-8 px-6">
           {SECTIONS.map((n, i) => (
-            <a
-              key={n.id}
-              href={`/#${n.id}`}
-              onClick={goTo(n.id)}
+            <Link
+              key={n.to}
+              to={n.to}
+              onClick={() => setOpen(false)}
               className="text-2xl uppercase tracking-[0.18em] text-white transition-colors hover:text-[var(--accent)]"
               style={{
                 fontWeight: 500,
@@ -137,7 +137,7 @@ export function Header() {
               }}
             >
               {n.label}
-            </a>
+            </Link>
           ))}
           <Link
             to="/contact"
