@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkRouteImport } from './routes/work'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as AboutRouteImport } from './routes/about'
@@ -30,6 +31,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/case-studies': typeof CaseStudiesRoute
   '/contact': typeof ContactRoute
+  '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/work': typeof WorkRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/case-studies': typeof CaseStudiesRoute
   '/contact': typeof ContactRoute
+  '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/work': typeof WorkRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/case-studies': typeof CaseStudiesRoute
   '/contact': typeof ContactRoute
+  '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/work': typeof WorkRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/case-studies'
     | '/contact'
+    | '/pricing'
     | '/services'
     | '/sitemap.xml'
     | '/work'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/case-studies'
     | '/contact'
+    | '/pricing'
     | '/services'
     | '/sitemap.xml'
     | '/work'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/case-studies'
     | '/contact'
+    | '/pricing'
     | '/services'
     | '/sitemap.xml'
     | '/work'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CaseStudiesRoute: typeof CaseStudiesRoute
   ContactRoute: typeof ContactRoute
+  PricingRoute: typeof PricingRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   WorkRoute: typeof WorkRoute
@@ -142,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   CaseStudiesRoute: CaseStudiesRoute,
   ContactRoute: ContactRoute,
+  PricingRoute: PricingRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   WorkRoute: WorkRoute,
