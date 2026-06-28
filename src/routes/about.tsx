@@ -339,7 +339,7 @@ function About() {
         style={{ paddingTop: 120, paddingBottom: 48 }}
       >
         <div className="aurora" />
-        <div className="relative z-10 mx-auto max-w-3xl px-5 md:px-8 text-center">
+        <div className="relative z-10 mx-auto px-5 md:px-8 text-center" style={{ maxWidth: 680 }}>
           <Reveal>
             <div
               style={{
