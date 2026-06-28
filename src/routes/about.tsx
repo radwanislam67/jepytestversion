@@ -335,8 +335,8 @@ function About() {
     <>
       {/* HERO */}
       <section
-        className="relative flex items-center justify-center"
-        style={{ minHeight: "100svh", paddingTop: 120, paddingBottom: 80 }}
+        className="relative"
+        style={{ paddingTop: 120, paddingBottom: 48 }}
       >
         <div className="aurora" />
         <div className="relative z-10 mx-auto max-w-3xl px-5 md:px-8 text-center">
@@ -360,40 +360,46 @@ function About() {
             </h1>
           </Reveal>
           <div
-            className="mt-10 mx-auto text-foreground/70 leading-relaxed text-left md:text-center"
-            style={{ maxWidth: 680 }}
+            className="mt-10 mx-auto text-left text-foreground/75 leading-relaxed"
+            style={{ maxWidth: 680, fontSize: 18 }}
           >
             <Reveal delay={200}>
-              <p>
+              <p className="mb-8">
                 Every day, thousands of videos are uploaded, watched for three seconds, and forgotten. Brands lose customers they never knew they had. Creators lose audiences they worked years to build. Founders watch their best ideas go unnoticed, not because the world didn&rsquo;t care, but because the content didn&rsquo;t connect.
               </p>
             </Reveal>
             <Reveal delay={280}>
-              <p className="mt-6 font-display text-2xl md:text-3xl tracking-tight text-white">
-                Three seconds.
-                <br />
-                <span className="text-[var(--accent)]">That&rsquo;s all you get.</span>
-              </p>
+              <blockquote
+                className="my-8 font-display tracking-tight text-[var(--accent)]"
+                style={{
+                  fontSize: "clamp(28px, 4vw, 32px)",
+                  lineHeight: 1.15,
+                  borderLeft: "3px solid var(--accent)",
+                  paddingLeft: 20,
+                }}
+              >
+                Three seconds. That&rsquo;s all you get.
+              </blockquote>
             </Reveal>
             <Reveal delay={360}>
-              <p className="mt-6">
+              <p className="mb-6">
                 The wrong cut. The wrong pace. The wrong color. That&rsquo;s all it takes to lose someone forever.
               </p>
             </Reveal>
             <Reveal delay={420}>
-              <p className="mt-6">
+              <p className="mb-6">
                 We started Jepy because we&rsquo;ve seen what bad editing costs — not just in views, but in businesses. Every frame has potential. Every story deserves to be felt, not just seen.
               </p>
             </Reveal>
             <Reveal delay={480}>
-              <p className="mt-6">
+              <p>
                 That&rsquo;s the problem we solve. Every edit. Every client. Every time.
               </p>
             </Reveal>
           </div>
         </div>
-        <ScrollIndicator />
       </section>
+
 
       {/* FOUNDERS */}
       <section className="relative py-16 md:py-20">
