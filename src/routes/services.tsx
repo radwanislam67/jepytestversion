@@ -136,9 +136,9 @@ function ServicesPage() {
       </section>
       <CTASection />
       <div className="-mt-10 mb-16 text-center">
-        <a href="/#pricing" className="btn-ghost">
+        <Link to="/pricing" className="btn-ghost">
           View Pricing →
-        </a>
+        </Link>
       </div>
     </>
   );
