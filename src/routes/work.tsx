@@ -43,12 +43,12 @@ function WorkPage() {
       <section className="relative pt-32 md:pt-36 pb-16 md:pb-20">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <Reveal>
-            <h1 className="font-display text-6xl md:text-8xl tracking-tighter">
+            <h1 className="font-display text-6xl md:text-8xl tracking-tighter text-center">
               Our <span className="text-[var(--accent)] text-glow">Work</span>
             </h1>
           </Reveal>
           <Reveal delay={120}>
-            <p className="mt-5 text-foreground/70 text-lg">Every frame tells a story.</p>
+            <p className="mt-5 text-foreground/70 text-lg text-center">Every frame tells a story.</p>
           </Reveal>
 
           <div className="mt-8">
