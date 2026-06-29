@@ -393,7 +393,7 @@ function Timeline() {
 
         <div ref={ref}>
           {/* Desktop: horizontal */}
-          <div className="hidden md:block relative" style={{ paddingTop: 72, paddingBottom: 20 }}>
+          <div className="hidden md:block relative" style={{ paddingTop: 110, paddingBottom: 20 }}>
             <div
               style={{
                 position: "absolute",
