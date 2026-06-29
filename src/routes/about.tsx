@@ -330,12 +330,13 @@ function StudioTile({
   );
 }
 
-const MILESTONES = [
-  { year: "2021", text: "Jepy Founded. Two editors. One standard." },
+const MILESTONES: { year: string; text: string; current?: boolean }[] = [
+  { year: "2021", text: "Jepy founded." },
+  { year: "2022", text: "Refining the craft." },
   { year: "2023", text: "500+ videos delivered." },
   { year: "2024", text: "40M+ views generated." },
   { year: "2025", text: "2,000+ videos. 70+ projects completed." },
-  { year: "2026", text: "Chapter ongoing." },
+  { year: "2026", text: "Still going.", current: true },
 ];
 
 function Timeline() {
