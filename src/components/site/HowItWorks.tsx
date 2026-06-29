@@ -6,21 +6,29 @@ const STEPS = [
     n: "01",
     title: "Brief",
     body: "You fill out a short form that takes about ten minutes. You tell us what the video needs to do, who it's for, and what you want your viewer to do by the end.",
+    image: "https://res.cloudinary.com/drmtlvrmm/image/upload/w_800,q_auto,f_auto/v1782765382/ChatGPT_Image_Jun_30_2026_02_34_51_AM_tfwghj.webp",
+    alt: "Brief — short intake form illustration",
   },
   {
     n: "02",
     title: "Story Boarding",
     body: "Before we touch the timeline, we align on style, pacing and references. You see the direction before editing begins, and once you're happy we lock it in.",
+    image: "https://res.cloudinary.com/drmtlvrmm/image/upload/w_800,q_auto,f_auto/v1782765383/ChatGPT_Image_Jun_30_2026_02_20_22_AM_iy1njc.webp",
+    alt: "Story Boarding — visual references and pacing",
   },
   {
     n: "03",
     title: "Final Edit",
     body: "Cutting, color, sound design and motion all come from the same team — working on your project from the first frame to the last.",
+    image: "https://res.cloudinary.com/drmtlvrmm/image/upload/w_800,q_auto,f_auto/v1782766163/ChatGPT_Image_Jun_30_2026_02_47_47_AM_dcnusq.webp",
+    alt: "Final Edit — cutting, color and sound",
   },
   {
     n: "04",
     title: "Delivery",
     body: "You get the final file ready for every platform you post on, usually within the agreed timeline from kickoff.",
+    image: "https://res.cloudinary.com/drmtlvrmm/image/upload/w_800,q_auto,f_auto/v1782767625/ChatGPT_Image_Jun_30_2026_03_09_40_AM_vyjolb.webp",
+    alt: "Delivery — final files ready for every platform",
   },
 ];
 
