@@ -19,6 +19,20 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const handleNavClick = (e: React.MouseEvent, section: string, to: string) => {
+    e.preventDefault();
+    setOpen(false);
+    if (pathname === "/") {
+      scrollToSection(section);
+    } else if (to === "/pricing" && section === "pricing") {
+      // Pricing has both a section and a dedicated page — prefer dedicated page
+      navigate({ to: "/pricing" });
+    } else {
+      navigate({ to });
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
