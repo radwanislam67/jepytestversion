@@ -683,7 +683,7 @@ function About() {
             {/* Founder 1 — Sojol (photo LEFT, text RIGHT) */}
             <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
               <SlideIn from="left">
-                <PhotoPlaceholder src="https://picsum.photos/seed/sojol/400/400" alt="Sojol Sheikh" />
+                <PhotoPlaceholder src="/images/sojol.webp" alt="Sojol Sheikh" />
               </SlideIn>
               <SlideIn from="right" delay={120}>
                 <div>
@@ -704,7 +704,7 @@ function About() {
             <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
               <SlideIn from="right">
                 <div className="md:order-2">
-                  <PhotoPlaceholder src="https://picsum.photos/seed/radwan/400/400" alt="Radwan Islam" />
+                  <PhotoPlaceholder src="/images/radwan.webp" alt="Radwan Islam" />
                 </div>
               </SlideIn>
               <SlideIn from="left" delay={120}>
