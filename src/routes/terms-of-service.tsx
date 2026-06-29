@@ -81,16 +81,36 @@ function TermsPage() {
             </div>
           ))}
 
-          <div className="pt-8 text-center">
-            <p className="text-gray-400 text-sm">
-              Questions?{" "}
-              <a
-                href="mailto:hello@jepy.studio"
-                className="text-[var(--accent)] hover:underline"
-              >
-                Let's talk.
-              </a>
-            </p>
+        </div>
+      </section>
+
+      <section className="relative pb-16 md:pb-20">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div
+            className="relative overflow-hidden rounded-[36px] border border-[var(--accent)]/30 p-10 md:p-20 text-center"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, rgba(83,255,47,0.12), transparent 70%), #050505",
+              boxShadow: "0 0 120px -20px rgba(83,255,47,0.35) inset",
+            }}
+          >
+            <div className="aurora opacity-60" />
+            <div className="relative">
+              <h2 className="font-display text-5xl md:text-7xl tracking-tighter">
+                Questions? <span className="text-[var(--accent)] text-glow">Let's talk.</span>
+              </h2>
+              <p className="mt-6 text-foreground/70 max-w-xl mx-auto">
+                We're real people. Reach out anytime.
+              </p>
+              <div className="mt-10">
+                <a
+                  href="mailto:hello@jepy.studio"
+                  className="btn-primary transition-transform duration-200 hover:scale-105"
+                >
+                  Email Us →
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>

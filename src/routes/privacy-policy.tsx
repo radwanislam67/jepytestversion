@@ -75,18 +75,6 @@ function PrivacyPolicyPage() {
               </p>
             </div>
           ))}
-
-          <div className="pt-8 text-center">
-            <p className="text-gray-400 text-sm">
-              Questions?{" "}
-              <a
-                href="mailto:hello@jepy.studio"
-                className="text-[var(--accent)] hover:underline"
-              >
-                Let's talk.
-              </a>
-            </p>
-          </div>
         </div>
       </section>
 
