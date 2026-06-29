@@ -1,14 +1,19 @@
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import jepyLogo from "@/assets/jepy-logo.png";
 
 const SECTIONS = [
-  { to: "/services", label: "Services" },
-  { to: "/work", label: "Work" },
-  { to: "/pricing", label: "Pricing" },
-  { to: "/about", label: "About" },
+  { to: "/services", section: "services", label: "Services" },
+  { to: "/work", section: "work", label: "Work" },
+  { to: "/pricing", section: "pricing", label: "Pricing" },
+  { to: "/about", section: "about", label: "About" },
 ] as const;
+
+function scrollToSection(id: string) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
