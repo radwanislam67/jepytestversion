@@ -362,9 +362,10 @@ function Timeline() {
   const drawMs = 1400;
   const perDot = drawMs / MILESTONES.length;
   const currentIdx = MILESTONES.findIndex((m) => m.current);
+  const prevPct = ((currentIdx - 1 + 0.5) / MILESTONES.length) * 100;
   const currentPct = ((currentIdx + 0.5) / MILESTONES.length) * 100;
-  const horizontalProgress = `linear-gradient(90deg, #4b5563 0%, #4b5563 ${currentPct}%, #22c55e ${currentPct}%, #22c55e 100%)`;
-  const verticalProgress = `linear-gradient(180deg, #4b5563 0%, #4b5563 ${currentPct}%, #22c55e ${currentPct}%, #22c55e 100%)`;
+  const horizontalProgress = `linear-gradient(90deg, #4b5563 0%, #4b5563 ${prevPct}%, #22c55e ${currentPct}%, #22c55e 100%)`;
+  const verticalProgress = `linear-gradient(180deg, #4b5563 0%, #4b5563 ${prevPct}%, #22c55e ${currentPct}%, #22c55e 100%)`;
 
   return (
     <section className="relative py-16 md:py-20">
@@ -392,13 +393,13 @@ function Timeline() {
 
         <div ref={ref}>
           {/* Desktop: horizontal */}
-          <div className="hidden md:block relative" style={{ paddingTop: 40, paddingBottom: 20 }}>
+          <div className="hidden md:block relative" style={{ paddingTop: 72, paddingBottom: 20 }}>
             <div
               style={{
                 position: "absolute",
                 left: 0,
                 right: 0,
-                top: "50%",
+                top: 72,
                 height: 2,
                 background: "rgba(255,255,255,0.08)",
               }}
@@ -407,7 +408,7 @@ function Timeline() {
               style={{
                 position: "absolute",
                 left: 0,
-                top: "50%",
+                top: 72,
                 height: 2,
                 width: "100%",
                 background: horizontalProgress,
@@ -417,22 +418,39 @@ function Timeline() {
                 transition: `transform ${drawMs}ms cubic-bezier(.2,.8,.2,1)`,
               }}
             />
-            <div className="relative grid" style={{ gridTemplateColumns: `repeat(${MILESTONES.length}, 1fr)` }}>
+            <div className="relative grid" style={{ gridTemplateColumns: `repeat(${MILESTONES.length}, 1fr)`, marginTop: -10 }}>
               {MILESTONES.map((m, i) => {
                 const dotDelay = i * perDot;
                 const textDelay = dotDelay + 200;
                 const isCurrent = !!m.current;
+                const dotSize = isCurrent ? 16 : 8;
                 return (
                   <div key={m.year} className="relative flex flex-col items-center text-center px-3">
+                    {isCurrent && (
+                      <div
+                        style={{
+                          opacity: active ? 1 : 0,
+                          transform: active ? "translateY(0)" : "translateY(6px)",
+                          transition: `opacity 400ms ease ${dotDelay}ms, transform 400ms ease ${dotDelay}ms`,
+                          marginBottom: 10,
+                        }}
+                        className="inline-flex items-center rounded-full border border-green-500/40 bg-green-500/20 px-2 py-0.5 text-xs font-medium text-green-400"
+                      >
+                        NOW
+                      </div>
+                    )}
                     <div
+                      className={isCurrent ? "animate-pulse" : ""}
                       style={{
-                        width: isCurrent ? 20 : 12,
-                        height: isCurrent ? 20 : 12,
+                        width: dotSize,
+                        height: dotSize,
                         borderRadius: 999,
                         background: isCurrent ? "#22c55e" : "#6b7280",
                         boxShadow: isCurrent
-                          ? "0 0 22px rgba(34,197,94,0.95), 0 0 44px rgba(34,197,94,0.55)"
+                          ? "0 0 18px rgba(34,197,94,0.9), 0 0 36px rgba(34,197,94,0.5)"
                           : "none",
+                        outline: isCurrent ? "2px solid rgba(34,197,94,0.3)" : "none",
+                        outlineOffset: isCurrent ? 4 : 0,
                         opacity: active ? 1 : 0,
                         transform: active ? "scale(1)" : "scale(0.2)",
                         transition: `transform 500ms cubic-bezier(.34,1.56,.64,1) ${dotDelay}ms, opacity 300ms ease ${dotDelay}ms`,
@@ -440,7 +458,7 @@ function Timeline() {
                     />
                     <div
                       style={{
-                        marginTop: 18,
+                        marginTop: isCurrent ? 22 : 18,
                         opacity: active ? 1 : 0,
                         transform: active ? "translateY(0)" : "translateY(10px)",
                         transition: `opacity 500ms ease ${textDelay}ms, transform 500ms ease ${textDelay}ms`,
@@ -448,15 +466,23 @@ function Timeline() {
                     >
                       <div
                         style={{
-                          color: isCurrent ? "#22c55e" : "#6b7280",
-                          fontWeight: isCurrent ? 600 : 400,
-                          fontSize: 20,
-                          filter: isCurrent ? "drop-shadow(0 0 8px rgba(34,197,94,0.6))" : "none",
+                          color: isCurrent ? "#4ade80" : "#6b7280",
+                          fontWeight: isCurrent ? 700 : 400,
+                          fontSize: isCurrent ? 22 : 20,
+                          filter: isCurrent ? "drop-shadow(0 0 10px rgba(34,197,94,0.7))" : "none",
                         }}
                       >
                         {m.year}
                       </div>
-                      <div className="text-sm text-foreground/70 mt-2 leading-relaxed">{m.text}</div>
+                      <div
+                        className={
+                          isCurrent
+                            ? "text-base text-white font-medium mt-2 leading-relaxed"
+                            : "text-sm text-foreground/70 mt-2 leading-relaxed"
+                        }
+                      >
+                        {m.text}
+                      </div>
                     </div>
                   </div>
                 );
@@ -494,20 +520,24 @@ function Timeline() {
               const dotDelay = i * perDot;
               const textDelay = dotDelay + 200;
               const isCurrent = !!m.current;
+              const dotSize = isCurrent ? 16 : 8;
               return (
                 <div key={m.year} className="relative" style={{ paddingBottom: 32 }}>
                   <div
+                    className={isCurrent ? "animate-pulse" : ""}
                     style={{
                       position: "absolute",
-                      left: isCurrent ? -30 : -26,
-                      top: 4,
-                      width: isCurrent ? 20 : 12,
-                      height: isCurrent ? 20 : 12,
+                      left: isCurrent ? -28 : -24,
+                      top: 6,
+                      width: dotSize,
+                      height: dotSize,
                       borderRadius: 999,
                       background: isCurrent ? "#22c55e" : "#6b7280",
                       boxShadow: isCurrent
-                        ? "0 0 22px rgba(34,197,94,0.95), 0 0 44px rgba(34,197,94,0.55)"
+                        ? "0 0 18px rgba(34,197,94,0.9), 0 0 36px rgba(34,197,94,0.5)"
                         : "none",
+                      outline: isCurrent ? "2px solid rgba(34,197,94,0.3)" : "none",
+                      outlineOffset: isCurrent ? 4 : 0,
                       opacity: active ? 1 : 0,
                       transform: active ? "scale(1)" : "scale(0.2)",
                       transition: `transform 500ms cubic-bezier(.34,1.56,.64,1) ${dotDelay}ms, opacity 300ms ease ${dotDelay}ms`,
@@ -520,17 +550,30 @@ function Timeline() {
                       transition: `opacity 500ms ease ${textDelay}ms, transform 500ms ease ${textDelay}ms`,
                     }}
                   >
+                    {isCurrent && (
+                      <span className="inline-flex items-center rounded-full border border-green-500/40 bg-green-500/20 px-2 py-0.5 text-xs font-medium text-green-400 mb-1">
+                        NOW
+                      </span>
+                    )}
                     <div
                       style={{
-                        color: isCurrent ? "#22c55e" : "#6b7280",
-                        fontWeight: isCurrent ? 600 : 400,
-                        fontSize: 18,
-                        filter: isCurrent ? "drop-shadow(0 0 8px rgba(34,197,94,0.6))" : "none",
+                        color: isCurrent ? "#4ade80" : "#6b7280",
+                        fontWeight: isCurrent ? 700 : 400,
+                        fontSize: isCurrent ? 20 : 18,
+                        filter: isCurrent ? "drop-shadow(0 0 10px rgba(34,197,94,0.7))" : "none",
                       }}
                     >
                       {m.year}
                     </div>
-                    <div className="text-sm text-foreground/70 mt-1 leading-relaxed">{m.text}</div>
+                    <div
+                      className={
+                        isCurrent
+                          ? "text-base text-white font-medium mt-1 leading-relaxed"
+                          : "text-sm text-foreground/70 mt-1 leading-relaxed"
+                      }
+                    >
+                      {m.text}
+                    </div>
                   </div>
                 </div>
               );
@@ -541,6 +584,7 @@ function Timeline() {
     </section>
   );
 }
+
 
 function About() {
   return (
