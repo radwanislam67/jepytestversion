@@ -145,8 +145,8 @@ function SummaryPill() {
           <defs>
             <linearGradient id="star5grad" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="90%" stopColor="#FFD700" />
-              <stop offset="90%" stopColor="#FFD70033" />
-              <stop offset="100%" stopColor="#FFD70033" />
+              <stop offset="90%" stopColor="#4B5563" />
+              <stop offset="100%" stopColor="#4B5563" />
             </linearGradient>
           </defs>
           <path
