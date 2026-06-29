@@ -28,8 +28,7 @@ export function Header() {
       scrollToSection(section);
       return;
     }
-    const dest = section === "pricing" ? "/services" : to;
-    navigate({ to: dest });
+    navigate({ to });
   };
 
   useEffect(() => {
