@@ -112,6 +112,12 @@ function WorkPage() {
           title={current?.title}
         />
       </section>
+      <Reveal delay={100}>
+        <p className="text-center text-gray-500 text-sm py-12">
+          <span className="text-green-500 mr-2">✦</span>
+          Trusted by 50+ creators, brands and SaaS teams worldwide.
+        </p>
+      </Reveal>
       <CTASection />
     </>
   );
