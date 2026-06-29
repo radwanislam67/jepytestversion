@@ -138,11 +138,16 @@ function ServicesPage() {
         <Link
           to="/pricing"
           preload="render"
-          className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-[12px] font-semibold uppercase tracking-[0.16em] transition-transform duration-300 hover:scale-[1.03]"
+          className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-transparent px-6 py-3 text-[12px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 ease-out hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-foreground)] hover:scale-[1.03]"
           style={{
-            background: "var(--accent)",
-            color: "var(--accent-foreground)",
-            boxShadow: "0 8px 30px -8px color-mix(in oklab, var(--accent) 70%, transparent)",
+            ["--tw-shadow" as never]: "0 8px 30px -8px color-mix(in oklab, var(--accent) 70%, transparent)",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.boxShadow =
+              "0 8px 30px -8px color-mix(in oklab, var(--accent) 70%, transparent)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.boxShadow = "none";
           }}
         >
           View Pricing <span aria-hidden className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-[5px]">→</span>
