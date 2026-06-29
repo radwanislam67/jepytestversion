@@ -1,19 +1,41 @@
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import jepyLogo from "@/assets/jepy-logo.png";
 
 const SECTIONS = [
-  { to: "/services", label: "Services" },
-  { to: "/work", label: "Work" },
-  { to: "/pricing", label: "Pricing" },
-  { to: "/about", label: "About" },
+  { to: "/services", section: "services", label: "Services" },
+  { to: "/work", section: "work", label: "Work" },
+  { to: "/pricing", section: "pricing", label: "Pricing" },
+  { to: "/about", section: "about", label: "About" },
 ] as const;
+
+function scrollToSection(id: string) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const handleNavClick = (e: React.MouseEvent, section: string, to: string) => {
+    e.preventDefault();
+    setOpen(false);
+    if (pathname === "/") {
+      scrollToSection(section);
+      return;
+    }
+    if (section === "pricing") {
+      // Pricing: always scroll on homepage section
+      navigate({ to: "/", hash: "pricing" });
+      setTimeout(() => scrollToSection("pricing"), 80);
+      return;
+    }
+    navigate({ to });
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -65,14 +87,15 @@ export function Header() {
 
             <nav className="hidden md:flex items-center gap-1">
               {SECTIONS.map((n) => (
-                <Link
+                <a
                   key={n.to}
-                  to={n.to}
-                  className="relative px-3.5 py-2 text-[12px] uppercase tracking-[0.14em] whitespace-nowrap transition-colors duration-300 hover:text-[var(--accent)]"
+                  href={n.to}
+                  onClick={(e) => handleNavClick(e, n.section, n.to)}
+                  className="relative px-3.5 py-2 text-[12px] uppercase tracking-[0.14em] whitespace-nowrap transition-colors duration-300 hover:text-[var(--accent)] cursor-pointer"
                   style={{ color: "rgba(255,255,255,0.85)", fontWeight: 500 }}
                 >
                   {n.label}
-                </Link>
+                </a>
               ))}
             </nav>
 
@@ -124,11 +147,11 @@ export function Header() {
         </button>
         <nav className="flex h-full flex-col items-center justify-center gap-8 px-6">
           {SECTIONS.map((n, i) => (
-            <Link
+            <a
               key={n.to}
-              to={n.to}
-              onClick={() => setOpen(false)}
-              className="text-2xl uppercase tracking-[0.18em] text-white transition-colors hover:text-[var(--accent)]"
+              href={n.to}
+              onClick={(e) => handleNavClick(e, n.section, n.to)}
+              className="text-2xl uppercase tracking-[0.18em] text-white transition-colors hover:text-[var(--accent)] cursor-pointer"
               style={{
                 fontWeight: 500,
                 transform: open ? "translateY(0)" : "translateY(12px)",
@@ -137,7 +160,7 @@ export function Header() {
               }}
             >
               {n.label}
-            </Link>
+            </a>
           ))}
           <Link
             to="/contact"

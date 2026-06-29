@@ -617,10 +617,15 @@ function About() {
               </SlideIn>
             </div>
 
-            {/* Founder 2 — Radwan (text LEFT, photo RIGHT) */}
+            {/* Founder 2 — Radwan (mobile: photo top / text bottom; desktop: text LEFT, photo RIGHT) */}
             <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+              <SlideIn from="right">
+                <div className="md:order-2">
+                  <PhotoPlaceholder src="https://picsum.photos/seed/radwan/400/400" alt="Radwan Islam" />
+                </div>
+              </SlideIn>
               <SlideIn from="left" delay={120}>
-                <div className="md:order-1 order-2">
+                <div className="md:order-1">
                   <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fff" }}>
                     Radwan Islam
                   </h3>
@@ -634,9 +639,6 @@ function About() {
                     For him, every frame should serve a purpose and every client deserves work that goes beyond the brief.
                   </p>
                 </div>
-              </SlideIn>
-              <SlideIn from="right">
-                <PhotoPlaceholder src="https://picsum.photos/seed/radwan/400/400" alt="Radwan Islam" />
               </SlideIn>
             </div>
           </div>
