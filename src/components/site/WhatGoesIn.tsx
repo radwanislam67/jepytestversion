@@ -19,7 +19,7 @@ const ITEMS = [
     n: "03",
     title: "Conversion",
     body: "By the time your video ends, your viewer knows exactly what to do next — book, buy, or share.",
-    image: "https://res.cloudinary.com/drmtlvrmm/image/upload/w_800,q_auto,f_auto/v1782762362/ChatGPT_Image_Jun_30_2026_01_44_29_AM_chv8l5.webp",
+    image: "https://res.cloudinary.com/drmtlvrmm/image/upload/w_800,q_auto,f_auto/v1782762890/ChatGPT_Image_Jun_30_2026_01_52_52_AM_w7arg5.webp",
     alt: "Glass orbs with icons orbiting a neon green beam — representing the Conversion process",
   },
 ];
