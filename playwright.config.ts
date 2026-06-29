@@ -17,8 +17,17 @@ export default defineConfig({
     baseURL: process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:8080",
     viewport: { width: 1280, height: 900 },
     trace: "off",
-    launchOptions: PREINSTALLED ? { executablePath: PREINSTALLED } : undefined,
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    {
+      name: "chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        launchOptions: PREINSTALLED
+          ? { executablePath: PREINSTALLED }
+          : undefined,
+      },
+    },
+  ],
 });
 
