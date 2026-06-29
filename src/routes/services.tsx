@@ -138,9 +138,9 @@ function ServicesPage() {
         <Link
           to="/pricing"
           preload="render"
-          className="text-sm text-gray-400 hover:text-white transition-colors"
+          className="group inline-flex items-center gap-1 text-sm text-gray-400 hover:text-white transition-colors"
         >
-          View Pricing →
+          View Pricing <span aria-hidden className="inline-block transition-transform duration-300 group-hover:translate-x-[5px]">→</span>
         </Link>
       </div>
       <CTASection />

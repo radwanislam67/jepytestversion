@@ -28,13 +28,8 @@ export function Header() {
       scrollToSection(section);
       return;
     }
-    if (section === "pricing") {
-      // Pricing: always scroll on homepage section
-      navigate({ to: "/", hash: "pricing" });
-      setTimeout(() => scrollToSection("pricing"), 80);
-      return;
-    }
-    navigate({ to });
+    const dest = section === "pricing" ? "/services" : to;
+    navigate({ to: dest });
   };
 
   useEffect(() => {
