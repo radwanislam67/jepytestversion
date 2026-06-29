@@ -419,7 +419,7 @@ function Timeline() {
                 transition: `transform ${drawMs}ms cubic-bezier(.2,.8,.2,1)`,
               }}
             />
-            <div className="relative grid" style={{ gridTemplateColumns: `repeat(${MILESTONES.length}, 1fr)`, marginTop: -10 }}>
+            <div className="relative grid" style={{ gridTemplateColumns: `repeat(${MILESTONES.length}, 1fr)`, marginTop: -8 }}>
               {MILESTONES.map((m, i) => {
                 const dotDelay = i * perDot;
                 const textDelay = dotDelay + 200;
