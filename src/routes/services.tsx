@@ -134,13 +134,13 @@ function ServicesPage() {
           </div>
         </div>
       </section>
-      <div className="mt-6 mb-6 text-center">
+      <div className="mb-8 text-center">
         <Link
           to="/pricing"
           preload="render"
-          className="group inline-flex items-center gap-1 text-sm text-gray-400 hover:text-white transition-colors"
+          className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-transparent px-6 py-3 text-sm font-medium uppercase tracking-wider text-white transition-all duration-300 hover:border-white/60 hover:bg-white/5"
         >
-          View Pricing <span aria-hidden className="inline-block transition-transform duration-300 group-hover:translate-x-[5px]">→</span>
+          View Pricing <span aria-hidden className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-[5px]">→</span>
         </Link>
       </div>
       <CTASection />
