@@ -157,25 +157,26 @@ export function HowItWorks() {
                     </p>
                   </div>
 
-                  {/* Right: placeholder box */}
+                  {/* Right: image */}
                   <div
                     className="relative w-full rounded-2xl border border-[var(--accent)]/30 overflow-hidden"
                     style={{
                       height: 280,
-                      background:
-                        "radial-gradient(ellipse at 30% 30%, rgba(83,255,47,0.32), transparent 60%), linear-gradient(135deg, #143d20, #0a1f10 70%)",
                       boxShadow: isActive
-
                         ? "0 30px 80px -30px color-mix(in oklab, var(--accent) 25%, transparent)"
                         : "none",
                       transition: "box-shadow 400ms ease",
                     }}
-                    aria-hidden
                   >
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(83,255,47,0.08),transparent_60%)]" />
-                    <div className="absolute bottom-5 left-5 font-mono text-xs tracking-[0.3em] text-[var(--accent)]/70">
-                      {s.n} — {s.title.toUpperCase()}
-                    </div>
+                    <img
+                      src={s.image}
+                      alt={s.alt}
+                      loading="lazy"
+                      decoding="async"
+                      width={1200}
+                      height={800}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
                   </div>
                 </div>
               );
