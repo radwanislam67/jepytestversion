@@ -5,32 +5,47 @@ const ITEMS = [
     n: "01",
     title: "Hook",
     body: "The first 3 seconds decide everything. We craft an opening that stops the scroll and demands attention.",
+    image: "/images/Hook.webp",
+    alt: "Neon green spotlight illuminating an eye icon — representing the Hook that captures viewer attention",
   },
   {
     n: "02",
     title: "Story",
     body: "Every edit follows a clear narrative arc. We keep viewers watching from the first frame to the last.",
+    image: "/images/Story.webp",
+    alt: "Venn diagram of Brand and Audience overlapping around a neon brain icon — representing narrative Story alignment",
   },
   {
     n: "03",
     title: "Conversion",
     body: "By the time your video ends, your viewer knows exactly what to do next — book, buy, or share.",
+    image: "/images/Conversion.webp",
+    alt: "Glass orbs with icons orbiting a neon green beam — representing the Conversion process",
   },
 ];
 
-function Media() {
+function Media({ src, alt }: { src: string; alt: string }) {
   return (
     <div
       className="aspect-video w-full rounded-2xl border border-[var(--accent)]/30 overflow-hidden relative"
       style={{
         background:
-          "radial-gradient(ellipse at 30% 30%, rgba(83,255,47,0.35), transparent 60%), linear-gradient(135deg, #103a1c, #0a1f10 70%)",
+          "radial-gradient(ellipse at 30% 30%, rgba(83,255,47,0.15), transparent 60%), linear-gradient(135deg, #0a1f10, #050505 70%)",
       }}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(184,255,106,0.25),transparent_60%)]" />
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        width={1200}
+        height={800}
+        className="absolute inset-0 h-full w-full object-cover"
+      />
     </div>
   );
 }
+
 
 export function WhatGoesIn() {
   return (
@@ -56,7 +71,7 @@ export function WhatGoesIn() {
                 className="grid md:grid-cols-2 gap-10 md:gap-20 items-center"
               >
                 <Reveal className={mediaLeft ? "md:order-1" : "md:order-2"}>
-                  <Media />
+                  <Media src={it.image} alt={it.alt} />
                 </Reveal>
                 <Reveal
                   delay={120}
