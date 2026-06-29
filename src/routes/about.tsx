@@ -399,7 +399,8 @@ function Timeline() {
                 position: "absolute",
                 left: 0,
                 right: 0,
-                top: 72,
+                top: 110,
+
                 height: 2,
                 background: "rgba(255,255,255,0.08)",
               }}
