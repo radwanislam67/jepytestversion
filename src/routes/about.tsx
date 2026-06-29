@@ -433,12 +433,16 @@ function Timeline() {
                           opacity: active ? 1 : 0,
                           transform: active ? "translateY(0)" : "translateY(6px)",
                           transition: `opacity 400ms ease ${dotDelay}ms, transform 400ms ease ${dotDelay}ms`,
-                          marginBottom: 10,
+                          marginBottom: 14,
+                          background: "#53FF2F",
+                          color: "#050505",
+                          boxShadow: "0 0 14px rgba(83,255,47,0.55)",
                         }}
-                        className="inline-flex items-center rounded-full border border-green-500/40 bg-green-500/20 px-2 py-0.5 text-xs font-medium text-green-400"
+                        className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wider"
                       >
                         NOW
                       </div>
+
                     )}
                     <div
                       className={isCurrent ? "animate-pulse" : ""}
