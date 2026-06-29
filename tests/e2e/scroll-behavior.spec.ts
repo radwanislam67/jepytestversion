@@ -27,10 +27,16 @@ async function scrollTo(page: Page, y: number) {
   await page.waitForTimeout(200);
 }
 
+async function waitForAppReady(page: Page) {
+  await page.waitForLoadState("networkidle");
+  // Wait for the intro loader overlay to dismiss before interacting.
+  await page.waitForTimeout(2500);
+}
+
 test.describe("scroll behavior", () => {
   test("link click scrolls the next page to the top", async ({ page }) => {
     await page.goto("/contact");
-    await page.waitForLoadState("networkidle");
+    await waitForAppReady(page);
 
     await scrollTo(page, 800);
     expect(await getScrollY(page)).toBeGreaterThan(200);
@@ -47,7 +53,7 @@ test.describe("scroll behavior", () => {
     page,
   }) => {
     await page.goto("/work");
-    await page.waitForLoadState("networkidle");
+    await waitForAppReady(page);
 
     await scrollTo(page, 1400);
     const workScroll = await getScrollY(page);
