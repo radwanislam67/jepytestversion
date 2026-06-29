@@ -160,7 +160,7 @@ export function Header() {
               }}
             >
               {n.label}
-            </Link>
+            </a>
           ))}
           <Link
             to="/contact"
