@@ -330,12 +330,13 @@ function StudioTile({
   );
 }
 
-const MILESTONES = [
-  { year: "2021", text: "Jepy Founded. Two editors. One standard." },
+const MILESTONES: { year: string; text: string; current?: boolean }[] = [
+  { year: "2021", text: "Jepy founded." },
+  { year: "2022", text: "Refining the craft." },
   { year: "2023", text: "500+ videos delivered." },
   { year: "2024", text: "40M+ views generated." },
   { year: "2025", text: "2,000+ videos. 70+ projects completed." },
-  { year: "2026", text: "Chapter ongoing." },
+  { year: "2026", text: "Still going.", current: true },
 ];
 
 function Timeline() {
@@ -360,6 +361,10 @@ function Timeline() {
 
   const drawMs = 1400;
   const perDot = drawMs / MILESTONES.length;
+  const currentIdx = MILESTONES.findIndex((m) => m.current);
+  const currentPct = ((currentIdx + 0.5) / MILESTONES.length) * 100;
+  const horizontalProgress = `linear-gradient(90deg, #4b5563 0%, #4b5563 ${currentPct}%, #22c55e ${currentPct}%, #22c55e 100%)`;
+  const verticalProgress = `linear-gradient(180deg, #4b5563 0%, #4b5563 ${currentPct}%, #22c55e ${currentPct}%, #22c55e 100%)`;
 
   return (
     <section className="relative py-16 md:py-20">
@@ -405,8 +410,8 @@ function Timeline() {
                 top: "50%",
                 height: 2,
                 width: "100%",
-                background: "linear-gradient(90deg, var(--accent), var(--glow, var(--accent)))",
-                boxShadow: "0 0 12px var(--accent)",
+                background: horizontalProgress,
+                boxShadow: "0 0 12px rgba(34,197,94,0.35)",
                 transform: active ? "scaleX(1)" : "scaleX(0)",
                 transformOrigin: "left",
                 transition: `transform ${drawMs}ms cubic-bezier(.2,.8,.2,1)`,
@@ -416,15 +421,18 @@ function Timeline() {
               {MILESTONES.map((m, i) => {
                 const dotDelay = i * perDot;
                 const textDelay = dotDelay + 200;
+                const isCurrent = !!m.current;
                 return (
                   <div key={m.year} className="relative flex flex-col items-center text-center px-3">
                     <div
                       style={{
-                        width: 16,
-                        height: 16,
+                        width: isCurrent ? 20 : 12,
+                        height: isCurrent ? 20 : 12,
                         borderRadius: 999,
-                        background: "#00FF00",
-                        boxShadow: "0 0 18px rgba(0,255,0,0.7)",
+                        background: isCurrent ? "#22c55e" : "#6b7280",
+                        boxShadow: isCurrent
+                          ? "0 0 22px rgba(34,197,94,0.95), 0 0 44px rgba(34,197,94,0.55)"
+                          : "none",
                         opacity: active ? 1 : 0,
                         transform: active ? "scale(1)" : "scale(0.2)",
                         transition: `transform 500ms cubic-bezier(.34,1.56,.64,1) ${dotDelay}ms, opacity 300ms ease ${dotDelay}ms`,
@@ -438,7 +446,16 @@ function Timeline() {
                         transition: `opacity 500ms ease ${textDelay}ms, transform 500ms ease ${textDelay}ms`,
                       }}
                     >
-                      <div style={{ color: "#00FF00", fontWeight: 700, fontSize: 20 }}>{m.year}</div>
+                      <div
+                        style={{
+                          color: isCurrent ? "#22c55e" : "#6b7280",
+                          fontWeight: isCurrent ? 600 : 400,
+                          fontSize: 20,
+                          filter: isCurrent ? "drop-shadow(0 0 8px rgba(34,197,94,0.6))" : "none",
+                        }}
+                      >
+                        {m.year}
+                      </div>
                       <div className="text-sm text-foreground/70 mt-2 leading-relaxed">{m.text}</div>
                     </div>
                   </div>
@@ -466,8 +483,8 @@ function Timeline() {
                 top: 0,
                 width: 2,
                 height: "100%",
-                background: "linear-gradient(180deg, var(--accent), var(--glow, var(--accent)))",
-                boxShadow: "0 0 12px var(--accent)",
+                background: verticalProgress,
+                boxShadow: "0 0 12px rgba(34,197,94,0.35)",
                 transform: active ? "scaleY(1)" : "scaleY(0)",
                 transformOrigin: "top",
                 transition: `transform ${drawMs}ms cubic-bezier(.2,.8,.2,1)`,
@@ -476,18 +493,21 @@ function Timeline() {
             {MILESTONES.map((m, i) => {
               const dotDelay = i * perDot;
               const textDelay = dotDelay + 200;
+              const isCurrent = !!m.current;
               return (
                 <div key={m.year} className="relative" style={{ paddingBottom: 32 }}>
                   <div
                     style={{
                       position: "absolute",
-                      left: -28,
+                      left: isCurrent ? -30 : -26,
                       top: 4,
-                      width: 16,
-                      height: 16,
+                      width: isCurrent ? 20 : 12,
+                      height: isCurrent ? 20 : 12,
                       borderRadius: 999,
-                      background: "#00FF00",
-                      boxShadow: "0 0 18px rgba(0,255,0,0.7)",
+                      background: isCurrent ? "#22c55e" : "#6b7280",
+                      boxShadow: isCurrent
+                        ? "0 0 22px rgba(34,197,94,0.95), 0 0 44px rgba(34,197,94,0.55)"
+                        : "none",
                       opacity: active ? 1 : 0,
                       transform: active ? "scale(1)" : "scale(0.2)",
                       transition: `transform 500ms cubic-bezier(.34,1.56,.64,1) ${dotDelay}ms, opacity 300ms ease ${dotDelay}ms`,
@@ -500,7 +520,16 @@ function Timeline() {
                       transition: `opacity 500ms ease ${textDelay}ms, transform 500ms ease ${textDelay}ms`,
                     }}
                   >
-                    <div style={{ color: "#00FF00", fontWeight: 700, fontSize: 20 }}>{m.year}</div>
+                    <div
+                      style={{
+                        color: isCurrent ? "#22c55e" : "#6b7280",
+                        fontWeight: isCurrent ? 600 : 400,
+                        fontSize: 18,
+                        filter: isCurrent ? "drop-shadow(0 0 8px rgba(34,197,94,0.6))" : "none",
+                      }}
+                    >
+                      {m.year}
+                    </div>
                     <div className="text-sm text-foreground/70 mt-1 leading-relaxed">{m.text}</div>
                   </div>
                 </div>
