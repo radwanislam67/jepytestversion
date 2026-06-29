@@ -26,12 +26,15 @@ export function Header() {
     setOpen(false);
     if (pathname === "/") {
       scrollToSection(section);
-    } else if (to === "/pricing" && section === "pricing") {
-      // Pricing has both a section and a dedicated page — prefer dedicated page
-      navigate({ to: "/pricing" });
-    } else {
-      navigate({ to });
+      return;
     }
+    if (section === "pricing") {
+      // Pricing: always scroll on homepage section
+      navigate({ to: "/", hash: "pricing" });
+      setTimeout(() => scrollToSection("pricing"), 80);
+      return;
+    }
+    navigate({ to });
   };
 
   useEffect(() => {
