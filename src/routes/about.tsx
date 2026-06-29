@@ -393,13 +393,14 @@ function Timeline() {
 
         <div ref={ref}>
           {/* Desktop: horizontal */}
-          <div className="hidden md:block relative" style={{ paddingTop: 72, paddingBottom: 20 }}>
+          <div className="hidden md:block relative" style={{ paddingTop: 110, paddingBottom: 20 }}>
             <div
               style={{
                 position: "absolute",
                 left: 0,
                 right: 0,
-                top: 72,
+                top: 110,
+
                 height: 2,
                 background: "rgba(255,255,255,0.08)",
               }}
@@ -408,7 +409,7 @@ function Timeline() {
               style={{
                 position: "absolute",
                 left: 0,
-                top: 72,
+                top: 110,
                 height: 2,
                 width: "100%",
                 background: horizontalProgress,
@@ -418,7 +419,7 @@ function Timeline() {
                 transition: `transform ${drawMs}ms cubic-bezier(.2,.8,.2,1)`,
               }}
             />
-            <div className="relative grid" style={{ gridTemplateColumns: `repeat(${MILESTONES.length}, 1fr)`, marginTop: -10 }}>
+            <div className="relative grid" style={{ gridTemplateColumns: `repeat(${MILESTONES.length}, 1fr)`, marginTop: -8 }}>
               {MILESTONES.map((m, i) => {
                 const dotDelay = i * perDot;
                 const textDelay = dotDelay + 200;
@@ -432,12 +433,16 @@ function Timeline() {
                           opacity: active ? 1 : 0,
                           transform: active ? "translateY(0)" : "translateY(6px)",
                           transition: `opacity 400ms ease ${dotDelay}ms, transform 400ms ease ${dotDelay}ms`,
-                          marginBottom: 10,
+                          marginBottom: 14,
+                          background: "#53FF2F",
+                          color: "#050505",
+                          boxShadow: "0 0 14px rgba(83,255,47,0.55)",
                         }}
-                        className="inline-flex items-center rounded-full border border-green-500/40 bg-green-500/20 px-2 py-0.5 text-xs font-medium text-green-400"
+                        className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wider"
                       >
                         NOW
                       </div>
+
                     )}
                     <div
                       className={isCurrent ? "animate-pulse" : ""}
@@ -466,10 +471,11 @@ function Timeline() {
                     >
                       <div
                         style={{
-                          color: isCurrent ? "#4ade80" : "#6b7280",
+                          color: isCurrent ? "#53FF2F" : "#6b7280",
                           fontWeight: isCurrent ? 700 : 400,
                           fontSize: isCurrent ? 22 : 20,
-                          filter: isCurrent ? "drop-shadow(0 0 10px rgba(34,197,94,0.7))" : "none",
+                          filter: isCurrent ? "drop-shadow(0 0 10px rgba(83,255,47,0.7))" : "none",
+
                         }}
                       >
                         {m.year}
@@ -551,19 +557,23 @@ function Timeline() {
                     }}
                   >
                     {isCurrent && (
-                      <span className="inline-flex items-center rounded-full border border-green-500/40 bg-green-500/20 px-2 py-0.5 text-xs font-medium text-green-400 mb-1">
+                      <span
+                        style={{ background: "#53FF2F", color: "#050505", boxShadow: "0 0 14px rgba(83,255,47,0.55)" }}
+                        className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wider mb-2"
+                      >
                         NOW
                       </span>
                     )}
                     <div
                       style={{
-                        color: isCurrent ? "#4ade80" : "#6b7280",
+                        color: isCurrent ? "#53FF2F" : "#6b7280",
                         fontWeight: isCurrent ? 700 : 400,
                         fontSize: isCurrent ? 20 : 18,
-                        filter: isCurrent ? "drop-shadow(0 0 10px rgba(34,197,94,0.7))" : "none",
+                        filter: isCurrent ? "drop-shadow(0 0 10px rgba(83,255,47,0.7))" : "none",
                       }}
                     >
                       {m.year}
+
                     </div>
                     <div
                       className={
