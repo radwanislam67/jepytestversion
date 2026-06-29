@@ -162,9 +162,8 @@ export function HowItWorks() {
 
                   {/* Right: image */}
                   <div
-                    className="relative w-full rounded-2xl border border-[var(--accent)]/30 overflow-hidden"
+                    className="relative w-full aspect-video rounded-2xl border border-[var(--accent)]/30 overflow-hidden bg-black"
                     style={{
-                      height: 280,
                       boxShadow: isActive
                         ? "0 30px 80px -30px color-mix(in oklab, var(--accent) 25%, transparent)"
                         : "none",
@@ -172,19 +171,20 @@ export function HowItWorks() {
                     }}
                   >
                     <img
-                      src={s.image.replace("w_800", "w_1200")}
+                      src={`${CLOUD}/${tx(1200)}/${s.path}`}
                       srcSet={[480, 800, 1200, 1600, 2000]
-                        .map((w) => `${s.image.replace("w_800", `w_${w}`)} ${w}w`)
+                        .map((w) => `${CLOUD}/${tx(w)}/${s.path} ${w}w`)
                         .join(", ")}
                       sizes="(min-width: 768px) min(600px, 45vw), 100vw"
                       alt={s.alt}
                       loading="lazy"
                       decoding="async"
-                      width={1200}
-                      height={800}
+                      width={1600}
+                      height={900}
                       className="absolute inset-0 h-full w-full object-cover"
                     />
                   </div>
+
                 </div>
               );
             })}
