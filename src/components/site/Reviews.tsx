@@ -143,8 +143,6 @@ function SummaryPill() {
           </span>
         </span>
       </div>
-
-      </div>
       <span className="text-sm font-bold text-white">4.9</span>
       <span className="text-sm text-muted-foreground">50+ Clients Worldwide</span>
       <ChevronRight size={14} className="text-muted-foreground" />
