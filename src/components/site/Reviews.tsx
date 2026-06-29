@@ -138,7 +138,7 @@ function SummaryPill() {
         ))}
         <span style={{ position: "relative", display: "inline-block", width: 12, height: 12 }}>
           <Star size={12} fill="#4B5563" stroke="#4B5563" style={{ position: "absolute", inset: 0 }} />
-          <span style={{ position: "absolute", inset: 0, width: "50%", overflow: "hidden" }}>
+          <span style={{ position: "absolute", inset: 0, width: "80%", overflow: "hidden" }}>
             <Star size={12} fill="#FFD700" stroke="#FFD700" />
           </span>
         </span>
