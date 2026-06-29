@@ -134,12 +134,16 @@ function ServicesPage() {
           </div>
         </div>
       </section>
-      <CTASection />
-      <div className="-mt-10 mb-16 text-center">
-        <Link to="/pricing" preload="render" className="btn-ghost">
+      <div className="mt-6 mb-6 text-center">
+        <Link
+          to="/pricing"
+          preload="render"
+          className="text-sm text-gray-400 hover:text-white transition-colors"
+        >
           View Pricing →
         </Link>
       </div>
+      <CTASection />
     </>
   );
 }
