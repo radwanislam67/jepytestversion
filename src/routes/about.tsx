@@ -471,10 +471,11 @@ function Timeline() {
                     >
                       <div
                         style={{
-                          color: isCurrent ? "#4ade80" : "#6b7280",
+                          color: isCurrent ? "#53FF2F" : "#6b7280",
                           fontWeight: isCurrent ? 700 : 400,
                           fontSize: isCurrent ? 22 : 20,
-                          filter: isCurrent ? "drop-shadow(0 0 10px rgba(34,197,94,0.7))" : "none",
+                          filter: isCurrent ? "drop-shadow(0 0 10px rgba(83,255,47,0.7))" : "none",
+
                         }}
                       >
                         {m.year}
