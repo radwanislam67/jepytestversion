@@ -136,29 +136,12 @@ function SummaryPill() {
         {Array.from({ length: 4 }).map((_, i) => (
           <Star key={i} size={12} fill="#FFD700" stroke="#FFD700" />
         ))}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="12"
-          height="12"
-          viewBox="0 0 24 24"
-        >
-          <defs>
-            <linearGradient id="star5grad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="90%" stopColor="#FFD700" />
-              <stop offset="90%" stopColor="#4B5563" />
-              <stop offset="100%" stopColor="#4B5563" />
-            </linearGradient>
-          </defs>
-          <path
-            d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.123 2.123 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.123 2.123 0 0 0 1.597-1.16z"
-            fill="url(#star5grad)"
-            stroke="#FFD700"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-
+        <span style={{ position: "relative", display: "inline-block", width: 12, height: 12 }}>
+          <Star size={12} fill="#4B5563" stroke="#4B5563" style={{ position: "absolute", inset: 0 }} />
+          <span style={{ position: "absolute", inset: 0, width: "90%", overflow: "hidden" }}>
+            <Star size={12} fill="#FFD700" stroke="#FFD700" />
+          </span>
+        </span>
       </div>
       <span className="text-sm font-bold text-white">4.9</span>
       <span className="text-sm text-muted-foreground">50+ Clients Worldwide</span>
