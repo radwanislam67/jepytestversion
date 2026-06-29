@@ -535,14 +535,6 @@ function Timeline() {
                 </div>
               );
             })}
-                    }}
-                  >
-                    <div style={{ color: "#00FF00", fontWeight: 700, fontSize: 20 }}>{m.year}</div>
-                    <div className="text-sm text-foreground/70 mt-1 leading-relaxed">{m.text}</div>
-                  </div>
-                </div>
-              );
-            })}
           </div>
         </div>
       </div>
