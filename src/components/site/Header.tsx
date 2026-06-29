@@ -147,11 +147,11 @@ export function Header() {
         </button>
         <nav className="flex h-full flex-col items-center justify-center gap-8 px-6">
           {SECTIONS.map((n, i) => (
-            <Link
+            <a
               key={n.to}
-              to={n.to}
-              onClick={() => setOpen(false)}
-              className="text-2xl uppercase tracking-[0.18em] text-white transition-colors hover:text-[var(--accent)]"
+              href={n.to}
+              onClick={(e) => handleNavClick(e, n.section, n.to)}
+              className="text-2xl uppercase tracking-[0.18em] text-white transition-colors hover:text-[var(--accent)] cursor-pointer"
               style={{
                 fontWeight: 500,
                 transform: open ? "translateY(0)" : "translateY(12px)",
