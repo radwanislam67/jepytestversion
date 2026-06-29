@@ -119,6 +119,19 @@ function RootComponent() {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
+    // Skip scroll-to-top when the URL has a hash — let the browser jump to
+    // the anchor (e.g. /#pricing, /#services) naturally.
+    if (window.location.hash) {
+      const id = window.location.hash.slice(1);
+      const el = id ? document.getElementById(id) : null;
+      if (el) {
+        // Defer until layout settles so the anchor target exists.
+        requestAnimationFrame(() => {
+          el.scrollIntoView({ behavior: "auto", block: "start" });
+        });
+      }
+      return;
+    }
     window.scrollTo(0, 0);
   }, []);
   return (
