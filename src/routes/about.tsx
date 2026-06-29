@@ -409,7 +409,7 @@ function Timeline() {
               style={{
                 position: "absolute",
                 left: 0,
-                top: 72,
+                top: 110,
                 height: 2,
                 width: "100%",
                 background: horizontalProgress,
