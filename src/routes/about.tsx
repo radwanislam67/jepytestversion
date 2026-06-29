@@ -601,7 +601,7 @@ function About() {
     <>
       {/* HERO */}
       <section
-        className="relative"
+        className="relative overflow-hidden"
         style={{ paddingTop: 120, paddingBottom: 48 }}
       >
         <div className="aurora" />
