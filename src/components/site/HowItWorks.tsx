@@ -169,7 +169,11 @@ export function HowItWorks() {
                     }}
                   >
                     <img
-                      src={s.image}
+                      src={s.image.replace("w_800", "w_1200")}
+                      srcSet={[480, 800, 1200, 1600, 2000]
+                        .map((w) => `${s.image.replace("w_800", `w_${w}`)} ${w}w`)
+                        .join(", ")}
+                      sizes="(min-width: 768px) min(600px, 45vw), 100vw"
                       alt={s.alt}
                       loading="lazy"
                       decoding="async"
