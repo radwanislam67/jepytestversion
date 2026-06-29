@@ -138,7 +138,7 @@ function ServicesPage() {
         <Link
           to="/pricing"
           preload="render"
-          className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-transparent px-6 py-3 text-sm font-medium uppercase tracking-wider text-white transition-all duration-300 hover:border-white/60 hover:bg-white/5"
+          className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-transparent px-6 py-3 text-sm font-medium uppercase tracking-wider text-white transition-all duration-300 ease-out hover:border-[#22c55e] hover:bg-[#22c55e] hover:text-black"
         >
           View Pricing <span aria-hidden className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-[5px]">→</span>
         </Link>
