@@ -557,19 +557,23 @@ function Timeline() {
                     }}
                   >
                     {isCurrent && (
-                      <span className="inline-flex items-center rounded-full border border-green-500/40 bg-green-500/20 px-2 py-0.5 text-xs font-medium text-green-400 mb-1">
+                      <span
+                        style={{ background: "#53FF2F", color: "#050505", boxShadow: "0 0 14px rgba(83,255,47,0.55)" }}
+                        className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wider mb-2"
+                      >
                         NOW
                       </span>
                     )}
                     <div
                       style={{
-                        color: isCurrent ? "#4ade80" : "#6b7280",
+                        color: isCurrent ? "#53FF2F" : "#6b7280",
                         fontWeight: isCurrent ? 700 : 400,
                         fontSize: isCurrent ? 20 : 18,
-                        filter: isCurrent ? "drop-shadow(0 0 10px rgba(34,197,94,0.7))" : "none",
+                        filter: isCurrent ? "drop-shadow(0 0 10px rgba(83,255,47,0.7))" : "none",
                       }}
                     >
                       {m.year}
+
                     </div>
                     <div
                       className={
