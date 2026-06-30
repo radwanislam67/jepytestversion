@@ -21,9 +21,9 @@ import { AboutPreview } from "@/components/site/AboutPreview";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Jepy | Your Content, Elevated." },
+      { title: "Jepy | Built Different" },
       { name: "description", content: "Cinematic edits, motion design and color for creators, brands and SaaS that demand attention." },
-      { property: "og:title", content: "Jepy | Your Content, Elevated." },
+      { property: "og:title", content: "Jepy | Built Different" },
       { property: "og:description", content: "Cinematic post-production for creators, brands and SaaS." },
       { property: "og:url", content: "/" },
     ],

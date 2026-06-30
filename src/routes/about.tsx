@@ -7,13 +7,13 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Us | Jepy" },
+      { title: "About | Jepy" },
       {
         name: "description",
         content:
           "Jepy is a premium post-production studio crafting cinematic edits for creators, brands and SaaS.",
       },
-      { property: "og:title", content: "About Us | Jepy" },
+      { property: "og:title", content: "About | Jepy" },
       {
         property: "og:description",
         content: "Inside the studio: mission, process and the people behind the craft.",
