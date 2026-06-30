@@ -7,7 +7,7 @@ const schema = z.object({
   company: z.string().trim().min(1).max(150),
   budget: z.string().trim().min(1).max(100),
   deadline: z.string().trim().min(1).max(50),
-  preferred_time: z.string().trim().max(150).optional().default(""),
+  preferred_time: z.string().trim().min(1).max(150),
   timezone: z.string().trim().min(1).max(100),
   project_details: z.string().trim().min(1).max(500),
   message: z.string().trim().min(10).max(2000),
