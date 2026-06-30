@@ -64,8 +64,10 @@ function Contact() {
   useEffect(() => {
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      setValues((v) => ({ ...v, timezone: tz }));
-    } catch {}
+      setValues((v) => ({ ...v, timezone: tz || "Asia/Dhaka" }));
+    } catch {
+      setValues((v) => ({ ...v, timezone: "Asia/Dhaka" }));
+    }
   }, []);
 
   const setField = (k: keyof FormValues, v: string) => {
