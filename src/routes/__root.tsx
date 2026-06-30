@@ -19,6 +19,7 @@ import { Cursor } from "@/components/site/Cursor";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { Loader } from "@/components/site/Loader";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -152,6 +153,7 @@ function RootComponent() {
         <Outlet />
       </main>
       <Footer />
+      <Toaster position="top-right" richColors closeButton />
     </QueryClientProvider>
   );
 }
