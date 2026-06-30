@@ -5,7 +5,7 @@ import { Reveal } from "@/components/site/Reveal";
 
 const SLIDES: { src: string; label: string }[] = [
   {
-    src: "https://res.cloudinary.com/drmtlvrmm/image/upload/w_800,q_auto,f_auto/v1782842925/Fiddl.art-EY_zRQwsR3Wa2dffc-xZ0w-original_1_uavvrt.webp",
+    src: "https://res.cloudinary.com/drmtlvrmm/image/upload/v1782846162/Gemini_Generated_Image_yinjx9yinjx9yinjyrery_lqqtbj.webp",
     label: "Studio Frame 01",
   },
   {
