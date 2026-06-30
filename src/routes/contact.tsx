@@ -144,17 +144,23 @@ function Contact() {
   );
 }
 
-function Label({ children }: { children: React.ReactNode }) {
-  return <label className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">{children}</label>;
+function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
+  return (
+    <label className="text-sm font-semibold text-[#f3f4f6] mb-2 inline-block">
+      {children}
+      {required && <span className="text-red-400 ml-1">*</span>}
+    </label>
+  );
 }
 
 function Field(props: React.InputHTMLAttributes<HTMLInputElement> & { label: string }) {
-  const { label, className, ...rest } = props;
+  const { label, className, required, ...rest } = props;
   return (
     <div>
-      <Label>{label}</Label>
+      <Label required={required}>{label}</Label>
       <input
         {...rest}
+        required={required}
         className={`w-full mt-2 rounded-2xl border border-white/10 bg-background px-4 py-3 outline-none focus:border-[var(--accent)] transition-colors ${className ?? ""}`}
       />
     </div>
