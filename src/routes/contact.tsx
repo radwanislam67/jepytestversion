@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Mail, MessageCircle, Calendar, Check, ArrowUpRight, Loader2 } from "lucide-react";
+import { z } from "zod";
+import { toast } from "sonner";
 import { Reveal } from "@/components/site/Reveal";
 
 export const Route = createFileRoute("/contact")({
@@ -22,34 +24,97 @@ const CALENDLY_URL = "https://calendly.com/your-handle/intro";
 const WHATSAPP_URL = "https://wa.me/10000000000";
 const EMAIL = "hello@jepy.studio";
 
+const REQUIRED = "This field is required";
+
+const schema = z.object({
+  name: z.string().trim().min(1, REQUIRED).min(2, "Name must be at least 2 characters").max(100),
+  email: z.string().trim().min(1, REQUIRED).email("Please enter a valid email address").max(255),
+  company: z.string().trim().min(1, REQUIRED).max(150),
+  budget: z.string().trim().min(1, REQUIRED).max(100),
+  deadline: z.string().trim().min(1, REQUIRED),
+  preferred_time: z.string().trim().max(150).optional().or(z.literal("")),
+  timezone: z.string().trim().min(1, REQUIRED).max(100),
+  project_details: z.string().trim().min(1, REQUIRED).max(500),
+  message: z.string().trim().min(1, REQUIRED).min(10, "Message must be at least 10 characters").max(2000),
+});
+
+type FormValues = z.infer<typeof schema>;
+type Errors = Partial<Record<keyof FormValues, string>>;
+
+const FIELD_ORDER: (keyof FormValues)[] = [
+  "name", "email", "company", "budget", "deadline", "timezone", "project_details", "message",
+];
+
 function Contact() {
-  const [tz, setTz] = useState("");
+  const [values, setValues] = useState<FormValues>({
+    name: "", email: "", company: "", budget: "", deadline: "",
+    preferred_time: "", timezone: "", project_details: "", message: "",
+  });
+  const [errors, setErrors] = useState<Errors>({});
+  const [touched, setTouched] = useState<Partial<Record<keyof FormValues, boolean>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    try { setTz(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch {}
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      setValues((v) => ({ ...v, timezone: tz }));
+    } catch {}
   }, []);
+
+  const setField = (k: keyof FormValues, v: string) => {
+    setValues((prev) => ({ ...prev, [k]: v }));
+    if (touched[k]) validateField(k, v);
+  };
+
+  const validateField = (k: keyof FormValues, v: string) => {
+    const result = schema.shape[k].safeParse(v);
+    setErrors((prev) => ({ ...prev, [k]: result.success ? undefined : result.error.issues[0].message }));
+  };
+
+  const onBlur = (k: keyof FormValues) => {
+    setTouched((p) => ({ ...p, [k]: true }));
+    validateField(k, values[k] ?? "");
+  };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    if ((data.get("_gotcha") as string)?.length) return;
+    if (submitting) return;
+    const result = schema.safeParse(values);
+    if (!result.success) {
+      const next: Errors = {};
+      const allTouched: Partial<Record<keyof FormValues, boolean>> = {};
+      result.error.issues.forEach((iss) => {
+        const k = iss.path[0] as keyof FormValues;
+        if (!next[k]) next[k] = iss.message;
+      });
+      FIELD_ORDER.forEach((k) => { allTouched[k] = true; });
+      setErrors(next);
+      setTouched(allTouched);
+      const firstKey = FIELD_ORDER.find((k) => next[k]);
+      if (firstKey && formRef.current) {
+        const el = formRef.current.querySelector<HTMLElement>(`[name="${firstKey}"]`);
+        el?.scrollIntoView({ behavior: "smooth", block: "center" });
+        el?.focus({ preventScroll: true });
+      }
+      toast.error("Please fix the highlighted fields.");
+      return;
+    }
     setSubmitting(true);
     try {
+      const fd = new FormData();
+      Object.entries(result.data).forEach(([k, v]) => fd.append(k, v ?? ""));
       const res = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: { Accept: "application/json" },
-        body: data,
+        body: fd,
       });
       if (!res.ok) throw new Error("Submission failed");
       setDone(true);
-      form.reset();
+      toast.success("Thank you! We'll be in touch within 24 hours.", { duration: 5000 });
     } catch {
-      setError("Could not send. Email us directly at " + EMAIL);
+      toast.error("Something went wrong. Please try again.", { duration: 5000 });
     } finally {
       setSubmitting(false);
     }
@@ -78,7 +143,7 @@ function Contact() {
                 <div className="flex-1">
                   <div className="font-display text-xl">Book a call</div>
                   <div className="text-sm text-muted-foreground">Pick a time — auto-detects your timezone.</div>
-                  {tz && <div className="text-xs mt-1 text-[var(--accent)]/80 font-mono">{tz}</div>}
+                  {values.timezone && <div className="text-xs mt-1 text-[var(--accent)]/80 font-mono">{values.timezone}</div>}
                 </div>
                 <ArrowUpRight size={18} className="text-foreground/60 group-hover:text-[var(--accent)] transition-colors" />
               </a>
@@ -112,21 +177,28 @@ function Contact() {
                     <p className="mt-3 text-foreground/70">We&apos;ll reply within 24 hours. Cinematic things ahead.</p>
                   </div>
                 ) : (
-                  <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" />
-                    <Field label="Name" name="name" required />
-                    <Field label="Email" type="email" name="email" required />
-                    <Field label="Company" name="company" required />
-                    <Field label="Budget" name="budget" placeholder="e.g. $5k–$20k" required />
-                    <Field label="Deadline" type="date" name="deadline" required />
-                    <Field label="Preferred meeting time" name="preferred_time" placeholder="e.g. Weekday mornings" />
-                    <Field label="Timezone" name="timezone" value={tz} onChange={(e) => setTz(e.target.value)} required />
-                    <Field label="Project details" name="project_details" placeholder="Short-form, brand film, motion…" required />
+                  <form ref={formRef} onSubmit={onSubmit} noValidate className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <Field label="Name" name="name" required value={values.name} error={errors.name} onChange={(e) => setField("name", e.target.value)} onBlur={() => onBlur("name")} />
+                    <Field label="Email" type="email" name="email" required value={values.email} error={errors.email} onChange={(e) => setField("email", e.target.value)} onBlur={() => onBlur("email")} />
+                    <Field label="Company" name="company" required value={values.company} error={errors.company} onChange={(e) => setField("company", e.target.value)} onBlur={() => onBlur("company")} />
+                    <Field label="Budget" name="budget" placeholder="e.g. $5k–$20k" required value={values.budget} error={errors.budget} onChange={(e) => setField("budget", e.target.value)} onBlur={() => onBlur("budget")} />
+                    <Field label="Deadline" type="date" name="deadline" required value={values.deadline} error={errors.deadline} onChange={(e) => setField("deadline", e.target.value)} onBlur={() => onBlur("deadline")} />
+                    <Field label="Preferred meeting time" name="preferred_time" placeholder="e.g. Weekday mornings" value={values.preferred_time ?? ""} onChange={(e) => setField("preferred_time", e.target.value)} />
+                    <Field label="Timezone" name="timezone" required value={values.timezone} error={errors.timezone} onChange={(e) => setField("timezone", e.target.value)} onBlur={() => onBlur("timezone")} />
+                    <Field label="Project details" name="project_details" placeholder="Short-form, brand film, motion…" required value={values.project_details} error={errors.project_details} onChange={(e) => setField("project_details", e.target.value)} onBlur={() => onBlur("project_details")} />
                     <div className="md:col-span-2">
                       <Label required>Message</Label>
-                      <textarea name="message" rows={5} required className="w-full mt-2 min-h-24 resize-none rounded-2xl border-2 border-green-500 bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors" />
+                      <textarea
+                        name="message"
+                        rows={5}
+                        value={values.message}
+                        onChange={(e) => setField("message", e.target.value)}
+                        onBlur={() => onBlur("message")}
+                        aria-invalid={!!errors.message}
+                        className={`w-full mt-2 min-h-24 resize-none rounded-2xl border-2 ${errors.message ? "border-red-500" : "border-green-500"} bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors`}
+                      />
+                      {errors.message && <p className="mt-1 text-xs text-red-400">{errors.message}</p>}
                     </div>
-                    {error && <div className="md:col-span-2 text-sm text-red-400">{error}</div>}
                     <div className="md:col-span-2 flex flex-col gap-4 pt-2">
                       <p className="text-xs text-muted-foreground max-w-sm">By submitting, you agree to be contacted about your project. No spam, ever.</p>
                       <button
@@ -157,16 +229,18 @@ function Label({ children, required }: { children: React.ReactNode; required?: b
   );
 }
 
-function Field(props: React.InputHTMLAttributes<HTMLInputElement> & { label: string }) {
-  const { label, className, required, ...rest } = props;
+type FieldProps = React.InputHTMLAttributes<HTMLInputElement> & { label: string; error?: string };
+
+function Field({ label, className, required, error, ...rest }: FieldProps) {
   return (
     <div>
       <Label required={required}>{label}</Label>
       <input
         {...rest}
-        required={required}
-        className={`w-full mt-2 h-11 rounded-2xl border-2 border-green-500 bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors ${className ?? ""}`}
+        aria-invalid={!!error}
+        className={`w-full mt-2 h-11 rounded-2xl border-2 ${error ? "border-red-500" : "border-green-500"} bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors ${className ?? ""}`}
       />
+      {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
     </div>
   );
 }
