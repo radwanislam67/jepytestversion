@@ -5,11 +5,11 @@ import { Reveal } from "@/components/site/Reveal";
 
 const SLIDES: { src: string; label: string }[] = [
   {
-    src: "https://picsum.photos/seed/jepy-about-1/800/600",
+    src: "https://res.cloudinary.com/drmtlvrmm/image/upload/w_800,q_auto,f_auto/v1782842923/Gemini_Generated_Image_yu7k4wyu7k4wyu7k_1_hf0mpf.webp",
     label: "Studio Frame 01",
   },
   {
-    src: "https://picsum.photos/seed/jepy-about-2/800/600",
+    src: "https://res.cloudinary.com/drmtlvrmm/image/upload/w_800,q_auto,f_auto/v1782842925/Fiddl.art-EY_zRQwsR3Wa2dffc-xZ0w-original_1_uavvrt.webp",
     label: "Studio Frame 02",
   },
 ];
