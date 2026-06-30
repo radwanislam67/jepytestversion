@@ -19,10 +19,15 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/your-form-id";
+const CONTACT_ENDPOINT = "/api/public/contact";
 const CALENDLY_URL = "https://calendly.com/your-handle/intro";
 const WHATSAPP_URL = "https://wa.me/10000000000";
 const EMAIL = "hello@jepy.studio";
+
+const EMPTY_FORM = {
+  name: "", email: "", company: "", budget: "", deadline: "",
+  preferred_time: "", timezone: "", project_details: "", message: "",
+} as const;
 
 const REQUIRED = "This field is required";
 
