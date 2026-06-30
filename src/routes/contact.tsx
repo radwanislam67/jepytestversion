@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Mail, MessageCircle, Calendar, Check, ArrowUpRight } from "lucide-react";
+import { Mail, MessageCircle, Calendar, Check, ArrowUpRight, Loader2 } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 
 export const Route = createFileRoute("/contact")({
@@ -127,10 +127,14 @@ function Contact() {
                       <textarea name="message" rows={5} required className="w-full mt-2 min-h-24 resize-none rounded-2xl border-2 border-green-500 bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors" />
                     </div>
                     {error && <div className="md:col-span-2 text-sm text-red-400">{error}</div>}
-                    <div className="md:col-span-2 flex items-center justify-between gap-4 pt-2">
+                    <div className="md:col-span-2 flex flex-col gap-4 pt-2">
                       <p className="text-xs text-muted-foreground max-w-sm">By submitting, you agree to be contacted about your project. No spam, ever.</p>
-                      <button type="submit" disabled={submitting} className="btn-primary disabled:opacity-60">
-                        {submitting ? "Sending…" : "Send brief"} <ArrowUpRight size={16} />
+                      <button
+                        type="submit"
+                        disabled={submitting}
+                        className="w-full h-12 px-6 py-3 inline-flex items-center justify-center gap-2 rounded-full bg-[#53FF2F] text-[#050505] font-semibold transition-all duration-200 hover:scale-105 hover:brightness-110 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#050505] focus:ring-green-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                      >
+                        {submitting ? (<><Loader2 size={16} className="animate-spin" /> Sending...</>) : (<>Send Brief <ArrowUpRight size={16} /></>)}
                       </button>
                     </div>
                   </form>
