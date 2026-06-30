@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Mail, MessageCircle, Calendar, Check, ArrowUpRight, Loader2 } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
@@ -171,42 +171,41 @@ function Contact() {
               <div className="aurora opacity-40" />
               <div className="relative">
                 {done ? (
-                  <div className="py-16 text-center">
+                  <div className="py-16 text-center" role="status" aria-live="polite">
                     <div className="mx-auto h-16 w-16 rounded-full glow-ring flex items-center justify-center text-[var(--accent)]"><Check size={26} /></div>
                     <h2 className="mt-6 font-display text-3xl md:text-4xl tracking-tight">Brief received.</h2>
                     <p className="mt-3 text-foreground/70">We&apos;ll reply within 24 hours. Cinematic things ahead.</p>
                   </div>
                 ) : (
-                  <form ref={formRef} onSubmit={onSubmit} noValidate className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
-                    <Field label="Name" name="name" required value={values.name} error={errors.name} onChange={(e) => setField("name", e.target.value)} onBlur={() => onBlur("name")} />
-                    <Field label="Email" type="email" name="email" required value={values.email} error={errors.email} onChange={(e) => setField("email", e.target.value)} onBlur={() => onBlur("email")} />
-                    <Field label="Company" name="company" required value={values.company} error={errors.company} onChange={(e) => setField("company", e.target.value)} onBlur={() => onBlur("company")} />
+                  <form ref={formRef} onSubmit={onSubmit} noValidate aria-busy={submitting} className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
+                    <Field label="Name" name="name" required value={values.name} error={errors.name} onChange={(e) => setField("name", e.target.value)} onBlur={() => onBlur("name")} autoComplete="name" />
+                    <Field label="Email" type="email" name="email" required value={values.email} error={errors.email} onChange={(e) => setField("email", e.target.value)} onBlur={() => onBlur("email")} autoComplete="email" inputMode="email" />
+                    <Field label="Company" name="company" required value={values.company} error={errors.company} onChange={(e) => setField("company", e.target.value)} onBlur={() => onBlur("company")} autoComplete="organization" />
                     <SelectField label="Budget" name="budget" required value={values.budget} error={errors.budget} onChange={(e) => setField("budget", e.target.value)} onBlur={() => onBlur("budget")} placeholder="Select a range" options={["Under $5k", "$5k - $20k", "$20k - $50k", "$50k - $100k", "$100k+"]} />
                     <Field label="Deadline" type="date" name="deadline" required value={values.deadline} error={errors.deadline} onChange={(e) => setField("deadline", e.target.value)} onBlur={() => onBlur("deadline")} />
                     <SelectField label="Preferred meeting time" name="preferred_time" value={values.preferred_time ?? ""} onChange={(e) => setField("preferred_time", e.target.value)} placeholder="Select preferred time" options={["Weekday mornings", "Weekday afternoons", "Weekends", "ASAP"]} />
                     <ComboField label="Timezone" name="timezone" required value={values.timezone} error={errors.timezone} onChange={(e) => setField("timezone", e.target.value)} onBlur={() => onBlur("timezone")} placeholder="Search timezone…" options={["Asia/Dhaka","Asia/Kolkata","Asia/Bangkok","Asia/Singapore","America/New_York","America/Los_Angeles","Europe/London","Europe/Paris","Australia/Sydney"]} />
                     <Field label="Project details" name="project_details" placeholder="Short-form, brand film, motion…" required value={values.project_details} error={errors.project_details} onChange={(e) => setField("project_details", e.target.value)} onBlur={() => onBlur("project_details")} />
-                    <div className="md:col-span-2">
-                      <Label required>Message</Label>
-                      <textarea
-                        name="message"
-                        rows={5}
-                        value={values.message}
-                        onChange={(e) => setField("message", e.target.value)}
-                        onBlur={() => onBlur("message")}
-                        aria-invalid={!!errors.message}
-                        className={`w-full mt-2 min-h-24 resize-none rounded-2xl border-2 ${errors.message ? "border-red-500" : "border-green-500"} bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors`}
-                      />
-                      {errors.message && <p className="mt-1 text-xs text-red-400">{errors.message}</p>}
-                    </div>
+                    <TextareaField
+                      label="Message"
+                      name="message"
+                      required
+                      rows={5}
+                      value={values.message}
+                      error={errors.message}
+                      onChange={(e) => setField("message", e.target.value)}
+                      onBlur={() => onBlur("message")}
+                      className="md:col-span-2"
+                    />
                     <div className="md:col-span-2 flex flex-col gap-4 pt-2">
                       <p className="text-xs text-muted-foreground max-w-sm">By submitting, you agree to be contacted about your project. No spam, ever.</p>
                       <button
                         type="submit"
                         disabled={submitting}
+                        aria-busy={submitting}
                         className="w-full h-12 px-6 py-3 inline-flex items-center justify-center gap-2 rounded-full bg-[#53FF2F] text-[#050505] font-semibold transition-all duration-200 hover:scale-105 hover:brightness-110 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#050505] focus:ring-green-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                       >
-                        {submitting ? (<><Loader2 size={16} className="animate-spin" /> Sending...</>) : (<>Send Brief <ArrowUpRight size={16} /></>)}
+                        {submitting ? (<><Loader2 size={16} className="animate-spin" aria-hidden="true" /> Sending...</>) : (<>Send Brief <ArrowUpRight size={16} aria-hidden="true" /></>)}
                       </button>
                     </div>
                   </form>
@@ -220,46 +219,65 @@ function Contact() {
   );
 }
 
-function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
+function Label({ children, required, htmlFor }: { children: React.ReactNode; required?: boolean; htmlFor?: string }) {
   return (
-    <label className="text-sm font-semibold text-[#f3f4f6] mb-2 inline-block">
+    <label htmlFor={htmlFor} className="text-sm font-semibold text-[#f3f4f6] mb-2 inline-block">
       {children}
-      {required && <span className="text-red-400 ml-1">*</span>}
+      {required && <span className="text-red-400 ml-1" aria-hidden="true">*</span>}
+      {required && <span className="sr-only"> (required)</span>}
     </label>
   );
 }
 
-type FieldProps = React.InputHTMLAttributes<HTMLInputElement> & { label: string; error?: string };
-
-function Field({ label, className, required, error, ...rest }: FieldProps) {
-  return (
-    <div>
-      <Label required={required}>{label}</Label>
-      <input
-        {...rest}
-        aria-invalid={!!error}
-        className={`w-full mt-2 h-11 rounded-2xl border-2 ${error ? "border-red-500" : "border-green-500"} bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors ${className ?? ""}`}
-      />
-      {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
-    </div>
-  );
+function ErrorText({ id, children }: { id: string; children: React.ReactNode }) {
+  return <p id={id} role="alert" className="mt-1 text-xs text-red-400">{children}</p>;
 }
 
 const fieldBase = (error?: string) =>
   `w-full mt-2 h-11 rounded-2xl border-2 ${error ? "border-red-500" : "border-green-500"} bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors`;
 
+type FieldProps = React.InputHTMLAttributes<HTMLInputElement> & { label: string; error?: string };
+
+function Field({ label, className, required, error, id, ...rest }: FieldProps) {
+  const auto = useId();
+  const inputId = id ?? auto;
+  const errorId = `${inputId}-error`;
+  return (
+    <div>
+      <Label required={required} htmlFor={inputId}>{label}</Label>
+      <input
+        {...rest}
+        id={inputId}
+        required={required}
+        aria-required={required || undefined}
+        aria-invalid={!!error || undefined}
+        aria-describedby={error ? errorId : undefined}
+        className={`${fieldBase(error)} ${className ?? ""}`}
+      />
+      {error && <ErrorText id={errorId}>{error}</ErrorText>}
+    </div>
+  );
+}
+
 type SelectFieldProps = React.SelectHTMLAttributes<HTMLSelectElement> & {
   label: string; error?: string; options: string[]; placeholder?: string;
 };
 
-function SelectField({ label, required, error, options, placeholder, value, ...rest }: SelectFieldProps) {
+function SelectField({ label, required, error, options, placeholder, value, id, ...rest }: SelectFieldProps) {
+  const auto = useId();
+  const inputId = id ?? auto;
+  const errorId = `${inputId}-error`;
   return (
     <div>
-      <Label required={required}>{label}</Label>
+      <Label required={required} htmlFor={inputId}>{label}</Label>
       <select
         {...rest}
+        id={inputId}
+        required={required}
+        aria-required={required || undefined}
         value={value}
-        aria-invalid={!!error}
+        aria-invalid={!!error || undefined}
+        aria-describedby={error ? errorId : undefined}
         className={`${fieldBase(error)} appearance-none pr-10 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2353FF2F%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>')] bg-no-repeat bg-[right_1rem_center] ${!value ? "text-gray-400" : "text-white"}`}
       >
         <option value="" disabled className="text-gray-400 bg-background">{placeholder ?? "Select…"}</option>
@@ -267,7 +285,7 @@ function SelectField({ label, required, error, options, placeholder, value, ...r
           <option key={o} value={o} className="text-white bg-background">{o}</option>
         ))}
       </select>
-      {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
+      {error && <ErrorText id={errorId}>{error}</ErrorText>}
     </div>
   );
 }
@@ -276,23 +294,53 @@ type ComboFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string; error?: string; options: string[];
 };
 
-function ComboField({ label, required, error, options, name, ...rest }: ComboFieldProps) {
-  const listId = `${name}-list`;
+function ComboField({ label, required, error, options, name, id, ...rest }: ComboFieldProps) {
+  const auto = useId();
+  const inputId = id ?? auto;
+  const listId = `${inputId}-list`;
+  const errorId = `${inputId}-error`;
   return (
     <div>
-      <Label required={required}>{label}</Label>
+      <Label required={required} htmlFor={inputId}>{label}</Label>
       <input
         {...rest}
+        id={inputId}
         name={name}
         list={listId}
+        required={required}
+        aria-required={required || undefined}
         autoComplete="off"
-        aria-invalid={!!error}
+        aria-invalid={!!error || undefined}
+        aria-describedby={error ? errorId : undefined}
         className={fieldBase(error)}
       />
       <datalist id={listId}>
         {options.map((o) => <option key={o} value={o} />)}
       </datalist>
-      {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
+      {error && <ErrorText id={errorId}>{error}</ErrorText>}
+    </div>
+  );
+}
+
+type TextareaFieldProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & { label: string; error?: string };
+
+function TextareaField({ label, required, error, className, id, ...rest }: TextareaFieldProps) {
+  const auto = useId();
+  const inputId = id ?? auto;
+  const errorId = `${inputId}-error`;
+  return (
+    <div className={className}>
+      <Label required={required} htmlFor={inputId}>{label}</Label>
+      <textarea
+        {...rest}
+        id={inputId}
+        required={required}
+        aria-required={required || undefined}
+        aria-invalid={!!error || undefined}
+        aria-describedby={error ? errorId : undefined}
+        className={`w-full mt-2 min-h-24 resize-none rounded-2xl border-2 ${error ? "border-red-500" : "border-green-500"} bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors`}
+      />
+      {error && <ErrorText id={errorId}>{error}</ErrorText>}
     </div>
   );
 }
