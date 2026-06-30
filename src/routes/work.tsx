@@ -8,9 +8,9 @@ import { CTASection } from "@/components/site/CTASection";
 export const Route = createFileRoute("/work")({
   head: () => ({
     meta: [
-      { title: "Our Work | Jepy" },
+      { title: "Work | Jepy" },
       { name: "description", content: "Selected edits, films and motion work from the Jepy studio." },
-      { property: "og:title", content: "Our Work | Jepy" },
+      { property: "og:title", content: "Work | Jepy" },
       { property: "og:description", content: "Every frame tells a story." },
     ],
   }),
