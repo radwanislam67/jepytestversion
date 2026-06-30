@@ -763,39 +763,42 @@ function About() {
               Our <span className="text-[var(--accent)] text-glow">Studio</span>
             </h2>
           </Reveal>
-          <div
-            style={{
-              display: "grid",
-              gap: 16,
-              gridTemplateColumns: "1fr",
-              gridTemplateAreas: `"a" "b" "c" "d"`,
-            }}
-            className="studio-grid"
-          >
-            <StudioTile area="a" label="Studio Frame 01" src="https://picsum.photos/seed/studio-a/800/600" delay={0} />
-            <StudioTile area="b" label="Studio Frame 02" src="https://picsum.photos/seed/studio-b/800/600" delay={150} />
-            <StudioTile area="c" label="Studio Frame 03" src="https://picsum.photos/seed/studio-c/800/600" delay={300} />
-            <StudioTile area="d" label="Studio Frame 04" src="https://picsum.photos/seed/studio-d/800/600" delay={450} />
+          <div className="studio-grid" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <div className="studio-img" style={{ height: 480, borderRadius: 12, overflow: "hidden" }}>
+              <img
+                src="https://res.cloudinary.com/drmtlvrmm/image/upload/v1782846737/Fiddl.art-brzprV1YTVuXb0Ih-nK_Lg-original_qh4j0l.webp"
+                alt=""
+                loading="lazy"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
+              />
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              <div className="studio-img" style={{ height: 320, borderRadius: 12, overflow: "hidden" }}>
+                <img
+                  src="https://res.cloudinary.com/drmtlvrmm/image/upload/v1782846739/Fiddl.art-hoFj8mYQRZmV-EFTKsFR6Q-original_pbnqa5.webp"
+                  alt=""
+                  loading="lazy"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
+                />
+              </div>
+              <div className="studio-img" style={{ height: 320, borderRadius: 12, overflow: "hidden" }}>
+                <img
+                  src="https://res.cloudinary.com/drmtlvrmm/image/upload/v1782846776/Fiddl.art-3hC588cMQ6q4epoM9kV6jw-original_g2ifoe.webp"
+                  alt=""
+                  loading="lazy"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
+                />
+              </div>
+            </div>
           </div>
           <style>{`
-            @media (min-width: 768px) {
-              .studio-grid {
-                grid-template-columns: 2fr 1fr !important;
-                grid-template-areas:
-                  "a b"
-                  "c d" !important;
-              }
-              .studio-grid > *:nth-child(1),
-              .studio-grid > *:nth-child(4) { min-height: 360px; }
-              .studio-grid > *:nth-child(2),
-              .studio-grid > *:nth-child(3) { min-height: 360px; }
-              .studio-grid {
-                grid-template-areas:
-                  "a b"
-                  "c d" !important;
-              }
+            .studio-img img:hover { transform: scale(1.03); }
+            @media (max-width: 767px) {
+              .studio-grid > div:first-child { height: 280px !important; }
+              .studio-grid .studio-img { height: 200px !important; }
             }
           `}</style>
+
         </div>
       </section>
 
