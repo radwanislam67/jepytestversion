@@ -120,7 +120,7 @@ function Contact() {
       setErrors({});
       setTouched({});
       setDone(true);
-      toast.success("Thank you! We'll be in touch within 24 hours.", { duration: 5000 });
+      toast.success("Thank you! We'll review your brief and get back to you soon.", { duration: 5000 });
       setTimeout(() => setDone(false), 5000);
     } catch {
       toast.error("Something went wrong. Please try again.", { duration: 5000 });
