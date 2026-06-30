@@ -19,6 +19,7 @@ export function SmoothScroll() {
     return () => {
       cancelled = true;
       cancelAnimationFrame(raf);
+      if ((window as any).__lenis === lenis) delete (window as any).__lenis;
       lenis?.destroy?.();
     };
   }, []);
