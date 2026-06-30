@@ -108,16 +108,18 @@ function Contact() {
     }
     setSubmitting(true);
     try {
-      const fd = new FormData();
-      Object.entries(result.data).forEach(([k, v]) => fd.append(k, v ?? ""));
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      const res = await fetch(CONTACT_ENDPOINT, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: fd,
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(result.data),
       });
       if (!res.ok) throw new Error("Submission failed");
+      setValues({ ...EMPTY_FORM });
+      setErrors({});
+      setTouched({});
       setDone(true);
       toast.success("Thank you! We'll be in touch within 24 hours.", { duration: 5000 });
+      setTimeout(() => setDone(false), 5000);
     } catch {
       toast.error("Something went wrong. Please try again.", { duration: 5000 });
     } finally {
