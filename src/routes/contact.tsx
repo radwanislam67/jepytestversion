@@ -121,21 +121,21 @@ function Contact() {
   };
 
   return (
-    <div className="pt-32 md:pt-36 pb-16 md:pb-20">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+    <div className="pt-28 md:pt-36 pb-12 md:pb-20">
+      <div className="mx-auto max-w-7xl px-4 md:px-8">
         <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">Contact</div>
         <Reveal>
-          <h1 className="font-display text-6xl md:text-[8rem] leading-[0.95] tracking-tighter">
+          <h1 className="font-display text-5xl sm:text-6xl md:text-[8rem] leading-[0.95] tracking-tighter">
             Tell us<br /><span className="text-[var(--accent)] text-glow">the story.</span>
           </h1>
         </Reveal>
         <Reveal delay={120}>
-          <p className="mt-8 max-w-xl text-foreground/70">
+          <p className="mt-6 md:mt-8 max-w-[600px] text-base text-foreground/70">
             Share your project brief, or book a 20-minute intro call. We reply within 24 hours, worldwide.
           </p>
         </Reveal>
 
-        <div className="mt-16 grid lg:grid-cols-[1fr_1.4fr] gap-10">
+        <div className="mt-10 md:mt-16 grid lg:grid-cols-[1fr_1.4fr] gap-6 md:gap-10">
           <Reveal>
             <aside className="space-y-4">
               <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className="group flex items-start gap-4 rounded-3xl border border-white/5 bg-[var(--surface)] p-6 hover:border-[var(--accent)]/40 transition-colors">
@@ -167,7 +167,7 @@ function Contact() {
           </Reveal>
 
           <Reveal delay={100}>
-            <div className="relative rounded-[32px] border border-white/5 bg-[var(--surface)] p-8 md:p-10 overflow-hidden">
+            <div className="relative rounded-3xl md:rounded-[32px] border border-white/5 bg-[var(--surface)] p-6 md:p-10 overflow-hidden">
               <div className="aurora opacity-40" />
               <div className="relative">
                 {done ? (
@@ -177,7 +177,7 @@ function Contact() {
                     <p className="mt-3 text-foreground/70">We&apos;ll reply within 24 hours. Cinematic things ahead.</p>
                   </div>
                 ) : (
-                  <form ref={formRef} onSubmit={onSubmit} noValidate className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <form ref={formRef} onSubmit={onSubmit} noValidate className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
                     <Field label="Name" name="name" required value={values.name} error={errors.name} onChange={(e) => setField("name", e.target.value)} onBlur={() => onBlur("name")} />
                     <Field label="Email" type="email" name="email" required value={values.email} error={errors.email} onChange={(e) => setField("email", e.target.value)} onBlur={() => onBlur("email")} />
                     <Field label="Company" name="company" required value={values.company} error={errors.company} onChange={(e) => setField("company", e.target.value)} onBlur={() => onBlur("company")} />
