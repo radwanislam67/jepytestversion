@@ -167,7 +167,7 @@ function Contact() {
           </Reveal>
 
           <Reveal delay={100}>
-            <div className="relative rounded-[32px] border border-white/5 bg-[var(--surface)] p-8 md:p-10 overflow-hidden">
+            <div className="relative rounded-3xl md:rounded-[32px] border border-white/5 bg-[var(--surface)] p-6 md:p-10 overflow-hidden">
               <div className="aurora opacity-40" />
               <div className="relative">
                 {done ? (
