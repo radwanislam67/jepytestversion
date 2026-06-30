@@ -37,7 +37,7 @@ const schema = z.object({
   company: z.string().trim().min(1, REQUIRED).max(150),
   budget: z.string().trim().min(1, REQUIRED).max(100),
   deadline: z.string().trim().min(1, REQUIRED),
-  preferred_time: z.string().trim().max(150).optional().or(z.literal("")),
+  preferred_time: z.string().trim().min(1, REQUIRED).max(150),
   timezone: z.string().trim().min(1, REQUIRED).max(100),
   project_details: z.string().trim().min(1, REQUIRED).max(500),
   message: z.string().trim().min(1, REQUIRED).min(10, "Message must be at least 10 characters").max(2000),
@@ -47,7 +47,7 @@ type FormValues = z.infer<typeof schema>;
 type Errors = Partial<Record<keyof FormValues, string>>;
 
 const FIELD_ORDER: (keyof FormValues)[] = [
-  "name", "email", "company", "budget", "deadline", "timezone", "project_details", "message",
+  "name", "email", "company", "budget", "deadline", "timezone", "preferred_time", "project_details", "message",
 ];
 
 function Contact() {
@@ -64,8 +64,10 @@ function Contact() {
   useEffect(() => {
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      setValues((v) => ({ ...v, timezone: tz }));
-    } catch {}
+      setValues((v) => ({ ...v, timezone: tz || "Asia/Dhaka" }));
+    } catch {
+      setValues((v) => ({ ...v, timezone: "Asia/Dhaka" }));
+    }
   }, []);
 
   const setField = (k: keyof FormValues, v: string) => {
@@ -118,7 +120,7 @@ function Contact() {
       setErrors({});
       setTouched({});
       setDone(true);
-      toast.success("Thank you! We'll be in touch within 24 hours.", { duration: 5000 });
+      toast.success("Thank you! We'll review your brief and get back to you soon.", { duration: 5000 });
       setTimeout(() => setDone(false), 5000);
     } catch {
       toast.error("Something went wrong. Please try again.", { duration: 5000 });
@@ -190,7 +192,7 @@ function Contact() {
                     <Field label="Company" name="company" required value={values.company} error={errors.company} onChange={(e) => setField("company", e.target.value)} onBlur={() => onBlur("company")} autoComplete="organization" />
                     <SelectField label="Budget" name="budget" required value={values.budget} error={errors.budget} onChange={(e) => setField("budget", e.target.value)} onBlur={() => onBlur("budget")} placeholder="Select a range" options={["Under $5k", "$5k - $20k", "$20k - $50k", "$50k - $100k", "$100k+"]} />
                     <Field label="Deadline" type="date" name="deadline" required value={values.deadline} error={errors.deadline} onChange={(e) => setField("deadline", e.target.value)} onBlur={() => onBlur("deadline")} />
-                    <SelectField label="Preferred meeting time" name="preferred_time" value={values.preferred_time ?? ""} onChange={(e) => setField("preferred_time", e.target.value)} placeholder="Select preferred time" options={["Weekday mornings", "Weekday afternoons", "Weekends", "ASAP"]} />
+                    <SelectField label="Preferred meeting time" name="preferred_time" required value={values.preferred_time ?? ""} error={errors.preferred_time} onChange={(e) => setField("preferred_time", e.target.value)} onBlur={() => onBlur("preferred_time")} placeholder="Select preferred time" options={["Weekday mornings", "Weekday afternoons", "Weekends", "ASAP"]} />
                     <ComboField label="Timezone" name="timezone" required value={values.timezone} error={errors.timezone} onChange={(e) => setField("timezone", e.target.value)} onBlur={() => onBlur("timezone")} placeholder="Search timezone…" options={["Asia/Dhaka","Asia/Kolkata","Asia/Bangkok","Asia/Singapore","America/New_York","America/Los_Angeles","Europe/London","Europe/Paris","Australia/Sydney"]} />
                     <Field label="Project details" name="project_details" placeholder="Short-form, brand film, motion…" required value={values.project_details} error={errors.project_details} onChange={(e) => setField("project_details", e.target.value)} onBlur={() => onBlur("project_details")} />
                     <TextareaField
