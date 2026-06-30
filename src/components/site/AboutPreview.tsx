@@ -9,7 +9,7 @@ const SLIDES: { src: string; label: string }[] = [
     label: "Studio Frame 01",
   },
   {
-    src: "https://res.cloudinary.com/drmtlvrmm/image/upload/w_800,q_auto,f_auto/v1782842925/Fiddl.art-EY_zRQwsR3Wa2dffc-xZ0w-original_1_uavvrt.webp",
+    src: "https://res.cloudinary.com/drmtlvrmm/image/upload/w_800,q_auto,f_auto/v1782844852/Studio_in_2022_1_qs2lir.webp",
     label: "Studio Frame 02",
   },
 ];
