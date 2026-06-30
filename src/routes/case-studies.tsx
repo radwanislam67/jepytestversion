@@ -5,9 +5,9 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/case-studies")({
   head: () => ({
     meta: [
-      { title: "Case Studies — Jepy" },
+      { title: "Case Studies | Jepy" },
       { name: "description", content: "Deep dives into recent Jepy projects: challenge, strategy, process, and final results." },
-      { property: "og:title", content: "Case Studies — Jepy" },
+      { property: "og:title", content: "Case Studies | Jepy" },
       { property: "og:description", content: "Process and results behind recent projects." },
       { property: "og:url", content: "/case-studies" },
     ],

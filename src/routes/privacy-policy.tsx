@@ -3,9 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/privacy-policy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — Jepy" },
+      { title: "Privacy Policy | Jepy" },
       { name: "description", content: "How Jepy collects, uses, and protects your data." },
-      { property: "og:title", content: "Privacy Policy — Jepy" },
+      { property: "og:title", content: "Privacy Policy | Jepy" },
       { property: "og:description", content: "How Jepy collects, uses, and protects your data." },
     ],
   }),

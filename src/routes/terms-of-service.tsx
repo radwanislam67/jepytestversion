@@ -3,9 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/terms-of-service")({
   head: () => ({
     meta: [
-      { title: "Terms of Service — Jepy" },
+      { title: "Terms of Service | Jepy" },
       { name: "description", content: "Clear terms for working with Jepy post-production." },
-      { property: "og:title", content: "Terms of Service — Jepy" },
+      { property: "og:title", content: "Terms of Service | Jepy" },
       { property: "og:description", content: "Clear terms for working with Jepy post-production." },
     ],
   }),
