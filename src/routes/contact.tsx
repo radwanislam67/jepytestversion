@@ -116,14 +116,14 @@ function Contact() {
                     <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" />
                     <Field label="Name" name="name" required />
                     <Field label="Email" type="email" name="email" required />
-                    <Field label="Company" name="company" />
-                    <Field label="Budget" name="budget" placeholder="e.g. $5k–$20k" />
-                    <Field label="Deadline" type="date" name="deadline" />
+                    <Field label="Company" name="company" required />
+                    <Field label="Budget" name="budget" placeholder="e.g. $5k–$20k" required />
+                    <Field label="Deadline" type="date" name="deadline" required />
                     <Field label="Preferred meeting time" name="preferred_time" placeholder="e.g. Weekday mornings" />
-                    <Field label="Timezone" name="timezone" value={tz} onChange={(e) => setTz(e.target.value)} />
-                    <Field label="Project details" name="project_details" placeholder="Short-form, brand film, motion…" />
+                    <Field label="Timezone" name="timezone" value={tz} onChange={(e) => setTz(e.target.value)} required />
+                    <Field label="Project details" name="project_details" placeholder="Short-form, brand film, motion…" required />
                     <div className="md:col-span-2">
-                      <Label>Message</Label>
+                      <Label required>Message</Label>
                       <textarea name="message" rows={5} required className="w-full mt-2 rounded-2xl border border-white/10 bg-background px-4 py-3 outline-none focus:border-[var(--accent)] transition-colors" />
                     </div>
                     {error && <div className="md:col-span-2 text-sm text-red-400">{error}</div>}
