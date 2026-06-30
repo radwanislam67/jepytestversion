@@ -181,10 +181,10 @@ function Contact() {
                     <Field label="Name" name="name" required value={values.name} error={errors.name} onChange={(e) => setField("name", e.target.value)} onBlur={() => onBlur("name")} />
                     <Field label="Email" type="email" name="email" required value={values.email} error={errors.email} onChange={(e) => setField("email", e.target.value)} onBlur={() => onBlur("email")} />
                     <Field label="Company" name="company" required value={values.company} error={errors.company} onChange={(e) => setField("company", e.target.value)} onBlur={() => onBlur("company")} />
-                    <Field label="Budget" name="budget" placeholder="e.g. $5k–$20k" required value={values.budget} error={errors.budget} onChange={(e) => setField("budget", e.target.value)} onBlur={() => onBlur("budget")} />
+                    <SelectField label="Budget" name="budget" required value={values.budget} error={errors.budget} onChange={(e) => setField("budget", e.target.value)} onBlur={() => onBlur("budget")} placeholder="Select a range" options={["Under $5k", "$5k - $20k", "$20k - $50k", "$50k - $100k", "$100k+"]} />
                     <Field label="Deadline" type="date" name="deadline" required value={values.deadline} error={errors.deadline} onChange={(e) => setField("deadline", e.target.value)} onBlur={() => onBlur("deadline")} />
-                    <Field label="Preferred meeting time" name="preferred_time" placeholder="e.g. Weekday mornings" value={values.preferred_time ?? ""} onChange={(e) => setField("preferred_time", e.target.value)} />
-                    <Field label="Timezone" name="timezone" required value={values.timezone} error={errors.timezone} onChange={(e) => setField("timezone", e.target.value)} onBlur={() => onBlur("timezone")} />
+                    <SelectField label="Preferred meeting time" name="preferred_time" value={values.preferred_time ?? ""} onChange={(e) => setField("preferred_time", e.target.value)} placeholder="Select preferred time" options={["Weekday mornings", "Weekday afternoons", "Weekends", "ASAP"]} />
+                    <ComboField label="Timezone" name="timezone" required value={values.timezone} error={errors.timezone} onChange={(e) => setField("timezone", e.target.value)} onBlur={() => onBlur("timezone")} placeholder="Search timezone…" options={["Asia/Dhaka","Asia/Kolkata","Asia/Bangkok","Asia/Singapore","America/New_York","America/Los_Angeles","Europe/London","Europe/Paris","Australia/Sydney"]} />
                     <Field label="Project details" name="project_details" placeholder="Short-form, brand film, motion…" required value={values.project_details} error={errors.project_details} onChange={(e) => setField("project_details", e.target.value)} onBlur={() => onBlur("project_details")} />
                     <div className="md:col-span-2">
                       <Label required>Message</Label>
@@ -240,6 +240,58 @@ function Field({ label, className, required, error, ...rest }: FieldProps) {
         aria-invalid={!!error}
         className={`w-full mt-2 h-11 rounded-2xl border-2 ${error ? "border-red-500" : "border-green-500"} bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors ${className ?? ""}`}
       />
+      {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
+    </div>
+  );
+}
+
+const fieldBase = (error?: string) =>
+  `w-full mt-2 h-11 rounded-2xl border-2 ${error ? "border-red-500" : "border-green-500"} bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors`;
+
+type SelectFieldProps = React.SelectHTMLAttributes<HTMLSelectElement> & {
+  label: string; error?: string; options: string[]; placeholder?: string;
+};
+
+function SelectField({ label, required, error, options, placeholder, value, ...rest }: SelectFieldProps) {
+  return (
+    <div>
+      <Label required={required}>{label}</Label>
+      <select
+        {...rest}
+        value={value}
+        aria-invalid={!!error}
+        className={`${fieldBase(error)} appearance-none pr-10 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2353FF2F%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>')] bg-no-repeat bg-[right_1rem_center] ${!value ? "text-gray-400" : "text-white"}`}
+      >
+        <option value="" disabled className="text-gray-400 bg-background">{placeholder ?? "Select…"}</option>
+        {options.map((o) => (
+          <option key={o} value={o} className="text-white bg-background">{o}</option>
+        ))}
+      </select>
+      {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
+    </div>
+  );
+}
+
+type ComboFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  label: string; error?: string; options: string[];
+};
+
+function ComboField({ label, required, error, options, name, ...rest }: ComboFieldProps) {
+  const listId = `${name}-list`;
+  return (
+    <div>
+      <Label required={required}>{label}</Label>
+      <input
+        {...rest}
+        name={name}
+        list={listId}
+        autoComplete="off"
+        aria-invalid={!!error}
+        className={fieldBase(error)}
+      />
+      <datalist id={listId}>
+        {options.map((o) => <option key={o} value={o} />)}
+      </datalist>
       {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
     </div>
   );
