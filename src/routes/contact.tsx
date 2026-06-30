@@ -124,7 +124,7 @@ function Contact() {
                     <Field label="Project details" name="project_details" placeholder="Short-form, brand film, motion…" required />
                     <div className="md:col-span-2">
                       <Label required>Message</Label>
-                      <textarea name="message" rows={5} required className="w-full mt-2 rounded-2xl border border-white/10 bg-background px-4 py-3 outline-none focus:border-[var(--accent)] transition-colors" />
+                      <textarea name="message" rows={5} required className="w-full mt-2 min-h-24 resize-none rounded-2xl border-2 border-green-500 bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors" />
                     </div>
                     {error && <div className="md:col-span-2 text-sm text-red-400">{error}</div>}
                     <div className="md:col-span-2 flex items-center justify-between gap-4 pt-2">
@@ -161,7 +161,7 @@ function Field(props: React.InputHTMLAttributes<HTMLInputElement> & { label: str
       <input
         {...rest}
         required={required}
-        className={`w-full mt-2 rounded-2xl border border-white/10 bg-background px-4 py-3 outline-none focus:border-[var(--accent)] transition-colors ${className ?? ""}`}
+        className={`w-full mt-2 h-11 rounded-2xl border-2 border-green-500 bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors ${className ?? ""}`}
       />
     </div>
   );
