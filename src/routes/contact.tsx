@@ -62,13 +62,29 @@ function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    try {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      setValues((v) => ({ ...v, timezone: tz || "Asia/Dhaka" }));
-    } catch {
-      setValues((v) => ({ ...v, timezone: "Asia/Dhaka" }));
-    }
+    const fallback = () => {
+      try { return Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Dhaka"; }
+      catch { return "Asia/Dhaka"; }
+    };
+    let cancelled = false;
+    setValues((v) => v.timezone ? v : ({ ...v, timezone: fallback() }));
+    (async () => {
+      try {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 3500);
+        const res = await fetch("https://ipapi.co/json/", { signal: ctrl.signal });
+        clearTimeout(t);
+        if (!res.ok) return;
+        const data = await res.json();
+        const tz = data?.timezone;
+        if (!cancelled && tz && typeof tz === "string") {
+          setValues((v) => ({ ...v, timezone: tz }));
+        }
+      } catch { /* keep fallback */ }
+    })();
+    return () => { cancelled = true; };
   }, []);
+
 
   const setField = (k: keyof FormValues, v: string) => {
     setValues((prev) => ({ ...prev, [k]: v }));
