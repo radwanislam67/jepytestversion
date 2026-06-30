@@ -121,21 +121,21 @@ function Contact() {
   };
 
   return (
-    <div className="pt-32 md:pt-36 pb-16 md:pb-20">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+    <div className="pt-28 md:pt-36 pb-12 md:pb-20">
+      <div className="mx-auto max-w-7xl px-4 md:px-8">
         <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">Contact</div>
         <Reveal>
-          <h1 className="font-display text-6xl md:text-[8rem] leading-[0.95] tracking-tighter">
+          <h1 className="font-display text-5xl sm:text-6xl md:text-[8rem] leading-[0.95] tracking-tighter">
             Tell us<br /><span className="text-[var(--accent)] text-glow">the story.</span>
           </h1>
         </Reveal>
         <Reveal delay={120}>
-          <p className="mt-8 max-w-xl text-foreground/70">
+          <p className="mt-6 md:mt-8 max-w-[600px] text-base text-foreground/70">
             Share your project brief, or book a 20-minute intro call. We reply within 24 hours, worldwide.
           </p>
         </Reveal>
 
-        <div className="mt-16 grid lg:grid-cols-[1fr_1.4fr] gap-10">
+        <div className="mt-10 md:mt-16 grid lg:grid-cols-[1fr_1.4fr] gap-6 md:gap-10">
           <Reveal>
             <aside className="space-y-4">
               <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className="group flex items-start gap-4 rounded-3xl border border-white/5 bg-[var(--surface)] p-6 hover:border-[var(--accent)]/40 transition-colors">
