@@ -6,9 +6,9 @@ import { CTASection } from "@/components/site/CTASection";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Jepy" },
+      { title: "Services | Jepy" },
       { name: "description", content: "Video editing, motion design, color grading and more — engineered for retention and conversion." },
-      { property: "og:title", content: "Services — Jepy" },
+      { property: "og:title", content: "Services | Jepy" },
       { property: "og:description", content: "What we do at Jepy." },
     ],
   }),

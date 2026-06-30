@@ -6,9 +6,9 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Jepy" },
+      { title: "Contact | Jepy" },
       { name: "description", content: "Start a project with Jepy. Send a brief, book a call, or reach us on WhatsApp." },
-      { property: "og:title", content: "Contact — Jepy" },
+      { property: "og:title", content: "Contact | Jepy" },
       { property: "og:description", content: "Start a project with Jepy." },
       { property: "og:url", content: "/contact" },
     ],
