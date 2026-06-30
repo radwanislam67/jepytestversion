@@ -93,7 +93,7 @@ export const Route = createFileRoute("/api/public/contact")({
               from: "Jepy Contact <onboarding@resend.dev>",
               to: [TO],
               reply_to: d.email,
-              subject: `New Contact Form Submission - ${d.name}`,
+              subject: `New Brief from ${d.name}`,
               html,
               text,
             }),
