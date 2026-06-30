@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -114,26 +115,32 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   useEffect(() => {
     if (typeof window === "undefined") return;
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
-    // Skip scroll-to-top when the URL has a hash — let the browser jump to
-    // the anchor (e.g. /#pricing, /#services) naturally.
+  }, []);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    // Respect anchor links — let the browser jump to the target.
     if (window.location.hash) {
       const id = window.location.hash.slice(1);
       const el = id ? document.getElementById(id) : null;
       if (el) {
-        // Defer until layout settles so the anchor target exists.
         requestAnimationFrame(() => {
           el.scrollIntoView({ behavior: "auto", block: "start" });
         });
       }
       return;
     }
-    window.scrollTo(0, 0);
-  }, []);
+    const lenis = (window as any).__lenis;
+    if (lenis?.scrollTo) {
+      lenis.scrollTo(0, { immediate: true, force: true });
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+  }, [pathname]);
   return (
     <QueryClientProvider client={queryClient}>
       <Loader />
