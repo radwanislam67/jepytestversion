@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Play } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { VideoModal } from "@/components/site/VideoModal";
 
 export const WORK_ITEMS = [
   {
@@ -10,32 +8,22 @@ export const WORK_ITEMS = [
     title: "Northwave — Brand Film",
     subtitle: "Cinematic brand story for a premium lifestyle label.",
     category: "Commercial Ads",
-    youtubeId: "dQw4w9WgXcQ",
-    gradient: "linear-gradient(135deg, #1f2937, #030712)",
-    thumbnail: "https://images.unsplash.com/photo-1536240478700-b869ad10e2ab?w=800",
   },
   {
     id: "p2",
     title: "Lumen — Product Reel",
     subtitle: "High-energy product showcase with motion graphics.",
     category: "Motion Design",
-    youtubeId: "dQw4w9WgXcQ",
-    gradient: "linear-gradient(135deg, #111827, rgba(5,46,22,0.2))",
   },
   {
     id: "p3",
     title: "Octave — Creator Series",
-    subtitle: "Long-form YouTube series edited for retention.",
-    category: "YouTube Editing",
-    youtubeId: "dQw4w9WgXcQ",
-    gradient: "linear-gradient(135deg, #1f2937, #111827)",
+    subtitle: "Long-form series edited for retention.",
+    category: "Long Form",
   },
 ];
 
 export function WorkPreview() {
-  const [active, setActive] = useState<string | null>(null);
-  const current = WORK_ITEMS.find((w) => w.id === active);
-
   return (
     <section id="work" className="relative py-16 scroll-mt-24">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
@@ -54,38 +42,26 @@ export function WorkPreview() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {WORK_ITEMS.map((w, i) => (
               <Reveal key={w.id} delay={i * 120}>
-                <button
-                  type="button"
-                  onClick={() => setActive(w.id)}
-                  className="group relative block w-full text-left rounded-2xl overflow-hidden border border-gray-700/50 transition-all duration-300 hover:scale-[1.02] hover:border-green-500/40 hover:shadow-[0_0_20px_rgba(34,197,94,0.15)]"
+                <div
+                  className="group relative block w-full text-left overflow-hidden"
+                  style={{
+                    background: "#171717",
+                    border: "1px solid #222222",
+                    borderRadius: "12px",
+                  }}
                 >
-                  <div
-                    className="relative aspect-video"
-                    style={
-                      w.thumbnail
-                        ? {
-                            backgroundImage: `url(${w.thumbnail})`,
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                          }
-                        : { background: w.gradient }
-                    }
-                  >
-                    {w.thumbnail && <div className="absolute inset-0 bg-black/40" />}
+                  <div className="relative aspect-video flex flex-col items-center justify-center gap-3">
                     <span className="absolute top-3 left-3 z-10 text-xs uppercase tracking-[0.15em] px-2 py-1 rounded-full border border-green-500/60 text-green-400 bg-black/70 backdrop-blur-sm">
                       {w.category}
                     </span>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="h-10 w-10 rounded-full bg-[var(--accent)] text-[var(--accent-foreground)] flex items-center justify-center transition-shadow duration-300 group-hover:shadow-[0_0_24px_rgba(83,255,47,0.7)]">
-                        <Play size={14} fill="currentColor" />
-                      </div>
-                    </div>
+                    <Play size={36} style={{ color: "#39ff14" }} fill="#39ff14" />
+                    <div className="text-xs text-gray-500">Video coming soon</div>
                   </div>
                   <div className="p-4">
                     <div className="text-base font-medium text-white">{w.title}</div>
                     <div className="text-sm text-gray-400 mt-1">{w.subtitle}</div>
                   </div>
-                </button>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -100,13 +76,6 @@ export function WorkPreview() {
           </Link>
         </div>
       </div>
-
-      <VideoModal
-        open={!!current}
-        onClose={() => setActive(null)}
-        youtubeId={current?.youtubeId ?? ""}
-        title={current?.title}
-      />
     </section>
   );
 }
