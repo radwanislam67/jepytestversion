@@ -37,7 +37,7 @@ const schema = z.object({
   company: z.string().trim().min(1, REQUIRED).max(150),
   budget: z.string().trim().min(1, REQUIRED).max(100),
   deadline: z.string().trim().min(1, REQUIRED),
-  preferred_time: z.string().trim().max(150).optional().or(z.literal("")),
+  preferred_time: z.string().trim().min(1, REQUIRED).max(150),
   timezone: z.string().trim().min(1, REQUIRED).max(100),
   project_details: z.string().trim().min(1, REQUIRED).max(500),
   message: z.string().trim().min(1, REQUIRED).min(10, "Message must be at least 10 characters").max(2000),
@@ -47,7 +47,7 @@ type FormValues = z.infer<typeof schema>;
 type Errors = Partial<Record<keyof FormValues, string>>;
 
 const FIELD_ORDER: (keyof FormValues)[] = [
-  "name", "email", "company", "budget", "deadline", "timezone", "project_details", "message",
+  "name", "email", "company", "budget", "deadline", "timezone", "preferred_time", "project_details", "message",
 ];
 
 function Contact() {
