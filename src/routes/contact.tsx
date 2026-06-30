@@ -177,7 +177,7 @@ function Contact() {
                     <p className="mt-3 text-foreground/70">We&apos;ll reply within 24 hours. Cinematic things ahead.</p>
                   </div>
                 ) : (
-                  <form ref={formRef} onSubmit={onSubmit} noValidate className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <form ref={formRef} onSubmit={onSubmit} noValidate className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
                     <Field label="Name" name="name" required value={values.name} error={errors.name} onChange={(e) => setField("name", e.target.value)} onBlur={() => onBlur("name")} />
                     <Field label="Email" type="email" name="email" required value={values.email} error={errors.email} onChange={(e) => setField("email", e.target.value)} onBlur={() => onBlur("email")} />
                     <Field label="Company" name="company" required value={values.company} error={errors.company} onChange={(e) => setField("company", e.target.value)} onBlur={() => onBlur("company")} />
