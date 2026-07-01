@@ -13,7 +13,7 @@ const contactBriefSchema = z.object({
   message: z.string().trim().min(10).max(2000),
 });
 
-const GATEWAY_URL = "https://connector-gateway.lovable.dev/resend";
+const RESEND_EMAILS_URL = "https://api.resend.com/emails";
 const TO_EMAIL = "editic.studio.info@gmail.com";
 const FROM_EMAIL = "noreply@jepystudio.com";
 
@@ -25,12 +25,10 @@ export type ContactBriefInput = z.infer<typeof contactBriefSchema>;
 export const sendContactBrief = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => contactBriefSchema.parse(input))
   .handler(async ({ data }) => {
-    const lovableApiKey = process.env.LOVABLE_API_KEY;
-    const resendApiKey = process.env.RESEND_API_KEY;
+    const resendApiKey = process.env.JEPY_RESEND_API_KEY ?? process.env.RESEND_API_KEY;
 
-    if (!lovableApiKey || !resendApiKey) {
+    if (!resendApiKey) {
       console.error("Contact email not configured", {
-        hasLovableApiKey: Boolean(lovableApiKey),
         hasResendApiKey: Boolean(resendApiKey),
       });
       throw new Error("Email is not configured");
@@ -71,12 +69,11 @@ export const sendContactBrief = createServerFn({ method: "POST" })
       ...rows.map(([label, value]) => `${label}: ${value}`),
     ].join("\n");
 
-    const response = await fetch(`${GATEWAY_URL}/emails`, {
+    const response = await fetch(RESEND_EMAILS_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${lovableApiKey}`,
-        "X-Connection-Api-Key": resendApiKey,
+        Authorization: `Bearer ${resendApiKey}`,
       },
       body: JSON.stringify({
         from: FROM_EMAIL,
@@ -90,7 +87,7 @@ export const sendContactBrief = createServerFn({ method: "POST" })
 
     const body = await response.text();
     if (!response.ok) {
-      console.error("Resend connector send failed", response.status, body.slice(0, 1000));
+      console.error("Resend send failed", response.status, body.slice(0, 1000));
       throw new Error("Email send failed");
     }
 
