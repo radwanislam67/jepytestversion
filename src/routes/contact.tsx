@@ -125,7 +125,12 @@ function Contact() {
     }
     setSubmitting(true);
     try {
-      await sendBrief({ data: result.data });
+      const res = await fetch("/api/public/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(result.data),
+      });
+      if (!res.ok) throw new Error(`Request failed: ${res.status}`);
       setValues({ ...EMPTY_FORM });
       setErrors({});
       setTouched({});
