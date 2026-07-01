@@ -1,11 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useId, useRef, useState } from "react";
 import { Mail, MessageCircle, Calendar, Check, ArrowUpRight, Loader2 } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Reveal } from "@/components/site/Reveal";
-import { sendContactBrief } from "@/lib/contact.functions";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -52,7 +50,6 @@ const FIELD_ORDER: (keyof FormValues)[] = [
 ];
 
 function Contact() {
-  const sendBrief = useServerFn(sendContactBrief);
   const [values, setValues] = useState<FormValues>({
     name: "", email: "", company: "", budget: "", deadline: "",
     preferred_time: "", timezone: "", project_details: "", message: "",
@@ -128,7 +125,12 @@ function Contact() {
     }
     setSubmitting(true);
     try {
-      await sendBrief({ data: result.data });
+      const res = await fetch("/api/public/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(result.data),
+      });
+      if (!res.ok) throw new Error(`Request failed: ${res.status}`);
       setValues({ ...EMPTY_FORM });
       setErrors({});
       setTouched({});
