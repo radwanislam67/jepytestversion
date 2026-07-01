@@ -50,7 +50,6 @@ const FIELD_ORDER: (keyof FormValues)[] = [
 ];
 
 function Contact() {
-  const sendBrief = useServerFn(sendContactBrief);
   const [values, setValues] = useState<FormValues>({
     name: "", email: "", company: "", budget: "", deadline: "",
     preferred_time: "", timezone: "", project_details: "", message: "",
