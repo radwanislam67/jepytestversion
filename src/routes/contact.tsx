@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useId, useRef, useState } from "react";
 import { Mail, MessageCircle, Calendar, Check, ArrowUpRight, Loader2 } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Reveal } from "@/components/site/Reveal";
+import { sendContactBrief } from "@/lib/contact.functions";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -19,7 +21,6 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
-const CONTACT_ENDPOINT = "/api/public/contact";
 const CALENDLY_URL = "https://calendly.com/your-handle/intro";
 const WHATSAPP_URL = "https://wa.me/10000000000";
 const EMAIL = "hello@jepy.studio";
@@ -51,6 +52,7 @@ const FIELD_ORDER: (keyof FormValues)[] = [
 ];
 
 function Contact() {
+  const sendBrief = useServerFn(sendContactBrief);
   const [values, setValues] = useState<FormValues>({
     name: "", email: "", company: "", budget: "", deadline: "",
     preferred_time: "", timezone: "", project_details: "", message: "",
@@ -126,12 +128,7 @@ function Contact() {
     }
     setSubmitting(true);
     try {
-      const res = await fetch(CONTACT_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(result.data),
-      });
-      if (!res.ok) throw new Error("Submission failed");
+      await sendBrief({ data: result.data });
       setValues({ ...EMPTY_FORM });
       setErrors({});
       setTouched({});
