@@ -15,7 +15,7 @@ const contactBriefSchema = z.object({
 
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/resend";
 const TO_EMAIL = "editic.studio.info@gmail.com";
-const FROM_EMAIL = "Jepy Contact <noreply@jepystudio.com>";
+const FROM_EMAIL = "noreply@jepystudio.com";
 
 const esc = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
