@@ -1,11 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useId, useRef, useState } from "react";
 import { Mail, MessageCircle, Calendar, Check, ArrowUpRight, Loader2 } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Reveal } from "@/components/site/Reveal";
-import { sendContactBrief } from "@/lib/contact.functions";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
