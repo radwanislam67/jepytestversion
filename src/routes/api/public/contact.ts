@@ -101,11 +101,17 @@ export const Route = createFileRoute("/api/public/contact")({
           if (!res.ok) {
             const body = await res.text();
             console.error("Resend send failed", res.status, body);
-            return Response.json({ error: "Email send failed" }, { status: 502 });
+            return Response.json(
+              { error: "Email send failed", status: res.status, detail: body.slice(0, 500) },
+              { status: 502 },
+            );
           }
         } catch (err) {
           console.error("Resend send error", err);
-          return Response.json({ error: "Email send failed" }, { status: 502 });
+          return Response.json(
+            { error: "Email send failed", detail: err instanceof Error ? err.message : String(err) },
+            { status: 502 },
+          );
         }
 
         return Response.json({ ok: true });
