@@ -90,7 +90,7 @@ export const Route = createFileRoute("/api/public/contact")({
               "X-Connection-Api-Key": RESEND_API_KEY,
             },
             body: JSON.stringify({
-              from: "Jepy Contact <onboarding@resend.dev>",
+              from: "Jepy Contact <noreply@jepystudio.com>",
               to: [TO],
               reply_to: d.email,
               subject: `New Brief from ${d.name}`,
