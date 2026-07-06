@@ -766,8 +766,8 @@ function About() {
           <div className="studio-grid" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <div className="studio-img" style={{ height: 480, borderRadius: 12, overflow: "hidden" }}>
               <img
-                src="https://res.cloudinary.com/drmtlvrmm/image/upload/v1782846737/Fiddl.art-brzprV1YTVuXb0Ih-nK_Lg-original_qh4j0l.webp"
-                alt=""
+                src="https://cdn.jepystudio.com/office/new-office-setup-2026.webp"
+                alt="Jepy Studio's new office setup in 2026 — full workspace view"
                 loading="lazy"
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
               />
@@ -775,16 +775,16 @@ function About() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
               <div className="studio-img" style={{ height: 320, borderRadius: 12, overflow: "hidden" }}>
                 <img
-                  src="https://res.cloudinary.com/drmtlvrmm/image/upload/v1782846739/Fiddl.art-hoFj8mYQRZmV-EFTKsFR6Q-original_pbnqa5.webp"
-                  alt=""
+                  src="https://cdn.jepystudio.com/office/office-setup-january-2026.webp"
+                  alt="Jepy Studio office setup, January 2026"
                   loading="lazy"
                   style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
                 />
               </div>
               <div className="studio-img" style={{ height: 320, borderRadius: 12, overflow: "hidden" }}>
                 <img
-                  src="https://res.cloudinary.com/drmtlvrmm/image/upload/v1782846776/Fiddl.art-3hC588cMQ6q4epoM9kV6jw-original_g2ifoe.webp"
-                  alt=""
+                  src="https://cdn.jepystudio.com/office/office-setup-2025.webp"
+                  alt="Jepy Studio office setup in 2025"
                   loading="lazy"
                   style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
                 />
