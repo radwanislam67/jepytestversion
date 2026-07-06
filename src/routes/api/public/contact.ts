@@ -89,7 +89,7 @@ export const Route = createFileRoute("/api/public/contact")({
               Authorization: `Bearer ${RESEND_API_KEY}`,
             },
             body: JSON.stringify({
-              from: "Jepy Studio <onboarding@resend.dev>",
+              from: "Jepy Studio <noreply@jepystudio.com>",
               to: [TO],
               reply_to: d.email,
               subject: `New Brief from ${d.name}`,
