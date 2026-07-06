@@ -368,3 +368,80 @@ function TextareaField({ label, required, error, className, id, ...rest }: Texta
     </div>
   );
 }
+
+type DateFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> & {
+  label: string;
+  error?: string;
+  placeholder?: string;
+};
+
+function DateField({ label, required, error, placeholder = "Select deadline", value, id, className, onChange, onBlur, ...rest }: DateFieldProps) {
+  const auto = useId();
+  const inputId = id ?? auto;
+  const errorId = `${inputId}-error`;
+  const inputRef = useRef<HTMLInputElement>(null);
+  const hasValue = !!(value && String(value).length > 0);
+
+  const openPicker = () => {
+    const el = inputRef.current;
+    if (!el) return;
+    el.focus();
+    // showPicker is supported in modern browsers; fallback to focus/click otherwise
+    const anyEl = el as HTMLInputElement & { showPicker?: () => void };
+    if (typeof anyEl.showPicker === "function") {
+      try { anyEl.showPicker(); } catch { /* ignore */ }
+    } else {
+      el.click();
+    }
+  };
+
+  const formatted = hasValue
+    ? (() => {
+        try {
+          const d = new Date(String(value));
+          if (isNaN(d.getTime())) return null;
+          return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+        } catch { return null; }
+      })()
+    : null;
+
+  return (
+    <div>
+      <Label required={required} htmlFor={inputId}>{label}</Label>
+      <div className="relative mt-2 group">
+        <input
+          {...rest}
+          ref={inputRef}
+          id={inputId}
+          type="date"
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          required={required}
+          aria-required={required || undefined}
+          aria-invalid={!!error || undefined}
+          aria-describedby={error ? errorId : undefined}
+          className={`date-input-custom ${hasValue ? "has-value" : ""} peer w-full h-11 rounded-2xl border-2 ${error ? "border-red-500" : "border-green-500"} bg-background pl-4 pr-14 py-2 text-base text-transparent outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:shadow-[0_0_18px_-4px_rgba(83,255,47,0.55)] transition-all ${className ?? ""}`}
+        />
+        {/* Overlayed display: placeholder or formatted date */}
+        <div className="pointer-events-none absolute inset-0 flex items-center pl-4 pr-14">
+          <span className={`truncate text-base ${hasValue ? "text-white font-medium" : "text-gray-400"}`}>
+            {hasValue ? formatted ?? String(value) : placeholder}
+          </span>
+        </div>
+        {/* Custom icon — visual only; native indicator overlays the field for clicks */}
+        <button
+          type="button"
+          tabIndex={-1}
+          aria-hidden="true"
+          onClick={openPicker}
+          className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-[#0b0b0b] border border-green-500/40 flex items-center justify-center text-[#53FF2F] shadow-[0_0_0_0_rgba(83,255,47,0)] transition-all duration-200 group-hover:shadow-[0_0_14px_-2px_rgba(83,255,47,0.7)] group-hover:border-green-400 group-focus-within:border-green-300 group-focus-within:shadow-[0_0_16px_-2px_rgba(83,255,47,0.8)]"
+        >
+          <Calendar size={16} strokeWidth={2.25} />
+        </button>
+      </div>
+      {error && <ErrorText id={errorId}>{error}</ErrorText>}
+    </div>
+  );
+}
+
