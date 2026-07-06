@@ -18,8 +18,6 @@ async function getServerEntry(): Promise<ServerEntry> {
   return serverEntryPromise;
 }
 
-// h3 swallows in-handler throws into a normal 500 Response with body
-// {"unhandled":true,"message":"HTTPError"} — try/catch alone never fires for those.
 async function normalizeCatastrophicSsrResponse(response: Response): Promise<Response> {
   if (response.status < 500) return response;
   const contentType = response.headers.get("content-type") ?? "";
@@ -39,6 +37,17 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    // Cloudflare Workers passes secrets via `env`, not process.env.
+    // Inject them so existing server code can read with process.env.*
+    if (env && typeof env === "object") {
+      const cfEnv = env as Record<string, string>;
+      for (const key of Object.keys(cfEnv)) {
+        if (typeof cfEnv[key] === "string" && !process.env[key]) {
+          process.env[key] = cfEnv[key];
+        }
+      }
+    }
+
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
