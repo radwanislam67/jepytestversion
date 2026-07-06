@@ -5,12 +5,12 @@ import { Reveal } from "@/components/site/Reveal";
 
 const SLIDES: { src: string; label: string }[] = [
   {
-    src: "https://res.cloudinary.com/drmtlvrmm/image/upload/v1782846162/Gemini_Generated_Image_yinjx9yinjx9yinjyrery_lqqtbj.webp",
-    label: "Studio Frame 01",
+    src: "https://cdn.jepystudio.com/office/rafi-backside-view-2025.webp",
+    label: "Editor at Jepy Studio workstation, back view, 2025",
   },
   {
-    src: "https://res.cloudinary.com/drmtlvrmm/image/upload/w_800,q_auto,f_auto/v1782844852/Studio_in_2022_1_qs2lir.webp",
-    label: "Studio Frame 02",
+    src: "https://cdn.jepystudio.com/office/studio-2022.webp",
+    label: "Jepy Studio office setup in 2022",
   },
 ];
 
