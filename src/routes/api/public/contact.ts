@@ -37,7 +37,10 @@ export const Route = createFileRoute("/api/public/contact")({
         }
         const d = parsed.data;
 
-        const RESEND_API_KEY = process.env.JEPY_RESEND_API_KEY ?? process.env.RESEND_API_KEY;
+        const RESEND_API_KEY =
+          (typeof globalThis !== "undefined" && (globalThis as any).__env__?.JEPY_RESEND_API_KEY) ??
+          process.env.JEPY_RESEND_API_KEY ??
+          process.env.RESEND_API_KEY;
         if (!RESEND_API_KEY) {
           console.error("Email not configured: missing JEPY_RESEND_API_KEY");
           return Response.json({ error: "Email not configured" }, { status: 500 });

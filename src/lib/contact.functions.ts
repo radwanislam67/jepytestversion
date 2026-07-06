@@ -25,7 +25,10 @@ export type ContactBriefInput = z.infer<typeof contactBriefSchema>;
 export const sendContactBrief = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => contactBriefSchema.parse(input))
   .handler(async ({ data }) => {
-    const resendApiKey = process.env.JEPY_RESEND_API_KEY ?? process.env.RESEND_API_KEY;
+    const resendApiKey =
+      (typeof globalThis !== "undefined" && (globalThis as any).__env__?.JEPY_RESEND_API_KEY) ??
+      process.env.JEPY_RESEND_API_KEY ??
+      process.env.RESEND_API_KEY;
 
     if (!resendApiKey) {
       console.error("Contact email not configured", {

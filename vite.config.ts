@@ -12,4 +12,11 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    define: {
+      "process.env.JEPY_RESEND_API_KEY": JSON.stringify(
+        process.env.JEPY_RESEND_API_KEY ?? "",
+      ),
+    },
+  },
 });
