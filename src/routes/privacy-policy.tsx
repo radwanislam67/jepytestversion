@@ -36,11 +36,11 @@ const SECTIONS = [
   {
     title: "Your Rights",
     body:
-      "You can access, edit, or delete your data at any time. Just email us at hello@jepy.studio and we'll handle it promptly.",
+      "You can access, edit, or delete your data at any time. Just email us at collab@jepystudio.com and we'll handle it promptly.",
   },
   {
     title: "Contact",
-    body: "For any privacy questions: hello@jepy.studio",
+    body: "For any privacy questions: collab@jepystudio.com",
   },
 ];
 
@@ -98,7 +98,7 @@ function PrivacyPolicyPage() {
               </p>
               <div className="mt-10">
                 <a
-                  href="mailto:hello@jepy.studio"
+                  href="mailto:collab@jepystudio.com"
                   className="btn-primary transition-transform duration-200 hover:scale-105"
                 >
                   Email Us →
