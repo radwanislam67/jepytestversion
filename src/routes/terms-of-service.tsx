@@ -45,7 +45,7 @@ const SECTIONS = [
   },
   {
     title: "Contact",
-    body: "For any questions about these terms: hello@jepy.studio",
+    body: "For any questions about these terms: collab@jepystudio.com",
   },
 ];
 
@@ -104,7 +104,7 @@ function TermsPage() {
               </p>
               <div className="mt-10">
                 <a
-                  href="mailto:hello@jepy.studio"
+                  href="mailto:collab@jepystudio.com"
                   className="btn-primary transition-transform duration-200 hover:scale-105"
                 >
                   Email Us →

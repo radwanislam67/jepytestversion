@@ -21,7 +21,7 @@ export const Route = createFileRoute("/contact")({
 
 const CALENDLY_URL = "https://calendly.com/your-handle/intro";
 const WHATSAPP_URL = "https://wa.me/10000000000";
-const EMAIL = "hello@jepy.studio";
+const EMAIL = "collab@jepystudio.com";
 
 const EMPTY_FORM = {
   name: "", email: "", company: "", budget: "", deadline: "",
