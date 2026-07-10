@@ -10,7 +10,7 @@ export function Footer() {
           {/* Brand */}
           <div>
             <Link to="/" aria-label="Jepy home" className="inline-flex items-center mb-5">
-              <img src={jepyLogo} alt="Jepy" width={120} height={40} loading="lazy" decoding="async" className="h-10 w-auto" draggable={false} />
+              <img src={jepyLogo} alt="Jepy" className="h-10 w-auto" draggable={false} />
             </Link>
             <p className="text-foreground/70 max-w-md leading-relaxed text-sm">
               Premium cinematic post-production for creators, brands and SaaS.

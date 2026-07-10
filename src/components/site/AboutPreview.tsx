@@ -44,10 +44,6 @@ function Carousel() {
             <img
               src={s.src}
               alt={s.label}
-              width={1600}
-              height={900}
-              loading={i === 0 ? "eager" : "lazy"}
-              decoding="async"
               style={{
                 position: "absolute",
                 inset: 0,
