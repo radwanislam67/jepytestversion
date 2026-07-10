@@ -260,6 +260,13 @@ function Contact() {
           </Reveal>
         </div>
       </div>
+      <CalendlyModal
+        open={calendlyOpen}
+        url={calendlyUrl}
+        name={calendlyName}
+        email={calendlyEmail}
+        onClose={() => setCalendlyOpen(false)}
+      />
     </div>
   );
 }
