@@ -295,6 +295,9 @@ function StudioTile({
         className="studio-inner"
         src={src}
         alt={label}
+        width={1200}
+        height={800}
+        decoding="async"
         style={{
           position: "absolute",
           inset: 0,

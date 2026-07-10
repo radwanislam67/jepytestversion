@@ -44,6 +44,9 @@ function Carousel() {
             <img
               src={s.src}
               alt={s.label}
+              width={1200}
+              height={900}
+              decoding="async"
               style={{
                 position: "absolute",
                 inset: 0,
