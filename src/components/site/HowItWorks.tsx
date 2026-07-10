@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/site/Reveal";
 
-const CLOUD = "https://res.cloudinary.com/drmtlvrmm/image/upload";
-const tx = (w: number) => `w_${w},h_${Math.round((w * 9) / 16)},c_fill,g_auto,q_auto,f_auto`;
+
 
 const STEPS = [
   {
