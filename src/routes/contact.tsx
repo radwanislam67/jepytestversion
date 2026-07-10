@@ -20,7 +20,7 @@ export const Route = createFileRoute("/contact")({
 });
 
 const CALENDLY_URL = "https://calendly.com/your-handle/intro";
-const WHATSAPP_URL = "https://wa.me/10000000000";
+const WHATSAPP_URL = "https://wa.me/8801911756957?text=Hi%20Jepy%20Studio%2C%20I%27m%20interested%20in%20your%20video%20editing%20services.";
 const EMAIL = "collab@jepystudio.com";
 
 const EMPTY_FORM = {
