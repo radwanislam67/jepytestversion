@@ -30,6 +30,9 @@ function PhotoPlaceholder({ src, alt }: { src: string; alt: string }) {
     <img
       src={src}
       alt={alt}
+      width={800}
+      height={800}
+      decoding="async"
       className="w-full"
       style={{
         aspectRatio: "1 / 1",
