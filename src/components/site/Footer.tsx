@@ -22,7 +22,7 @@ export function Footer() {
             <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground mb-5">
               Navigate
             </div>
-            <ul className="space-y-3 text-sm text-foreground/80">
+            <ul className="flex flex-row flex-wrap gap-x-6 gap-y-2 text-sm text-foreground/80">
               <li><Link to="/work" className="hover:text-[var(--accent)] transition-colors">Work</Link></li>
               <li><Link to="/services" className="hover:text-[var(--accent)] transition-colors">Services</Link></li>
               <li><Link to="/about" className="hover:text-[var(--accent)] transition-colors">About</Link></li>
