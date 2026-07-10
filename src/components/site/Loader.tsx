@@ -37,6 +37,8 @@ export function Loader() {
         <img
           src={jepyLogo}
           alt="Jepy"
+          fetchPriority="high"
+          decoding="async"
           className="h-20 md:h-28 w-auto select-none drop-shadow-[0_0_40px_var(--accent)]"
           draggable={false}
         />
