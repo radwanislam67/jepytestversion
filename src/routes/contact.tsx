@@ -151,7 +151,6 @@ function Contact() {
       setTouched({});
       setDone(true);
       toast.success("Thank you! We'll review your brief and get back to you soon.", { duration: 5000 });
-      setTimeout(() => setDone(false), 5000);
       if (calUrl) {
         setCalendlyName(snapName);
         setCalendlyEmail(snapEmail);
