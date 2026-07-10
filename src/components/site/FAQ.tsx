@@ -19,7 +19,7 @@ const FAQS = [
 export function FAQ() {
   return (
     <section id="faq" className="relative py-16 md:py-20 scroll-mt-24">
-      <div className="mx-auto max-w-3xl px-5 md:px-8">
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
           <h2 className="font-display text-4xl md:text-6xl tracking-tighter text-center mb-8">
             Frequently Asked <span className="text-[var(--accent)] text-glow">Questions</span>
