@@ -173,7 +173,7 @@ export function HowItWorks() {
                     <img
                       src={s.src}
                       alt={s.alt}
-                      loading="lazy"
+                      
                       decoding="async"
                       width={1600}
                       height={900}

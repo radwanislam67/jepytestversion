@@ -768,7 +768,9 @@ function About() {
               <img
                 src="https://cdn.jepystudio.com/office/new-office-setup-2026.webp"
                 alt="Jepy Studio's new office setup in 2026 — full workspace view"
-                loading="lazy"
+                width={1600}
+                height={960}
+                decoding="async"
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
               />
             </div>
@@ -777,7 +779,9 @@ function About() {
                 <img
                   src="https://cdn.jepystudio.com/office/office-setup-january-2026.webp"
                   alt="Jepy Studio office setup, January 2026"
-                  loading="lazy"
+                  width={1200}
+                  height={800}
+                  decoding="async"
                   style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
                 />
               </div>
@@ -785,7 +789,9 @@ function About() {
                 <img
                   src="https://cdn.jepystudio.com/office/office-setup-2025.webp"
                   alt="Jepy Studio office setup in 2025"
-                  loading="lazy"
+                  width={1200}
+                  height={800}
+                  decoding="async"
                   style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
                 />
               </div>
