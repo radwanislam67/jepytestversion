@@ -171,11 +171,7 @@ export function HowItWorks() {
                     }}
                   >
                     <img
-                      src={`${CLOUD}/${tx(1200)}/${s.path}`}
-                      srcSet={[480, 800, 1200, 1600, 2000]
-                        .map((w) => `${CLOUD}/${tx(w)}/${s.path} ${w}w`)
-                        .join(", ")}
-                      sizes="(min-width: 768px) min(600px, 45vw), 100vw"
+                      src={s.src}
                       alt={s.alt}
                       loading="lazy"
                       decoding="async"
@@ -183,6 +179,7 @@ export function HowItWorks() {
                       height={900}
                       className="absolute inset-0 h-full w-full object-cover"
                     />
+
                   </div>
 
                 </div>
