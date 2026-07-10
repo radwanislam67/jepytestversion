@@ -4,6 +4,14 @@ import { Mail, MessageCircle, Calendar, Check, ArrowUpRight, Loader2 } from "luc
 import { z } from "zod";
 import { toast } from "sonner";
 import { Reveal } from "@/components/site/Reveal";
+import { CalendlyModal } from "@/components/site/CalendlyModal";
+
+const CALENDLY_LINKS: Record<string, string> = {
+  "Weekday mornings": "https://calendly.com/collab-jepystudio/weekday-morning-call",
+  "Weekday afternoons": "https://calendly.com/collab-jepystudio/weekday-afternoon-call",
+  "Weekends": "https://calendly.com/collab-jepystudio/weekend-call",
+  "ASAP": "https://calendly.com/collab-jepystudio/30min",
+};
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
