@@ -66,6 +66,10 @@ function Contact() {
   const [touched, setTouched] = useState<Partial<Record<keyof FormValues, boolean>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const [calendlyOpen, setCalendlyOpen] = useState(false);
+  const [calendlyUrl, setCalendlyUrl] = useState<string>("");
+  const [calendlyName, setCalendlyName] = useState<string>("");
+  const [calendlyEmail, setCalendlyEmail] = useState<string>("");
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
