@@ -4,6 +4,14 @@ import { Mail, MessageCircle, Calendar, Check, ArrowUpRight, Loader2 } from "luc
 import { z } from "zod";
 import { toast } from "sonner";
 import { Reveal } from "@/components/site/Reveal";
+import { CalendlyModal } from "@/components/site/CalendlyModal";
+
+const CALENDLY_LINKS: Record<string, string> = {
+  "Weekday mornings": "https://calendly.com/collab-jepystudio/weekday-morning-call",
+  "Weekday afternoons": "https://calendly.com/collab-jepystudio/weekday-afternoon-call",
+  "Weekends": "https://calendly.com/collab-jepystudio/weekend-call",
+  "ASAP": "https://calendly.com/collab-jepystudio/30min",
+};
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -58,6 +66,10 @@ function Contact() {
   const [touched, setTouched] = useState<Partial<Record<keyof FormValues, boolean>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const [calendlyOpen, setCalendlyOpen] = useState(false);
+  const [calendlyUrl, setCalendlyUrl] = useState<string>("");
+  const [calendlyName, setCalendlyName] = useState<string>("");
+  const [calendlyEmail, setCalendlyEmail] = useState<string>("");
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -131,12 +143,21 @@ function Contact() {
         body: JSON.stringify(result.data),
       });
       if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+      const calUrl = CALENDLY_LINKS[result.data.preferred_time];
+      const snapName = result.data.name;
+      const snapEmail = result.data.email;
       setValues({ ...EMPTY_FORM });
       setErrors({});
       setTouched({});
       setDone(true);
       toast.success("Thank you! We'll review your brief and get back to you soon.", { duration: 5000 });
       setTimeout(() => setDone(false), 5000);
+      if (calUrl) {
+        setCalendlyName(snapName);
+        setCalendlyEmail(snapEmail);
+        setCalendlyUrl(calUrl);
+        setCalendlyOpen(true);
+      }
     } catch {
       toast.error("Something went wrong. Please try again.", { duration: 5000 });
     } finally {
@@ -239,6 +260,13 @@ function Contact() {
           </Reveal>
         </div>
       </div>
+      <CalendlyModal
+        open={calendlyOpen}
+        url={calendlyUrl}
+        name={calendlyName}
+        email={calendlyEmail}
+        onClose={() => setCalendlyOpen(false)}
+      />
     </div>
   );
 }
