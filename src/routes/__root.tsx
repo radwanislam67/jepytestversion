@@ -95,7 +95,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         }),
       },
     ],
-    htmlAttrs: { lang: "en" },
+    
   }),
   shellComponent: RootShell,
   component: RootComponent,
