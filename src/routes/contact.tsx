@@ -199,14 +199,6 @@ function Contact() {
                 </div>
                 <ArrowUpRight size={18} className="text-foreground/60 group-hover:text-[var(--accent)] transition-colors" />
               </a>
-              <a href={`mailto:${EMAIL}`} className="group flex items-start gap-4 rounded-3xl border border-white/5 bg-[var(--surface)] p-6 hover:border-[var(--accent)]/40 transition-colors">
-                <div className="h-11 w-11 rounded-2xl glass flex items-center justify-center text-[var(--accent)]"><Mail size={18} /></div>
-                <div className="flex-1">
-                  <div className="font-display text-xl">Email</div>
-                  <div className="text-sm text-muted-foreground">{EMAIL}</div>
-                </div>
-                <ArrowUpRight size={18} className="text-foreground/60 group-hover:text-[var(--accent)] transition-colors" />
-              </a>
             </aside>
           </Reveal>
 
