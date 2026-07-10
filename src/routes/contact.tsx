@@ -7,10 +7,10 @@ import { Reveal } from "@/components/site/Reveal";
 import { CalendlyModal } from "@/components/site/CalendlyModal";
 
 const CALENDLY_LINKS: Record<string, string> = {
-  "Weekday mornings": "https://calendly.com/collab-jepystudio/weekday-morning-call",
-  "Weekday afternoons": "https://calendly.com/collab-jepystudio/weekday-afternoon-call",
-  "Weekends": "https://calendly.com/collab-jepystudio/weekend-call",
-  "ASAP": "https://calendly.com/collab-jepystudio/30min",
+  "Weekday mornings": "https://calendly.com/jepystudio/weekday-morning-call",
+  "Weekday afternoons": "https://calendly.com/jepystudio/weekday-afternoon-call",
+  "Weekends": "https://calendly.com/jepystudio/weekend-call",
+  "ASAP": "https://calendly.com/jepystudio/30min",
 };
 
 export const Route = createFileRoute("/contact")({
@@ -27,7 +27,7 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
-const CALENDLY_URL = "https://calendly.com/collab-jepystudio/30min";
+const CALENDLY_URL = "https://calendly.com/jepystudio/30min";
 const WHATSAPP_URL = "https://wa.me/8801911756957?text=Hi%20Jepy%20Studio%2C%20I%27m%20interested%20in%20your%20video%20editing%20services.";
 const EMAIL = "collab@jepystudio.com";
 
