@@ -74,6 +74,8 @@ export function Header() {
               <img
                 src={jepyLogo}
                 alt="Jepy"
+                width={120}
+                height={40}
                 className="h-6 sm:h-7 md:h-8 w-auto select-none"
                 draggable={false}
               />

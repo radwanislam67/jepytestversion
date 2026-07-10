@@ -36,7 +36,6 @@ function Media({ src, alt }: { src: string; alt: string }) {
       <img
         src={src}
         alt={alt}
-        loading="lazy"
         decoding="async"
         width={1200}
         height={800}
