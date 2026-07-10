@@ -57,11 +57,19 @@ export function CalendlyModal({ open, url, name, email, onClose }: Props) {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    const onMessage = (e: MessageEvent) => {
+      const data = e.data;
+      if (data && typeof data === "object" && (data as any).event === "calendly.event_scheduled") {
+        setTimeout(() => { onClose(); }, 2000);
+      }
+    };
     document.addEventListener("keydown", onKey);
+    window.addEventListener("message", onMessage);
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
+      window.removeEventListener("message", onMessage);
       document.body.style.overflow = prevOverflow;
     };
   }, [open, onClose]);
