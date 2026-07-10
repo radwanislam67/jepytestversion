@@ -15,14 +15,6 @@ export function Footer() {
             <p className="text-foreground/70 max-w-md leading-relaxed text-sm">
               Premium cinematic post-production for creators, brands and SaaS.
             </p>
-            <div className="mt-5 space-y-2 text-sm text-foreground/80">
-              <a
-                href="mailto:collab@jepystudio.com"
-                className="inline-flex items-center gap-2 hover:text-[var(--accent)] transition-colors"
-              >
-                <Mail size={14} /> collab@jepystudio.com
-              </a>
-            </div>
           </div>
 
           {/* Navigate */}
