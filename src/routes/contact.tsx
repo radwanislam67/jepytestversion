@@ -143,12 +143,21 @@ function Contact() {
         body: JSON.stringify(result.data),
       });
       if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+      const calUrl = CALENDLY_LINKS[result.data.preferred_time];
+      const snapName = result.data.name;
+      const snapEmail = result.data.email;
       setValues({ ...EMPTY_FORM });
       setErrors({});
       setTouched({});
       setDone(true);
       toast.success("Thank you! We'll review your brief and get back to you soon.", { duration: 5000 });
       setTimeout(() => setDone(false), 5000);
+      if (calUrl) {
+        setCalendlyName(snapName);
+        setCalendlyEmail(snapEmail);
+        setCalendlyUrl(calUrl);
+        setCalendlyOpen(true);
+      }
     } catch {
       toast.error("Something went wrong. Please try again.", { duration: 5000 });
     } finally {
