@@ -60,7 +60,7 @@ export function CalendlyModal({ open, url, name, email, onClose }: Props) {
     const onMessage = (e: MessageEvent) => {
       const data = e.data;
       if (data && typeof data === "object" && (data as any).event === "calendly.event_scheduled") {
-        setTimeout(() => { onClose(); }, 2000);
+        setTimeout(() => { onClose(); }, 3500);
       }
     };
     document.addEventListener("keydown", onKey);
