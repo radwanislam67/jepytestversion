@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Play } from "lucide-react";
 import { Particles } from "@/components/site/Particles";
+import { VideoEditSculpture } from "@/components/site/VideoEditSculpture";
 import { Reveal } from "@/components/site/Reveal";
 import { Marquee } from "@/components/site/Marquee";
 import { Magnetic } from "@/components/site/Magnetic";
@@ -63,38 +64,43 @@ function Hero() {
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#050505_85%)]" />
       </div>
-      <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full">
-        <h1 className="font-display text-[14vw] md:text-[10vw] leading-[0.92] tracking-[-0.04em]">
-          <Reveal>Your Content,&nbsp;</Reveal>
-          <Reveal delay={600} y={32}>
-            <span className="text-[var(--accent)] text-glow">Elevated.</span>
+      <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full grid md:grid-cols-[minmax(0,1fr)_minmax(0,420px)] gap-10 md:gap-8 items-center">
+        <div className="min-w-0">
+          <h1 className="font-display text-[14vw] md:text-[8.2vw] leading-[0.92] tracking-[-0.04em]">
+            <Reveal>Your Content,&nbsp;</Reveal>
+            <Reveal delay={600} y={32}>
+              <span className="text-[var(--accent)] text-glow">Elevated.</span>
+            </Reveal>
+          </h1>
+          <Reveal delay={260}>
+            <p className="mt-8 max-w-xl text-base md:text-lg text-foreground/70 leading-relaxed break-words">
+              Raw footage to high-converting content for creators, brands, and SaaS teams worldwide.
+            </p>
           </Reveal>
-        </h1>
-        <Reveal delay={260}>
-          <p className="mt-8 max-w-xl text-base md:text-lg text-foreground/70 leading-relaxed break-words">
-            Raw footage to high-converting content for creators, brands, and SaaS teams worldwide.
-          </p>
-        </Reveal>
-        <Reveal delay={360}>
-          <div className="mt-10 flex flex-wrap items-center gap-6">
-            <Magnetic>
-              <Link to="/work" className="btn-primary">
-                View Work <ArrowUpRight size={18} />
-              </Link>
-            </Magnetic>
-            <Magnetic>
-              <Link to="/contact" className="btn-ghost">
-                <Play size={16} /> Book A Call
-              </Link>
-            </Magnetic>
-          </div>
-        </Reveal>
+          <Reveal delay={360}>
+            <div className="mt-10 flex flex-wrap items-center gap-6">
+              <Magnetic>
+                <Link to="/work" className="btn-primary">
+                  View Work <ArrowUpRight size={18} />
+                </Link>
+              </Magnetic>
+              <Magnetic>
+                <Link to="/contact" className="btn-ghost">
+                  <Play size={16} /> Book A Call
+                </Link>
+              </Magnetic>
+            </div>
+          </Reveal>
 
-        <Reveal delay={500}>
-          <div className="mt-16 font-display text-2xl md:text-4xl tracking-tight text-foreground/90 min-h-[4.5rem] md:min-h-[5.5rem]">
-            We craft <Typewriter />
-          </div>
-        </Reveal>
+          <Reveal delay={500}>
+            <div className="mt-16 font-display text-2xl md:text-4xl tracking-tight text-foreground/90 min-h-[4.5rem] md:min-h-[5.5rem]">
+              We craft <Typewriter />
+            </div>
+          </Reveal>
+        </div>
+        <div className="order-last md:order-none w-full">
+          <VideoEditSculpture />
+        </div>
       </div>
     </section>
   );
