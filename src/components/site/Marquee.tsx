@@ -23,7 +23,7 @@ function Row({ items, active }: { items: Item[]; active: boolean }) {
   return (
     <div className="relative overflow-hidden py-4 group">
       <div
-        className="flex items-center whitespace-nowrap will-change-transform"
+        className="flex items-center w-max will-change-transform"
         style={{
           animation: `marquee-left 20s linear infinite`,
           animationPlayState: active ? "running" : "paused",
@@ -40,7 +40,7 @@ function Row({ items, active }: { items: Item[]; active: boolean }) {
                   decoding="async"
                   width={44}
                   height={44}
-                  className="h-11 w-11 object-contain shrink-0"
+                  className="h-11 w-11 object-contain shrink-0 rounded-lg"
                 />
               ) : (
                 <img
@@ -53,7 +53,7 @@ function Row({ items, active }: { items: Item[]; active: boolean }) {
                   className="h-11 w-11 rounded-full object-cover shrink-0"
                 />
               )}
-              <span className="font-semibold text-lg text-white/80">{item.name}</span>
+              <span className="font-semibold text-lg text-white/80 whitespace-nowrap">{item.name}</span>
             </div>
             <span aria-hidden className="h-4 w-px bg-white/15" />
           </div>
