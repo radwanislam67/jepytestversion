@@ -99,13 +99,22 @@ function ServicesPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {SERVICES.map((s, i) => (
                 <Reveal key={s.title} delay={i * 80}>
-                  <div className="group flex h-full flex-col rounded-2xl border border-gray-800 bg-gray-900/50 p-6 transition-all duration-300 hover:border-gray-600 hover:scale-[1.02]">
+                  <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-800 bg-gray-900/50 p-6 transition-all duration-300 hover:border-[rgba(83,255,47,0.6)] hover:-translate-y-0.5 hover:scale-[1.02]">
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-x-0 top-0 h-[2px]"
+                      style={{
+                        background:
+                          "linear-gradient(to right, rgba(83,255,47,0.9), rgba(83,255,47,0))",
+                      }}
+                    />
                     <div
-                      className="inline-flex h-12 w-12 items-center justify-center rounded-xl mb-4"
+                      className="inline-flex h-12 w-12 items-center justify-center rounded-xl mb-4 transition-transform duration-200 ease-out group-hover:scale-110"
                       style={{
                         background: "rgba(83,255,47,0.08)",
                         color: "var(--accent)",
                         border: "1px solid rgba(83,255,47,0.25)",
+                        boxShadow: "0 0 20px rgba(83,255,47,0.3)",
                       }}
                     >
                       <s.icon size={22} />
