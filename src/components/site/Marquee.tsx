@@ -25,22 +25,22 @@ function Row({ items, active }: { items: Item[]; active: boolean }) {
       <div
         className="flex items-center whitespace-nowrap will-change-transform"
         style={{
-          animation: `marquee-left 45s linear infinite`,
+          animation: `marquee-left 20s linear infinite`,
           animationPlayState: active ? "running" : "paused",
         }}
       >
         {seq.map((item, i) => (
           <div key={i} className="flex items-center shrink-0">
-            <div className="flex items-center gap-2 px-6 md:px-8">
+            <div className="flex items-center gap-3 px-12">
               {item.type === "logo" ? (
                 <img
                   src={item.src}
                   alt={item.alt}
                   loading="lazy"
                   decoding="async"
-                  width={24}
-                  height={24}
-                  className="h-6 w-6 object-contain shrink-0"
+                  width={44}
+                  height={44}
+                  className="h-11 w-11 object-contain shrink-0"
                 />
               ) : (
                 <img
@@ -48,12 +48,12 @@ function Row({ items, active }: { items: Item[]; active: boolean }) {
                   alt={item.alt}
                   loading="lazy"
                   decoding="async"
-                  width={28}
-                  height={28}
-                  className="h-7 w-7 rounded-full object-cover shrink-0"
+                  width={44}
+                  height={44}
+                  className="h-11 w-11 rounded-full object-cover shrink-0"
                 />
               )}
-              <span className="font-medium text-sm text-white/80">{item.name}</span>
+              <span className="font-semibold text-lg text-white/80">{item.name}</span>
             </div>
             <span aria-hidden className="h-4 w-px bg-white/15" />
           </div>
