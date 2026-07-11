@@ -25,7 +25,7 @@ function Row({ items, active }: { items: Item[]; active: boolean }) {
       <div
         className="flex items-center w-max will-change-transform"
         style={{
-          animation: `marquee-left 20s linear infinite`,
+          animation: `marquee-left 50s linear infinite`,
           animationPlayState: active ? "running" : "paused",
         }}
       >
