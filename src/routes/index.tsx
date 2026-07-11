@@ -17,6 +17,8 @@ import { ShowreelCTA } from "@/components/site/ShowreelCTA";
 import { Typewriter } from "@/components/site/Typewriter";
 import { HowItWorks } from "@/components/site/HowItWorks";
 import { AboutPreview } from "@/components/site/AboutPreview";
+import { FilmstripLoop } from "@/components/site/FilmstripLoop";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
