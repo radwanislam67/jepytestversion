@@ -61,19 +61,20 @@ function FilmReel() {
       <circle cx="60" cy="60" r="58" fill="#2a2a2a" stroke="#1a1a1a" strokeWidth="2" />
       {Array.from({ length: 36 }).map((_, i) => {
         const a = (i / 36) * Math.PI * 2;
-        const x1 = 60 + Math.cos(a) * 54;
-        const y1 = 60 + Math.sin(a) * 54;
-        const x2 = 60 + Math.cos(a) * 58;
-        const y2 = 60 + Math.sin(a) * 58;
+        const x1 = (60 + Math.cos(a) * 54).toFixed(3);
+        const y1 = (60 + Math.sin(a) * 54).toFixed(3);
+        const x2 = (60 + Math.cos(a) * 58).toFixed(3);
+        const y2 = (60 + Math.sin(a) * 58).toFixed(3);
         return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#1a1a1a" strokeWidth="1" />;
       })}
       <circle cx="60" cy="60" r="48" fill="#1e1e1e" stroke="#333" strokeWidth="1" />
       {Array.from({ length: 8 }).map((_, i) => {
         const a = (i / 8) * Math.PI * 2;
-        const x2 = 60 + Math.cos(a) * 44;
-        const y2 = 60 + Math.sin(a) * 44;
+        const x2 = (60 + Math.cos(a) * 44).toFixed(3);
+        const y2 = (60 + Math.sin(a) * 44).toFixed(3);
         return <line key={i} x1="60" y1="60" x2={x2} y2={y2} stroke="#e0e0e0" strokeWidth="1.5" strokeLinecap="round" />;
       })}
+
       <circle cx="60" cy="60" r="14" fill="#00ff41" opacity="0.25" filter="blur(4px)" />
       <circle cx="60" cy="60" r="10" fill="#00ff41" />
       <circle cx="60" cy="60" r="4" fill="#0a0a0a" />
