@@ -17,7 +17,7 @@ import { ShowreelCTA } from "@/components/site/ShowreelCTA";
 import { Typewriter } from "@/components/site/Typewriter";
 import { HowItWorks } from "@/components/site/HowItWorks";
 import { AboutPreview } from "@/components/site/AboutPreview";
-import { HeroOrbit } from "@/components/site/HeroOrbit";
+import { CodecVisualization } from "@/components/site/CodecVisualization";
 
 
 
@@ -64,7 +64,7 @@ function Hero() {
     <section className="relative min-h-[100svh] flex items-center overflow-hidden pt-36 md:pt-40 pb-12 md:pb-16">
       <div className="aurora" />
       <Particles count={36} />
-      <HeroOrbit />
+      <CodecVisualization />
 
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#050505_85%)]" />
