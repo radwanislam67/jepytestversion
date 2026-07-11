@@ -1,151 +1,107 @@
 import { useEffect, useRef, useState } from "react";
-import { Star, ChevronRight } from "lucide-react";
+import { Star } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 
 type Review = {
+  image: string;
   quote: string;
   name: string;
-  company: string;
-  initials: string;
-  gradient: string;
+  designation: string;
 };
 
 const REVIEWS: Review[] = [
   {
-    quote: "Jepy turned our raw footage into the most-watched video we've ever launched. Insane quality.",
-    name: "Amelia Reyes",
-    company: "Northwave",
-    initials: "AR",
-    gradient: "linear-gradient(135deg, #8B5CF6, #3B82F6)",
+    image: "https://cdn.jepystudio.com/clients/jake-morrison.webp",
+    quote:
+      "Handed over my raw footage on Monday, got back a cinematic reel by Wednesday. These guys just get it.",
+    name: "Jake Morrison",
+    designation: "YouTube Creator · 280K Subscribers · USA",
   },
   {
-    quote: "Their motion work feels cinematic, not just edited. We won't go anywhere else.",
-    name: "Hiroshi Tanaka",
-    company: "Lumen Labs",
-    initials: "HT",
-    gradient: "linear-gradient(135deg, #F97316, #EF4444)",
+    image: "https://cdn.jepystudio.com/clients/sophia-reeves.webp",
+    quote:
+      "The pacing, the cuts, the color — everything felt intentional. My audience noticed the upgrade immediately.",
+    name: "Sophia Reeves",
+    designation: "Podcast Host & Educator · 95K Instagram · UK",
   },
   {
-    quote: "Every cut has purpose. Our retention jumped the week we switched to Jepy.",
-    name: "Priya Sharma",
-    company: "Octave",
-    initials: "PS",
-    gradient: "linear-gradient(135deg, #22C55E, #14B8A6)",
+    image: "https://cdn.jepystudio.com/clients/daniel-kwon.webp",
+    quote:
+      "We were spending 3 days per video. Now it's same-day turnaround. Jepy basically became our in-house team.",
+    name: "Daniel Kwon",
+    designation: "SaaS Founder · Head of Content · San Francisco",
   },
   {
-    quote: "Fastest turnaround we've seen. Brief to final delivery in under 48 hours.",
-    name: "Marcus Lee",
-    company: "Strata",
-    initials: "ML",
-    gradient: "linear-gradient(135deg, #3B82F6, #6366F1)",
+    image: "https://cdn.jepystudio.com/clients/priya-nair.webp",
+    quote:
+      "I send assets, they send back magic. Zero back-and-forth, zero stress. Best decision for my channel.",
+    name: "Priya Nair",
+    designation: "Finance Creator · 430K YouTube · Canada",
   },
   {
-    quote: "Our short-form content hit 14M views in 30 days after Jepy started editing for us.",
-    name: "Sofia Martinez",
-    company: "Halcyon",
-    initials: "SM",
-    gradient: "linear-gradient(135deg, #EC4899, #A855F7)",
+    image: "https://cdn.jepystudio.com/clients/marcus-webb.webp",
+    quote:
+      "My reels used to get 2K views. First video Jepy edited hit 47K. The editing quality is just on another level.",
+    name: "Marcus Webb",
+    designation: "Real Estate Educator · 180K TikTok · Australia",
   },
   {
-    quote: "Premium quality from first frame to final color. Worth every dollar.",
-    name: "Daniel Kim",
-    company: "Pixelrun",
-    initials: "DK",
-    gradient: "linear-gradient(135deg, #EAB308, #F97316)",
+    image: "https://cdn.jepystudio.com/clients/lena-fischer.webp",
+    quote:
+      "We outsource all client video work to Jepy now. Consistent quality, fast delivery, no micromanaging needed.",
+    name: "Lena Fischer",
+    designation: "Brand Strategist · Agency Owner · Germany",
   },
 ];
 
 function Card({ r, index, visible }: { r: Review; index: number; visible: boolean }) {
   return (
     <div
-      className="flex flex-col gap-4 h-full"
+      className="flex flex-col gap-4 h-full rounded-xl p-6 transition-all duration-300"
       style={{
         background: "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(83,255,47,0.28)",
-        borderRadius: 12,
-
-        padding: 24,
+        border: "1px solid rgba(83,255,47,0.20)",
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(20px)",
         transition: `opacity 0.5s ease ${index * 100}ms, transform 0.5s ease ${index * 100}ms, border-color 0.3s ease, box-shadow 0.3s ease`,
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "rgba(0,255,0,0.8)";
-        e.currentTarget.style.boxShadow = "0 0 20px rgba(0,255,0,0.2)";
-        e.currentTarget.style.transform = "translateY(0) scale(1.02)";
+        e.currentTarget.style.borderColor = "rgba(83,255,47,0.7)";
+        e.currentTarget.style.boxShadow = "0 0 24px rgba(83,255,47,0.18)";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "rgba(0,255,0,0.2)";
+        e.currentTarget.style.borderColor = "rgba(83,255,47,0.20)";
         e.currentTarget.style.boxShadow = "none";
-        e.currentTarget.style.transform = "translateY(0) scale(1)";
       }}
     >
-      <p className="text-sm text-foreground/85 leading-relaxed">&ldquo;{r.quote}&rdquo;</p>
-      <div
-        className="mt-auto flex items-center"
-        style={{ gap: 12, marginTop: 16 }}
-      >
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: "50%",
-            background: r.gradient,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 12,
-            fontWeight: "bold",
-            color: "#fff",
-            flexShrink: 0,
-          }}
-        >
-          {r.initials}
-        </div>
-        <div>
-          <div className="text-sm font-bold text-white">{r.name}</div>
-          <div className="text-xs text-muted-foreground">{r.company}</div>
+      <div className="flex items-center gap-3">
+        <img
+          src={r.image}
+          alt={r.name}
+          width={48}
+          height={48}
+          loading="lazy"
+          decoding="async"
+          className="h-12 w-12 rounded-full object-cover shrink-0"
+        />
+        <div className="flex gap-0.5">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star key={i} size={14} fill="#FFD700" stroke="#FFD700" />
+          ))}
         </div>
       </div>
-    </div>
-  );
-}
 
-function SummaryPill() {
-  const avatars = ["#53FF2F", "#B8FF6A", "#8a8a8a", "#F7F7F7"];
-  return (
-    <div
-      className="group inline-flex items-center gap-3 transition-all duration-300 hover:shadow-[0_0_24px_rgba(0,255,0,0.35)]"
-      style={{
-        background: "rgba(11,11,11,0.85)",
-        border: "1px solid rgba(0,255,0,0.3)",
-        borderRadius: 999,
-        padding: "10px 24px",
-      }}
-    >
-      <div className="flex -space-x-2">
-        {avatars.map((c, i) => (
-          <span
-            key={i}
-            className="inline-block h-6 w-6 rounded-full border-2"
-            style={{ background: c, borderColor: "#0b0b0b" }}
-          />
-        ))}
+      <p className="text-sm text-foreground/85 leading-relaxed italic">
+        &ldquo;{r.quote}&rdquo;
+      </p>
+
+      <div
+        className="mt-auto pt-4"
+        style={{ borderTop: "1px solid rgba(247,247,247,0.08)" }}
+      >
+        <div className="text-sm font-bold text-white">{r.name}</div>
+        <div className="text-xs text-muted-foreground mt-1">{r.designation}</div>
       </div>
-      <div className="flex gap-0.5 items-center">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <Star key={i} size={12} fill="#FFD700" stroke="#FFD700" />
-        ))}
-        <span style={{ position: "relative", display: "inline-block", width: 12, height: 12 }}>
-          <Star size={12} fill="#4B5563" stroke="#4B5563" style={{ position: "absolute", inset: 0 }} />
-          <span style={{ position: "absolute", inset: 0, width: "60%", overflow: "hidden" }}>
-            <Star size={12} fill="#FFD700" stroke="#FFD700" />
-          </span>
-        </span>
-      </div>
-      <span className="text-sm font-bold text-white">4.9</span>
-      <span className="text-sm text-muted-foreground">50+ Clients Worldwide</span>
-      <ChevronRight size={14} className="text-muted-foreground" />
     </div>
   );
 }
@@ -178,7 +134,7 @@ export function Reviews() {
         <Reveal>
           <h2
             className="font-display text-5xl md:text-7xl tracking-tighter text-center"
-            style={{ marginBottom: 32, color: "#fff" }}
+            style={{ marginBottom: 16, color: "#fff" }}
           >
             Don&rsquo;t Take{" "}
             <span style={{ color: "#00FF00" }} className="text-glow">
@@ -188,14 +144,15 @@ export function Reviews() {
           </h2>
         </Reveal>
 
-        <div className="flex justify-center mb-12">
-          <SummaryPill />
-        </div>
+        <Reveal delay={120}>
+          <p className="text-center text-base md:text-lg text-muted-foreground mb-12">
+            Real creators and teams share their experience
+          </p>
+        </Reveal>
 
         <div
           ref={ref}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch"
-          style={{ gap: 24 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch gap-6"
         >
           {REVIEWS.map((r, i) => (
             <Card key={i} r={r} index={i} visible={visible} />
@@ -205,4 +162,3 @@ export function Reviews() {
     </section>
   );
 }
-
