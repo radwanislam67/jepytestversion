@@ -6,52 +6,45 @@ type Review = {
   quote: string;
   name: string;
   company: string;
-  initials: string;
-  gradient: string;
+  image: string;
 };
 
 const REVIEWS: Review[] = [
   {
     quote: "Jepy turned our raw footage into the most-watched video we've ever launched. Insane quality.",
-    name: "Amelia Reyes",
-    company: "Northwave",
-    initials: "AR",
-    gradient: "linear-gradient(135deg, #8B5CF6, #3B82F6)",
+    name: "Jake Morrison",
+    company: "YouTube Creator · 280K Subscribers · USA",
+    image: "https://cdn.jepystudio.com/clients/jake-morrison.webp",
   },
   {
     quote: "Their motion work feels cinematic, not just edited. We won't go anywhere else.",
-    name: "Hiroshi Tanaka",
-    company: "Lumen Labs",
-    initials: "HT",
-    gradient: "linear-gradient(135deg, #F97316, #EF4444)",
+    name: "Sophia Reeves",
+    company: "Podcast Host & Educator · 95K Instagram · UK",
+    image: "https://cdn.jepystudio.com/clients/sophia-reeves.webp",
   },
   {
     quote: "Every cut has purpose. Our retention jumped the week we switched to Jepy.",
-    name: "Priya Sharma",
-    company: "Octave",
-    initials: "PS",
-    gradient: "linear-gradient(135deg, #22C55E, #14B8A6)",
+    name: "Daniel Kwon",
+    company: "SaaS Founder · Head of Content · San Francisco",
+    image: "https://cdn.jepystudio.com/clients/daniel-kwon.webp",
   },
   {
     quote: "Fastest turnaround we've seen. Brief to final delivery in under 48 hours.",
-    name: "Marcus Lee",
-    company: "Strata",
-    initials: "ML",
-    gradient: "linear-gradient(135deg, #3B82F6, #6366F1)",
+    name: "Priya Nair",
+    company: "Finance Creator · 430K YouTube · Canada",
+    image: "https://cdn.jepystudio.com/clients/priya-nair.webp",
   },
   {
     quote: "Our short-form content hit 14M views in 30 days after Jepy started editing for us.",
-    name: "Sofia Martinez",
-    company: "Halcyon",
-    initials: "SM",
-    gradient: "linear-gradient(135deg, #EC4899, #A855F7)",
+    name: "Marcus Webb",
+    company: "Real Estate Educator · 180K TikTok · Australia",
+    image: "https://cdn.jepystudio.com/clients/marcus-webb.webp",
   },
   {
     quote: "Premium quality from first frame to final color. Worth every dollar.",
-    name: "Daniel Kim",
-    company: "Pixelrun",
-    initials: "DK",
-    gradient: "linear-gradient(135deg, #EAB308, #F97316)",
+    name: "Lena Fischer",
+    company: "Brand Strategist · Agency Owner · Germany",
+    image: "https://cdn.jepystudio.com/clients/lena-fischer.webp",
   },
 ];
 
@@ -87,20 +80,22 @@ function Card({ r, index, visible }: { r: Review; index: number; visible: boolea
       >
         <div
           style={{
-            width: 40,
-            height: 40,
+            width: 48,
+            height: 48,
             borderRadius: "50%",
-            background: r.gradient,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 12,
-            fontWeight: "bold",
-            color: "#fff",
+            overflow: "hidden",
             flexShrink: 0,
           }}
         >
-          {r.initials}
+          <img
+            src={r.image}
+            alt={r.name}
+            width={48}
+            height={48}
+            loading="lazy"
+            decoding="async"
+            style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
+          />
         </div>
         <div>
           <div className="text-sm font-bold text-white">{r.name}</div>
