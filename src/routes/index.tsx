@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Play } from "lucide-react";
 import { Particles } from "@/components/site/Particles";
+import { VideoEditSculpture } from "@/components/site/VideoEditSculpture";
 import { Reveal } from "@/components/site/Reveal";
 import { Marquee } from "@/components/site/Marquee";
 import { Magnetic } from "@/components/site/Magnetic";
