@@ -17,7 +17,7 @@ import { ShowreelCTA } from "@/components/site/ShowreelCTA";
 import { Typewriter } from "@/components/site/Typewriter";
 import { HowItWorks } from "@/components/site/HowItWorks";
 import { AboutPreview } from "@/components/site/AboutPreview";
-import { FilmstripLoop } from "@/components/site/FilmstripLoop";
+
 
 
 export const Route = createFileRoute("/")({
@@ -66,50 +66,39 @@ function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#050505_85%)]" />
       </div>
       <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full">
-        <div className="grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-8 items-center">
-          <div>
-            <h1 className="font-display text-[14vw] md:text-[10vw] lg:text-[8vw] leading-[0.92] tracking-[-0.04em]">
-              <Reveal>Your Content,&nbsp;</Reveal>
-              <Reveal delay={600} y={32}>
-                <span className="text-[var(--accent)] text-glow">Elevated.</span>
-              </Reveal>
-            </h1>
-            <Reveal delay={260}>
-              <p className="mt-8 max-w-xl text-base md:text-lg text-foreground/70 leading-relaxed break-words">
-                Raw footage to high-converting content for creators, brands, and SaaS teams worldwide.
-              </p>
-            </Reveal>
-            <Reveal delay={360}>
-              <div className="mt-10 flex flex-wrap items-center gap-6">
-                <Magnetic>
-                  <Link to="/work" className="btn-primary">
-                    View Work <ArrowUpRight size={18} />
-                  </Link>
-                </Magnetic>
-                <Magnetic>
-                  <Link to="/contact" className="btn-ghost">
-                    <Play size={16} /> Book A Call
-                  </Link>
-                </Magnetic>
-              </div>
-            </Reveal>
-
-            <Reveal delay={500}>
-              <div className="mt-16 font-display text-2xl md:text-4xl tracking-tight text-foreground/90 min-h-[4.5rem] md:min-h-[5.5rem]">
-                We craft <Typewriter />
-              </div>
-            </Reveal>
+        <h1 className="font-display text-[14vw] md:text-[10vw] leading-[0.92] tracking-[-0.04em]">
+          <Reveal>Your Content,&nbsp;</Reveal>
+          <Reveal delay={600} y={32}>
+            <span className="text-[var(--accent)] text-glow">Elevated.</span>
+          </Reveal>
+        </h1>
+        <Reveal delay={260}>
+          <p className="mt-8 max-w-xl text-base md:text-lg text-foreground/70 leading-relaxed break-words">
+            Raw footage to high-converting content for creators, brands, and SaaS teams worldwide.
+          </p>
+        </Reveal>
+        <Reveal delay={360}>
+          <div className="mt-10 flex flex-wrap items-center gap-6">
+            <Magnetic>
+              <Link to="/work" className="btn-primary">
+                View Work <ArrowUpRight size={18} />
+              </Link>
+            </Magnetic>
+            <Magnetic>
+              <Link to="/contact" className="btn-ghost">
+                <Play size={16} /> Book A Call
+              </Link>
+            </Magnetic>
           </div>
+        </Reveal>
 
-          <div className="hidden lg:block pointer-events-none" style={{ transform: "scale(0.85)" }}>
-            <FilmstripLoop />
+        <Reveal delay={500}>
+          <div className="mt-16 font-display text-2xl md:text-4xl tracking-tight text-foreground/90 min-h-[4.5rem] md:min-h-[5.5rem]">
+            We craft <Typewriter />
           </div>
-        </div>
-
-        <div className="lg:hidden mt-12 pointer-events-none" style={{ transform: "scale(0.65)", transformOrigin: "center top" }}>
-          <FilmstripLoop />
-        </div>
+        </Reveal>
       </div>
+
 
     </section>
   );
