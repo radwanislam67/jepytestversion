@@ -6,7 +6,7 @@ import { Magnetic } from "@/components/site/Magnetic";
 export function CTASection() {
   return (
     <section className="relative py-20">
-      <div className="mx-auto max-w-[900px] px-6 md:px-8">
+      <div className="mx-auto max-w-[1100px] px-6">
         <div
           className="relative overflow-hidden rounded-[36px] border border-[var(--accent)]/30 p-10 md:p-20 text-center"
           style={{
