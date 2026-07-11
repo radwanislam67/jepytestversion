@@ -80,20 +80,22 @@ function Card({ r, index, visible }: { r: Review; index: number; visible: boolea
       >
         <div
           style={{
-            width: 40,
-            height: 40,
+            width: 48,
+            height: 48,
             borderRadius: "50%",
-            background: r.gradient,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 12,
-            fontWeight: "bold",
-            color: "#fff",
+            overflow: "hidden",
             flexShrink: 0,
           }}
         >
-          {r.initials}
+          <img
+            src={r.image}
+            alt={r.name}
+            width={48}
+            height={48}
+            loading="lazy"
+            decoding="async"
+            style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
+          />
         </div>
         <div>
           <div className="text-sm font-bold text-white">{r.name}</div>
