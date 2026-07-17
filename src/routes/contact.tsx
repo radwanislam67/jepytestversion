@@ -5,6 +5,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { Reveal } from "@/components/site/Reveal";
 import { CalendlyModal } from "@/components/site/CalendlyModal";
+import { StudioAssistant } from "@/components/site/StudioAssistant";
 
 const CALENDLY_LINKS: Record<string, string> = {
   "Weekday mornings": "https://calendly.com/jepystudio/weekday-morning-call",
