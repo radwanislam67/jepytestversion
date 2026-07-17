@@ -205,8 +205,20 @@ function Contact() {
           </Reveal>
 
           <Reveal delay={100}>
-            <div className="relative rounded-3xl md:rounded-[32px] border border-white/5 bg-[var(--surface)] p-6 md:p-10 overflow-hidden">
-              <div className="aurora opacity-40" />
+            {/* Mobile assistant — above the form */}
+            <div className="lg:hidden mb-2 flex justify-center">
+              <StudioAssistant size={160} focused={formFocused} celebrate={done} />
+            </div>
+            <div
+              className="relative rounded-3xl md:rounded-[32px] border border-white/5 bg-[var(--surface)] p-6 md:p-10 overflow-visible"
+              onFocusCapture={() => setFormFocused(true)}
+              onBlurCapture={() => setFormFocused(false)}
+            >
+              {/* Desktop assistant — leans on lower-left edge */}
+              <div className="hidden lg:block absolute -left-[210px] bottom-[-8px] z-10">
+                <StudioAssistant size={280} focused={formFocused} celebrate={done} />
+              </div>
+              <div className="rounded-3xl md:rounded-[32px] overflow-hidden absolute inset-0 aurora opacity-40 pointer-events-none" />
               <div className="relative">
                 {done ? (
                   <div className="py-16 text-center" role="status" aria-live="polite">
