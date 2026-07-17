@@ -72,6 +72,7 @@ function Contact() {
   const [calendlyName, setCalendlyName] = useState<string>("");
   const [calendlyEmail, setCalendlyEmail] = useState<string>("");
   const formRef = useRef<HTMLFormElement>(null);
+  const [formFocused, setFormFocused] = useState(false);
 
   useEffect(() => {
     const fallback = () => {
