@@ -7,7 +7,7 @@ import { Magnetic } from "@/components/site/Magnetic";
 import { Showreel } from "@/components/site/Showreel";
 import { Stats } from "@/components/site/Stats";
 import { WhatGoesIn } from "@/components/site/WhatGoesIn";
-import { WorkPreview } from "@/components/site/WorkPreview";
+import { StackedWork } from "@/components/site/StackedWork";
 import { ServicesPreview } from "@/components/site/ServicesPreview";
 import { Pricing } from "@/components/site/Pricing";
 import { Reviews } from "@/components/site/Reviews";
@@ -48,7 +48,7 @@ function Home() {
       <Stats />
       <WhatGoesIn />
       <ServicesPreview />
-      <WorkPreview />
+      <StackedWork />
       <HowItWorks />
       <Pricing />
       <Reviews />

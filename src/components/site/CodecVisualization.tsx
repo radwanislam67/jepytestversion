@@ -26,8 +26,9 @@ function lerp(a: number, b: number, t: number) {
 
 function sampleState(t: number) {
   // t in [0,1) → interpolate through 5 states cyclically
-  const scaled = t * STATES.length;
-  const i = Math.floor(scaled) % STATES.length;
+  const norm = ((t % 1) + 1) % 1;
+  const scaled = norm * STATES.length;
+  const i = Math.min(STATES.length - 1, Math.max(0, Math.floor(scaled)));
   const j = (i + 1) % STATES.length;
   const f = scaled - Math.floor(scaled);
   const a = STATES[i];

@@ -391,3 +391,50 @@ input[type="date"].date-input-custom {
   border-radius: 4px;
 }
 
+
+/* Stacked work showcase */
+@keyframes stack-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.stack-float > * { will-change: transform; }
+.stack-card.stack-float::after { content: none; }
+.stack-card-side:hover {
+  border-color: #7FFF00 !important;
+}
+.stack-float {
+  animation: stack-float 4s ease-in-out infinite;
+}
+
+/* Before/After modal */
+@keyframes ba-in {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.ba-ctrl:hover { color: #7FFF00 !important; border-color: #7FFF00 !important; }
+.ba-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: #2a2a2a;
+  outline: none;
+}
+.ba-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #7FFF00;
+  cursor: pointer;
+}
+.ba-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: none;
+  border-radius: 999px;
+  background: #7FFF00;
+  cursor: pointer;
+}
+.ba-range::-moz-range-progress { background: #7FFF00; height: 4px; border-radius: 999px; }
