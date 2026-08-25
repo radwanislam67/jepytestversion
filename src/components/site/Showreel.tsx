@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
+import { IpWatermark, PROTECTED_VIDEO_PROPS, VideoShield } from "@/components/site/VideoWatermark";
 
 export const SHOWREEL_SRC = "https://www.w3schools.com/html/mov_bbb.mp4";
 
