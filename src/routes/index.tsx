@@ -48,7 +48,7 @@ function Home() {
       <Stats />
       <WhatGoesIn />
       <ServicesPreview />
-      <WorkPreview />
+      <StackedWork />
       <HowItWorks />
       <Pricing />
       <Reviews />
