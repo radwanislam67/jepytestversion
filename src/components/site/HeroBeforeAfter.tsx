@@ -1,22 +1,15 @@
-import { useState } from "react";
-import { BeforeAfterModal } from "@/components/site/BeforeAfterModal";
-import type { WorkProject } from "@/components/site/work-data";
+import { useEffect, useRef, useState } from "react";
 
-// TODO: swap with real URLs when ready
-const VIDEO_CONFIG = [
-  {
-    title: "Northwave — Brand Film",
-    tag: "COMMERCIAL",
-    desc: "Cinematic brand story for a premium lifestyle label.",
-    beforeUrl: "https://videos.jepystudio.com/Before.mp4",
-    afterUrl: "https://videos.jepystudio.com/After.mp4",
-  },
-];
+const BEFORE_URL = "https://videos.jepystudio.com/Before.mp4";
+const AFTER_URL = "https://videos.jepystudio.com/After.mp4";
 
 const mono = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
 const badgeBase: React.CSSProperties = {
   position: "absolute",
+  top: 10,
+  left: 10,
+  zIndex: 2,
   fontFamily: mono,
   fontSize: 8,
   borderRadius: 20,
@@ -25,192 +18,230 @@ const badgeBase: React.CSSProperties = {
   letterSpacing: "0.12em",
 };
 
-function PlayIcon({ color }: { color: string }) {
-  return (
-    <svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true">
-      <path d="M1 1L11 7L1 13Z" fill={color} />
-    </svg>
-  );
+const protectedVideoProps = {
+  controlsList: "nodownload",
+  disablePictureInPicture: true,
+  onContextMenu: (e: React.MouseEvent) => {
+    e.preventDefault();
+    return false;
+  },
+} as const;
+
+function useClientIp() {
+  const [ip, setIp] = useState("");
+  useEffect(() => {
+    let alive = true;
+    fetch("https://api.ipify.org?format=json")
+      .then((r) => r.json())
+      .then((d) => {
+        if (alive && d?.ip) setIp(String(d.ip));
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
+  return ip;
 }
 
-function CardMeta({ title, sub }: { title: string; sub: string }) {
+function VideoWatermark() {
+  const ip = useClientIp();
+  const [shift, setShift] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setShift({
+        x: (Math.random() * 2 - 1) * 3,
+        y: (Math.random() * 2 - 1) * 3,
+      });
+    }, 6000);
+    return () => clearInterval(id);
+  }, []);
+
+  const cells: React.ReactNode[] = [];
+  for (let y = -80; y < 360; y += 70) {
+    for (let x = -160; x < 400; x += 120) {
+      cells.push(
+        <span
+          key={`${x}-${y}`}
+          style={{
+            position: "absolute",
+            left: x,
+            top: y,
+            fontFamily: mono,
+            fontSize: 11,
+            color: "#ffffff",
+            opacity: 0.07,
+            textShadow: "0 0 4px rgba(0,0,0,0.8)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {ip}
+        </span>,
+      );
+    }
+  }
+
   return (
     <div
-      style={{
-        position: "absolute",
-        left: 0,
-        right: 0,
-        bottom: 0,
-        padding: "18px 10px 10px",
-        background: "linear-gradient(to top, rgba(0,0,0,0.85), transparent)",
-        borderRadius: "0 0 16px 16px",
-      }}
+      aria-hidden
+      className="absolute inset-0 overflow-hidden"
+      style={{ zIndex: 3, pointerEvents: "none" }}
     >
-      <div style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>{title}</div>
-      <div style={{ fontSize: 8, color: "#666", marginTop: 2 }}>{sub}</div>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          transform: `translate(${shift.x}%, ${shift.y}%) rotate(-25deg)`,
+          transition: "transform 1.2s ease",
+        }}
+      >
+        {cells}
+      </div>
     </div>
   );
 }
 
 export function HeroBeforeAfter() {
-  const [open, setOpen] = useState(false);
-  const cfg = VIDEO_CONFIG[0];
+  const afterVideoRef = useRef<HTMLVideoElement>(null);
+  const [afterMuted, setAfterMuted] = useState(true);
 
-  const project: WorkProject = {
-    id: "hero",
-    title: cfg.title,
-    tag: cfg.tag,
-    desc: cfg.desc,
-    beforeUrl: cfg.beforeUrl,
-    afterUrl: cfg.afterUrl,
-    showreelUrl: cfg.afterUrl,
+  const toggleAfterMute = () => {
+    const v = afterVideoRef.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setAfterMuted(v.muted);
   };
 
   return (
-    <>
-      <div className="hero-ba">
-        {/* BEFORE card */}
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label={`Open before and after for ${cfg.title}`}
+    <div className="hero-ba">
+      {/* BEFORE card */}
+      <div
+        style={{
+          position: "absolute",
+          top: 10,
+          left: 0,
+          width: 140,
+          height: 249,
+          zIndex: 1,
+          transform: "rotate(-5deg)",
+          opacity: 0.65,
+          filter: "grayscale(0.55) brightness(0.6)",
+          background: "#151515",
+          border: "1px solid #2a2a2a",
+          borderRadius: 16,
+          overflow: "hidden",
+        }}
+      >
+        <span
           style={{
-            position: "absolute",
-            top: 8,
-            left: 0,
-            width: 140,
-            height: 249,
-            zIndex: 1,
-            transform: "rotate(-5deg)",
-            opacity: 0.65,
-            filter: "grayscale(0.55) brightness(0.6)",
-            background: "#151515",
-            border: "1px solid #2a2a2a",
-            borderRadius: 16,
-            cursor: "pointer",
-            padding: 0,
+            ...badgeBase,
+            color: "#888",
+            border: "1px solid #444",
           }}
         >
-          <span style={{ ...badgeBase, top: 8, left: 8, color: "#888", border: "1px solid #444" }}>
-            BEFORE
-          </span>
-          <span
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%,-50%)",
-              width: 40,
-              height: 40,
-              borderRadius: "50%",
-              border: "2px solid #555",
-              background: "transparent",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <PlayIcon color="#888" />
-          </span>
-          <CardMeta title="Raw Footage" sub="Unedited · No grade" />
-        </button>
-
-        {/* AFTER card */}
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label={`Open before and after for ${cfg.title}`}
-          className="hero-ba-after"
-          style={{
-            position: "absolute",
-            bottom: 20,
-            right: 0,
-            width: 148,
-            height: 263,
-            zIndex: 2,
-            background: "#0d1a0d",
-            border: "1.5px solid #7fff00",
-            borderRadius: 16,
-            boxShadow: "0 0 30px rgba(127,255,0,0.14)",
-            cursor: "pointer",
-            padding: 0,
-          }}
-        >
-          <span
-            style={{
-              position: "absolute",
-              top: -12,
-              right: -14,
-              background: "#7fff00",
-              color: "#000",
-              fontFamily: mono,
-              fontSize: 8,
-              fontWeight: 700,
-              borderRadius: 20,
-              padding: "4px 9px",
-              transform: "rotate(-4deg)",
-              whiteSpace: "nowrap",
-            }}
-          >
-            +12M VIEWS
-          </span>
-          <span
-            style={{ ...badgeBase, top: 8, left: 8, color: "#7fff00", border: "1px solid #7fff00" }}
-          >
-            AFTER
-          </span>
-          <span
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%,-50%)",
-              width: 40,
-              height: 40,
-              borderRadius: "50%",
-              border: "2px solid #7fff00",
-              background: "rgba(127,255,0,0.08)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <PlayIcon color="#7fff00" />
-          </span>
-          <CardMeta title="Final Edit" sub="Graded · Sound · Motion" />
-        </button>
-
-        {/* Arrow overlay */}
-        <svg
-          viewBox="0 0 300 380"
-          aria-hidden="true"
-          style={{ position: "absolute", inset: 0, zIndex: 3, pointerEvents: "none" }}
-        >
-          <defs>
-            <marker
-              id="hero-ba-arrow"
-              markerWidth="6"
-              markerHeight="6"
-              refX="5"
-              refY="3"
-              orient="auto"
-            >
-              <path d="M0,0 L6,3 L0,6 Z" fill="#7fff00" />
-            </marker>
-          </defs>
-          <path
-            d="M 132,38 C 200,20 260,60 212,115"
-            fill="none"
-            stroke="#7fff00"
-            strokeWidth="1.8"
-            strokeDasharray="6 5"
-            opacity="0.75"
-            markerEnd="url(#hero-ba-arrow)"
-          />
-        </svg>
+          BEFORE
+        </span>
+        <video
+          src={BEFORE_URL}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="h-full w-full object-cover"
+          {...protectedVideoProps}
+        />
+        <VideoWatermark />
       </div>
 
-      {open && <BeforeAfterModal project={project} onClose={() => setOpen(false)} />}
-    </>
+      {/* AFTER card */}
+      <div
+        className="hero-ba-after group"
+        style={{
+          position: "absolute",
+          bottom: 0,
+          right: 0,
+          width: 148,
+          height: 263,
+          zIndex: 2,
+          background: "#0d1a0d",
+          border: "1.5px solid #7fff00",
+          borderRadius: 16,
+          boxShadow: "0 0 30px rgba(127,255,0,0.14)",
+          overflow: "hidden",
+        }}
+      >
+        <span
+          style={{
+            ...badgeBase,
+            color: "#7fff00",
+            border: "1px solid #7fff00",
+          }}
+        >
+          AFTER
+        </span>
+        <video
+          ref={afterVideoRef}
+          src={AFTER_URL}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="h-full w-full object-cover"
+          {...protectedVideoProps}
+        />
+        <VideoWatermark />
+        <button
+          type="button"
+          onClick={toggleAfterMute}
+          aria-label={afterMuted ? "Unmute after video" : "Mute after video"}
+          className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          style={{
+            position: "absolute",
+            bottom: 10,
+            right: 10,
+            zIndex: 3,
+            background: "rgba(0,0,0,0.7)",
+            border: "1px solid #444",
+            borderRadius: 8,
+            padding: "6px 10px",
+            color: "#ffffff",
+            fontFamily: mono,
+            fontSize: 11,
+          }}
+        >
+          {afterMuted ? "Unmute" : "Mute"}
+        </button>
+      </div>
+
+      {/* Curved arrow overlay */}
+      <svg
+        viewBox="0 0 300 380"
+        aria-hidden="true"
+        style={{ position: "absolute", inset: 0, zIndex: 3, pointerEvents: "none" }}
+      >
+        <defs>
+          <marker
+            id="hero-ba-arrow"
+            markerWidth="6"
+            markerHeight="6"
+            refX="5"
+            refY="3"
+            orient="auto"
+          >
+            <path d="M0,0 L6,3 L0,6 Z" fill="#7fff00" />
+          </marker>
+        </defs>
+        <path
+          d="M 132,38 C 200,20 260,60 212,115"
+          fill="none"
+          stroke="#7fff00"
+          strokeWidth="1.8"
+          strokeDasharray="6 5"
+          opacity="0.75"
+          markerEnd="url(#hero-ba-arrow)"
+        />
+      </svg>
+    </div>
   );
 }
