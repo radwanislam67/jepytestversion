@@ -103,8 +103,30 @@ function VideoWatermark() {
 }
 
 export function HeroBeforeAfter() {
+  const beforeVideoRef = useRef<HTMLVideoElement>(null);
   const afterVideoRef = useRef<HTMLVideoElement>(null);
   const [afterMuted, setAfterMuted] = useState(true);
+
+  useEffect(() => {
+    const b = beforeVideoRef.current;
+    const a = afterVideoRef.current;
+    if (!b || !a) return;
+
+    b.currentTime = 0;
+    a.currentTime = 0;
+    void b.play().catch(() => {});
+    void a.play().catch(() => {});
+
+    const onTimeUpdate = () => {
+      if (isFinite(a.currentTime)) {
+        b.currentTime = a.currentTime;
+      }
+    };
+    a.addEventListener("timeupdate", onTimeUpdate);
+    return () => {
+      a.removeEventListener("timeupdate", onTimeUpdate);
+    };
+  }, []);
 
   const toggleAfterMute = () => {
     const v = afterVideoRef.current;
@@ -125,7 +147,7 @@ export function HeroBeforeAfter() {
           height: 249,
           zIndex: 1,
           transform: "rotate(-5deg)",
-          opacity: 0.65,
+          opacity: 0.8,
           filter: "grayscale(0.55) brightness(0.6)",
           background: "#151515",
           border: "1px solid #2a2a2a",
@@ -133,16 +155,8 @@ export function HeroBeforeAfter() {
           overflow: "hidden",
         }}
       >
-        <span
-          style={{
-            ...badgeBase,
-            color: "#888",
-            border: "1px solid #444",
-          }}
-        >
-          BEFORE
-        </span>
         <video
+          ref={beforeVideoRef}
           src={BEFORE_URL}
           autoPlay
           muted
@@ -171,15 +185,6 @@ export function HeroBeforeAfter() {
           overflow: "hidden",
         }}
       >
-        <span
-          style={{
-            ...badgeBase,
-            color: "#7fff00",
-            border: "1px solid #7fff00",
-          }}
-        >
-          AFTER
-        </span>
         <video
           ref={afterVideoRef}
           src={AFTER_URL}
