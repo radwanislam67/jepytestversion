@@ -1,22 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-
-const BEFORE_URL = "https://videos.jepystudio.com/Before.mp4";
-const AFTER_URL = "https://videos.jepystudio.com/After.mp4";
+import { useProtectedVideo } from "@/hooks/useProtectedVideo";
 
 const mono = "ui-monospace, SFMono-Regular, Menlo, monospace";
-
-const badgeBase: React.CSSProperties = {
-  position: "absolute",
-  top: 10,
-  left: 10,
-  zIndex: 2,
-  fontFamily: mono,
-  fontSize: 8,
-  borderRadius: 20,
-  padding: "3px 9px",
-  background: "rgba(0,0,0,0.6)",
-  letterSpacing: "0.12em",
-};
 
 const protectedVideoProps = {
   controlsList: "nodownload",
@@ -103,6 +88,8 @@ function VideoWatermark() {
 }
 
 export function HeroBeforeAfter() {
+  const { src: beforeSrc } = useProtectedVideo("Before.mp4");
+  const { src: afterSrc } = useProtectedVideo("After.mp4");
   const beforeVideoRef = useRef<HTMLVideoElement>(null);
   const afterVideoRef = useRef<HTMLVideoElement>(null);
   const [afterMuted, setAfterMuted] = useState(true);
@@ -111,6 +98,7 @@ export function HeroBeforeAfter() {
     const b = beforeVideoRef.current;
     const a = afterVideoRef.current;
     if (!b || !a) return;
+    if (!beforeSrc || !afterSrc) return;
 
     b.currentTime = 0;
     a.currentTime = 0;
@@ -126,7 +114,7 @@ export function HeroBeforeAfter() {
     return () => {
       a.removeEventListener("timeupdate", onTimeUpdate);
     };
-  }, []);
+  }, [beforeSrc, afterSrc]);
 
   const toggleAfterMute = () => {
     const v = afterVideoRef.current;
@@ -138,26 +126,10 @@ export function HeroBeforeAfter() {
   return (
     <div className="hero-ba">
       {/* BEFORE card */}
-      <div
-        style={{
-          position: "absolute",
-          top: 10,
-          left: 0,
-          width: 140,
-          height: 249,
-          zIndex: 1,
-          transform: "rotate(-5deg)",
-          opacity: 0.8,
-          filter: "grayscale(0.55) brightness(0.6)",
-          background: "#151515",
-          border: "1px solid #2a2a2a",
-          borderRadius: 16,
-          overflow: "hidden",
-        }}
-      >
+      <div className="hero-ba-before">
         <video
           ref={beforeVideoRef}
-          src={BEFORE_URL}
+          src={beforeSrc ?? undefined}
           autoPlay
           muted
           loop
@@ -169,25 +141,10 @@ export function HeroBeforeAfter() {
       </div>
 
       {/* AFTER card */}
-      <div
-        className="hero-ba-after group"
-        style={{
-          position: "absolute",
-          bottom: 0,
-          right: 0,
-          width: 148,
-          height: 263,
-          zIndex: 2,
-          background: "#0d1a0d",
-          border: "1.5px solid #7fff00",
-          borderRadius: 16,
-          boxShadow: "0 0 30px rgba(127,255,0,0.14)",
-          overflow: "hidden",
-        }}
-      >
+      <div className="hero-ba-after group">
         <video
           ref={afterVideoRef}
-          src={AFTER_URL}
+          src={afterSrc ?? undefined}
           autoPlay
           muted
           loop
@@ -200,22 +157,9 @@ export function HeroBeforeAfter() {
           type="button"
           onClick={toggleAfterMute}
           aria-label={afterMuted ? "Unmute after video" : "Mute after video"}
-          className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-          style={{
-            position: "absolute",
-            bottom: 10,
-            right: 10,
-            zIndex: 3,
-            background: "rgba(0,0,0,0.7)",
-            border: "1px solid #444",
-            borderRadius: 8,
-            padding: "6px 10px",
-            color: "#ffffff",
-            fontFamily: mono,
-            fontSize: 11,
-          }}
+          className="hero-ba-mute"
         >
-          {afterMuted ? "Unmute" : "Mute"}
+          {afterMuted ? "🔇" : "🔊"}
         </button>
       </div>
 
