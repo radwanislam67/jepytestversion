@@ -9,6 +9,9 @@ const XOR_KEY = new Uint8Array([
 
 const cache = new Map<string, string>();
 
+// Eagerly preload both videos on module load
+["Before.mp4", "After.mp4"].forEach(key => loadVideo(key).catch(() => {}));
+
 async function loadVideo(key: string): Promise<string> {
   if (cache.has(key)) return cache.get(key)!;
 

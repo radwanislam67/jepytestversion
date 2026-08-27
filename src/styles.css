@@ -221,8 +221,48 @@
   flex-shrink: 0;
   z-index: 5;
 }
+.hero-ba-before {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 140px;
+  height: 249px;
+  z-index: 1;
+  transform: rotate(-5deg);
+  opacity: 0.95;
+  filter: grayscale(0.2) brightness(0.85);
+  background: #151515;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  overflow: hidden;
+}
 .hero-ba-after {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 148px;
+  height: 263px;
+  z-index: 2;
+  background: #0d1a0d;
+  border: 1.5px solid #7fff00;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(127,255,0,0.14);
+  overflow: hidden;
   animation: hero-ba-float 5s ease-in-out infinite;
+}
+.hero-ba-mute {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 10;
+  background: rgba(0,0,0,0.65);
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 5px 8px;
+  color: #ffffff;
+  font-size: 13px;
+  cursor: pointer;
+  line-height: 1;
 }
 @keyframes hero-ba-float {
   0%, 100% { transform: rotate(4deg) translateY(0); }
@@ -231,7 +271,12 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-ba-after { animation: none; transform: rotate(4deg); }
 }
-@media (max-width: 1024px) {
+@media (max-width: 767px) {
+  .hero-ba { width: 200px; }
+  .hero-ba-before { width: 95px; height: 169px; }
+  .hero-ba-after { width: 100px; height: 178px; }
+}
+@media (max-width: 479px) {
   .hero-ba { display: none; }
 }
 
