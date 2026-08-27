@@ -212,10 +212,7 @@
 
 /* Hero before/after stacked cards */
 .hero-ba {
-  position: absolute;
-  right: 4vw;
-  top: 50%;
-  transform: translateY(-50%);
+  position: relative;
   width: 300px;
   height: 380px;
   flex-shrink: 0;
@@ -229,7 +226,7 @@
   height: 249px;
   z-index: 1;
   transform: rotate(-5deg);
-  opacity: 0.95;
+  opacity: 0.80;
   filter: grayscale(0.2) brightness(0.85);
   background: #151515;
   border: 1px solid #2a2a2a;
@@ -272,13 +269,14 @@
   .hero-ba-after { animation: none; transform: rotate(4deg); }
 }
 @media (max-width: 767px) {
-  .hero-ba { width: 200px; }
+  .hero-ba { max-width: 200px; width: 100%; height: auto; aspect-ratio: 300 / 380; }
   .hero-ba-before { width: 95px; height: 169px; }
   .hero-ba-after { width: 100px; height: 178px; }
 }
 @media (max-width: 479px) {
   .hero-ba { display: none; }
 }
+
 
 
 

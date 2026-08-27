@@ -88,17 +88,14 @@ function VideoWatermark() {
 }
 
 export function HeroBeforeAfter() {
-  const { src: beforeSrc } = useProtectedVideo("Before.mp4");
-  const { src: afterSrc } = useProtectedVideo("After.mp4");
-  const beforeVideoRef = useRef<HTMLVideoElement>(null);
-  const afterVideoRef = useRef<HTMLVideoElement>(null);
+  const { videoRef: beforeVideoRef } = useProtectedVideo("Before.mp4");
+  const { videoRef: afterVideoRef } = useProtectedVideo("After.mp4");
   const [afterMuted, setAfterMuted] = useState(true);
 
   useEffect(() => {
     const b = beforeVideoRef.current;
     const a = afterVideoRef.current;
     if (!b || !a) return;
-    if (!beforeSrc || !afterSrc) return;
 
     b.currentTime = 0;
     a.currentTime = 0;
@@ -114,14 +111,7 @@ export function HeroBeforeAfter() {
     return () => {
       a.removeEventListener("timeupdate", onTimeUpdate);
     };
-  }, [beforeSrc, afterSrc]);
-
-  const toggleAfterMute = () => {
-    const v = afterVideoRef.current;
-    if (!v) return;
-    v.muted = !v.muted;
-    setAfterMuted(v.muted);
-  };
+  }, [beforeVideoRef, afterVideoRef]);
 
   return (
     <div className="hero-ba">
@@ -129,7 +119,6 @@ export function HeroBeforeAfter() {
       <div className="hero-ba-before">
         <video
           ref={beforeVideoRef}
-          src={beforeSrc ?? undefined}
           autoPlay
           muted
           loop
@@ -144,7 +133,6 @@ export function HeroBeforeAfter() {
       <div className="hero-ba-after group">
         <video
           ref={afterVideoRef}
-          src={afterSrc ?? undefined}
           autoPlay
           muted
           loop
@@ -155,7 +143,12 @@ export function HeroBeforeAfter() {
         <VideoWatermark />
         <button
           type="button"
-          onClick={toggleAfterMute}
+          onClick={() => {
+            if (afterVideoRef.current) {
+              afterVideoRef.current.muted = !afterVideoRef.current.muted;
+              setAfterMuted(afterVideoRef.current.muted);
+            }
+          }}
           aria-label={afterMuted ? "Unmute after video" : "Mute after video"}
           className="hero-ba-mute"
         >
