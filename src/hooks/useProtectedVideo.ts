@@ -42,8 +42,6 @@ function getBytes(key: string): Promise<Uint8Array> {
 }
 
 function pickMediaSource(): typeof MediaSource | undefined {
-  if (typeof MediaSource !== "undefined" && MediaSource.isTypeSupported?.(MSE_MIME)) return MediaSource;
-  if (window.ManagedMediaSource?.isTypeSupported?.(MSE_MIME)) return window.ManagedMediaSource;
   return undefined;
 }
 
