@@ -87,9 +87,20 @@ function VideoWatermark() {
   );
 }
 
+function CardFallback({ show }: { show: boolean }) {
+  if (!show) return null;
+  return (
+    <div
+      aria-hidden
+      className="absolute inset-0 bg-[linear-gradient(140deg,#141414,#0a0a0a)]"
+      style={{ zIndex: 1 }}
+    />
+  );
+}
+
 export function HeroBeforeAfter() {
-  const { videoRef: beforeVideoRef } = useProtectedVideo("Before.mp4");
-  const { videoRef: afterVideoRef } = useProtectedVideo("After.mp4");
+  const { videoRef: beforeVideoRef, ready: beforeReady } = useProtectedVideo("Before.mp4");
+  const { videoRef: afterVideoRef, ready: afterReady } = useProtectedVideo("After.mp4");
   const [afterMuted, setAfterMuted] = useState(true);
 
   useEffect(() => {
