@@ -4,7 +4,7 @@ const VIDEO_HOST = "https://videos.jepystudio.com";
 
 const XOR_KEY = new Uint8Array([0x4a,0x9f,0x21,0xd3,0x7c,0x05,0xe8,0xb2,0x66,0x1d,0xaa,0x38,0xf1,0x90,0x5e,0xc7]);
 
-const MSE_MIME = 'video/mp4; codecs="avc1.4d001f"';
+const MSE_MIME = 'video/mp4; codecs="avc1.4d001f, mp4a.40.2"';
 
 declare global { interface Window { __vp?: Record<string, Promise<ArrayBuffer>>; ManagedMediaSource?: typeof MediaSource; } }
 
