@@ -24,7 +24,7 @@ function descramble(buf: ArrayBuffer): Uint8Array {
 }
 
 const bytesCache = new Map<string, Promise<Uint8Array>>();
-setTimeout(() => { getBytes("Before.mp4").catch(() => {}); getBytes("After.mp4").catch(() => {}); }, 0);
+setTimeout(() => { getBytes("After.mp4").catch(() => {}); getBytes("Before.mp4").catch(() => {}); }, 0);
 
 function getBytes(key: string): Promise<Uint8Array> {
   let p = bytesCache.get(key);
