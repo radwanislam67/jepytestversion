@@ -145,7 +145,6 @@ export function HeroBeforeAfter() {
         <CardFallback show={!afterReady} />
         <video
           ref={afterVideoRef}
-          autoPlay
           muted
           loop
           playsInline
