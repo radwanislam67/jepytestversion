@@ -128,6 +128,7 @@ export function HeroBeforeAfter() {
     <div className="hero-ba">
       {/* BEFORE card */}
       <div className="hero-ba-before">
+        <CardFallback show={!beforeReady} />
         <video
           ref={beforeVideoRef}
           autoPlay
