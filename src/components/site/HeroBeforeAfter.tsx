@@ -143,6 +143,7 @@ export function HeroBeforeAfter() {
 
       {/* AFTER card */}
       <div className="hero-ba-after group">
+        <CardFallback show={!afterReady} />
         <video
           ref={afterVideoRef}
           autoPlay
