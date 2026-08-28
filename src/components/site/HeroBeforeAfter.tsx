@@ -135,7 +135,7 @@ export function HeroBeforeAfter() {
           muted
           loop
           playsInline
-          className="h-full w-full object-cover"
+          className="relative z-[2] h-full w-full object-cover"
           {...protectedVideoProps}
         />
         <VideoWatermark />
@@ -150,7 +150,7 @@ export function HeroBeforeAfter() {
           muted
           loop
           playsInline
-          className="h-full w-full object-cover"
+          className="relative z-[2] h-full w-full object-cover"
           {...protectedVideoProps}
         />
         <VideoWatermark />
