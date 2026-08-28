@@ -103,26 +103,7 @@ export function HeroBeforeAfter() {
   const { videoRef: afterVideoRef, ready: afterReady } = useProtectedVideo("After.mp4");
   const [afterMuted, setAfterMuted] = useState(true);
 
-  useEffect(() => {
-    const b = beforeVideoRef.current;
-    const a = afterVideoRef.current;
-    if (!b || !a) return;
-
-    b.currentTime = 0;
-    a.currentTime = 0;
-    void b.play().catch(() => {});
-    void a.play().catch(() => {});
-
-    const onTimeUpdate = () => {
-      if (isFinite(a.currentTime)) {
-        b.currentTime = a.currentTime;
-      }
-    };
-    a.addEventListener("timeupdate", onTimeUpdate);
-    return () => {
-      a.removeEventListener("timeupdate", onTimeUpdate);
-    };
-  }, [beforeVideoRef, afterVideoRef]);
+  useEffect(() => { const b = beforeVideoRef.current; const a = afterVideoRef.current; if (!b || !a) return; const onTimeUpdate = () => { if (isFinite(a.currentTime)) b.currentTime = a.currentTime; }; const onLoop = () => { b.currentTime = 0; a.currentTime = 0; }; a.addEventListener("timeupdate", onTimeUpdate); a.addEventListener("seeking", onLoop); b.currentTime = 0; a.currentTime = 0; void b.play().catch(() => {}); void a.play().catch(() => {}); return () => { a.removeEventListener("timeupdate", onTimeUpdate); a.removeEventListener("seeking", onLoop); }; }, [beforeVideoRef, afterVideoRef]);
 
   return (
     <div className="hero-ba">
