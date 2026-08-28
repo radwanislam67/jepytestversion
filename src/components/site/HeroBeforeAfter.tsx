@@ -103,7 +103,26 @@ export function HeroBeforeAfter() {
   const { videoRef: afterVideoRef, ready: afterReady } = useProtectedVideo("After.mp4");
   const [afterMuted, setAfterMuted] = useState(true);
 
-  useEffect(() => { const b = beforeVideoRef.current; const a = afterVideoRef.current; if (!b || !a) return; const onTimeUpdate = () => { if (isFinite(a.currentTime)) b.currentTime = a.currentTime; }; const onLoop = () => { b.currentTime = 0; a.currentTime = 0; }; a.addEventListener("timeupdate", onTimeUpdate); a.addEventListener("seeking", onLoop); b.currentTime = 0; a.currentTime = 0; void b.play().catch(() => {}); void a.play().catch(() => {}); return () => { a.removeEventListener("timeupdate", onTimeUpdate); a.removeEventListener("seeking", onLoop); }; }, [beforeVideoRef, afterVideoRef]);
+  useEffect(() => {
+    if (!beforeReady || !afterReady) return;
+    const b = beforeVideoRef.current;
+    const a = afterVideoRef.current;
+    if (!b || !a) return;
+    const onTimeUpdate = () => { if (isFinite(a.currentTime)) b.currentTime = a.currentTime; };
+    const onPlay = () => { void b.play().catch(() => {}); };
+    const onPause = () => { b.pause(); };
+    a.addEventListener("timeupdate", onTimeUpdate);
+    a.addEventListener("play", onPlay);
+    a.addEventListener("pause", onPause);
+    b.currentTime = 0;
+    a.currentTime = 0;
+    void Promise.all([b.play(), a.play()]).catch(() => {});
+    return () => {
+      a.removeEventListener("timeupdate", onTimeUpdate);
+      a.removeEventListener("play", onPlay);
+      a.removeEventListener("pause", onPause);
+    };
+  }, [beforeReady, afterReady, beforeVideoRef, afterVideoRef]);
 
   return (
     <div className="hero-ba">
@@ -112,7 +131,6 @@ export function HeroBeforeAfter() {
         <CardFallback show={!beforeReady} />
         <video
           ref={beforeVideoRef}
-          autoPlay
           muted
           loop
           playsInline
@@ -127,7 +145,6 @@ export function HeroBeforeAfter() {
         <CardFallback show={!afterReady} />
         <video
           ref={afterVideoRef}
-          autoPlay
           muted
           loop
           playsInline
