@@ -239,7 +239,7 @@ function Contact() {
                         type="submit"
                         disabled={submitting}
                         aria-busy={submitting}
-                        className="w-full h-12 px-6 py-3 inline-flex items-center justify-center gap-2 rounded-full bg-[#53FF2F] text-[#050505] font-semibold transition-all duration-200 hover:scale-105 hover:brightness-110 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#050505] focus:ring-green-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                        className="w-full h-12 px-6 py-3 inline-flex items-center justify-center gap-2 rounded-full bg-[#4ade80] text-[#0a100d] font-semibold transition-all duration-200 hover:scale-105 hover:brightness-110 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#0a100d] focus:ring-green-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                       >
                         {submitting ? (<><Loader2 size={16} className="animate-spin" aria-hidden="true" /> Sending...</>) : (<>Send Brief <ArrowUpRight size={16} aria-hidden="true" /></>)}
                       </button>
@@ -321,7 +321,7 @@ function SelectField({ label, required, error, options, placeholder, value, id, 
         value={value}
         aria-invalid={!!error || undefined}
         aria-describedby={error ? errorId : undefined}
-        className={`${fieldBase(error)} appearance-none pr-10 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2353FF2F%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>')] bg-no-repeat bg-[right_1rem_center] ${!value ? "text-gray-400" : "text-white"}`}
+        className={`${fieldBase(error)} appearance-none pr-10 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%234ade80%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>')] bg-no-repeat bg-[right_1rem_center] ${!value ? "text-gray-400" : "text-white"}`}
       >
         <option value="" disabled className="text-gray-400 bg-background">{placeholder ?? "Select…"}</option>
         {options.map((o) => (
@@ -440,7 +440,7 @@ function DateField({ label, required, error, placeholder = "Select deadline", va
           aria-required={required || undefined}
           aria-invalid={!!error || undefined}
           aria-describedby={error ? errorId : undefined}
-          className={`date-input-custom ${hasValue ? "has-value" : ""} peer w-full h-11 rounded-2xl border-2 ${error ? "border-red-500" : "border-green-500"} bg-background pl-4 pr-14 py-2 text-base text-transparent outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:shadow-[0_0_18px_-4px_rgba(83,255,47,0.55)] transition-all ${className ?? ""}`}
+          className={`date-input-custom ${hasValue ? "has-value" : ""} peer w-full h-11 rounded-2xl border-2 ${error ? "border-red-500" : "border-green-500"} bg-background pl-4 pr-14 py-2 text-base text-transparent outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:shadow-[0_0_18px_-4px_rgba(74,222,128,0.55)] transition-all ${className ?? ""}`}
         />
         {/* Overlayed display: placeholder or formatted date */}
         <div className="pointer-events-none absolute inset-0 flex items-center pl-4 pr-14">
@@ -454,7 +454,7 @@ function DateField({ label, required, error, placeholder = "Select deadline", va
           tabIndex={-1}
           aria-hidden="true"
           onClick={openPicker}
-          className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-[#0b0b0b] border border-green-500/40 flex items-center justify-center text-[#53FF2F] shadow-[0_0_0_0_rgba(83,255,47,0)] transition-all duration-200 group-hover:shadow-[0_0_14px_-2px_rgba(83,255,47,0.7)] group-hover:border-green-400 group-focus-within:border-green-300 group-focus-within:shadow-[0_0_16px_-2px_rgba(83,255,47,0.8)]"
+          className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-[#0b0b0b] border border-green-500/40 flex items-center justify-center text-[#4ade80] shadow-[0_0_0_0_rgba(74,222,128,0)] transition-all duration-200 group-hover:shadow-[0_0_14px_-2px_rgba(74,222,128,0.7)] group-hover:border-green-400 group-focus-within:border-green-300 group-focus-within:shadow-[0_0_16px_-2px_rgba(74,222,128,0.8)]"
         >
           <Calendar size={16} strokeWidth={2.25} />
         </button>

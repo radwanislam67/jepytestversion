@@ -38,8 +38,8 @@ function PhotoPlaceholder({ src, alt }: { src: string; alt: string }) {
         aspectRatio: "1 / 1",
         objectFit: "cover",
         borderRadius: 12,
-        border: "1px solid rgba(0,255,0,0.5)",
-        boxShadow: "0 0 28px rgba(0,255,0,0.15)",
+        border: "1px solid rgba(74,222,128,0.5)",
+        boxShadow: "0 0 28px rgba(74,222,128,0.15)",
       }}
     />
   );
@@ -105,7 +105,7 @@ function ScrollIndicator() {
         transform: "translateX(-50%)",
         opacity: hidden ? 0 : 1,
         transition: "opacity 400ms ease",
-        color: "#00FF00",
+        color: "#4ade80",
         fontSize: 24,
         animation: "bounce-down 2s ease-in-out infinite",
       }}
@@ -150,7 +150,7 @@ function ValueCard({
     <div
       style={{
         background: "rgba(255,255,255,0.03)",
-        border: "1px solid rgba(0,255,0,0.2)",
+        border: "1px solid rgba(74,222,128,0.2)",
         borderRadius: 12,
         padding: 28,
         opacity: visible ? 1 : 0,
@@ -161,14 +161,14 @@ function ValueCard({
       onMouseEnter={(e) => {
         e.currentTarget.style.transform =
           "perspective(1000px) rotateX(3deg) rotateY(3deg)";
-        e.currentTarget.style.borderColor = "rgba(0,255,0,0.8)";
-        e.currentTarget.style.boxShadow = "0 0 24px rgba(0,255,0,0.15)";
+        e.currentTarget.style.borderColor = "rgba(74,222,128,0.8)";
+        e.currentTarget.style.boxShadow = "0 0 24px rgba(74,222,128,0.15)";
         const ic = e.currentTarget.querySelector(".value-icon") as HTMLElement | null;
         if (ic) ic.style.transform = "scale(1.2)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.borderColor = "rgba(0,255,0,0.2)";
+        e.currentTarget.style.borderColor = "rgba(74,222,128,0.2)";
         e.currentTarget.style.boxShadow = "none";
         const ic = e.currentTarget.querySelector(".value-icon") as HTMLElement | null;
         if (ic) ic.style.transform = "scale(1)";
@@ -177,7 +177,7 @@ function ValueCard({
       <div
         className="value-icon"
         style={{
-          color: "#00FF00",
+          color: "#4ade80",
           marginBottom: 16,
           transition: "transform 0.3s ease",
           display: "inline-flex",
@@ -260,16 +260,16 @@ function StudioTile({
         position: "relative",
         overflow: "hidden",
         borderRadius: 12,
-        border: "1px solid rgba(0,255,0,0.2)",
+        border: "1px solid rgba(74,222,128,0.2)",
         minHeight: 220,
         opacity: v ? 1 : 0,
         transform: v ? "translateY(0)" : "translateY(20px)",
         transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms, border-color 0.3s ease`,
         background:
-          "linear-gradient(135deg, rgba(0,255,0,0.12), rgba(0,0,0,0.85))",
+          "linear-gradient(135deg, rgba(74,222,128,0.12), rgba(0,0,0,0.85))",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "rgba(0,255,0,0.5)";
+        e.currentTarget.style.borderColor = "rgba(74,222,128,0.5)";
         const inner = e.currentTarget.querySelector(
           ".studio-inner",
         ) as HTMLElement | null;
@@ -280,7 +280,7 @@ function StudioTile({
         if (overlay) overlay.style.opacity = "1";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "rgba(0,255,0,0.2)";
+        e.currentTarget.style.borderColor = "rgba(74,222,128,0.2)";
         const inner = e.currentTarget.querySelector(
           ".studio-inner",
         ) as HTMLElement | null;
@@ -312,7 +312,7 @@ function StudioTile({
         style={{
           position: "absolute",
           inset: 0,
-          background: "rgba(0,255,0,0.08)",
+          background: "rgba(74,222,128,0.08)",
           opacity: 0,
           transition: "opacity 0.3s ease",
         }}
@@ -379,7 +379,7 @@ function Timeline() {
         <Reveal>
           <div
             style={{
-              color: "#00FF00",
+              color: "#4ade80",
               fontSize: 12,
               letterSpacing: "0.18em",
               marginBottom: 16,
@@ -440,9 +440,9 @@ function Timeline() {
                           transform: active ? "translateY(0)" : "translateY(6px)",
                           transition: `opacity 400ms ease ${dotDelay}ms, transform 400ms ease ${dotDelay}ms`,
                           marginBottom: 14,
-                          background: "#53FF2F",
-                          color: "#050505",
-                          boxShadow: "0 0 14px rgba(83,255,47,0.55)",
+                          background: "#4ade80",
+                          color: "#0a100d",
+                          boxShadow: "0 0 14px rgba(74,222,128,0.55)",
                         }}
                         className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wider"
                       >
@@ -477,10 +477,10 @@ function Timeline() {
                     >
                       <div
                         style={{
-                          color: isCurrent ? "#53FF2F" : "#6b7280",
+                          color: isCurrent ? "#4ade80" : "#6b7280",
                           fontWeight: isCurrent ? 700 : 400,
                           fontSize: isCurrent ? 22 : 20,
-                          filter: isCurrent ? "drop-shadow(0 0 10px rgba(83,255,47,0.7))" : "none",
+                          filter: isCurrent ? "drop-shadow(0 0 10px rgba(74,222,128,0.7))" : "none",
 
                         }}
                       >
@@ -564,7 +564,7 @@ function Timeline() {
                   >
                     {isCurrent && (
                       <span
-                        style={{ background: "#53FF2F", color: "#050505", boxShadow: "0 0 14px rgba(83,255,47,0.55)" }}
+                        style={{ background: "#4ade80", color: "#0a100d", boxShadow: "0 0 14px rgba(74,222,128,0.55)" }}
                         className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wider mb-2"
                       >
                         NOW
@@ -572,10 +572,10 @@ function Timeline() {
                     )}
                     <div
                       style={{
-                        color: isCurrent ? "#53FF2F" : "#6b7280",
+                        color: isCurrent ? "#4ade80" : "#6b7280",
                         fontWeight: isCurrent ? 700 : 400,
                         fontSize: isCurrent ? 20 : 18,
-                        filter: isCurrent ? "drop-shadow(0 0 10px rgba(83,255,47,0.7))" : "none",
+                        filter: isCurrent ? "drop-shadow(0 0 10px rgba(74,222,128,0.7))" : "none",
                       }}
                     >
                       {m.year}
@@ -615,7 +615,7 @@ function About() {
           <Reveal>
             <div
               style={{
-                color: "#00FF00",
+                color: "#4ade80",
                 fontSize: 12,
                 letterSpacing: "0.1em",
                 marginBottom: 16,
@@ -696,7 +696,7 @@ function About() {
                   <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fff" }}>
                     Sojol Sheikh
                   </h3>
-                  <div style={{ fontSize: 14, color: "#00FF00", marginTop: 4 }}>
+                  <div style={{ fontSize: 14, color: "#4ade80", marginTop: 4 }}>
                     Co-Founder &amp; Creative Director
                   </div>
                   <p className="mt-6 text-foreground/75 leading-relaxed">
@@ -718,7 +718,7 @@ function About() {
                   <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fff" }}>
                     Radwan Islam
                   </h3>
-                  <div style={{ fontSize: 14, color: "#00FF00", marginTop: 4 }}>
+                  <div style={{ fontSize: 14, color: "#4ade80", marginTop: 4 }}>
                     Co-Founder &amp; Managing Director
                   </div>
                   <p className="mt-6 text-foreground/75 leading-relaxed">
@@ -752,7 +752,7 @@ function About() {
           <Reveal>
             <div
               style={{
-                color: "#00FF00",
+                color: "#4ade80",
                 fontSize: 12,
                 letterSpacing: "0.1em",
                 marginBottom: 16,
@@ -821,8 +821,8 @@ function About() {
             className="relative overflow-hidden rounded-[36px] border border-[var(--accent)]/30 p-10 md:p-20 text-center"
             style={{
               background:
-                "radial-gradient(ellipse at center, rgba(83,255,47,0.12), transparent 70%), #050505",
-              boxShadow: "0 0 120px -20px rgba(83,255,47,0.35) inset",
+                "radial-gradient(ellipse at center, rgba(74,222,128,0.12), transparent 70%), #0a100d",
+              boxShadow: "0 0 120px -20px rgba(74,222,128,0.35) inset",
             }}
           >
             <div className="aurora opacity-60" />

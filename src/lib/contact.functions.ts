@@ -50,8 +50,8 @@ export const sendContactBrief = createServerFn({ method: "POST" })
     ];
 
     const html = `
-      <div style="font-family:Inter,Arial,sans-serif;background:#050505;color:#f3f4f6;padding:32px">
-        <h2 style="color:#53FF2F;margin:0 0 16px">New Send Brief Submission</h2>
+      <div style="font-family:Inter,Arial,sans-serif;background:#0a100d;color:#f3f4f6;padding:32px">
+        <h2 style="color:#4ade80;margin:0 0 16px">New Send Brief Submission</h2>
         <p style="margin:0 0 24px;color:#9ca3af">From ${esc(data.name)} &lt;${esc(data.email)}&gt;</p>
         <table style="width:100%;border-collapse:collapse;background:#0f0f0f;border:1px solid #222;border-radius:8px;overflow:hidden">
           ${rows

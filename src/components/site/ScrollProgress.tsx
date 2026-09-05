@@ -31,8 +31,8 @@ export function ScrollProgress() {
         style={{
           height: "100%",
           width: "100%",
-          background: "#00FF00",
-          boxShadow: "0 0 12px #00FF00",
+          background: "#4ade80",
+          boxShadow: "0 0 12px #4ade80",
           transform: "scaleX(0)",
           transformOrigin: "left",
           transition: "transform 80ms linear",

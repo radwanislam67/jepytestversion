@@ -37,16 +37,19 @@
 }
 
 :root {
-  --background: #050505;
-  --foreground: #F7F7F7;
-  --surface: #0b0b0b;
-  --surface-2: #131313;
-  --border: rgba(247, 247, 247, 0.08);
-  --muted: #161616;
-  --muted-foreground: #8a8a8a;
-  --accent: #53FF2F;
-  --accent-foreground: #050505;
-  --glow: #B8FF6A;
+  --background: #0a100d;
+  --background-elevated: #101713;
+  --foreground: #ecfdf5;
+  --surface: #101713;
+  --surface-2: #16211b;
+  --border: rgba(132, 204, 22, 0.10);
+  --border-strong: rgba(132, 204, 22, 0.22);
+  --muted: #131c17;
+  --muted-foreground: #a7b3ac;
+  --accent: #4ade80;
+  --accent-bright: #00ff88;
+  --accent-foreground: #0a100d;
+  --glow: rgba(74, 222, 128, 0.35);
   --radius: 18px;
 }
 
@@ -67,7 +70,23 @@
   }
   body {
     min-height: 100vh;
+    background-color: #0a100d;
+    background-image:
+      linear-gradient(rgba(132, 204, 22, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(132, 204, 22, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    background-attachment: fixed;
+    background-position: center top;
   }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, transparent 0%, #0a100d 80%);
+  }
+
   h1, h2, h3, h4, h5, h6, .font-display {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
@@ -241,7 +260,7 @@
   height: 263px;
   z-index: 2;
   background: #0d1a0d;
-  border: 1.5px solid #7fff00;
+  border: 1.5px solid #4ade80;
   border-radius: 16px;
   box-shadow: 0 0 30px rgba(127,255,0,0.14);
   overflow: hidden;
@@ -446,7 +465,7 @@ input[type="date"].date-input-custom {
 .stack-float > * { will-change: transform; }
 .stack-card.stack-float::after { content: none; }
 .stack-card-side:hover {
-  border-color: #7FFF00 !important;
+  border-color: #4ade80 !important;
 }
 .stack-float {
   animation: stack-float 4s ease-in-out infinite;
@@ -457,7 +476,7 @@ input[type="date"].date-input-custom {
   from { transform: scale(0.7); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
-.ba-ctrl:hover { color: #7FFF00 !important; border-color: #7FFF00 !important; }
+.ba-ctrl:hover { color: #4ade80 !important; border-color: #4ade80 !important; }
 .ba-range {
   -webkit-appearance: none;
   appearance: none;
@@ -472,7 +491,7 @@ input[type="date"].date-input-custom {
   width: 12px;
   height: 12px;
   border-radius: 999px;
-  background: #7FFF00;
+  background: #4ade80;
   cursor: pointer;
 }
 .ba-range::-moz-range-thumb {
@@ -480,7 +499,7 @@ input[type="date"].date-input-custom {
   height: 12px;
   border: none;
   border-radius: 999px;
-  background: #7FFF00;
+  background: #4ade80;
   cursor: pointer;
 }
-.ba-range::-moz-range-progress { background: #7FFF00; height: 4px; border-radius: 999px; }
+.ba-range::-moz-range-progress { background: #4ade80; height: 4px; border-radius: 999px; }
