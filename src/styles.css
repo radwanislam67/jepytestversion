@@ -78,7 +78,7 @@
     background-attachment: fixed;
     background-position: center top;
   }
-  body::before {
+  body::after {
     content: '';
     position: fixed;
     inset: 0;
