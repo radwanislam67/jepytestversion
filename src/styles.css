@@ -38,16 +38,17 @@
 
 :root {
   --background: #0f1610;
-  --background-elevated: #101713;
+  --background-elevated: #14201a;
   --foreground: #f7fee7;
-  --surface: #101713;
-  --surface-2: #16211b;
-  --border: rgba(132, 204, 22, 0.10);
-  --border-strong: rgba(132, 204, 22, 0.22);
-  --muted: #131c17;
-  --muted-foreground: #a7b3ac;
+  --surface: #14201a;
+  --surface-2: #182519;
+  --border: rgba(217, 249, 157, 0.12);
+  --border-strong: rgba(217, 249, 157, 0.25);
+  --muted: #14201a;
+  --muted-foreground: #c4d4cc;
   --accent: #a3e635;
   --accent-bright: #d9f99d;
+  --accent-hover: #84cc16;
   --accent-foreground: #0f1610;
   --glow: rgba(163, 230, 53, 0.35);
   --radius: 18px;
@@ -72,9 +73,10 @@
     min-height: 100vh;
     background-color: #0f1610;
     background-image:
-      linear-gradient(rgba(132, 204, 22, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(132, 204, 22, 0.05) 1px, transparent 1px);
-    background-size: 56px 56px;
+      linear-gradient(rgba(217, 249, 157, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(217, 249, 157, 0.04) 1px, transparent 1px),
+      radial-gradient(ellipse 80% 50% at 50% 0%, #182519 0%, #0f1610 60%);
+    background-size: 56px 56px, 56px 56px, cover;
     background-attachment: fixed;
     background-position: center top;
   }
@@ -84,8 +86,9 @@
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 30%, transparent 0%, #0f1610 80%);
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, transparent 0%, rgba(15,22,16,0.9) 85%);
   }
+
 
   h1, h2, h3, h4, h5, h6, .font-display {
     font-family: var(--font-display);
