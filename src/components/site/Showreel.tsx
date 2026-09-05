@@ -62,7 +62,7 @@ export function Showreel() {
             {...PROTECTED_VIDEO_PROPS}
           />
           <VideoShield />
-          <IpWatermark />
+          <IpWatermark enabled={false} />
           <button
             type="button"
             onClick={toggleMute}

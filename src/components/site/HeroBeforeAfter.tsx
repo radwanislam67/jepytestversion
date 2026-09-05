@@ -139,7 +139,7 @@ export function HeroBeforeAfter() {
           className="relative z-[2] h-full w-full object-cover"
           {...protectedVideoProps}
         />
-        <VideoWatermark />
+        <VideoWatermark enabled={beforeReady} />
       </div>
 
       {/* AFTER card */}
@@ -153,7 +153,7 @@ export function HeroBeforeAfter() {
           className="relative z-[2] h-full w-full object-cover"
           {...protectedVideoProps}
         />
-        <VideoWatermark />
+        <VideoWatermark enabled={afterReady} />
         <button
           type="button"
           onClick={() => {
