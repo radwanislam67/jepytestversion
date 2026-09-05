@@ -38,15 +38,18 @@
 
 :root {
   --background: #0a100d;
-  --foreground: #F7F7F7;
-  --surface: #0b0b0b;
-  --surface-2: #131313;
-  --border: rgba(247, 247, 247, 0.08);
-  --muted: #161616;
-  --muted-foreground: #8a8a8a;
+  --background-elevated: #101713;
+  --foreground: #ecfdf5;
+  --surface: #101713;
+  --surface-2: #16211b;
+  --border: rgba(132, 204, 22, 0.10);
+  --border-strong: rgba(132, 204, 22, 0.22);
+  --muted: #131c17;
+  --muted-foreground: #a7b3ac;
   --accent: #4ade80;
+  --accent-bright: #00ff88;
   --accent-foreground: #0a100d;
-  --glow: #B8FF6A;
+  --glow: rgba(74, 222, 128, 0.35);
   --radius: 18px;
 }
 
@@ -67,7 +70,23 @@
   }
   body {
     min-height: 100vh;
+    background-color: #0a100d;
+    background-image:
+      linear-gradient(rgba(132, 204, 22, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(132, 204, 22, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    background-attachment: fixed;
+    background-position: center top;
   }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, transparent 0%, #0a100d 80%);
+  }
+
   h1, h2, h3, h4, h5, h6, .font-display {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
