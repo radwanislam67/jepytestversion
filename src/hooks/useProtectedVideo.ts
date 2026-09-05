@@ -88,6 +88,7 @@ export function useProtectedVideo(key: string) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    prefetchInBrowser();
     const video = videoRef.current;
     if (!video) return;
     setReady(false); setError(null);
