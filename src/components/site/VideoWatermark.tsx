@@ -53,6 +53,8 @@ export function IpWatermark({ enabled = true }: { enabled?: boolean } = {}) {
     return () => clearInterval(id);
   }, []);
 
+  if (!enabled || !ip) return null;
+
   const cells: React.ReactNode[] = [];
   for (let y = -80; y < 800; y += 80) {
     for (let x = -160; x < 1200; x += 160) {
