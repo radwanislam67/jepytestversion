@@ -113,8 +113,8 @@ export function StackedWork() {
                     left: 12,
                     fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
                     fontSize: 9,
-                    color: "#4ade80",
-                    border: "1px solid #4ade80",
+                    color: "#a3e635",
+                    border: "1px solid #a3e635",
                     borderRadius: 20,
                     padding: "3px 10px",
                     background: "rgba(0,0,0,0.5)",
@@ -131,11 +131,11 @@ export function StackedWork() {
                     height: 52,
                     marginLeft: -26,
                     marginTop: -26,
-                    border: "2px solid #4ade80",
+                    border: "2px solid #a3e635",
                     background: "rgba(127,255,0,0.08)",
                   }}
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#4ade80" aria-hidden>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#a3e635" aria-hidden>
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </span>
@@ -162,7 +162,7 @@ export function StackedWork() {
                 width: 8,
                 height: 8,
                 borderRadius: 999,
-                background: order[1] === i ? "#4ade80" : "#333",
+                background: order[1] === i ? "#a3e635" : "#333",
                 transition: "background .3s ease",
               }}
             />

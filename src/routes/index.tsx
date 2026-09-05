@@ -66,7 +66,7 @@ function Hero() {
       <Particles count={36} />
 
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#0a100d_85%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#0f1610_85%)]" />
       </div>
       <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16">
         <div className="flex-1 min-w-0">

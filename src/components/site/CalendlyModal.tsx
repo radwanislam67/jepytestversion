@@ -120,7 +120,7 @@ export function CalendlyModal({ open, url, name, email, onClose }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="text-sm font-medium text-foreground/80 hover:text-[#4ade80] transition-colors"
+            className="text-sm font-medium text-foreground/80 hover:text-[#a3e635] transition-colors"
           >
             Skip / I&apos;ll book later
           </button>
@@ -137,7 +137,7 @@ export function CalendlyModal({ open, url, name, email, onClose }: Props) {
         <div className="relative flex-1 bg-[#0a0a0a]">
           {loading && !failed && (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 z-10 bg-[#0a0a0a]">
-              <Loader2 size={28} className="animate-spin text-[#4ade80]" />
+              <Loader2 size={28} className="animate-spin text-[#a3e635]" />
               <p className="text-sm text-foreground/60">Loading calendar…</p>
             </div>
           )}
@@ -148,7 +148,7 @@ export function CalendlyModal({ open, url, name, email, onClose }: Props) {
                 href={prefilledUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-[#4ade80] text-[#0a100d] font-semibold px-6 py-3 hover:brightness-110 transition"
+                className="inline-flex items-center gap-2 rounded-full bg-[#a3e635] text-[#0f1610] font-semibold px-6 py-3 hover:brightness-110 transition"
               >
                 Open Calendly <ArrowUpRight size={16} />
               </a>

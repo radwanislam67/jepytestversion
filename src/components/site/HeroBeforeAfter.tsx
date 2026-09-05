@@ -184,13 +184,13 @@ export function HeroBeforeAfter() {
             refY="3"
             orient="auto"
           >
-            <path d="M0,0 L6,3 L0,6 Z" fill="#4ade80" />
+            <path d="M0,0 L6,3 L0,6 Z" fill="#a3e635" />
           </marker>
         </defs>
         <path
           d="M 132,38 C 200,20 260,60 212,115"
           fill="none"
-          stroke="#4ade80"
+          stroke="#a3e635"
           strokeWidth="1.8"
           strokeDasharray="6 5"
           opacity="0.75"

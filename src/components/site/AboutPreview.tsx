@@ -27,8 +27,8 @@ function Carousel() {
         style={{
           aspectRatio: "4 / 3",
           borderRadius: 16,
-          border: "1px solid rgba(74,222,128,0.45)",
-          boxShadow: "0 0 40px rgba(74,222,128,0.22), inset 0 0 60px rgba(74,222,128,0.04)",
+          border: "1px solid rgba(163,230,53,0.45)",
+          boxShadow: "0 0 40px rgba(163,230,53,0.22), inset 0 0 60px rgba(163,230,53,0.04)",
         }}
       >
         {SLIDES.map((s, i) => (
@@ -71,8 +71,8 @@ function Carousel() {
           width: 10,
           height: 10,
           borderRadius: 999,
-          background: "#4ade80",
-          boxShadow: "0 0 14px rgba(74,222,128,0.9), 0 0 28px rgba(74,222,128,0.55)",
+          background: "#a3e635",
+          boxShadow: "0 0 14px rgba(163,230,53,0.9), 0 0 28px rgba(163,230,53,0.55)",
           animation: "pulse-dot 2s ease-in-out infinite",
         }}
       />
@@ -89,7 +89,7 @@ export function AboutPreview() {
             <div className="text-left">
               <div
                 style={{
-                  color: "#4ade80",
+                  color: "#a3e635",
                   fontSize: 12,
                   letterSpacing: "0.18em",
                   marginBottom: 20,
@@ -112,7 +112,7 @@ export function AboutPreview() {
               <div className="mt-8">
                 <Link
                   to="/about"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[var(--accent)] text-[var(--accent)] bg-transparent font-medium transition-all duration-300 hover:bg-[var(--accent)] hover:text-black hover:scale-105 hover:shadow-[0_0_24px_rgba(74,222,128,0.45)]"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[var(--accent)] text-[var(--accent)] bg-transparent font-medium transition-all duration-300 hover:bg-[var(--accent)] hover:text-black hover:scale-105 hover:shadow-[0_0_24px_rgba(163,230,53,0.45)]"
                 >
                   Meet the Team <ArrowUpRight size={16} />
                 </Link>
