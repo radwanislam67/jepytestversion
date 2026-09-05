@@ -24,7 +24,16 @@ function descramble(buf: ArrayBuffer): Uint8Array {
 }
 
 const bytesCache = new Map<string, Promise<Uint8Array>>();
-setTimeout(() => { getBytes("After.mp4").catch(() => {}); getBytes("Before.mp4").catch(() => {}); }, 0);
+
+/** Browser-only warm-up. Never run network I/O during SSR — in the edge runtime
+ *  a stray fetch after the response starts aborts the streamed HTML. */
+function prefetchInBrowser() {
+  if (typeof window === "undefined") return;
+  setTimeout(() => {
+    getBytes("After.mp4").catch(() => {});
+    getBytes("Before.mp4").catch(() => {});
+  }, 0);
+}
 
 function getBytes(key: string): Promise<Uint8Array> {
   let p = bytesCache.get(key);
@@ -79,6 +88,7 @@ export function useProtectedVideo(key: string) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    prefetchInBrowser();
     const video = videoRef.current;
     if (!video) return;
     setReady(false); setError(null);
