@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
@@ -33,24 +33,31 @@ export function StackedWork() {
   const [exiting, setExiting] = useState<number | null>(null);
   const [rotating, setRotating] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const heroIndexRef = useRef(0);
+  const rotationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const rotate = useCallback(() => {
+    const exitingIndex = heroIndexRef.current;
     setRotating(true);
+    setExiting(exitingIndex);
     setOrder(([left, hero, right]) => {
-      setExiting(hero);
+      heroIndexRef.current = left;
       return [right, left, hero];
     });
-    const t = setTimeout(() => {
+    if (rotationTimeoutRef.current) clearTimeout(rotationTimeoutRef.current);
+    rotationTimeoutRef.current = setTimeout(() => {
       setExiting(null);
       setRotating(false);
     }, 600);
-    return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {
     if (openIndex !== null) return;
     const id = setInterval(rotate, 3500);
-    return () => clearInterval(id);
+    return () => {
+      clearInterval(id);
+      if (rotationTimeoutRef.current) clearTimeout(rotationTimeoutRef.current);
+    };
   }, [rotate, openIndex]);
 
   const slotOf = (i: number): Slot =>

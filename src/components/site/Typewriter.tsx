@@ -27,9 +27,11 @@ export function Typewriter() {
       return () => clearTimeout(t);
     }
     if (deleting && text === "") {
-      setDeleting(false);
-      setI((p) => (p + 1) % WORDS.length);
-      return;
+      const t = setTimeout(() => {
+        setDeleting(false);
+        setI((p) => (p + 1) % WORDS.length);
+      }, 0);
+      return () => clearTimeout(t);
     }
     const t = setTimeout(
       () => {
