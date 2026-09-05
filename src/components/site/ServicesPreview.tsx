@@ -32,9 +32,9 @@ export function ServicesPreview() {
                   <div
                     className="inline-flex h-12 w-12 items-center justify-center rounded-xl mb-5"
                     style={{
-                      background: "rgba(83,255,47,0.08)",
+                      background: "rgba(74,222,128,0.08)",
                       color: "var(--accent)",
-                      border: "1px solid rgba(83,255,47,0.25)",
+                      border: "1px solid rgba(74,222,128,0.25)",
                     }}
                   >
                     <s.icon size={20} />

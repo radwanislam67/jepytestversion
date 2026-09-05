@@ -54,7 +54,7 @@ export function Header() {
           <div
             className="flex items-center justify-between rounded-full pl-4 pr-2 sm:pl-6 sm:pr-3 py-2.5 sm:py-3"
             style={{
-              background: "rgba(10,10,10,0.65)",
+              background: "rgba(16,23,19,0.65)",
               backdropFilter: "blur(20px) saturate(160%)",
               border: "1px solid rgba(255,255,255,0.08)",
               boxShadow: "0 10px 40px -10px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04)",
