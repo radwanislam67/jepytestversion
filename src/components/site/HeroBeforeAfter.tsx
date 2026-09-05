@@ -43,6 +43,8 @@ function VideoWatermark({ enabled = true }: { enabled?: boolean }) {
     return () => clearInterval(id);
   }, []);
 
+  if (!enabled || !ip) return null;
+
   const cells: React.ReactNode[] = [];
   for (let y = -80; y < 360; y += 70) {
     for (let x = -160; x < 400; x += 120) {
