@@ -321,7 +321,7 @@ function SelectField({ label, required, error, options, placeholder, value, id, 
         value={value}
         aria-invalid={!!error || undefined}
         aria-describedby={error ? errorId : undefined}
-        className={`${fieldBase(error)} appearance-none pr-10 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2353FF2F%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>')] bg-no-repeat bg-[right_1rem_center] ${!value ? "text-gray-400" : "text-white"}`}
+        className={`${fieldBase(error)} appearance-none pr-10 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%234ade80%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>')] bg-no-repeat bg-[right_1rem_center] ${!value ? "text-gray-400" : "text-white"}`}
       >
         <option value="" disabled className="text-gray-400 bg-background">{placeholder ?? "Select…"}</option>
         {options.map((o) => (
