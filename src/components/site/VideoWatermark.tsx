@@ -39,7 +39,7 @@ export function useClientIp() {
 }
 
 /** Diagonal repeating IP watermark grid that drifts every 6s. */
-export function IpWatermark() {
+export function IpWatermark({ enabled = true }: { enabled?: boolean } = {}) {
   const ip = useClientIp();
   const [shift, setShift] = useState({ x: 0, y: 0 });
 
@@ -52,6 +52,8 @@ export function IpWatermark() {
     }, 6000);
     return () => clearInterval(id);
   }, []);
+
+  if (!enabled || !ip) return null;
 
   const cells: React.ReactNode[] = [];
   for (let y = -80; y < 800; y += 80) {

@@ -29,7 +29,7 @@ function useClientIp() {
   return ip;
 }
 
-function VideoWatermark() {
+function VideoWatermark({ enabled = true }: { enabled?: boolean }) {
   const ip = useClientIp();
   const [shift, setShift] = useState({ x: 0, y: 0 });
 
@@ -42,6 +42,8 @@ function VideoWatermark() {
     }, 6000);
     return () => clearInterval(id);
   }, []);
+
+  if (!enabled || !ip) return null;
 
   const cells: React.ReactNode[] = [];
   for (let y = -80; y < 360; y += 70) {
@@ -137,7 +139,7 @@ export function HeroBeforeAfter() {
           className="relative z-[2] h-full w-full object-cover"
           {...protectedVideoProps}
         />
-        <VideoWatermark />
+        <VideoWatermark enabled={beforeReady} />
       </div>
 
       {/* AFTER card */}
@@ -151,7 +153,7 @@ export function HeroBeforeAfter() {
           className="relative z-[2] h-full w-full object-cover"
           {...protectedVideoProps}
         />
-        <VideoWatermark />
+        <VideoWatermark enabled={afterReady} />
         <button
           type="button"
           onClick={() => {
