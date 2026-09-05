@@ -29,7 +29,7 @@ function useClientIp() {
   return ip;
 }
 
-function VideoWatermark() {
+function VideoWatermark({ enabled = true }: { enabled?: boolean }) {
   const ip = useClientIp();
   const [shift, setShift] = useState({ x: 0, y: 0 });
 
