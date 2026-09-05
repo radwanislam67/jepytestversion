@@ -54,7 +54,7 @@ function Card({ r, index, visible }: { r: Review; index: number; visible: boolea
       className="flex flex-col gap-4 h-full"
       style={{
         background: "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(74,222,128,0.28)",
+        border: "1px solid rgba(163,230,53,0.28)",
         borderRadius: 12,
 
         padding: 24,
@@ -63,12 +63,12 @@ function Card({ r, index, visible }: { r: Review; index: number; visible: boolea
         transition: `opacity 0.5s ease ${index * 100}ms, transform 0.5s ease ${index * 100}ms, border-color 0.3s ease, box-shadow 0.3s ease`,
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "rgba(74,222,128,0.8)";
-        e.currentTarget.style.boxShadow = "0 0 20px rgba(74,222,128,0.2)";
+        e.currentTarget.style.borderColor = "rgba(163,230,53,0.8)";
+        e.currentTarget.style.boxShadow = "0 0 20px rgba(163,230,53,0.2)";
         e.currentTarget.style.transform = "translateY(0) scale(1.02)";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "rgba(74,222,128,0.2)";
+        e.currentTarget.style.borderColor = "rgba(163,230,53,0.2)";
         e.currentTarget.style.boxShadow = "none";
         e.currentTarget.style.transform = "translateY(0) scale(1)";
       }}
@@ -107,13 +107,13 @@ function Card({ r, index, visible }: { r: Review; index: number; visible: boolea
 }
 
 function SummaryPill() {
-  const avatars = ["#4ade80", "#B8FF6A", "#8a8a8a", "#F7F7F7"];
+  const avatars = ["#a3e635", "#B8FF6A", "#8a8a8a", "#F7F7F7"];
   return (
     <div
-      className="group inline-flex items-center gap-3 transition-all duration-300 hover:shadow-[0_0_24px_rgba(74,222,128,0.35)]"
+      className="group inline-flex items-center gap-3 transition-all duration-300 hover:shadow-[0_0_24px_rgba(163,230,53,0.35)]"
       style={{
         background: "rgba(11,11,11,0.85)",
-        border: "1px solid rgba(74,222,128,0.3)",
+        border: "1px solid rgba(163,230,53,0.3)",
         borderRadius: 999,
         padding: "10px 24px",
       }}
@@ -176,7 +176,7 @@ export function Reviews() {
             style={{ marginBottom: 32, color: "#fff" }}
           >
             Don&rsquo;t Take{" "}
-            <span style={{ color: "#4ade80" }} className="text-glow">
+            <span style={{ color: "#a3e635" }} className="text-glow">
               Our Word
             </span>{" "}
             For It

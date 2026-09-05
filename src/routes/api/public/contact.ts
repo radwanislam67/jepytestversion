@@ -58,8 +58,8 @@ export const Route = createFileRoute("/api/public/contact")({
         ];
 
         const html = `
-          <div style="font-family:Inter,Arial,sans-serif;background:#0a100d;color:#f3f4f6;padding:32px">
-            <h2 style="color:#4ade80;margin:0 0 16px">New Contact Form Submission</h2>
+          <div style="font-family:Inter,Arial,sans-serif;background:#0f1610;color:#f3f4f6;padding:32px">
+            <h2 style="color:#a3e635;margin:0 0 16px">New Contact Form Submission</h2>
             <p style="margin:0 0 24px;color:#9ca3af">From ${esc(d.name)} &lt;${esc(d.email)}&gt;</p>
             <table style="width:100%;border-collapse:collapse;background:#0f0f0f;border:1px solid #222;border-radius:8px;overflow:hidden">
               ${rows
@@ -72,7 +72,7 @@ export const Route = createFileRoute("/api/public/contact")({
                 )
                 .join("")}
             </table>
-            <h3 style="color:#4ade80;margin:24px 0 8px">Message</h3>
+            <h3 style="color:#a3e635;margin:24px 0 8px">Message</h3>
             <div style="padding:16px;background:#0f0f0f;border:1px solid #222;border-radius:8px;white-space:pre-wrap">${esc(d.message)}</div>
           </div>`;
 

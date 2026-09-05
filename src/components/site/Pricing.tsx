@@ -80,20 +80,20 @@ export function Pricing() {
                 }`}
                 style={{
                   background: t.highlighted
-                    ? "linear-gradient(180deg, rgba(74,222,128,0.06), rgba(11,11,11,0.8))"
+                    ? "linear-gradient(180deg, rgba(163,230,53,0.06), rgba(11,11,11,0.8))"
                     : "rgba(11,11,11,0.6)",
                   boxShadow: t.highlighted
-                    ? "0 0 60px -10px rgba(74,222,128,0.35)"
+                    ? "0 0 60px -10px rgba(163,230,53,0.35)"
                     : undefined,
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.boxShadow = t.highlighted
-                    ? "0 0 60px -8px rgba(74,222,128,0.5)"
-                    : "0 0 28px -4px rgba(74,222,128,0.25)";
+                    ? "0 0 60px -8px rgba(163,230,53,0.5)"
+                    : "0 0 28px -4px rgba(163,230,53,0.25)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.boxShadow = t.highlighted
-                    ? "0 0 60px -10px rgba(74,222,128,0.35)"
+                    ? "0 0 60px -10px rgba(163,230,53,0.35)"
                     : "";
                 }}
               >

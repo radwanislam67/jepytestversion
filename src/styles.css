@@ -37,19 +37,20 @@
 }
 
 :root {
-  --background: #0a100d;
-  --background-elevated: #101713;
-  --foreground: #ecfdf5;
-  --surface: #101713;
-  --surface-2: #16211b;
-  --border: rgba(132, 204, 22, 0.10);
-  --border-strong: rgba(132, 204, 22, 0.22);
-  --muted: #131c17;
-  --muted-foreground: #a7b3ac;
-  --accent: #4ade80;
-  --accent-bright: #00ff88;
-  --accent-foreground: #0a100d;
-  --glow: rgba(74, 222, 128, 0.35);
+  --background: #0f1610;
+  --background-elevated: #14201a;
+  --foreground: #f7fee7;
+  --surface: #14201a;
+  --surface-2: #182519;
+  --border: rgba(217, 249, 157, 0.12);
+  --border-strong: rgba(217, 249, 157, 0.25);
+  --muted: #14201a;
+  --muted-foreground: #c4d4cc;
+  --accent: #a3e635;
+  --accent-bright: #d9f99d;
+  --accent-hover: #84cc16;
+  --accent-foreground: #0f1610;
+  --glow: rgba(163, 230, 53, 0.35);
   --radius: 18px;
 }
 
@@ -70,11 +71,12 @@
   }
   body {
     min-height: 100vh;
-    background-color: #0a100d;
+    background-color: #0f1610;
     background-image:
-      linear-gradient(rgba(132, 204, 22, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(132, 204, 22, 0.05) 1px, transparent 1px);
-    background-size: 56px 56px;
+      linear-gradient(rgba(217, 249, 157, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(217, 249, 157, 0.04) 1px, transparent 1px),
+      radial-gradient(ellipse 80% 50% at 50% 0%, #182519 0%, #0f1610 60%);
+    background-size: 56px 56px, 56px 56px, cover;
     background-attachment: fixed;
     background-position: center top;
   }
@@ -84,8 +86,9 @@
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 30%, transparent 0%, #0a100d 80%);
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, transparent 0%, rgba(15,22,16,0.9) 85%);
   }
+
 
   h1, h2, h3, h4, h5, h6, .font-display {
     font-family: var(--font-display);
@@ -260,7 +263,7 @@
   height: 263px;
   z-index: 2;
   background: #0d1a0d;
-  border: 1.5px solid #4ade80;
+  border: 1.5px solid #a3e635;
   border-radius: 16px;
   box-shadow: 0 0 30px rgba(127,255,0,0.14);
   overflow: hidden;
@@ -465,7 +468,7 @@ input[type="date"].date-input-custom {
 .stack-float > * { will-change: transform; }
 .stack-card.stack-float::after { content: none; }
 .stack-card-side:hover {
-  border-color: #4ade80 !important;
+  border-color: #a3e635 !important;
 }
 .stack-float {
   animation: stack-float 4s ease-in-out infinite;
@@ -476,7 +479,7 @@ input[type="date"].date-input-custom {
   from { transform: scale(0.7); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
-.ba-ctrl:hover { color: #4ade80 !important; border-color: #4ade80 !important; }
+.ba-ctrl:hover { color: #a3e635 !important; border-color: #a3e635 !important; }
 .ba-range {
   -webkit-appearance: none;
   appearance: none;
@@ -491,7 +494,7 @@ input[type="date"].date-input-custom {
   width: 12px;
   height: 12px;
   border-radius: 999px;
-  background: #4ade80;
+  background: #a3e635;
   cursor: pointer;
 }
 .ba-range::-moz-range-thumb {
@@ -499,7 +502,7 @@ input[type="date"].date-input-custom {
   height: 12px;
   border: none;
   border-radius: 999px;
-  background: #4ade80;
+  background: #a3e635;
   cursor: pointer;
 }
-.ba-range::-moz-range-progress { background: #4ade80; height: 4px; border-radius: 999px; }
+.ba-range::-moz-range-progress { background: #a3e635; height: 4px; border-radius: 999px; }
