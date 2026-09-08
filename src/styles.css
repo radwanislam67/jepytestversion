@@ -37,20 +37,20 @@
 }
 
 :root {
-  --background: #0f1610;
-  --background-elevated: #14201a;
-  --foreground: #f7fee7;
-  --surface: #14201a;
-  --surface-2: #182519;
-  --border: rgba(217, 249, 157, 0.12);
-  --border-strong: rgba(217, 249, 157, 0.25);
-  --muted: #14201a;
-  --muted-foreground: #c4d4cc;
-  --accent: #a3e635;
-  --accent-bright: #d9f99d;
-  --accent-hover: #84cc16;
-  --accent-foreground: #0f1610;
-  --glow: rgba(163, 230, 53, 0.35);
+  --background: #141414;
+  --background-elevated: #1b1b1b;
+  --foreground: #f2f2f0;
+  --surface: #1b1b1b;
+  --surface-2: #1b1b1b;
+  --border: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.25);
+  --muted: #1b1b1b;
+  --muted-foreground: #a3a3a3;
+  --accent: #30d94b;
+  --accent-bright: #d8ffdf;
+  --accent-hover: #3ae85a;
+  --accent-foreground: #141414;
+  --glow: rgba(48, 217, 75, 0.35);
   --radius: 18px;
 }
 
@@ -71,11 +71,11 @@
   }
   body {
     min-height: 100vh;
-    background-color: #0f1610;
+    background-color: #141414;
     background-image:
-      linear-gradient(rgba(217, 249, 157, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(217, 249, 157, 0.04) 1px, transparent 1px),
-      radial-gradient(ellipse 80% 50% at 50% 0%, #182519 0%, #0f1610 60%);
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      radial-gradient(ellipse 80% 50% at 50% 0%, #1b1b1b 0%, #141414 60%);
     background-size: 56px 56px, 56px 56px, cover;
     background-attachment: fixed;
     background-position: center top;
@@ -86,7 +86,7 @@
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 30%, transparent 0%, rgba(15,22,16,0.9) 85%);
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, transparent 0%, rgba(20, 20, 20,0.9) 85%);
   }
 
 
@@ -263,9 +263,9 @@
   height: 263px;
   z-index: 2;
   background: #0d1a0d;
-  border: 1.5px solid #a3e635;
+  border: 1.5px solid #30d94b;
   border-radius: 16px;
-  box-shadow: 0 0 30px rgba(127,255,0,0.14);
+  box-shadow: 0 0 30px rgba(48, 217, 75,0.14);
   overflow: hidden;
   animation: hero-ba-float 5s ease-in-out infinite;
 }
@@ -468,7 +468,7 @@ input[type="date"].date-input-custom {
 .stack-float > * { will-change: transform; }
 .stack-card.stack-float::after { content: none; }
 .stack-card-side:hover {
-  border-color: #a3e635 !important;
+  border-color: #30d94b !important;
 }
 .stack-float {
   animation: stack-float 4s ease-in-out infinite;
@@ -479,7 +479,7 @@ input[type="date"].date-input-custom {
   from { transform: scale(0.7); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
-.ba-ctrl:hover { color: #a3e635 !important; border-color: #a3e635 !important; }
+.ba-ctrl:hover { color: #30d94b !important; border-color: #30d94b !important; }
 .ba-range {
   -webkit-appearance: none;
   appearance: none;
@@ -494,7 +494,7 @@ input[type="date"].date-input-custom {
   width: 12px;
   height: 12px;
   border-radius: 999px;
-  background: #a3e635;
+  background: #30d94b;
   cursor: pointer;
 }
 .ba-range::-moz-range-thumb {
@@ -502,7 +502,7 @@ input[type="date"].date-input-custom {
   height: 12px;
   border: none;
   border-radius: 999px;
-  background: #a3e635;
+  background: #30d94b;
   cursor: pointer;
 }
-.ba-range::-moz-range-progress { background: #a3e635; height: 4px; border-radius: 999px; }
+.ba-range::-moz-range-progress { background: #30d94b; height: 4px; border-radius: 999px; }

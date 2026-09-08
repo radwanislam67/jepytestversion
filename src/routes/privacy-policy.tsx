@@ -46,7 +46,7 @@ const SECTIONS = [
 
 function PrivacyPolicyPage() {
   return (
-    <div className="relative bg-[#0f1610] text-white">
+    <div className="relative bg-[#141414] text-white">
       <section className="pt-36 pb-16 md:pt-44 md:pb-20">
         <div className="mx-auto max-w-3xl px-5 md:px-8 text-center">
           <div className="text-xs uppercase tracking-[0.3em] text-[var(--accent)] mb-5">
@@ -84,8 +84,8 @@ function PrivacyPolicyPage() {
             className="relative overflow-hidden rounded-[36px] border border-[var(--accent)]/30 p-10 md:p-20 text-center"
             style={{
               background:
-                "radial-gradient(ellipse at center, rgba(163,230,53,0.12), transparent 70%), #0f1610",
-              boxShadow: "0 0 120px -20px rgba(163,230,53,0.35) inset",
+                "radial-gradient(ellipse at center, rgba(48, 217, 75,0.12), transparent 70%), #141414",
+              boxShadow: "0 0 120px -20px rgba(48, 217, 75,0.35) inset",
             }}
           >
             <div className="aurora opacity-60" />

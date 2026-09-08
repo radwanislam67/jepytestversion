@@ -30,7 +30,7 @@ function Media({ src, alt }: { src: string; alt: string }) {
       className="aspect-video w-full rounded-2xl border border-[var(--accent)]/30 overflow-hidden relative"
       style={{
         background:
-          "radial-gradient(ellipse at 30% 30%, rgba(163,230,53,0.15), transparent 60%), linear-gradient(135deg, #0a1f10, #0f1610 70%)",
+          "radial-gradient(ellipse at 30% 30%, rgba(48, 217, 75,0.15), transparent 60%), linear-gradient(135deg, #0a1f10, #141414 70%)",
       }}
     >
       <img

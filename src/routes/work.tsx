@@ -89,7 +89,7 @@ function WorkPage() {
                       <span className="absolute top-3 left-3 z-10 text-xs uppercase tracking-[0.15em] px-2 py-1 rounded-full border border-green-500/40 text-green-400 bg-black/60 backdrop-blur-sm">
                         {w.category}
                       </span>
-                      <Play size={36} style={{ color: "#39ff14" }} fill="#39ff14" />
+                      <Play size={36} style={{ color: "#30d94b" }} fill="#30d94b" />
                       <div className="text-xs text-gray-500">Video coming soon</div>
                     </div>
                     <div className="p-4">
