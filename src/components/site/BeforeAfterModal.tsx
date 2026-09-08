@@ -13,8 +13,8 @@ function fmt(t: number) {
 const tagPill: React.CSSProperties = {
   fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
   fontSize: 9,
-  color: "#a3e635",
-  border: "1px solid #a3e635",
+  color: "#30d94b",
+  border: "1px solid #30d94b",
   borderRadius: 20,
   padding: "3px 10px",
   background: "rgba(0,0,0,0.5)",
@@ -286,7 +286,7 @@ export function BeforeAfterModal({
               style={{
                 fontFamily: "ui-monospace, monospace",
                 fontSize: 10,
-                color: "#a3e635",
+                color: "#30d94b",
                 letterSpacing: 2,
               }}
             >

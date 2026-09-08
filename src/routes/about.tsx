@@ -38,8 +38,8 @@ function PhotoPlaceholder({ src, alt }: { src: string; alt: string }) {
         aspectRatio: "1 / 1",
         objectFit: "cover",
         borderRadius: 12,
-        border: "1px solid rgba(163,230,53,0.5)",
-        boxShadow: "0 0 28px rgba(163,230,53,0.15)",
+        border: "1px solid rgba(48, 217, 75,0.5)",
+        boxShadow: "0 0 28px rgba(48, 217, 75,0.15)",
       }}
     />
   );
@@ -105,7 +105,7 @@ function ScrollIndicator() {
         transform: "translateX(-50%)",
         opacity: hidden ? 0 : 1,
         transition: "opacity 400ms ease",
-        color: "#a3e635",
+        color: "#30d94b",
         fontSize: 24,
         animation: "bounce-down 2s ease-in-out infinite",
       }}
@@ -150,7 +150,7 @@ function ValueCard({
     <div
       style={{
         background: "rgba(255,255,255,0.03)",
-        border: "1px solid rgba(163,230,53,0.2)",
+        border: "1px solid rgba(48, 217, 75,0.2)",
         borderRadius: 12,
         padding: 28,
         opacity: visible ? 1 : 0,
@@ -161,14 +161,14 @@ function ValueCard({
       onMouseEnter={(e) => {
         e.currentTarget.style.transform =
           "perspective(1000px) rotateX(3deg) rotateY(3deg)";
-        e.currentTarget.style.borderColor = "rgba(163,230,53,0.8)";
-        e.currentTarget.style.boxShadow = "0 0 24px rgba(163,230,53,0.15)";
+        e.currentTarget.style.borderColor = "rgba(48, 217, 75,0.8)";
+        e.currentTarget.style.boxShadow = "0 0 24px rgba(48, 217, 75,0.15)";
         const ic = e.currentTarget.querySelector(".value-icon") as HTMLElement | null;
         if (ic) ic.style.transform = "scale(1.2)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.borderColor = "rgba(163,230,53,0.2)";
+        e.currentTarget.style.borderColor = "rgba(48, 217, 75,0.2)";
         e.currentTarget.style.boxShadow = "none";
         const ic = e.currentTarget.querySelector(".value-icon") as HTMLElement | null;
         if (ic) ic.style.transform = "scale(1)";
@@ -177,7 +177,7 @@ function ValueCard({
       <div
         className="value-icon"
         style={{
-          color: "#a3e635",
+          color: "#30d94b",
           marginBottom: 16,
           transition: "transform 0.3s ease",
           display: "inline-flex",
@@ -260,16 +260,16 @@ function StudioTile({
         position: "relative",
         overflow: "hidden",
         borderRadius: 12,
-        border: "1px solid rgba(163,230,53,0.2)",
+        border: "1px solid rgba(48, 217, 75,0.2)",
         minHeight: 220,
         opacity: v ? 1 : 0,
         transform: v ? "translateY(0)" : "translateY(20px)",
         transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms, border-color 0.3s ease`,
         background:
-          "linear-gradient(135deg, rgba(163,230,53,0.12), rgba(0,0,0,0.85))",
+          "linear-gradient(135deg, rgba(48, 217, 75,0.12), rgba(0,0,0,0.85))",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "rgba(163,230,53,0.5)";
+        e.currentTarget.style.borderColor = "rgba(48, 217, 75,0.5)";
         const inner = e.currentTarget.querySelector(
           ".studio-inner",
         ) as HTMLElement | null;
@@ -280,7 +280,7 @@ function StudioTile({
         if (overlay) overlay.style.opacity = "1";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "rgba(163,230,53,0.2)";
+        e.currentTarget.style.borderColor = "rgba(48, 217, 75,0.2)";
         const inner = e.currentTarget.querySelector(
           ".studio-inner",
         ) as HTMLElement | null;
@@ -312,7 +312,7 @@ function StudioTile({
         style={{
           position: "absolute",
           inset: 0,
-          background: "rgba(163,230,53,0.08)",
+          background: "rgba(48, 217, 75,0.08)",
           opacity: 0,
           transition: "opacity 0.3s ease",
         }}
@@ -370,8 +370,8 @@ function Timeline() {
   const currentIdx = MILESTONES.findIndex((m) => m.current);
   const prevPct = ((currentIdx - 1 + 0.5) / MILESTONES.length) * 100;
   const currentPct = ((currentIdx + 0.5) / MILESTONES.length) * 100;
-  const horizontalProgress = `linear-gradient(90deg, #4b5563 0%, #4b5563 ${prevPct}%, #22c55e ${currentPct}%, #22c55e 100%)`;
-  const verticalProgress = `linear-gradient(180deg, #4b5563 0%, #4b5563 ${prevPct}%, #22c55e ${currentPct}%, #22c55e 100%)`;
+  const horizontalProgress = `linear-gradient(90deg, #4b5563 0%, #4b5563 ${prevPct}%, #30d94b ${currentPct}%, #30d94b 100%)`;
+  const verticalProgress = `linear-gradient(180deg, #4b5563 0%, #4b5563 ${prevPct}%, #30d94b ${currentPct}%, #30d94b 100%)`;
 
   return (
     <section className="relative py-16 md:py-20">
@@ -379,7 +379,7 @@ function Timeline() {
         <Reveal>
           <div
             style={{
-              color: "#a3e635",
+              color: "#30d94b",
               fontSize: 12,
               letterSpacing: "0.18em",
               marginBottom: 16,
@@ -419,7 +419,7 @@ function Timeline() {
                 height: 2,
                 width: "100%",
                 background: horizontalProgress,
-                boxShadow: "0 0 12px rgba(34,197,94,0.35)",
+                boxShadow: "0 0 12px rgba(48, 217, 75,0.35)",
                 transform: active ? "scaleX(1)" : "scaleX(0)",
                 transformOrigin: "left",
                 transition: `transform ${drawMs}ms cubic-bezier(.2,.8,.2,1)`,
@@ -440,9 +440,9 @@ function Timeline() {
                           transform: active ? "translateY(0)" : "translateY(6px)",
                           transition: `opacity 400ms ease ${dotDelay}ms, transform 400ms ease ${dotDelay}ms`,
                           marginBottom: 14,
-                          background: "#a3e635",
-                          color: "#0f1610",
-                          boxShadow: "0 0 14px rgba(163,230,53,0.55)",
+                          background: "#30d94b",
+                          color: "#141414",
+                          boxShadow: "0 0 14px rgba(48, 217, 75,0.55)",
                         }}
                         className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wider"
                       >
@@ -456,11 +456,11 @@ function Timeline() {
                         width: dotSize,
                         height: dotSize,
                         borderRadius: 999,
-                        background: isCurrent ? "#22c55e" : "#6b7280",
+                        background: isCurrent ? "#30d94b" : "#6b7280",
                         boxShadow: isCurrent
-                          ? "0 0 18px rgba(34,197,94,0.9), 0 0 36px rgba(34,197,94,0.5)"
+                          ? "0 0 18px rgba(48, 217, 75,0.9), 0 0 36px rgba(48, 217, 75,0.5)"
                           : "none",
-                        outline: isCurrent ? "2px solid rgba(34,197,94,0.3)" : "none",
+                        outline: isCurrent ? "2px solid rgba(48, 217, 75,0.3)" : "none",
                         outlineOffset: isCurrent ? 4 : 0,
                         opacity: active ? 1 : 0,
                         transform: active ? "scale(1)" : "scale(0.2)",
@@ -477,10 +477,10 @@ function Timeline() {
                     >
                       <div
                         style={{
-                          color: isCurrent ? "#a3e635" : "#6b7280",
+                          color: isCurrent ? "#30d94b" : "#6b7280",
                           fontWeight: isCurrent ? 700 : 400,
                           fontSize: isCurrent ? 22 : 20,
-                          filter: isCurrent ? "drop-shadow(0 0 10px rgba(163,230,53,0.7))" : "none",
+                          filter: isCurrent ? "drop-shadow(0 0 10px rgba(48, 217, 75,0.7))" : "none",
 
                         }}
                       >
@@ -522,7 +522,7 @@ function Timeline() {
                 width: 2,
                 height: "100%",
                 background: verticalProgress,
-                boxShadow: "0 0 12px rgba(34,197,94,0.35)",
+                boxShadow: "0 0 12px rgba(48, 217, 75,0.35)",
                 transform: active ? "scaleY(1)" : "scaleY(0)",
                 transformOrigin: "top",
                 transition: `transform ${drawMs}ms cubic-bezier(.2,.8,.2,1)`,
@@ -544,11 +544,11 @@ function Timeline() {
                       width: dotSize,
                       height: dotSize,
                       borderRadius: 999,
-                      background: isCurrent ? "#22c55e" : "#6b7280",
+                      background: isCurrent ? "#30d94b" : "#6b7280",
                       boxShadow: isCurrent
-                        ? "0 0 18px rgba(34,197,94,0.9), 0 0 36px rgba(34,197,94,0.5)"
+                        ? "0 0 18px rgba(48, 217, 75,0.9), 0 0 36px rgba(48, 217, 75,0.5)"
                         : "none",
-                      outline: isCurrent ? "2px solid rgba(34,197,94,0.3)" : "none",
+                      outline: isCurrent ? "2px solid rgba(48, 217, 75,0.3)" : "none",
                       outlineOffset: isCurrent ? 4 : 0,
                       opacity: active ? 1 : 0,
                       transform: active ? "scale(1)" : "scale(0.2)",
@@ -564,7 +564,7 @@ function Timeline() {
                   >
                     {isCurrent && (
                       <span
-                        style={{ background: "#a3e635", color: "#0f1610", boxShadow: "0 0 14px rgba(163,230,53,0.55)" }}
+                        style={{ background: "#30d94b", color: "#141414", boxShadow: "0 0 14px rgba(48, 217, 75,0.55)" }}
                         className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wider mb-2"
                       >
                         NOW
@@ -572,10 +572,10 @@ function Timeline() {
                     )}
                     <div
                       style={{
-                        color: isCurrent ? "#a3e635" : "#6b7280",
+                        color: isCurrent ? "#30d94b" : "#6b7280",
                         fontWeight: isCurrent ? 700 : 400,
                         fontSize: isCurrent ? 20 : 18,
-                        filter: isCurrent ? "drop-shadow(0 0 10px rgba(163,230,53,0.7))" : "none",
+                        filter: isCurrent ? "drop-shadow(0 0 10px rgba(48, 217, 75,0.7))" : "none",
                       }}
                     >
                       {m.year}
@@ -615,7 +615,7 @@ function About() {
           <Reveal>
             <div
               style={{
-                color: "#a3e635",
+                color: "#30d94b",
                 fontSize: 12,
                 letterSpacing: "0.1em",
                 marginBottom: 16,
@@ -696,7 +696,7 @@ function About() {
                   <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fff" }}>
                     Sojol Sheikh
                   </h3>
-                  <div style={{ fontSize: 14, color: "#a3e635", marginTop: 4 }}>
+                  <div style={{ fontSize: 14, color: "#30d94b", marginTop: 4 }}>
                     Co-Founder &amp; Creative Director
                   </div>
                   <p className="mt-6 text-foreground/75 leading-relaxed">
@@ -718,7 +718,7 @@ function About() {
                   <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fff" }}>
                     Radwan Islam
                   </h3>
-                  <div style={{ fontSize: 14, color: "#a3e635", marginTop: 4 }}>
+                  <div style={{ fontSize: 14, color: "#30d94b", marginTop: 4 }}>
                     Co-Founder &amp; Managing Director
                   </div>
                   <p className="mt-6 text-foreground/75 leading-relaxed">
@@ -752,7 +752,7 @@ function About() {
           <Reveal>
             <div
               style={{
-                color: "#a3e635",
+                color: "#30d94b",
                 fontSize: 12,
                 letterSpacing: "0.1em",
                 marginBottom: 16,
@@ -821,8 +821,8 @@ function About() {
             className="relative overflow-hidden rounded-[36px] border border-[var(--accent)]/30 p-10 md:p-20 text-center"
             style={{
               background:
-                "radial-gradient(ellipse at center, rgba(163,230,53,0.12), transparent 70%), #0f1610",
-              boxShadow: "0 0 120px -20px rgba(163,230,53,0.35) inset",
+                "radial-gradient(ellipse at center, rgba(48, 217, 75,0.12), transparent 70%), #141414",
+              boxShadow: "0 0 120px -20px rgba(48, 217, 75,0.35) inset",
             }}
           >
             <div className="aurora opacity-60" />

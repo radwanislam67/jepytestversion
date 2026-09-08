@@ -37,20 +37,20 @@
 }
 
 :root {
-  --background: #0f1610;
-  --background-elevated: #14201a;
-  --foreground: #f7fee7;
-  --surface: #14201a;
-  --surface-2: #182519;
-  --border: rgba(217, 249, 157, 0.12);
-  --border-strong: rgba(217, 249, 157, 0.25);
-  --muted: #14201a;
-  --muted-foreground: #c4d4cc;
-  --accent: #a3e635;
-  --accent-bright: #d9f99d;
-  --accent-hover: #84cc16;
-  --accent-foreground: #0f1610;
-  --glow: rgba(163, 230, 53, 0.35);
+  --background: #141414;
+  --background-elevated: #1b1b1b;
+  --foreground: #f2f2f0;
+  --surface: #1b1b1b;
+  --surface-2: #1b1b1b;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.22);
+  --muted: #1b1b1b;
+  --muted-foreground: #a3a3a3;
+  --accent: #30d94b;
+  --accent-bright: #d8ffdf;
+  --accent-hover: #3ae85a;
+  --accent-foreground: #06230c;
+  --glow: rgba(48, 217, 75, 0.18);
   --radius: 18px;
 }
 
@@ -71,22 +71,56 @@
   }
   body {
     min-height: 100vh;
-    background-color: #0f1610;
+    background-color: #141414;
+    background-image: none;
+    isolation: isolate;
+  }
+
+  /* BG-4: fixed aurora + grid + grain background layer (static) */
+  html::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    overflow: hidden;
+    background-color: #141414;
     background-image:
-      linear-gradient(rgba(217, 249, 157, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(217, 249, 157, 0.04) 1px, transparent 1px),
-      radial-gradient(ellipse 80% 50% at 50% 0%, #182519 0%, #0f1610 60%);
-    background-size: 56px 56px, 56px 56px, cover;
-    background-attachment: fixed;
-    background-position: center top;
+      radial-gradient(ellipse 380px 290px at 50% -60px, rgba(48, 217, 75, 0.115), transparent 70%),
+      radial-gradient(ellipse 240px 210px at -40px 100%, rgba(48, 217, 75, 0.05), transparent 70%),
+      radial-gradient(circle 220px at calc(100% + 20px) 34%, rgba(255, 255, 255, 0.05), transparent 70%);
+    background-repeat: no-repeat;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(48, 217, 75, 0.038) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(48, 217, 75, 0.038) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 16%, #000 12%, transparent 66%);
+    mask-image: radial-gradient(ellipse 85% 70% at 50% 16%, #000 12%, transparent 66%);
   }
   body::after {
     content: '';
     position: fixed;
-    inset: 0;
+    inset: -60px;
+    z-index: -1;
     pointer-events: none;
-    z-index: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 30%, transparent 0%, rgba(15,22,16,0.9) 85%);
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+    background-size: 140px 140px;
+  }
+  @media (max-width: 768px) {
+    html::before {
+      background-image:
+        radial-gradient(ellipse 380px 290px at 50% -60px, rgba(48, 217, 75, 0.07), transparent 70%),
+        radial-gradient(ellipse 240px 210px at -40px 100%, rgba(48, 217, 75, 0.05), transparent 70%),
+        radial-gradient(circle 220px at calc(100% + 20px) 34%, rgba(255, 255, 255, 0.05), transparent 70%);
+    }
   }
 
 
@@ -163,13 +197,11 @@
   top: -20vmax;
   left: -10vmax;
   background: radial-gradient(circle at 30% 30%, var(--accent), transparent 60%);
-  animation: aurora-a 18s ease-in-out infinite alternate;
 }
 .aurora::after {
   bottom: -25vmax;
   right: -15vmax;
   background: radial-gradient(circle at 70% 70%, var(--glow), transparent 60%);
-  animation: aurora-b 22s ease-in-out infinite alternate;
   opacity: 0.22;
 }
 @keyframes aurora-a {
@@ -189,7 +221,7 @@
 }
 
 @utility text-glow {
-  text-shadow: 0 0 24px color-mix(in oklab, var(--accent) 35%, transparent);
+  text-shadow: 0 0 34px rgba(48, 217, 75, 0.18);
 }
 
 /* Magnetic / button */
@@ -204,9 +236,8 @@
   font-weight: 600;
   letter-spacing: -0.01em;
   transition: transform 300ms cubic-bezier(.2,.8,.2,1), box-shadow 300ms ease;
-  box-shadow: 0 10px 40px -10px color-mix(in oklab, var(--accent) 60%, transparent);
   &:hover {
-    box-shadow: 0 18px 60px -12px color-mix(in oklab, var(--glow) 70%, transparent);
+    background: var(--accent-hover);
   }
 }
 
@@ -223,6 +254,17 @@
   &:hover {
     border-color: color-mix(in oklab, var(--accent) 70%, transparent);
     background: color-mix(in oklab, var(--accent) 6%, transparent);
+  }
+}
+
+@utility card-surface {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: border-color 240ms ease;
+  &:hover {
+    border-color: rgba(48, 217, 75, 0.22);
   }
 }
 
@@ -263,9 +305,9 @@
   height: 263px;
   z-index: 2;
   background: #0d1a0d;
-  border: 1.5px solid #a3e635;
+  border: 1.5px solid #30d94b;
   border-radius: 16px;
-  box-shadow: 0 0 30px rgba(127,255,0,0.14);
+  box-shadow: 0 0 30px rgba(48, 217, 75,0.14);
   overflow: hidden;
   animation: hero-ba-float 5s ease-in-out infinite;
 }
@@ -468,7 +510,7 @@ input[type="date"].date-input-custom {
 .stack-float > * { will-change: transform; }
 .stack-card.stack-float::after { content: none; }
 .stack-card-side:hover {
-  border-color: #a3e635 !important;
+  border-color: #30d94b !important;
 }
 .stack-float {
   animation: stack-float 4s ease-in-out infinite;
@@ -479,7 +521,7 @@ input[type="date"].date-input-custom {
   from { transform: scale(0.7); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
-.ba-ctrl:hover { color: #a3e635 !important; border-color: #a3e635 !important; }
+.ba-ctrl:hover { color: #30d94b !important; border-color: #30d94b !important; }
 .ba-range {
   -webkit-appearance: none;
   appearance: none;
@@ -494,7 +536,7 @@ input[type="date"].date-input-custom {
   width: 12px;
   height: 12px;
   border-radius: 999px;
-  background: #a3e635;
+  background: #30d94b;
   cursor: pointer;
 }
 .ba-range::-moz-range-thumb {
@@ -502,7 +544,7 @@ input[type="date"].date-input-custom {
   height: 12px;
   border: none;
   border-radius: 999px;
-  background: #a3e635;
+  background: #30d94b;
   cursor: pointer;
 }
-.ba-range::-moz-range-progress { background: #a3e635; height: 4px; border-radius: 999px; }
+.ba-range::-moz-range-progress { background: #30d94b; height: 4px; border-radius: 999px; }
