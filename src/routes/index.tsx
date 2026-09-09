@@ -62,18 +62,24 @@ function Home() {
 function Hero() {
   return (
     <section className="relative min-h-[100svh] flex items-center overflow-hidden pt-36 md:pt-40 pb-12 md:pb-16">
-      <div className="aurora" />
-      <Particles count={36} />
-
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#141414_85%)]" />
-      </div>
       <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16">
         <div className="flex-1 min-w-0">
           <h1 className="font-display text-[14vw] md:text-[10vw] leading-[0.92] tracking-[-0.04em]">
             <Reveal>Your Content,&nbsp;</Reveal>
             <Reveal delay={600} y={32}>
-              <span className="text-[var(--accent)] text-glow">Elevated.</span>
+              <span
+                className="text-glow"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(94deg, #ffffff 30%, #d8ffdf 55%, #30d94b 110%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                  textShadow: "0 0 34px rgba(48,217,75,.18)",
+                }}
+              >
+                Elevated.
+              </span>
             </Reveal>
           </h1>
           <Reveal delay={260}>

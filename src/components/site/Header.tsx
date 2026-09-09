@@ -126,7 +126,8 @@ export function Header() {
       <div
         className="fixed inset-0 z-40 md:hidden transition-opacity duration-500"
         style={{
-          background: "#0a0a0a",
+          background:
+            "radial-gradient(ellipse at top, rgba(48,217,75,.06), #141414 55%)",
           opacity: open ? 1 : 0,
           pointerEvents: open ? "auto" : "none",
         }}

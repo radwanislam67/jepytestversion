@@ -5,17 +5,15 @@ import { Magnetic } from "@/components/site/Magnetic";
 
 export function CTASection() {
   return (
-    <section className="relative py-20">
+    <section className="relative py-20 section-light">
       <div className="mx-auto max-w-[1100px] px-6">
         <div
           className="relative overflow-hidden rounded-[36px] border border-[var(--accent)]/30 p-10 md:p-20 text-center"
           style={{
-            background:
-              "radial-gradient(ellipse at center, rgba(48, 217, 75,0.12), transparent 70%), #141414",
+            background: "#141414",
             boxShadow: "0 0 120px -20px rgba(48, 217, 75,0.35) inset",
           }}
         >
-          <div className="aurora opacity-60" />
           <div className="relative">
             <Reveal>
               <h2 className="font-display text-5xl md:text-7xl tracking-tighter">

@@ -66,7 +66,7 @@ const BADGES = ["48h Turnaround", "Unlimited Revisions", "14-Day Guarantee", "De
 function ServicesPage() {
   return (
     <>
-      <section className="relative pt-32 md:pt-36 pb-16 md:pb-20">
+      <section className="relative pt-32 md:pt-36 pb-16 md:pb-20 section-light">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <Reveal>
             <h1 className="font-display text-6xl md:text-8xl tracking-tighter text-center">
@@ -83,23 +83,31 @@ function ServicesPage() {
             <div className="mt-6 grid grid-cols-2 md:flex md:flex-wrap md:justify-center items-center gap-y-3 text-sm">
               {BADGES.map((b, i) => (
                 <div key={b} className="flex items-center justify-center">
-                  <span className="text-gray-400">
+                  <span className="text-[#a3a3a3]">
                     <span className="text-[var(--accent)] mr-1">✦</span>
                     {b}
                   </span>
                   {i < BADGES.length - 1 && (
-                    <span className="hidden md:inline text-gray-700 mx-3">·</span>
+                    <span className="hidden md:inline text-white/20 mx-3">·</span>
                   )}
                 </div>
               ))}
             </div>
           </Reveal>
 
-          <div className="mt-16 rounded-3xl border border-gray-700/40 bg-gray-900/20 p-6">
+          <div className="mt-16 rounded-3xl border border-white/10 bg-[rgba(255,255,255,.02)] p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {SERVICES.map((s, i) => (
                 <Reveal key={s.title} delay={i * 80}>
-                  <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-800 bg-gray-900/50 p-6 transition-all duration-300 hover:border-[rgba(48, 217, 75,0.6)] hover:-translate-y-0.5 hover:scale-[1.02]">
+                  <div
+                    className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 p-6 transition-all duration-300 hover:border-[rgba(48, 217, 75,0.6)] hover:-translate-y-0.5 hover:scale-[1.02]"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015))",
+                      boxShadow:
+                        "inset 0 1px 0 rgba(255,255,255,.06), 0 30px 60px -30px rgba(0,0,0,.8)",
+                    }}
+                  >
                     <span
                       aria-hidden
                       className="pointer-events-none absolute inset-x-0 top-0 h-[2px]"
@@ -120,8 +128,8 @@ function ServicesPage() {
                       <s.icon size={22} />
                     </div>
                     <h3 className="text-lg font-medium text-white mb-2">{s.title}</h3>
-                    <p className="text-sm text-gray-400 mb-4">{s.desc}</p>
-                    <ul className="flex flex-col gap-2 text-sm text-gray-500">
+                    <p className="text-sm text-[#a3a3a3] mb-4">{s.desc}</p>
+                    <ul className="flex flex-col gap-2 text-sm text-foreground/70">
                       {s.bullets.map((b) => (
                         <li key={b} className="flex items-start gap-2">
                           <Check size={14} className="mt-0.5 text-[var(--accent)] shrink-0" /> {b}
@@ -131,7 +139,7 @@ function ServicesPage() {
                     <div className="mt-auto pt-4">
                       <Link
                         to="/work"
-                        className="inline-flex items-center gap-1 text-sm text-green-400 hover:text-green-300 transition-colors"
+                        className="inline-flex items-center gap-1 text-sm text-[#30d94b] hover:text-[#d8ffdf] transition-colors"
                       >
                         See Examples <ArrowUpRight size={14} />
                       </Link>
@@ -147,17 +155,7 @@ function ServicesPage() {
         <Link
           to="/pricing"
           preload="render"
-          className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-transparent px-6 py-3 text-[12px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 ease-out hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-foreground)] hover:scale-[1.03]"
-          style={{
-            ["--tw-shadow" as never]: "0 8px 30px -8px color-mix(in oklab, var(--accent) 70%, transparent)",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow =
-              "0 8px 30px -8px color-mix(in oklab, var(--accent) 70%, transparent)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = "none";
-          }}
+          className="group inline-flex items-center gap-2 rounded-full border border-[var(--accent)] bg-transparent px-6 py-3.5 text-base font-semibold uppercase tracking-[0.16em] text-[var(--accent)] transition-all duration-300 hover:bg-[var(--accent)] hover:text-[var(--accent-foreground)] hover:scale-[1.03]"
         >
           View Pricing <span aria-hidden className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-[5px]">→</span>
         </Link>

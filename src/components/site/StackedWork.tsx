@@ -64,7 +64,7 @@ export function StackedWork() {
     order[1] === i ? "hero" : order[0] === i ? "left" : "right";
 
   return (
-    <section id="work" className="relative py-16 scroll-mt-24">
+    <section id="work" className="relative py-16 scroll-mt-24 section-light">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
           <div className="text-xs uppercase tracking-[0.3em] text-[var(--accent)] mb-4">
@@ -98,7 +98,7 @@ export function StackedWork() {
                 style={{
                   width: 220,
                   height: 370,
-                  background: "#1a1a1a",
+                  background: "#181a19",
                   border: "1px solid #2a2a2a",
                   borderRadius: 18,
                   transition:

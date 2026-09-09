@@ -30,7 +30,7 @@ function Media({ src, alt }: { src: string; alt: string }) {
       className="aspect-video w-full rounded-2xl border border-[var(--accent)]/30 overflow-hidden relative"
       style={{
         background:
-          "radial-gradient(ellipse at 30% 30%, rgba(48, 217, 75,0.15), transparent 60%), linear-gradient(135deg, #0a1f10, #141414 70%)",
+          "linear-gradient(135deg, #161616, #141414 70%)",
       }}
     >
       <img
@@ -48,10 +48,13 @@ function Media({ src, alt }: { src: string; alt: string }) {
 
 export function WhatGoesIn() {
   return (
-    <section className="relative py-16 md:py-20">
+    <section className="relative py-16 md:py-20 section-light">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="text-center mb-12">
           <Reveal>
+            <div className="mb-4 text-xs uppercase tracking-[0.3em] text-[var(--accent)] text-center">
+              WHAT&apos;S INSIDE
+            </div>
             <h2 className="font-display text-5xl md:text-7xl tracking-tighter">
               What Goes Into <span className="text-[var(--accent)] text-glow">Every Video</span>
             </h2>

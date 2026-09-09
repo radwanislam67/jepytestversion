@@ -94,7 +94,7 @@ function CardFallback({ show }: { show: boolean }) {
   return (
     <div
       aria-hidden
-      className="absolute inset-0 bg-[linear-gradient(140deg,#141414,#0a0a0a)]"
+      className="absolute inset-0 bg-[linear-gradient(140deg,#141414,#181a19)]"
       style={{ zIndex: 1 }}
     />
   );

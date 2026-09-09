@@ -18,7 +18,6 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-glow: var(--glow);
   --color-primary: var(--accent);
   --color-primary-foreground: var(--accent-foreground);
   --color-card: var(--surface);
@@ -76,21 +75,6 @@
     isolation: isolate;
   }
 
-  /* BG-4: fixed aurora + grid + grain background layer (static) */
-  html::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    pointer-events: none;
-    overflow: hidden;
-    background-color: #141414;
-    background-image:
-      radial-gradient(ellipse 380px 290px at 50% -60px, rgba(48, 217, 75, 0.115), transparent 70%),
-      radial-gradient(ellipse 240px 210px at -40px 100%, rgba(48, 217, 75, 0.05), transparent 70%),
-      radial-gradient(circle 220px at calc(100% + 20px) 34%, rgba(255, 255, 255, 0.05), transparent 70%);
-    background-repeat: no-repeat;
-  }
   body::before {
     content: '';
     position: fixed;
@@ -101,8 +85,8 @@
       linear-gradient(rgba(48, 217, 75, 0.038) 1px, transparent 1px),
       linear-gradient(90deg, rgba(48, 217, 75, 0.038) 1px, transparent 1px);
     background-size: 64px 64px;
-    -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 16%, #000 12%, transparent 66%);
-    mask-image: radial-gradient(ellipse 85% 70% at 50% 16%, #000 12%, transparent 66%);
+    -webkit-mask-image: radial-gradient(ellipse 95% 95% at 50% 12%, #000 8%, transparent 78%);
+    mask-image: radial-gradient(ellipse 95% 95% at 50% 12%, #000 8%, transparent 78%);
   }
   body::after {
     content: '';
@@ -114,13 +98,55 @@
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
     background-size: 140px 140px;
   }
-  @media (max-width: 768px) {
-    html::before {
-      background-image:
-        radial-gradient(ellipse 380px 290px at 50% -60px, rgba(48, 217, 75, 0.07), transparent 70%),
-        radial-gradient(ellipse 240px 210px at -40px 100%, rgba(48, 217, 75, 0.05), transparent 70%),
-        radial-gradient(circle 220px at calc(100% + 20px) 34%, rgba(255, 255, 255, 0.05), transparent 70%);
-    }
+  /* Site-wide fixed lighting (g1 = green top center, g2 = white top right,
+     g3 = green bottom left; ::after = subtle airy grey sheen on top) */
+  .site-glow {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .site-glow::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0) 26%);
+  }
+  .site-glow .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+  }
+  .site-glow .g1 {
+    width: 1100px;
+    height: 700px;
+    left: 50%;
+    top: -340px;
+    transform: translateX(-50%);
+    background: rgba(48,217,75,.13);
+  }
+  .site-glow .g2 {
+    width: 760px;
+    height: 640px;
+    right: -220px;
+    top: 16%;
+    background: rgba(255,255,255,.045);
+  }
+  .site-glow .g3 {
+    width: 900px;
+    height: 700px;
+    left: -260px;
+    bottom: -260px;
+    background: rgba(48,217,75,.06);
+  }
+  .site-glow .g4 {
+    width: 640px;
+    height: 480px;
+    left: 50%;
+    top: 42%;
+    transform: translateX(-50%);
+    background: rgba(48,217,75,.05);
   }
 
 
@@ -165,17 +191,6 @@
 .jepy-cursor.is-hidden { opacity: 0; }
 @media (hover: none) { .jepy-cursor { display: none; } }
 
-/* Grain noise */
-.noise::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-}
 
 /* Aurora background */
 .aurora {
@@ -221,7 +236,24 @@
 }
 
 @utility text-glow {
-  text-shadow: 0 0 34px rgba(48, 217, 75, 0.18);
+  color: var(--accent);
+  text-shadow: 0 0 34px rgba(48,217,75,.18);
+}
+
+/* Shared section heading light — gives every section heading an identical
+   faint centered glow, so the page never has a "dark island" between
+   sections. Static, pointer-events: none. */
+.section-light { position: relative; }
+.section-light::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(720px, 90%);
+  height: 340px;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,.03), transparent 70%);
 }
 
 /* Magnetic / button */
@@ -292,8 +324,8 @@
   transform: rotate(-5deg);
   opacity: 0.80;
   filter: grayscale(0.2) brightness(0.85);
-  background: #151515;
-  border: 1px solid #2a2a2a;
+  background: #1b1b1b;
+  border: 1px solid rgba(255, 255, 255, .14);
   border-radius: 16px;
   overflow: hidden;
 }
@@ -304,7 +336,7 @@
   width: 148px;
   height: 263px;
   z-index: 2;
-  background: #0d1a0d;
+  background: #06230c;
   border: 1.5px solid #30d94b;
   border-radius: 16px;
   box-shadow: 0 0 30px rgba(48, 217, 75,0.14);
@@ -317,7 +349,7 @@
   right: 10px;
   z-index: 10;
   background: rgba(0,0,0,0.65);
-  border: 1px solid #333;
+  border: 1px solid rgba(255, 255, 255, .18);
   border-radius: 6px;
   padding: 5px 8px;
   color: #ffffff;

@@ -86,7 +86,7 @@ function CaseStudies() {
                     <div
                       className="absolute inset-0"
                       style={{
-                        background: `radial-gradient(120% 80% at 30% 30%, hsl(${c.hue} 80% 55% / 0.55), transparent 60%), radial-gradient(80% 60% at 80% 70%, hsl(${(c.hue + 40) % 360} 70% 50% / 0.45), transparent 60%), #0a0a0a`,
+                        background: `radial-gradient(120% 80% at 30% 30%, hsl(${c.hue} 80% 55% / 0.55), transparent 60%), radial-gradient(80% 60% at 80% 70%, hsl(${(c.hue + 40) % 360} 70% 50% / 0.45), transparent 60%), #141414`,
                       }}
                     />
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,rgba(0,0,0,0.7)_100%)]" />

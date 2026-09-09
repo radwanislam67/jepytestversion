@@ -16,7 +16,7 @@ export const Route = createFileRoute("/pricing")({
 
 function PricingPage() {
   return (
-    <div className="pt-32 md:pt-36">
+    <div className="pt-32 md:pt-36 section-light">
       <Pricing />
       <CTASection />
     </div>

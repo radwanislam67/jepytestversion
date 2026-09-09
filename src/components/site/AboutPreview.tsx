@@ -82,7 +82,7 @@ function Carousel() {
 
 export function AboutPreview() {
   return (
-    <section id="about" className="relative scroll-mt-24 py-16 md:py-20">
+    <section id="about" className="relative scroll-mt-24 py-16 md:py-20 section-light">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
           <Reveal>

@@ -165,7 +165,7 @@ function Contact() {
   };
 
   return (
-    <div className="pt-28 md:pt-36 pb-12 md:pb-20">
+    <div className="pt-28 md:pt-36 pb-12 md:pb-20 section-light">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">Contact</div>
         <Reveal>
@@ -204,7 +204,6 @@ function Contact() {
 
           <Reveal delay={100}>
             <div className="relative rounded-3xl md:rounded-[32px] border border-white/5 bg-[var(--surface)] p-6 md:p-10 overflow-hidden">
-              <div className="aurora opacity-40" />
               <div className="relative">
                 {done ? (
                   <div className="py-16 text-center" role="status" aria-live="polite">
@@ -239,7 +238,7 @@ function Contact() {
                         type="submit"
                         disabled={submitting}
                         aria-busy={submitting}
-                        className="w-full h-12 px-6 py-3 inline-flex items-center justify-center gap-2 rounded-full bg-[#30d94b] text-[#141414] font-semibold transition-all duration-200 hover:scale-105 hover:brightness-110 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#141414] focus:ring-green-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                        className="w-full h-12 px-6 py-3 inline-flex items-center justify-center gap-2 rounded-full bg-[#30d94b] text-[#141414] font-semibold transition-all duration-200 hover:scale-105 hover:brightness-110 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#141414] focus:ring-[#3ae85a] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                       >
                         {submitting ? (<><Loader2 size={16} className="animate-spin" aria-hidden="true" /> Sending...</>) : (<>Send Brief <ArrowUpRight size={16} aria-hidden="true" /></>)}
                       </button>
@@ -277,7 +276,7 @@ function ErrorText({ id, children }: { id: string; children: React.ReactNode }) 
 }
 
 const fieldBase = (error?: string) =>
-  `w-full mt-2 h-11 rounded-2xl border-2 ${error ? "border-red-500" : "border-green-500"} bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors`;
+  `w-full mt-2 h-11 rounded-2xl border-2 ${error ? "border-red-500" : "border-[#30d94b]/70"} bg-background px-4 py-2 text-base text-white placeholder:text-[#a3a3a3] outline-none focus:border-[#d8ffdf] focus:ring-2 focus:ring-[#3ae85a] focus:outline-none transition-colors`;
 
 type FieldProps = React.InputHTMLAttributes<HTMLInputElement> & { label: string; error?: string };
 
@@ -381,7 +380,7 @@ function TextareaField({ label, required, error, className, id, ...rest }: Texta
         aria-required={required || undefined}
         aria-invalid={!!error || undefined}
         aria-describedby={error ? errorId : undefined}
-        className={`w-full mt-2 min-h-24 resize-none rounded-2xl border-2 ${error ? "border-red-500" : "border-green-500"} bg-background px-4 py-2 text-base text-white placeholder:text-gray-400 outline-none focus:border-green-300 focus:ring-2 focus:ring-green-400 focus:outline-none transition-colors`}
+        className={`w-full mt-2 min-h-24 resize-none rounded-2xl border-2 ${error ? "border-red-500" : "border-[#30d94b]/70"} bg-background px-4 py-2 text-base text-white placeholder:text-[#a3a3a3] outline-none focus:border-[#d8ffdf] focus:ring-2 focus:ring-[#3ae85a] focus:outline-none transition-colors`}
       />
       {error && <ErrorText id={errorId}>{error}</ErrorText>}
     </div>

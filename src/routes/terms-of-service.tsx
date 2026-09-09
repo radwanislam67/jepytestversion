@@ -84,17 +84,15 @@ function TermsPage() {
         </div>
       </section>
 
-      <section className="relative pb-16 md:pb-20">
+      <section className="relative pb-16 md:pb-20 section-light">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div
             className="relative overflow-hidden rounded-[36px] border border-[var(--accent)]/30 p-10 md:p-20 text-center"
             style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(48, 217, 75,0.12), transparent 70%), #141414",
+              background: "#141414",
               boxShadow: "0 0 120px -20px rgba(48, 217, 75,0.35) inset",
             }}
           >
-            <div className="aurora opacity-60" />
             <div className="relative">
               <h2 className="font-display text-5xl md:text-7xl tracking-tighter">
                 Questions? <span className="text-[var(--accent)] text-glow">Let's talk.</span>

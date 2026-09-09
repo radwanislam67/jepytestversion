@@ -107,12 +107,13 @@ function Card({ r, index, visible }: { r: Review; index: number; visible: boolea
 }
 
 function SummaryPill() {
-  const avatars = ["#30d94b", "#B8FF6A", "#8a8a8a", "#F7F7F7"];
+  const avatars = ["#30d94b", "#d8ffdf", "#8a8a8a", "#F7F7F7"];
   return (
     <div
       className="group inline-flex items-center gap-3 transition-all duration-300 hover:shadow-[0_0_24px_rgba(48, 217, 75,0.35)]"
       style={{
-        background: "rgba(11,11,11,0.85)",
+        background:
+          "linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015))",
         border: "1px solid rgba(48, 217, 75,0.3)",
         borderRadius: 999,
         padding: "10px 24px",
@@ -168,9 +169,12 @@ export function Reviews() {
   }, []);
 
   return (
-    <section id="reviews" className="relative py-16 md:py-20 scroll-mt-24">
+    <section id="reviews" className="relative py-16 md:py-20 scroll-mt-24 section-light">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
+          <div className="mb-4 text-xs uppercase tracking-[0.3em] text-[var(--accent)] text-center">
+            CLIENT RESULTS
+          </div>
           <h2
             className="font-display text-5xl md:text-7xl tracking-tighter text-center"
             style={{ marginBottom: 32, color: "#fff" }}

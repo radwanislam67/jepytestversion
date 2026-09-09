@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Check } from "lucide-react";
+import { Check, Sparkles } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 
 const TIERS = [
@@ -56,10 +56,13 @@ const TIERS = [
 
 export function Pricing() {
   return (
-    <section id="pricing" className="relative py-16 md:py-20 scroll-mt-24">
+    <section id="pricing" className="relative py-16 md:py-20 scroll-mt-24 section-light">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="text-center mb-16">
           <Reveal>
+            <div className="mb-4 text-xs uppercase tracking-[0.3em] text-[var(--accent)] text-center">
+              INVESTMENT
+            </div>
             <h2 className="font-display text-5xl md:text-7xl tracking-tighter">
               <span className="text-[var(--accent)] text-glow">Pricing</span>
             </h2>
@@ -76,25 +79,36 @@ export function Pricing() {
                 className={`relative h-full rounded-3xl p-8 flex flex-col transition-all duration-200 ${
                   t.highlighted
                     ? "border-2 border-[var(--accent)] -translate-y-3 py-10"
-                    : "border border-white/10 hover:border-white/25"
+                    : "border border-white/10"
                 }`}
                 style={{
-                  background: t.highlighted
-                    ? "linear-gradient(180deg, rgba(48, 217, 75,0.06), rgba(11,11,11,0.8))"
-                    : "rgba(11,11,11,0.6)",
+                  background:
+                    "linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015))",
                   boxShadow: t.highlighted
-                    ? "0 0 60px -10px rgba(48, 217, 75,0.35)"
-                    : undefined,
+                    ? "inset 0 1px 0 rgba(255,255,255,.07), 0 30px 60px -30px rgba(0,0,0,.8), 0 0 60px -10px rgba(48, 217, 75,0.35)"
+                    : "inset 0 1px 0 rgba(255,255,255,.07), 0 30px 60px -30px rgba(0,0,0,.8)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = t.highlighted
-                    ? "0 0 60px -8px rgba(48, 217, 75,0.5)"
-                    : "0 0 28px -4px rgba(48, 217, 75,0.25)";
+                  if (t.highlighted) {
+                    e.currentTarget.style.boxShadow =
+                      "inset 0 1px 0 rgba(255,255,255,.07), 0 30px 60px -30px rgba(0,0,0,.8), 0 0 60px -8px rgba(48, 217, 75,0.5)";
+                  } else {
+                    e.currentTarget.style.transform = "translateY(-4px)";
+                    e.currentTarget.style.borderColor = "rgba(48,217,75,.35)";
+                    e.currentTarget.style.boxShadow =
+                      "inset 0 1px 0 rgba(255,255,255,.07), 0 30px 60px -30px rgba(0,0,0,.8), 0 0 28px -4px rgba(48,217,75,.25)";
+                  }
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = t.highlighted
-                    ? "0 0 60px -10px rgba(48, 217, 75,0.35)"
-                    : "";
+                  if (t.highlighted) {
+                    e.currentTarget.style.boxShadow =
+                      "inset 0 1px 0 rgba(255,255,255,.07), 0 30px 60px -30px rgba(0,0,0,.8), 0 0 60px -10px rgba(48, 217, 75,0.35)";
+                  } else {
+                    e.currentTarget.style.transform = "";
+                    e.currentTarget.style.borderColor = "";
+                    e.currentTarget.style.boxShadow =
+                      "inset 0 1px 0 rgba(255,255,255,.07), 0 30px 60px -30px rgba(0,0,0,.8)";
+                  }
                 }}
               >
                 {t.highlighted && (
@@ -133,53 +147,57 @@ export function Pricing() {
           ))}
         </div>
 
+        <p className="mt-8 text-center text-sm text-foreground/55">
+          Simple monthly plans — pause or cancel anytime. No lock-in.
+        </p>
+
         <Reveal delay={200}>
           <div
-            className="mt-20 py-10 flex flex-col items-center gap-6"
+            className="mx-auto mt-20"
             style={{
-              borderTop: "1px solid rgba(255,255,255,0.1)",
-              borderBottom: "1px solid rgba(255,255,255,0.1)",
+              maxWidth: "900px",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: "24px",
+              flexWrap: "wrap",
+              padding: "36px 44px",
+              background: "linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015))",
+              border: "1px solid rgba(255,255,255,.1)",
+              borderRadius: "28px",
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,.07), 0 30px 70px -30px rgba(0,0,0,.8), 0 0 80px -30px rgba(48,217,75,.4)",
             }}
-
           >
-            <span
-              className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]"
+            <Sparkles size={28} color="#30d94b" style={{ flexShrink: 0 }} />
+            <div className="flex-1 min-w-[240px] text-center">
+              <div className="font-display text-xl md:text-2xl tracking-tight text-white">
+                Smaller Budget? We Got You
+              </div>
+              <div className="mt-1 text-sm" style={{ color: "#a3a3a3" }}>
+                Start small. <span style={{ color: "#30d94b" }}>Look expensive.</span>
+              </div>
+            </div>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em] whitespace-nowrap transition-colors duration-200"
               style={{
-                background: "var(--accent)",
-                color: "var(--accent-foreground)",
-                animation: "budget-pulse 2.8s ease-in-out infinite",
+                border: "1px solid rgba(255,255,255,.18)",
+                color: "#ffffff",
+                background: "transparent",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "rgba(48,217,75,.5)";
+                e.currentTarget.style.color = "#30d94b";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "rgba(255,255,255,.18)";
+                e.currentTarget.style.color = "#ffffff";
               }}
             >
-              ✦ Smaller Budget? We Got You
-            </span>
-            <p className="font-display text-2xl md:text-3xl tracking-tight text-center flex flex-wrap items-center justify-center gap-x-3 gap-y-3">
-              <span className="text-white">Start small.</span>
-              <span className="text-[var(--accent)] text-glow">Look expensive.</span>
-              <span
-                aria-hidden
-                className="text-[var(--accent)] inline-block"
-                style={{ animation: "arrow-slide 1.6s ease-in-out infinite" }}
-              >
-                →
-              </span>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em] whitespace-nowrap transition-colors duration-200 align-middle"
-                style={{
-                  border: "1px solid var(--accent)",
-                  color: "var(--accent)",
-                  background: "transparent",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "color-mix(in oklab, var(--accent) 12%, transparent)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "transparent";
-                }}
-              >
-                Tell Yours
-              </Link>
-            </p>
+              Tell Yours
+            </Link>
           </div>
         </Reveal>
       </div>

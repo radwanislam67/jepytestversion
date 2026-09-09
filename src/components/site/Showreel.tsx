@@ -13,10 +13,18 @@ export function Showreel() {
   useEffect(() => {
     const box = boxRef.current;
     if (!box) return;
+    const reducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) {
+      box.style.opacity = "1";
+      box.style.transform = "translateY(0) scale(1)";
+      return;
+    }
     box.style.opacity = "0";
-    box.style.transform = "translateY(60px) scale(0.95)";
-    box.style.transition =
-      "opacity 0.8s cubic-bezier(.2,.8,.2,1), transform 0.8s cubic-bezier(.2,.8,.2,1)";
+    box.style.transform = "translateY(56px) scale(.94)";
+    box.style.transition = "opacity 0.9s ease, transform 1s cubic-bezier(.22,.9,.25,1)";
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -43,13 +51,18 @@ export function Showreel() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-background pt-16 md:pt-20 pb-0"
+      className="relative w-full pt-16 md:pt-20 pb-0 section-light"
       aria-label="Showreel"
     >
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div
           ref={boxRef}
           className="relative mx-auto w-full overflow-hidden will-change-transform aspect-video max-h-[50vh] md:max-h-[70vh] rounded-2xl"
+          style={{
+            border: "1px solid rgba(48,217,75,.22)",
+            boxShadow:
+              "0 0 90px -30px rgba(48,217,75,.5), inset 0 1px 0 rgba(255,255,255,.06)",
+          }}
         >
           <video
             ref={videoRef}

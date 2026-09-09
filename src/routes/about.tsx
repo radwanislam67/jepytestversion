@@ -607,10 +607,9 @@ function About() {
     <>
       {/* HERO */}
       <section
-        className="relative overflow-hidden"
+        className="relative overflow-hidden section-light"
         style={{ paddingTop: 120, paddingBottom: 48 }}
       >
-        <div className="aurora" />
         <div className="relative z-10 mx-auto px-5 md:px-8 text-center" style={{ maxWidth: 680 }}>
           <Reveal>
             <div
@@ -815,17 +814,15 @@ function About() {
       </section>
 
       {/* CTA */}
-      <section className="relative py-16 md:py-20">
+      <section className="relative py-16 md:py-20 section-light">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div
             className="relative overflow-hidden rounded-[36px] border border-[var(--accent)]/30 p-10 md:p-20 text-center"
             style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(48, 217, 75,0.12), transparent 70%), #141414",
+              background: "#141414",
               boxShadow: "0 0 120px -20px rgba(48, 217, 75,0.35) inset",
             }}
           >
-            <div className="aurora opacity-60" />
             <div className="relative">
               <Reveal>
                 <h2 className="font-display text-5xl md:text-7xl tracking-tighter">

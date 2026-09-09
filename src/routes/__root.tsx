@@ -109,7 +109,13 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="noise">
+      <body>
+        <div aria-hidden="true" className="site-glow">
+          <span className="glow g1" />
+          <span className="glow g2" />
+          <span className="glow g3" />
+          <span className="glow g4" />
+        </div>
         {children}
         <Scripts />
       </body>

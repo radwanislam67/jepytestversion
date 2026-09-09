@@ -68,7 +68,7 @@ export function Marquee() {
   return (
     <section
       ref={ref}
-      className="relative border-y border-white/5 pt-8 md:pt-12 pb-10 md:pb-12 marquee-pauseable"
+      className="relative pt-8 md:pt-12 pb-10 md:pb-12 marquee-pauseable section-light"
     >
       <div className="mx-auto max-w-7xl px-5 md:px-8 mb-6">
         <span className="text-[11px] uppercase tracking-[0.28em] text-white/40">
@@ -76,8 +76,8 @@ export function Marquee() {
         </span>
       </div>
       <Row items={ITEMS} active={inView} />
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[rgba(20,20,20,.8)] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[rgba(20,20,20,.8)] to-transparent" />
     </section>
   );
 }
