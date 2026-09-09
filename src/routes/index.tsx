@@ -64,27 +64,29 @@ function Hero() {
     <section className="relative min-h-[100svh] flex items-center overflow-hidden pt-36 md:pt-40 pb-12 md:pb-16">
       <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16">
         <div className="flex-1 min-w-0">
-          <h1 className="font-display text-[14vw] md:text-[10vw] leading-[0.92] tracking-[-0.04em]">
-            <Reveal>Your Content,&nbsp;</Reveal>
+          <h1 className="font-display font-semibold text-[clamp(2.75rem,11vw,3.75rem)] md:text-[clamp(3rem,6.5vw,6.75rem)] leading-[0.95] tracking-[-0.04em]">
+            <Reveal>Every Frame</Reveal>
             <Reveal delay={600} y={32}>
-              <span
-                className="text-glow"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(94deg, #ffffff 30%, #d8ffdf 55%, #30d94b 110%)",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  color: "transparent",
-                  textShadow: "0 0 34px rgba(48,217,75,.18)",
-                }}
-              >
-                Elevated.
+              <span>
+                Has A{" "}
+                <span
+                  className="text-glow"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(94deg, #ffffff 30%, #d8ffdf 55%, #30d94b 110%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    color: "transparent",
+                  }}
+                >
+                  Purpose.
+                </span>
               </span>
             </Reveal>
           </h1>
           <Reveal delay={260}>
             <p className="mt-8 max-w-xl text-base md:text-lg text-foreground/70 leading-relaxed break-words">
-              Raw footage to high-converting content for creators, brands, and SaaS teams worldwide.
+              Short-form, YouTube and brand content, edited with intentional pacing, sound and motion.
             </p>
           </Reveal>
           <Reveal delay={360}>

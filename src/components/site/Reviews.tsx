@@ -191,9 +191,6 @@ export function Reviews() {
     <section id="reviews" className="relative py-16 md:py-20 scroll-mt-24 section-light">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
-          <div className="mb-4 text-xs uppercase tracking-[0.3em] text-[var(--accent)] text-center">
-            CLIENT RESULTS
-          </div>
           <h2
             className="font-display text-5xl md:text-7xl tracking-tighter text-center"
             style={{ marginBottom: 32, color: "#fff" }}

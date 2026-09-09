@@ -376,27 +376,6 @@ function Timeline() {
   return (
     <section className="relative py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <Reveal>
-          <div
-            style={{
-              color: "#30d94b",
-              fontSize: 12,
-              letterSpacing: "0.18em",
-              marginBottom: 16,
-              textTransform: "uppercase",
-              fontWeight: 600,
-              textAlign: "center",
-            }}
-          >
-            Our Journey
-          </div>
-        </Reveal>
-        <Reveal delay={100}>
-          <h2 className="font-display text-5xl md:text-7xl tracking-tighter text-center mb-16">
-            Built <span className="text-[var(--accent)] text-glow">Over Time.</span>
-          </h2>
-        </Reveal>
-
         <div ref={ref}>
           {/* Desktop: horizontal */}
           <div className="hidden md:block relative" style={{ paddingTop: 110, paddingBottom: 20 }}>

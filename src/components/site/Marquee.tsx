@@ -21,7 +21,15 @@ const ITEMS: Item[] = [
 function Row({ items, active }: { items: Item[]; active: boolean }) {
   const seq = [...items, ...items];
   return (
-    <div className="relative overflow-hidden py-4 group">
+    <div
+      className="relative overflow-hidden py-4 group"
+      style={{
+        WebkitMaskImage:
+          "linear-gradient(90deg, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%)",
+        maskImage:
+          "linear-gradient(90deg, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%)",
+      }}
+    >
       <div
         className="flex items-center w-max will-change-transform"
         style={{
@@ -72,12 +80,10 @@ export function Marquee() {
     >
       <div className="mx-auto max-w-7xl px-5 md:px-8 mb-6">
         <span className="text-[11px] uppercase tracking-[0.28em] text-white/40">
-          <span style={{ color: "var(--accent)" }}>✦</span> Trusted by creators & teams worldwide
+          Trusted by creators and teams worldwide.
         </span>
       </div>
       <Row items={ITEMS} active={inView} />
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[rgba(20,20,20,.8)] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[rgba(20,20,20,.8)] to-transparent" />
     </section>
   );
 }

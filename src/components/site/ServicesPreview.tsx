@@ -16,9 +16,6 @@ export function ServicesPreview() {
     <section id="services" className="relative py-16 md:py-20 scroll-mt-24 section-light">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
-          <div className="mb-4 text-xs uppercase tracking-[0.3em] text-[var(--accent)] text-center">
-            OUR SERVICES
-          </div>
           <h2 className="font-display text-5xl md:text-7xl tracking-tighter text-center">
             What <span className="text-[var(--accent)] text-glow">We Do</span>
           </h2>

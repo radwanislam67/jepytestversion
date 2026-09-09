@@ -90,7 +90,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Jepy",
-          slogan: "Your Content, Elevated.",
+          slogan: "Every frame has a purpose.",
           description: "Premium cinematic post-production studio.",
         }),
       },

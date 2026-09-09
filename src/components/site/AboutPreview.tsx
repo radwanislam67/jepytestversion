@@ -87,18 +87,6 @@ export function AboutPreview() {
         <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
           <Reveal>
             <div className="text-left">
-              <div
-                style={{
-                  color: "#30d94b",
-                  fontSize: 12,
-                  letterSpacing: "0.18em",
-                  marginBottom: 20,
-                  textTransform: "uppercase",
-                  fontWeight: 600,
-                }}
-              >
-                Who We Are
-              </div>
               <h2 className="font-display text-4xl md:text-5xl lg:text-6xl tracking-tighter leading-[1.05] text-white">
                 The Obsessives <br />
                 <span className="text-[var(--accent)] text-glow">Behind Your Content</span>

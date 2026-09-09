@@ -60,9 +60,6 @@ export function Pricing() {
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="text-center mb-16">
           <Reveal>
-            <div className="mb-4 text-xs uppercase tracking-[0.3em] text-[var(--accent)] text-center">
-              INVESTMENT
-            </div>
             <h2 className="font-display text-5xl md:text-7xl tracking-tighter">
               <span className="text-[var(--accent)] text-glow">Pricing</span>
             </h2>
@@ -146,10 +143,6 @@ export function Pricing() {
             </Reveal>
           ))}
         </div>
-
-        <p className="mt-8 text-center text-sm text-foreground/55">
-          Simple monthly plans — pause or cancel anytime. No lock-in.
-        </p>
 
         <Reveal delay={200}>
           <div

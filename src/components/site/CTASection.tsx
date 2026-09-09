@@ -17,13 +17,13 @@ export function CTASection() {
           <div className="relative">
             <Reveal>
               <h2 className="font-display text-5xl md:text-7xl tracking-tighter">
-                Ready to Elevate <br />
-                <span className="text-[var(--accent)] text-glow">Your Content?</span>
+                Every frame has a <br />
+                <span className="text-[var(--accent)] text-glow">purpose.</span>
               </h2>
             </Reveal>
             <Reveal delay={120}>
               <p className="mt-6 text-foreground/70 max-w-xl mx-auto">
-                Let&apos;s build something worth watching.
+                Let&apos;s start with yours.
               </p>
             </Reveal>
             <Reveal delay={220}>
