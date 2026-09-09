@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { Play } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Reveal } from "@/components/site/Reveal";
 import { Stats } from "@/components/site/Stats";
 import { CTASection } from "@/components/site/CTASection";
+import { useProtectedVideo } from "@/hooks/useProtectedVideo";
+import { useInView } from "@/hooks/use-in-view";
+import { PROTECTED_VIDEO_PROPS } from "@/components/site/VideoWatermark";
 
 export const Route = createFileRoute("/work")({
   head: () => ({
@@ -18,15 +20,72 @@ export const Route = createFileRoute("/work")({
 });
 
 const ITEMS = [
-  { id: "w1", title: "Northwave — Brand Film", subtitle: "Cinematic brand story for a premium lifestyle label.", category: "Commercial" },
-  { id: "w2", title: "Lumen — Product Reel", subtitle: "High-energy product showcase with motion graphics.", category: "Motion Design" },
-  { id: "w3", title: "Octave — Creator Series", subtitle: "Long-form series edited for retention.", category: "Long Form" },
-  { id: "w4", title: "Strata — Shorts Sprint", subtitle: "Scroll-stopping short form content for social.", category: "Short Form" },
-  { id: "w5", title: "Halcyon — Launch Film", subtitle: "Product launch film built for maximum impact.", category: "Commercial" },
-  { id: "w6", title: "Pixelrun — Promo", subtitle: "Motion-led promo crafted for brand awareness.", category: "Motion Design" },
+  { id: "w1", title: "Property Film", subtitle: "A cinematic real estate film built to sell the space.", category: "Video Editing", afterKey: "After Aron.mp4" },
+  { id: "w2", title: "AI Video Generation Tutorial", subtitle: "Fast-paced tutorial on generating videos with AI.", category: "Motion Design", afterKey: "Car After.mp4" },
+  { id: "w3", title: "Finance Brand Film", subtitle: "Finance brand content cut for trust and retention.", category: "Commercial", afterKey: "Hadia After.mp4" },
+  { id: "w4", title: "AI Video Shorts", subtitle: "Short-form AI clips, cut to stop the scroll.", category: "Short Form", afterKey: "Cris Cordio.mp4" },
 ];
 
-const FILTERS = ["All", "Commercial", "Motion Design", "Long Form", "Short Form"] as const;
+const FILTERS = ["All", "Video Editing", "Motion Design", "Commercial", "Short Form"] as const;
+
+function WorkCard({ item }: { item: (typeof ITEMS)[number] }) {
+  const { videoRef, ready } = useProtectedVideo(item.afterKey);
+  const { ref: inViewRef, inView } = useInView<HTMLDivElement>({ threshold: 0.25 });
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (inView && ready) {
+      void v.play().catch(() => {});
+    } else {
+      v.pause();
+    }
+  }, [inView, ready, videoRef]);
+
+  return (
+    <div
+      ref={inViewRef}
+      className="group relative block w-full text-left overflow-hidden transition-all duration-200"
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015))",
+        border: "1px solid rgba(255,255,255,.1)",
+        borderRadius: "12px",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,.06), 0 30px 60px -30px rgba(0,0,0,.8)",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-3px)";
+        e.currentTarget.style.borderColor = "rgba(48,217,75,.3)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "";
+        e.currentTarget.style.borderColor = "rgba(255,255,255,.1)";
+      }}
+    >
+      <div
+        className="relative overflow-hidden"
+        style={{ aspectRatio: "9 / 16", background: "#0d0d0d", borderRadius: "10px" }}
+      >
+        <span className="absolute top-3 left-3 z-10 text-xs uppercase tracking-[0.15em] px-2 py-1 rounded-full border border-[rgba(48,217,75,.35)] text-[#d8ffdf] bg-[rgba(20,20,20,.55)] backdrop-blur-sm">
+          {item.category}
+        </span>
+        <video
+          ref={videoRef}
+          muted
+          loop
+          playsInline
+          className="h-full w-full object-cover"
+          {...PROTECTED_VIDEO_PROPS}
+        />
+      </div>
+      <div className="p-4">
+        <div className="text-base font-medium text-white">{item.title}</div>
+        <div className="text-sm text-[#a3a3a3] mt-1 line-clamp-1">{item.subtitle}</div>
+      </div>
+    </div>
+  );
+}
 
 function WorkPage() {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");
@@ -43,9 +102,6 @@ function WorkPage() {
             <h1 className="font-display text-6xl md:text-8xl tracking-tighter text-center">
               Our <span className="text-[var(--accent)] text-glow">Work</span>
             </h1>
-          </Reveal>
-          <Reveal delay={120}>
-            <p className="mt-5 text-foreground/70 text-lg text-center">Every frame tells a story.</p>
           </Reveal>
 
           <div className="mt-8">
@@ -77,37 +133,7 @@ function WorkPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {visible.map((w, i) => (
                 <Reveal key={w.id} delay={i * 80}>
-                  <div
-                    className="group relative block w-full text-left overflow-hidden transition-all duration-200"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015))",
-                      border: "1px solid rgba(255,255,255,.1)",
-                      borderRadius: "12px",
-                      boxShadow:
-                        "inset 0 1px 0 rgba(255,255,255,.06), 0 30px 60px -30px rgba(0,0,0,.8)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "translateY(-3px)";
-                      e.currentTarget.style.borderColor = "rgba(48,217,75,.3)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "";
-                      e.currentTarget.style.borderColor = "rgba(255,255,255,.1)";
-                    }}
-                  >
-                    <div className="relative aspect-video flex flex-col items-center justify-center gap-3">
-                      <span className="absolute top-3 left-3 z-10 text-xs uppercase tracking-[0.15em] px-2 py-1 rounded-full border border-[rgba(48,217,75,.35)] text-[#d8ffdf] bg-[rgba(20,20,20,.55)] backdrop-blur-sm">
-                        {w.category}
-                      </span>
-                      <Play size={36} style={{ color: "#30d94b" }} fill="#30d94b" />
-                      <div className="text-xs text-foreground/45">Video coming soon</div>
-                    </div>
-                    <div className="p-4">
-                      <div className="text-base font-medium text-white">{w.title}</div>
-                      <div className="text-sm text-[#a3a3a3] mt-1 line-clamp-1">{w.subtitle}</div>
-                    </div>
-                  </div>
+                  <WorkCard item={w} />
                 </Reveal>
               ))}
             </div>
@@ -116,8 +142,7 @@ function WorkPage() {
       </section>
       <Reveal delay={100}>
         <p className="text-center text-foreground/55 text-sm py-12">
-          <span className="text-[#30d94b] mr-2">✦</span>
-          Trusted by 50+ creators, brands and SaaS teams worldwide.
+          Trusted by creators and teams worldwide.
         </p>
       </Reveal>
       <CTASection />
