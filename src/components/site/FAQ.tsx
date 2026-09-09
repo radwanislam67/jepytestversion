@@ -1,11 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { useEffect, useState } from "react";
 import { Reveal } from "@/components/site/Reveal";
 
 const FAQS = [
@@ -16,7 +11,28 @@ const FAQS = [
   { q: "How do we get started?", a: "Click Get Started, fill out the brief, and we will reply within 24 hours." },
 ];
 
+const TYPE_MS = 700;
+
 export function FAQ() {
+  const [openIndex, setOpenIndex] = useState<number>(0);
+  const [typing, setTyping] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!typing) return;
+    const t = setTimeout(() => setTyping(false), TYPE_MS);
+    return () => clearTimeout(t);
+  }, [typing]);
+
+  const handleClick = (i: number) => {
+    if (openIndex === i) {
+      setOpenIndex(-1);
+      setTyping(false);
+    } else {
+      setOpenIndex(i);
+      setTyping(true);
+    }
+  };
+
   return (
     <section id="faq" className="relative py-16 md:py-20 scroll-mt-24 section-light">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
@@ -26,22 +42,47 @@ export function FAQ() {
           </h2>
         </Reveal>
         <Reveal delay={100}>
-          <Accordion type="single" collapsible className="w-full mt-8">
-            {FAQS.map((f, i) => (
-              <AccordionItem
-                key={i}
-                value={`item-${i}`}
-                className="border-b border-white/15 bg-white/[0.02] rounded-md px-4 mb-2 hover:bg-white/[0.04] transition-colors"
-              >
-                <AccordionTrigger className="text-left text-base md:text-lg py-5 text-foreground/90 hover:text-[var(--accent)] [&>svg]:text-foreground/60 [&>svg]:h-5 [&>svg]:w-5">
-                  {f.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-foreground/75 leading-relaxed">
-                  {f.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <div className="faqwrap">
+            {FAQS.map((f, i) => {
+              const isOpen = openIndex === i;
+              const id = `faq-a-${i}`;
+              return (
+                <div key={i} style={{ display: "contents" }}>
+                  <div className="faq-q-row">
+                    <button
+                      type="button"
+                      className="faq-q"
+                      aria-expanded={isOpen}
+                      aria-controls={id}
+                      onClick={() => handleClick(i)}
+                    >
+                      {f.q}
+                    </button>
+                  </div>
+                  <div
+                    id={id}
+                    role="region"
+                    data-open={isOpen ? "1" : "0"}
+                    className="fa"
+                  >
+                    <div>
+                      {typing && isOpen ? (
+                        <div className="faq-typing" aria-hidden="true">
+                          <span />
+                          <span />
+                          <span />
+                        </div>
+                      ) : (
+                        <div className="faq-a">
+                          <p>{f.a}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </Reveal>
 
         <Reveal delay={200}>

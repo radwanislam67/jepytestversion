@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Star, ChevronRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+import { useInView } from "@/hooks/use-in-view";
 
 type Review = {
   quote: string;
@@ -168,6 +169,24 @@ export function Reviews() {
     return () => io.disconnect();
   }, []);
 
+  const { ref: wallRef, inView } = useInView<HTMLDivElement>(
+    { threshold: 0.1, rootMargin: "100px" },
+    { once: true }
+  );
+
+  const [reduceMotion, setReduceMotion] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduceMotion(mql.matches);
+    const onChange = () => setReduceMotion(mql.matches);
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
+
+  const halfA = REVIEWS.slice(0, 3);
+  const halfB = REVIEWS.slice(3);
+
   return (
     <section id="reviews" className="relative py-16 md:py-20 scroll-mt-24 section-light">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
@@ -191,9 +210,38 @@ export function Reviews() {
           <SummaryPill />
         </div>
 
+        {/* Animated vertical scroll wall (desktop + motion-safe only, aria-hidden) */}
+        <div
+          ref={wallRef}
+          aria-hidden="true"
+          className="hidden motion-safe:lg:grid lg:grid-cols-2 gap-6 h-[520px]"
+        >
+          <div className="jepy-marquee group">
+            <div
+              className="jepy-marquee-track"
+              style={!inView ? { animationPlayState: "paused" } : undefined}
+            >
+              {[...halfA, ...halfA].map((r, i) => (
+                <Card key={`a-${i}`} r={r} index={i % 3} visible={true} />
+              ))}
+            </div>
+          </div>
+          <div className="jepy-marquee group">
+            <div
+              className="jepy-marquee-track jepy-marquee-track--reverse"
+              style={!inView ? { animationPlayState: "paused" } : undefined}
+            >
+              {[...halfB, ...halfB].map((r, i) => (
+                <Card key={`b-${i}`} r={r} index={i % 3} visible={true} />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Static grid (mobile/tablet + reduced-motion + accessible content on desktop) */}
         <div
           ref={ref}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 motion-safe:lg:sr-only items-stretch"
           style={{ gap: 24 }}
         >
           {REVIEWS.map((r, i) => (

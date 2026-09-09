@@ -22,9 +22,9 @@ const SLOT_STYLE: Record<Slot, React.CSSProperties> = {
 };
 
 const EXIT_STYLE: React.CSSProperties = {
-  transform: "translateX(0) translateY(-260px) scale(0.8) rotate(0deg)",
+  transform: "translateY(-36px) scale(0.9) rotate(0deg)",
   opacity: 0,
-  zIndex: 4,
+  zIndex: 1,
 };
 
 export function StackedWork() {
@@ -35,6 +35,7 @@ export function StackedWork() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const heroIndexRef = useRef(0);
   const rotationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const rotate = useCallback(() => {
     const exitingIndex = heroIndexRef.current;
@@ -53,10 +54,34 @@ export function StackedWork() {
 
   useEffect(() => {
     if (openIndex !== null) return;
-    const id = setInterval(rotate, 3500);
+    if (typeof window === "undefined") return;
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mql.matches) return;
+    const container = containerRef.current;
+    if (!container) return;
+    const paused = { current: false };
+    const onEnter = () => { paused.current = true; };
+    const onLeave = () => { paused.current = false; };
+    const onFocusIn = () => { paused.current = true; };
+    const onFocusOut = () => { paused.current = false; };
+    const onVis = () => { paused.current = document.hidden; };
+    container.addEventListener("mouseenter", onEnter);
+    container.addEventListener("mouseleave", onLeave);
+    container.addEventListener("focusin", onFocusIn);
+    container.addEventListener("focusout", onFocusOut);
+    document.addEventListener("visibilitychange", onVis);
+    const id = setInterval(() => {
+      if (paused.current) return;
+      rotate();
+    }, 3500);
     return () => {
       clearInterval(id);
       if (rotationTimeoutRef.current) clearTimeout(rotationTimeoutRef.current);
+      container.removeEventListener("mouseenter", onEnter);
+      container.removeEventListener("mouseleave", onLeave);
+      container.removeEventListener("focusin", onFocusIn);
+      container.removeEventListener("focusout", onFocusOut);
+      document.removeEventListener("visibilitychange", onVis);
     };
   }, [rotate, openIndex]);
 
@@ -79,6 +104,7 @@ export function StackedWork() {
         </Reveal>
 
         <div
+          ref={containerRef}
           className="mt-20 relative mx-auto"
           style={{ height: 430, maxWidth: 520, perspective: 1200 }}
         >
@@ -99,7 +125,7 @@ export function StackedWork() {
                   width: 220,
                   height: 370,
                   background: "#181a19",
-                  border: "1px solid #2a2a2a",
+                  border: "1px solid rgba(255,255,255,0.14)",
                   borderRadius: 18,
                   transition:
                     "transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s ease, border-color .25s ease",
@@ -144,7 +170,7 @@ export function StackedWork() {
                   <span className="block" style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>
                     {p.title}
                   </span>
-                  <span className="block mt-1" style={{ fontSize: 10, color: "#666" }}>
+                  <span className="block mt-1" style={{ fontSize: 10, color: "#a3a3a3" }}>
                     {p.desc}
                   </span>
                 </span>
@@ -162,7 +188,7 @@ export function StackedWork() {
                 width: 8,
                 height: 8,
                 borderRadius: 999,
-                background: order[1] === i ? "#30d94b" : "#333",
+                background: order[1] === i ? "#30d94b" : "rgba(255,255,255,0.2)",
                 transition: "background .3s ease",
               }}
             />
