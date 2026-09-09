@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { IpWatermark, PROTECTED_VIDEO_PROPS, VideoShield } from "@/components/site/VideoWatermark";
+import { useProtectedVideo } from "@/hooks/useProtectedVideo";
 import type { WorkProject } from "@/components/site/work-data";
 
 function fmt(t: number) {
@@ -34,6 +35,15 @@ const ctrlBtn: React.CSSProperties = {
   transition: "color .2s, border-color .2s",
 };
 
+const portraitFrameStyle: React.CSSProperties = {
+  aspectRatio: "9 / 16",
+  height: "min(62vh, 560px)",
+  width: "auto",
+  background: "#0d0d0d",
+  border: "1px solid #222",
+  borderRadius: 10,
+};
+
 export function BeforeAfterModal({
   project,
   onClose,
@@ -41,14 +51,27 @@ export function BeforeAfterModal({
   project: WorkProject;
   onClose: () => void;
 }) {
-  const beforeRef = useRef<HTMLVideoElement>(null);
-  const afterRef = useRef<HTMLVideoElement>(null);
+  const { videoRef: beforeRef, ready: beforeReady } = useProtectedVideo(project.beforeKey);
+  const { videoRef: afterRef, ready: afterReady } = useProtectedVideo(project.afterKey);
   const syncing = useRef(false);
   const [playing, setPlaying] = useState(true);
   const [muted, setMuted] = useState(true);
   const [hoverAfter, setHoverAfter] = useState(false);
   const [progress, setProgress] = useState(0);
   const [time, setTime] = useState({ cur: 0, dur: 0 });
+
+  // Readiness: when both videos are ready, reset to start and play both
+  useEffect(() => {
+    if (!beforeReady || !afterReady) return;
+    const b = beforeRef.current;
+    const a = afterRef.current;
+    if (!b || !a) return;
+    b.currentTime = 0;
+    a.currentTime = 0;
+    void b.play().catch(() => {});
+    void a.play().catch(() => {});
+    setPlaying(true);
+  }, [beforeReady, afterReady, beforeRef, afterRef]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -100,7 +123,7 @@ export function BeforeAfterModal({
       c1?.();
       c2?.();
     };
-  }, []);
+  }, [beforeReady, afterReady]);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -195,20 +218,17 @@ export function BeforeAfterModal({
           </button>
         </div>
 
-        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2" style={{ gap: 12 }}>
+        <div
+          className="mt-5 grid grid-cols-1 sm:grid-cols-2 justify-items-center"
+          style={{ gap: 12 }}
+        >
           <div>
             <div
-              className="relative aspect-video"
-              style={{
-                background: "#0d0d0d",
-                border: "1px solid #222",
-                borderRadius: 10,
-                overflow: "hidden",
-              }}
+              className="relative overflow-hidden"
+              style={portraitFrameStyle}
             >
               <video
                 ref={beforeRef}
-                src={project.beforeUrl}
                 autoPlay
                 muted
                 loop
@@ -235,19 +255,13 @@ export function BeforeAfterModal({
 
           <div>
             <div
-              className="relative aspect-video"
+              className="relative overflow-hidden"
               onMouseEnter={() => setHoverAfter(true)}
               onMouseLeave={() => setHoverAfter(false)}
-              style={{
-                background: "#0d0d0d",
-                border: "1px solid #222",
-                borderRadius: 10,
-                overflow: "hidden",
-              }}
+              style={portraitFrameStyle}
             >
               <video
                 ref={afterRef}
-                src={project.afterUrl}
                 autoPlay
                 muted
                 loop

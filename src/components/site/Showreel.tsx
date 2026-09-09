@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import { IpWatermark, PROTECTED_VIDEO_PROPS, VideoShield } from "@/components/site/VideoWatermark";
-
-export const SHOWREEL_SRC = "https://www.w3schools.com/html/mov_bbb.mp4";
+import { useProtectedVideo } from "@/hooks/useProtectedVideo";
 
 export function Showreel() {
   const sectionRef = useRef<HTMLElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const { videoRef, ready } = useProtectedVideo("Showreel.mp4");
   const [muted, setMuted] = useState(true);
 
   useEffect(() => {
@@ -66,12 +65,12 @@ export function Showreel() {
         >
           <video
             ref={videoRef}
-            src={SHOWREEL_SRC}
             autoPlay
             muted
             loop
             playsInline
             className="h-full w-full object-cover"
+            style={{ opacity: ready ? 1 : 0 }}
             {...PROTECTED_VIDEO_PROPS}
           />
           <VideoShield />
