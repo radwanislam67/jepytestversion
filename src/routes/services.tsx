@@ -103,7 +103,7 @@ function usePrefersReducedMotion(): boolean {
 }
 
 function ServiceVideoFrame({ videoKey, inView, label }: { videoKey: string; inView: boolean; label?: string }) {
-  const { videoRef, ready } = useProtectedVideo(videoKey);
+  const { videoRef, ready, poster } = useProtectedVideo(videoKey);
   const reducedMotion = usePrefersReducedMotion();
   const shouldPlay = inView && ready && !reducedMotion;
 
@@ -119,8 +119,8 @@ function ServiceVideoFrame({ videoKey, inView, label }: { videoKey: string; inVi
 
   return (
     <div
-      className="relative w-full h-full overflow-hidden"
-      style={{ aspectRatio: "9/16", height: 220, borderRadius: 10, background: "#0d0d0d" }}
+      className="relative w-full overflow-hidden"
+      style={{ aspectRatio: "9/16", borderRadius: 10, background: "#0d0d0d" }}
     >
       {!ready && <VideoSkeleton className="absolute inset-0" />}
       <video
@@ -129,6 +129,7 @@ function ServiceVideoFrame({ videoKey, inView, label }: { videoKey: string; inVi
         loop
         playsInline
         preload="none"
+        poster={poster}
         className="h-full w-full object-cover"
         style={{ opacity: ready ? 1 : 0, transition: "opacity 250ms ease" }}
       />
@@ -357,10 +358,8 @@ function ServiceCard({ s, i, wide }: { s: Service; i: number; wide: boolean }) {
       {!wide && afterKey && (
         <div className="mt-auto pt-4">
           <ExpandControl open={open} onToggle={() => setOpen((v) => !v)}>
-            <div className="pt-3 grid grid-cols-3 gap-3">
-              {[0, 1, 2].map((k) => (
-                <ServiceVideoFrame key={k} videoKey={afterKey} inView={open} label={s.title} />
-              ))}
+            <div className="pt-3 max-w-[220px]">
+              <ServiceVideoFrame videoKey={afterKey} inView={open} label={s.title} />
             </div>
             <div className="pt-3 text-right">
               <Link

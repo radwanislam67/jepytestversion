@@ -13,7 +13,7 @@ export const WORK_PROJECTS: WorkProject[] = [
     title: "Property Film",
     tag: "VIDEO EDITING",
     desc: "A cinematic real estate film built to sell the space.",
-    beforeKey: "aron before.mp4",
+    beforeKey: "Aron Before.mp4",
     afterKey: "After Aron.mp4",
   },
   {

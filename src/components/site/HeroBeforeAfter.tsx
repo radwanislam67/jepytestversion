@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useProtectedVideo } from "@/hooks/useProtectedVideo";
-import { VideoSkeleton } from "@/components/site/VideoSkeleton";
+import { useAudioBus } from "@/lib/audioBus";
 
 const mono = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
@@ -91,9 +91,10 @@ function VideoWatermark({ enabled = true }: { enabled?: boolean }) {
 }
 
 export function HeroBeforeAfter() {
-  const { videoRef: beforeVideoRef, ready: beforeReady, progress: beforeProgress } = useProtectedVideo("Before.mp4");
-  const { videoRef: afterVideoRef, ready: afterReady, progress: afterProgress } = useProtectedVideo("After.mp4");
+  const { videoRef: beforeVideoRef, ready: beforeReady } = useProtectedVideo("Before.mp4");
+  const { videoRef: afterVideoRef, ready: afterReady } = useProtectedVideo("After.mp4");
   const [afterMuted, setAfterMuted] = useState(true);
+  const audio = useAudioBus(afterVideoRef, () => setAfterMuted(true));
 
   useEffect(() => {
     if (!beforeReady || !afterReady) return;
@@ -131,12 +132,21 @@ export function HeroBeforeAfter() {
     <div className="hero-ba">
       {/* BEFORE card */}
       <div className="hero-ba-before">
-        {!beforeReady && <VideoSkeleton progress={beforeProgress} />}
+        {!beforeReady && (
+          <img
+            src="/video-posters/before.webp"
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        )}
         <video
           ref={beforeVideoRef}
           muted
           loop
           playsInline
+          preload="auto"
+          poster="/video-posters/before.webp"
           className="relative z-[2] h-full w-full object-cover"
           style={{ opacity: beforeReady ? 1 : 0, transition: "opacity 250ms ease" }}
           {...protectedVideoProps}
@@ -146,12 +156,21 @@ export function HeroBeforeAfter() {
 
       {/* AFTER card */}
       <div className="hero-ba-after group">
-        {!afterReady && <VideoSkeleton progress={afterProgress} />}
+        {!afterReady && (
+          <img
+            src="/video-posters/after.webp"
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        )}
         <video
           ref={afterVideoRef}
           muted
           loop
           playsInline
+          preload="auto"
+          poster="/video-posters/after.webp"
           className="relative z-[2] h-full w-full object-cover"
           style={{ opacity: afterReady ? 1 : 0, transition: "opacity 250ms ease" }}
           {...protectedVideoProps}
@@ -160,9 +179,19 @@ export function HeroBeforeAfter() {
         <button
           type="button"
           onClick={() => {
-            if (afterVideoRef.current) {
-              afterVideoRef.current.muted = !afterVideoRef.current.muted;
-              setAfterMuted(afterVideoRef.current.muted);
+            const v = afterVideoRef.current;
+            if (!v) return;
+            const next = !v.muted;
+            v.muted = next;
+            setAfterMuted(next);
+            if (next) audio.release();
+            else audio.claim();
+            // Unmuting restarts the pair so the audio is heard from the top.
+            if (!next) {
+              const b = beforeVideoRef.current;
+              if (b) b.currentTime = 0;
+              v.currentTime = 0;
+              void v.play().catch(() => {});
             }
           }}
           aria-label={afterMuted ? "Unmute after video" : "Mute after video"}

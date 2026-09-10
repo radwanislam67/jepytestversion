@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import { IpWatermark, PROTECTED_VIDEO_PROPS, VideoShield } from "@/components/site/VideoWatermark";
 import { VideoSkeleton } from "@/components/site/VideoSkeleton";
 import { useProtectedVideo, warmVideos } from "@/hooks/useProtectedVideo";
+import { useAudioBus } from "@/lib/audioBus";
 import type { WorkProject } from "@/components/site/work-data";
 
 function fmt(t: number) {
@@ -56,6 +57,7 @@ export function BeforeAfterModal({
   const { videoRef: afterRef, ready: afterReady, progress: afterProgress } = useProtectedVideo(project.afterKey);
   const [playing, setPlaying] = useState(true);
   const [muted, setMuted] = useState(true);
+  const audio = useAudioBus(afterRef, () => setMuted(true));
   const [hoverAfter, setHoverAfter] = useState(false);
   const [progress, setProgress] = useState(0);
   const [time, setTime] = useState({ cur: 0, dur: 0 });
@@ -186,8 +188,11 @@ export function BeforeAfterModal({
   const toggleMute = () => {
     const a = afterRef.current;
     if (!a) return;
-    a.muted = !a.muted;
-    setMuted(a.muted);
+    const next = !a.muted;
+    a.muted = next;
+    setMuted(next);
+    if (next) audio.release();
+    else audio.claim();
   };
 
   return (

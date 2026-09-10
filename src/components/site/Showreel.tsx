@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import { IpWatermark, PROTECTED_VIDEO_PROPS, VideoShield } from "@/components/site/VideoWatermark";
-import { VideoSkeleton } from "@/components/site/VideoSkeleton";
 import { useProtectedVideo } from "@/hooks/useProtectedVideo";
+import { useAudioBus } from "@/lib/audioBus";
 
 export function Showreel() {
   const sectionRef = useRef<HTMLElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
-  const { videoRef, ready, progress } = useProtectedVideo("Showreel.mp4");
+  const { videoRef, ready } = useProtectedVideo("Showreel.mp4");
   const [muted, setMuted] = useState(true);
+  const audio = useAudioBus(videoRef, () => setMuted(true));
   useEffect(() => {
     const v = videoRef.current;
     if (!ready || !v) return;
@@ -50,8 +51,16 @@ export function Showreel() {
   const toggleMute = () => {
     const v = videoRef.current;
     if (!v) return;
-    v.muted = !v.muted;
-    setMuted(v.muted);
+    const next = !v.muted;
+    v.muted = next;
+    setMuted(next);
+    if (next) audio.release();
+    else audio.claim();
+    // Unmuting restarts the reel so the sound is heard from the top.
+    if (!next) {
+      v.currentTime = 0;
+      void v.play().catch(() => {});
+    }
   };
 
   return (
@@ -63,22 +72,27 @@ export function Showreel() {
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div
           ref={boxRef}
-          className="relative mx-auto w-full overflow-hidden will-change-transform aspect-video max-h-[50vh] md:max-h-[70vh] rounded-2xl"
+          className="relative mx-auto w-full overflow-hidden will-change-transform aspect-video rounded-2xl"
           style={{
             border: "1px solid rgba(48,217,75,.22)",
             boxShadow:
               "0 0 90px -30px rgba(48,217,75,.5), inset 0 1px 0 rgba(255,255,255,.06)",
           }}
         >
-          {!ready && <VideoSkeleton progress={progress} />}
           <video
             ref={videoRef}
             autoPlay
             muted
             loop
             playsInline
-            className="h-full w-full object-cover"
-            style={{ opacity: ready ? 1 : 0, transition: "opacity 250ms ease" }}
+            preload="auto"
+            poster="/video-posters/showreel.webp"
+            className="h-full w-full object-cover will-change-transform"
+            style={{
+              opacity: ready ? 1 : 0,
+              transform: ready ? "scale(1)" : "scale(1.06)",
+              transition: "opacity 400ms ease, transform 1.6s cubic-bezier(.22,1,.36,1)",
+            }}
             {...PROTECTED_VIDEO_PROPS}
           />
           <VideoShield />
