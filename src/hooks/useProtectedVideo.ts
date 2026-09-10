@@ -80,18 +80,8 @@ async function processKey(
   } catch {
     buf = await fetchScrambled(key, onProgress);
   }
-  const src = new Uint8Array(buf);
-  // Descramble in chunks with yielding so the main thread stays responsive
-  const CHUNK = 2 * 1024 * 1024;
-  const out = new Uint8Array(src.length);
-  for (let i = 0; i < src.length; i += CHUNK) {
-    const end = Math.min(i + CHUNK, src.length);
-    for (let j = i; j < end; j++) {
-      out[j] = src[j] ^ XOR_KEY[j % XOR_KEY.length];
-    }
-    if (end < src.length) await yieldToMain();
-  }
-  return out;
+  // The CDN no longer XORs the bytes and R2 holds plain mp4 files, so no descrambling is needed.
+  return new Uint8Array(buf);
 }
 
 function enqueueFetch(key: string): CachedEntry {
