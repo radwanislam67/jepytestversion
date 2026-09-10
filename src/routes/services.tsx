@@ -186,7 +186,7 @@ function ExpandControl({ open, onToggle, children }: { open: boolean; onToggle: 
       <div
         className="overflow-hidden"
         style={{
-          maxHeight: open ? 260 : 0,
+          maxHeight: open ? 460 : 0,
           opacity: open ? 1 : 0,
           transition: "max-height 350ms cubic-bezier(.22,1,.36,1), opacity 350ms ease",
         }}

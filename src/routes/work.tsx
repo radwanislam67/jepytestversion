@@ -111,7 +111,17 @@ function WorkCard({
  * loops. Controls are unmute / replay / pause, and closing returns to the card the
  * viewer came from.
  */
-function VideoLightbox({
+function VideoLightbox(props: { item: (typeof ITEMS)[number]; onClose: () => void }) {
+  // The portal target, and therefore the <video>, only exists on the client. Mount the
+  // stage in a second pass so the video element is in the tree before the hook's effect
+  // runs — otherwise the ref is still null and no source is ever attached.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+  return <LightboxStage {...props} />;
+}
+
+function LightboxStage({
   item,
   onClose,
 }: {
@@ -119,7 +129,6 @@ function VideoLightbox({
   onClose: () => void;
 }) {
   const { videoRef, ready, poster } = useProtectedVideo(item.afterKey);
-  const [mounted, setMounted] = useState(false);
   const [entered, setEntered] = useState(false);
   const [muted, setMuted] = useState(true);
   const [paused, setPaused] = useState(false);
@@ -132,9 +141,7 @@ function VideoLightbox({
     window.setTimeout(onClose, 220);
   }, [onClose]);
 
-  // Portal target is only available on the client.
   useEffect(() => {
-    setMounted(true);
     const raf = requestAnimationFrame(() => setEntered(true));
     return () => cancelAnimationFrame(raf);
   }, []);
@@ -156,10 +163,8 @@ function VideoLightbox({
     return () => window.removeEventListener("keydown", onKey);
   }, [requestClose]);
 
-  // Keep the element in sync with the controls. Depends on `mounted` because the
-  // <video> only exists in the DOM once the portal has been created.
+  // Keep the element in sync with the controls.
   useEffect(() => {
-    if (!mounted) return;
     const v = videoRef.current;
     if (!v) return;
     v.muted = muted;
@@ -168,9 +173,7 @@ function VideoLightbox({
     } else {
       void v.play().catch(() => {});
     }
-  }, [mounted, ready, muted, paused, videoRef]);
-
-  if (!mounted) return null;
+  }, [ready, muted, paused, videoRef]);
 
   const replay = () => {
     const v = videoRef.current;
