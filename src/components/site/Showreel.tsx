@@ -9,7 +9,22 @@ export function Showreel() {
   const boxRef = useRef<HTMLDivElement>(null);
   const { videoRef, ready } = useProtectedVideo("Showreel.mp4");
   const [muted, setMuted] = useState(true);
+  const [boxRatio, setBoxRatio] = useState<string | null>(null);
   const audio = useAudioBus(videoRef, () => setMuted(true));
+
+  // Showreel.mp4 carries a non-square pixel aspect ratio (833:960), so its coded
+  // 1280x720 is not its shape on screen. Size the box from the element itself so
+  // nothing is ever cropped.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const sync = () => {
+      if (v.videoWidth && v.videoHeight) setBoxRatio(`${v.videoWidth} / ${v.videoHeight}`);
+    };
+    sync();
+    v.addEventListener("loadedmetadata", sync);
+    return () => v.removeEventListener("loadedmetadata", sync);
+  }, [videoRef]);
   useEffect(() => {
     const v = videoRef.current;
     if (!ready || !v) return;
@@ -74,6 +89,7 @@ export function Showreel() {
           ref={boxRef}
           className="relative mx-auto w-full overflow-hidden will-change-transform aspect-video rounded-2xl"
           style={{
+            aspectRatio: boxRatio ?? undefined,
             border: "1px solid rgba(48,217,75,.22)",
             boxShadow:
               "0 0 90px -30px rgba(48,217,75,.5), inset 0 1px 0 rgba(255,255,255,.06)",

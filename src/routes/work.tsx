@@ -30,19 +30,6 @@ const ITEMS = [
 const FILTERS = ["All", "Video Editing", "Motion Design", "Commercial", "Short Form"] as const;
 
 /** Hover-to-preview only makes sense on a real pointer; touch devices jump straight to the lightbox. */
-function useCanHover() {
-  const [canHover, setCanHover] = useState(false);
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.matchMedia) return;
-    const mql = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const update = () => setCanHover(mql.matches);
-    update();
-    mql.addEventListener("change", update);
-    return () => mql.removeEventListener("change", update);
-  }, []);
-  return canHover;
-}
-
 function WorkCard({
   item,
   onOpen,
@@ -51,7 +38,6 @@ function WorkCard({
   onOpen: (item: (typeof ITEMS)[number]) => void;
 }) {
   const { videoRef, ready, poster } = useProtectedVideo(item.afterKey);
-  const canHover = useCanHover();
   const [hovered, setHovered] = useState(false);
 
   // Everything stays paused until the pointer is over the card. Hover is a quiet,
@@ -59,13 +45,13 @@ function WorkCard({
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    if (hovered && canHover) {
+    if (hovered) {
       v.muted = true;
       void v.play().catch(() => {});
     } else {
       v.pause();
     }
-  }, [hovered, canHover, videoRef]);
+  }, [hovered, videoRef]);
 
   return (
     <div
@@ -105,8 +91,7 @@ function WorkCard({
         {/* Play affordance — hidden while the hover preview is rolling */}
         <span
           aria-hidden
-          className="absolute inset-0 z-[5] flex items-center justify-center transition-opacity duration-200"
-          style={{ opacity: hovered && canHover ? 0 : 1 }}
+          className="absolute inset-0 z-[5] flex items-center justify-center opacity-100 transition-opacity duration-200 group-hover:opacity-0"
         >
           <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-md ring-1 ring-white/20 transition-transform duration-200 group-hover:scale-105">
             <Play size={22} />
@@ -144,13 +129,8 @@ function VideoLightbox({
     if (closing.current) return;
     closing.current = true;
     setEntered(false);
-    window.setTimeout(() => {
-      onClose();
-      document
-        .getElementById(`work-card-${item.id}`)
-        ?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 220);
-  }, [item.id, onClose]);
+    window.setTimeout(onClose, 220);
+  }, [onClose]);
 
   // Portal target is only available on the client.
   useEffect(() => {
@@ -176,8 +156,10 @@ function VideoLightbox({
     return () => window.removeEventListener("keydown", onKey);
   }, [requestClose]);
 
-  // Keep the element in sync with the three controls.
+  // Keep the element in sync with the controls. Depends on `mounted` because the
+  // <video> only exists in the DOM once the portal has been created.
   useEffect(() => {
+    if (!mounted) return;
     const v = videoRef.current;
     if (!v) return;
     v.muted = muted;
@@ -186,7 +168,7 @@ function VideoLightbox({
     } else {
       void v.play().catch(() => {});
     }
-  }, [ready, muted, paused, videoRef]);
+  }, [mounted, ready, muted, paused, videoRef]);
 
   if (!mounted) return null;
 
@@ -287,6 +269,19 @@ function VideoLightbox({
 function WorkPage() {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");
   const [active, setActive] = useState<(typeof ITEMS)[number] | null>(null);
+  const scrollRef = useRef(0);
+
+  const openVideo = useCallback((item: (typeof ITEMS)[number]) => {
+    scrollRef.current = window.scrollY;
+    setActive(item);
+  }, []);
+
+  // Put the page back exactly where it was so the viewer lands on the same card.
+  const closeVideo = useCallback(() => {
+    setActive(null);
+    requestAnimationFrame(() => window.scrollTo({ top: scrollRef.current, behavior: "auto" }));
+  }, []);
+
   const visible = useMemo(
     () => (filter === "All" ? ITEMS : ITEMS.filter((i) => i.category === filter)),
     [filter],
@@ -331,7 +326,7 @@ function WorkPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {visible.map((w, i) => (
                 <Reveal key={w.id} delay={i * 80}>
-                  <WorkCard item={w} onOpen={setActive} />
+                  <WorkCard item={w} onOpen={openVideo} />
                 </Reveal>
               ))}
             </div>
@@ -345,7 +340,7 @@ function WorkPage() {
       </Reveal>
       <CTASection />
 
-      {active && <VideoLightbox item={active} onClose={() => setActive(null)} />}
+      {active && <VideoLightbox item={active} onClose={closeVideo} />}
     </>
   );
 }
