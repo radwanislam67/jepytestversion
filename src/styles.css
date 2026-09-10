@@ -583,8 +583,8 @@ input[type="date"].date-input-custom {
 
 /* Vertical scroll wall (Reviews) */
 @keyframes jepy-scroll-y {
-  from { transform: translateY(0); }
-  to { transform: translateY(-50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(0, -50%, 0); }
 }
 .jepy-marquee {
   position: relative;
@@ -606,6 +606,11 @@ input[type="date"].date-input-custom {
 .jepy-marquee:hover .jepy-marquee-track,
 .jepy-marquee:focus-within .jepy-marquee-track {
   animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .jepy-marquee-track {
+    animation-play-state: paused;
+  }
 }
 
 /* FAQ chat layout */
@@ -692,4 +697,36 @@ input[type="date"].date-input-custom {
 @keyframes faq-typing-fade {
   0%, 100% { opacity: 0.25; }
   50%      { opacity: 1; }
+}
+
+/* Video skeleton */
+.jepy-skeleton {
+  position: absolute;
+  inset: 0;
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+.jepy-skeleton-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: jepy-skeleton-shine 1.6s ease-in-out infinite;
+}
+@keyframes jepy-skeleton-shine {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .jepy-skeleton-shimmer {
+    animation: none;
+  }
 }

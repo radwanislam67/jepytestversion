@@ -64,7 +64,7 @@ function Hero() {
     <section className="relative min-h-[100svh] flex items-center overflow-hidden pt-36 md:pt-40 pb-12 md:pb-16">
       <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16">
         <div className="flex-1 min-w-0">
-          <h1 className="font-display font-semibold text-[clamp(2.75rem,11vw,3.75rem)] md:text-[clamp(3rem,6.5vw,6.75rem)] leading-[0.95] tracking-[-0.04em]">
+          <h1 className="font-display font-semibold text-[clamp(2.75rem,11vw,3.75rem)] md:text-[clamp(3rem,5vw,5.5rem)] xl:text-[clamp(5.5rem,8vw,7.5rem)] leading-[0.95] tracking-[-0.04em]">
             <Reveal>Every Frame</Reveal>
             <Reveal delay={600} y={32}>
               <span>

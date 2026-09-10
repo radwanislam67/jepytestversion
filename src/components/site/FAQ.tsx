@@ -84,19 +84,6 @@ export function FAQ() {
             })}
           </div>
         </Reveal>
-
-        <Reveal delay={200}>
-          <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
-            <span className="text-foreground/70">Still have questions?</span>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em]"
-              style={{ background: "var(--accent)", color: "var(--accent-foreground)" }}
-            >
-              Let&rsquo;s Talk <ArrowUpRight size={16} />
-            </Link>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

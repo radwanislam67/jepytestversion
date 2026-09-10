@@ -17,14 +17,9 @@ export function CTASection() {
           <div className="relative">
             <Reveal>
               <h2 className="font-display text-5xl md:text-7xl tracking-tighter">
-                Every frame has a <br />
-                <span className="text-[var(--accent)] text-glow">purpose.</span>
+                Still have a question? <br />
+                <span className="text-[var(--accent)] text-glow">Let's talk.</span>
               </h2>
-            </Reveal>
-            <Reveal delay={120}>
-              <p className="mt-6 text-foreground/70 max-w-xl mx-auto">
-                Let&apos;s start with yours.
-              </p>
             </Reveal>
             <Reveal delay={220}>
               <div className="mt-10">

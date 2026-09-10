@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Volume2, VolumeX } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { Stats } from "@/components/site/Stats";
 import { CTASection } from "@/components/site/CTASection";
@@ -31,6 +32,7 @@ const FILTERS = ["All", "Video Editing", "Motion Design", "Commercial", "Short F
 function WorkCard({ item }: { item: (typeof ITEMS)[number] }) {
   const { videoRef, ready } = useProtectedVideo(item.afterKey);
   const { ref: inViewRef, inView } = useInView<HTMLDivElement>({ threshold: 0.25 });
+  const [muted, setMuted] = useState(true);
 
   useEffect(() => {
     const v = videoRef.current;
@@ -41,6 +43,13 @@ function WorkCard({ item }: { item: (typeof ITEMS)[number] }) {
       v.pause();
     }
   }, [inView, ready, videoRef]);
+
+  const toggleMute = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setMuted(v.muted);
+  };
 
   return (
     <div
@@ -72,12 +81,21 @@ function WorkCard({ item }: { item: (typeof ITEMS)[number] }) {
         </span>
         <video
           ref={videoRef}
-          muted
+          muted={muted}
           loop
           playsInline
           className="h-full w-full object-cover"
           {...PROTECTED_VIDEO_PROPS}
         />
+        <button
+          type="button"
+          onClick={toggleMute}
+          aria-label={muted ? "Unmute video" : "Mute video"}
+          aria-pressed={!muted}
+          className="absolute bottom-3 right-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-md ring-1 ring-white/15 hover:bg-black/70 transition"
+        >
+          {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+        </button>
       </div>
       <div className="p-4">
         <div className="text-base font-medium text-white">{item.title}</div>

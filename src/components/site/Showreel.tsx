@@ -1,13 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import { IpWatermark, PROTECTED_VIDEO_PROPS, VideoShield } from "@/components/site/VideoWatermark";
+import { VideoSkeleton } from "@/components/site/VideoSkeleton";
 import { useProtectedVideo } from "@/hooks/useProtectedVideo";
 
 export function Showreel() {
   const sectionRef = useRef<HTMLElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
-  const { videoRef, ready } = useProtectedVideo("Showreel.mp4");
+  const { videoRef, ready, progress } = useProtectedVideo("Showreel.mp4");
   const [muted, setMuted] = useState(true);
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!ready || !v) return;
+    v.muted = muted;
+    void v.play().catch(() => {});
+  }, [ready, muted]);
 
   useEffect(() => {
     const box = boxRef.current;
@@ -63,6 +70,7 @@ export function Showreel() {
               "0 0 90px -30px rgba(48,217,75,.5), inset 0 1px 0 rgba(255,255,255,.06)",
           }}
         >
+          {!ready && <VideoSkeleton progress={progress} />}
           <video
             ref={videoRef}
             autoPlay
@@ -70,7 +78,7 @@ export function Showreel() {
             loop
             playsInline
             className="h-full w-full object-cover"
-            style={{ opacity: ready ? 1 : 0 }}
+            style={{ opacity: ready ? 1 : 0, transition: "opacity 250ms ease" }}
             {...PROTECTED_VIDEO_PROPS}
           />
           <VideoShield />

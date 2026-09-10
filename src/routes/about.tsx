@@ -374,17 +374,17 @@ function Timeline() {
   const verticalProgress = `linear-gradient(180deg, #4b5563 0%, #4b5563 ${prevPct}%, #30d94b ${currentPct}%, #30d94b 100%)`;
 
   return (
-    <section className="relative py-16 md:py-20">
+    <section className="relative pt-2 md:pt-4 pb-10 md:pb-12">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div ref={ref}>
           {/* Desktop: horizontal */}
-          <div className="hidden md:block relative" style={{ paddingTop: 110, paddingBottom: 20 }}>
+          <div className="hidden md:block relative" style={{ paddingTop: 56, paddingBottom: 4, maxWidth: 1080, margin: "0 auto" }}>
             <div
               style={{
                 position: "absolute",
                 left: 0,
                 right: 0,
-                top: 110,
+                top: 56,
 
                 height: 2,
                 background: "rgba(255,255,255,0.08)",
@@ -394,7 +394,7 @@ function Timeline() {
               style={{
                 position: "absolute",
                 left: 0,
-                top: 110,
+                top: 56,
                 height: 2,
                 width: "100%",
                 background: horizontalProgress,
@@ -418,7 +418,7 @@ function Timeline() {
                           opacity: active ? 1 : 0,
                           transform: active ? "translateY(0)" : "translateY(6px)",
                           transition: `opacity 400ms ease ${dotDelay}ms, transform 400ms ease ${dotDelay}ms`,
-                          marginBottom: 14,
+                          marginBottom: 8,
                           background: "#30d94b",
                           color: "#141414",
                           boxShadow: "0 0 14px rgba(48, 217, 75,0.55)",
@@ -448,7 +448,7 @@ function Timeline() {
                     />
                     <div
                       style={{
-                        marginTop: isCurrent ? 22 : 18,
+                        marginTop: isCurrent ? 12 : 10,
                         opacity: active ? 1 : 0,
                         transform: active ? "translateY(0)" : "translateY(10px)",
                         transition: `opacity 500ms ease ${textDelay}ms, transform 500ms ease ${textDelay}ms`,
@@ -467,9 +467,9 @@ function Timeline() {
                       </div>
                       <div
                         className={
-                          isCurrent
+                          (isCurrent
                             ? "text-base text-white font-medium mt-2 leading-relaxed"
-                            : "text-sm text-foreground/70 mt-2 leading-relaxed"
+                            : "text-sm text-foreground/70 mt-2 leading-relaxed") + " max-w-[180px] mx-auto"
                         }
                       >
                         {m.text}
@@ -513,7 +513,7 @@ function Timeline() {
               const isCurrent = !!m.current;
               const dotSize = isCurrent ? 16 : 8;
               return (
-                <div key={m.year} className="relative" style={{ paddingBottom: 32 }}>
+                <div key={m.year} className="relative" style={{ paddingBottom: 20 }}>
                   <div
                     className={isCurrent ? "animate-pulse" : ""}
                     style={{
@@ -587,7 +587,7 @@ function About() {
       {/* HERO */}
       <section
         className="relative overflow-hidden section-light"
-        style={{ paddingTop: 120, paddingBottom: 48 }}
+        style={{ paddingTop: 96, paddingBottom: 24 }}
       >
         <div className="relative z-10 mx-auto px-5 md:px-8 text-center" style={{ maxWidth: 680 }}>
           <Reveal>
@@ -677,7 +677,7 @@ function About() {
                   <div style={{ fontSize: 14, color: "#30d94b", marginTop: 4 }}>
                     Co-Founder &amp; Creative Director
                   </div>
-                  <p className="mt-6 text-foreground/75 leading-relaxed">
+                  <p className="mt-6 text-foreground/80" style={{ fontSize: 18, lineHeight: 1.75 }}>
                     Sojol is the Co-Founder and Creative Director of Jepy. Every project that leaves the studio carries his fingerprint. He oversees editing, motion design and color with one standard in mind. If it does not feel cinematic and intentional, it is not ready. In a world where AI is changing how content is made, Sojol leads with the one thing technology cannot replicate. A genuine creative eye that knows what moves people and why. That instinct is what makes Jepy&rsquo;s work unmistakable.
                   </p>
                 </div>
@@ -699,10 +699,10 @@ function About() {
                   <div style={{ fontSize: 14, color: "#30d94b", marginTop: 4 }}>
                     Co-Founder &amp; Managing Director
                   </div>
-                  <p className="mt-6 text-foreground/75 leading-relaxed">
+                  <p className="mt-6 text-foreground/80" style={{ fontSize: 18, lineHeight: 1.75 }}>
                     Radwan is the Co-Founder and driving force behind Jepy. His passion for visual storytelling and sharp eye for detail shape every creative and business decision at the studio. As AI reshapes the content landscape, Radwan keeps Jepy ahead of the curve by combining human creative judgment with the best tools available to deliver work that no algorithm alone could produce.
                   </p>
-                  <p className="mt-4 text-foreground/75 leading-relaxed">
+                  <p className="mt-4 text-foreground/80" style={{ fontSize: 18, lineHeight: 1.75 }}>
                     For him, every frame should serve a purpose and every client deserves work that goes beyond the brief.
                   </p>
                 </div>

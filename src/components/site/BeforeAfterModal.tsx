@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { IpWatermark, PROTECTED_VIDEO_PROPS, VideoShield } from "@/components/site/VideoWatermark";
-import { useProtectedVideo } from "@/hooks/useProtectedVideo";
+import { VideoSkeleton } from "@/components/site/VideoSkeleton";
+import { useProtectedVideo, warmVideos } from "@/hooks/useProtectedVideo";
 import type { WorkProject } from "@/components/site/work-data";
 
 function fmt(t: number) {
@@ -51,16 +52,29 @@ export function BeforeAfterModal({
   project: WorkProject;
   onClose: () => void;
 }) {
-  const { videoRef: beforeRef, ready: beforeReady } = useProtectedVideo(project.beforeKey);
-  const { videoRef: afterRef, ready: afterReady } = useProtectedVideo(project.afterKey);
-  const syncing = useRef(false);
+  const { videoRef: beforeRef, ready: beforeReady, progress: beforeProgress } = useProtectedVideo(project.beforeKey);
+  const { videoRef: afterRef, ready: afterReady, progress: afterProgress } = useProtectedVideo(project.afterKey);
   const [playing, setPlaying] = useState(true);
   const [muted, setMuted] = useState(true);
   const [hoverAfter, setHoverAfter] = useState(false);
   const [progress, setProgress] = useState(0);
   const [time, setTime] = useState({ cur: 0, dur: 0 });
 
-  // Readiness: when both videos are ready, reset to start and play both
+  // Warm both keys as soon as the modal opens
+  useEffect(() => {
+    void warmVideos([project.beforeKey, project.afterKey]);
+  }, [project.beforeKey, project.afterKey]);
+
+  // Escape to close
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  // Opening sequence: once both ready → reset and play both (muted)
   useEffect(() => {
     if (!beforeReady || !afterReady) return;
     const b = beforeRef.current;
@@ -73,58 +87,68 @@ export function BeforeAfterModal({
     setPlaying(true);
   }, [beforeReady, afterReady, beforeRef, afterRef]);
 
+  // AFTER is the master clock. Mirror to BEFORE.
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
-
-  useEffect(() => {
+    if (!beforeReady || !afterReady) return;
     const b = beforeRef.current;
     const a = afterRef.current;
     if (!b || !a) return;
 
-    const pair = (src: HTMLVideoElement, dst: HTMLVideoElement) => {
-      const onPlay = () => {
-        if (syncing.current) return;
-        syncing.current = true;
-        void dst.play().catch(() => {});
-        syncing.current = false;
-        setPlaying(true);
-      };
-      const onPause = () => {
-        if (syncing.current) return;
-        syncing.current = true;
-        dst.pause();
-        syncing.current = false;
-        setPlaying(false);
-      };
-      const onSeeked = () => {
-        if (syncing.current) return;
-        syncing.current = true;
-        dst.currentTime = src.currentTime;
-        syncing.current = false;
-      };
-      src.addEventListener("play", onPlay);
-      src.addEventListener("pause", onPause);
-      src.addEventListener("seeked", onSeeked);
-      return () => {
-        src.removeEventListener("play", onPlay);
-        src.removeEventListener("pause", onPause);
-        src.removeEventListener("seeked", onSeeked);
-      };
+    let seekPending = false;
+    const sharedDur = () => Math.min(b.duration || 0, a.duration || 0);
+
+    const onMasterTimeUpdate = () => {
+      if (!a || !b || seekPending) return;
+      const dur = sharedDur();
+      if (a.currentTime >= dur - 0.05) {
+        // Reached end — restart BOTH together (one restart, never two loops)
+        seekPending = true;
+        b.currentTime = 0;
+        a.currentTime = 0;
+        void b.play().catch(() => {});
+        void a.play().catch(() => {});
+        requestAnimationFrame(() => { seekPending = false; });
+        return;
+      }
+      if (Math.abs(b.currentTime - a.currentTime) > 0.12) {
+        seekPending = true;
+        b.currentTime = a.currentTime;
+        requestAnimationFrame(() => { seekPending = false; });
+      }
+    };
+    const onMasterEnded = () => {
+      if (!a || !b) return;
+      seekPending = true;
+      b.currentTime = 0;
+      a.currentTime = 0;
+      void b.play().catch(() => {});
+      void a.play().catch(() => {});
+      requestAnimationFrame(() => { seekPending = false; });
+    };
+    const onMasterPlay = () => {
+      if (!a || !b) return;
+      void b.play().catch(() => {});
+      setPlaying(true);
+    };
+    const onMasterPause = () => {
+      if (!a || !b) return;
+      b.pause();
+      setPlaying(false);
     };
 
-    const c1 = pair(b, a);
-    const c2 = pair(a, b);
+    a.addEventListener("timeupdate", onMasterTimeUpdate);
+    a.addEventListener("ended", onMasterEnded);
+    a.addEventListener("play", onMasterPlay);
+    a.addEventListener("pause", onMasterPause);
     return () => {
-      c1?.();
-      c2?.();
+      a.removeEventListener("timeupdate", onMasterTimeUpdate);
+      a.removeEventListener("ended", onMasterEnded);
+      a.removeEventListener("play", onMasterPlay);
+      a.removeEventListener("pause", onMasterPause);
     };
-  }, [beforeReady, afterReady]);
+  }, [beforeReady, afterReady, beforeRef, afterRef]);
 
+  // Progress bar reads from master (after) only
   useEffect(() => {
     const id = setInterval(() => {
       const a = afterRef.current;
@@ -136,43 +160,27 @@ export function BeforeAfterModal({
   }, []);
 
   const togglePlay = () => {
-    const b = beforeRef.current;
     const a = afterRef.current;
-    if (!b || !a) return;
+    if (!a) return;
     if (a.paused) {
-      void b.play().catch(() => {});
       void a.play().catch(() => {});
-      setPlaying(true);
     } else {
-      b.pause();
       a.pause();
-      setPlaying(false);
     }
   };
 
   const restart = () => {
-    const b = beforeRef.current;
     const a = afterRef.current;
-    if (!b || !a) return;
-    syncing.current = true;
-    b.currentTime = 0;
+    if (!a) return;
     a.currentTime = 0;
-    syncing.current = false;
-    void b.play().catch(() => {});
     void a.play().catch(() => {});
-    setPlaying(true);
   };
 
   const seek = (pct: number) => {
-    const b = beforeRef.current;
     const a = afterRef.current;
-    if (!b || !a || !a.duration) return;
-    const t = (pct / 100) * a.duration;
-    syncing.current = true;
-    b.currentTime = t;
-    a.currentTime = t;
-    syncing.current = false;
-    setProgress(pct);
+    if (!a || !a.duration) return;
+    a.currentTime = (pct / 100) * a.duration;
+    // The master timeupdate handler will mirror to before
   };
 
   const toggleMute = () => {
@@ -227,14 +235,15 @@ export function BeforeAfterModal({
               className="relative overflow-hidden"
               style={portraitFrameStyle}
             >
+              {!beforeReady && <VideoSkeleton progress={beforeProgress} />}
               <video
                 ref={beforeRef}
                 autoPlay
                 muted
-                loop
                 playsInline
                 onClick={togglePlay}
                 className="h-full w-full object-cover"
+                style={{ opacity: beforeReady ? 1 : 0, transition: "opacity 250ms ease" }}
                 {...PROTECTED_VIDEO_PROPS}
               />
               <VideoShield />
@@ -260,14 +269,15 @@ export function BeforeAfterModal({
               onMouseLeave={() => setHoverAfter(false)}
               style={portraitFrameStyle}
             >
+              {!afterReady && <VideoSkeleton progress={afterProgress} />}
               <video
                 ref={afterRef}
                 autoPlay
                 muted
-                loop
                 playsInline
                 onClick={togglePlay}
                 className="h-full w-full object-cover"
+                style={{ opacity: afterReady ? 1 : 0, transition: "opacity 250ms ease" }}
                 {...PROTECTED_VIDEO_PROPS}
               />
               <VideoShield />

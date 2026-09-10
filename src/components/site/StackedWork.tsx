@@ -91,11 +91,6 @@ export function StackedWork() {
   return (
     <section id="work" className="relative py-16 scroll-mt-24 section-light">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <Reveal>
-          <div className="text-xs uppercase tracking-[0.3em] text-[var(--accent)] mb-4">
-            Featured Work
-          </div>
-        </Reveal>
         <Reveal delay={80}>
           <h2 className="font-display text-5xl md:text-7xl tracking-tighter text-left">
             Selected frames from{" "}

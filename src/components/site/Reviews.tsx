@@ -211,7 +211,7 @@ export function Reviews() {
         <div
           ref={wallRef}
           aria-hidden="true"
-          className="hidden motion-safe:lg:grid lg:grid-cols-2 gap-6 h-[520px]"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 h-[520px] motion-reduce:hidden"
         >
           <div className="jepy-marquee group">
             <div
@@ -223,7 +223,7 @@ export function Reviews() {
               ))}
             </div>
           </div>
-          <div className="jepy-marquee group">
+          <div className="jepy-marquee group hidden md:block">
             <div
               className="jepy-marquee-track jepy-marquee-track--reverse"
               style={!inView ? { animationPlayState: "paused" } : undefined}

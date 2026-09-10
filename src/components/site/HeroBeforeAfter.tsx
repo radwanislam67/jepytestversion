@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useProtectedVideo } from "@/hooks/useProtectedVideo";
+import { VideoSkeleton } from "@/components/site/VideoSkeleton";
 
 const mono = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
@@ -89,20 +90,9 @@ function VideoWatermark({ enabled = true }: { enabled?: boolean }) {
   );
 }
 
-function CardFallback({ show }: { show: boolean }) {
-  if (!show) return null;
-  return (
-    <div
-      aria-hidden
-      className="absolute inset-0 bg-[linear-gradient(140deg,#141414,#181a19)]"
-      style={{ zIndex: 1 }}
-    />
-  );
-}
-
 export function HeroBeforeAfter() {
-  const { videoRef: beforeVideoRef, ready: beforeReady } = useProtectedVideo("Before.mp4");
-  const { videoRef: afterVideoRef, ready: afterReady } = useProtectedVideo("After.mp4");
+  const { videoRef: beforeVideoRef, ready: beforeReady, progress: beforeProgress } = useProtectedVideo("Before.mp4");
+  const { videoRef: afterVideoRef, ready: afterReady, progress: afterProgress } = useProtectedVideo("After.mp4");
   const [afterMuted, setAfterMuted] = useState(true);
 
   useEffect(() => {
@@ -118,11 +108,22 @@ export function HeroBeforeAfter() {
     a.addEventListener("pause", onPause);
     b.currentTime = 0;
     a.currentTime = 0;
-    void Promise.all([b.play(), a.play()]).catch(() => {});
+    const tryPlay = () => {
+      if (a.paused) void a.play().catch(() => {});
+      if (b.paused) void b.play().catch(() => {});
+    };
+    tryPlay();
+    const retry = window.setTimeout(tryPlay, 600);
+    const onVisible = () => { if (!document.hidden) tryPlay(); };
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("focus", onVisible);
     return () => {
       a.removeEventListener("timeupdate", onTimeUpdate);
       a.removeEventListener("play", onPlay);
       a.removeEventListener("pause", onPause);
+      window.clearTimeout(retry);
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("focus", onVisible);
     };
   }, [beforeReady, afterReady, beforeVideoRef, afterVideoRef]);
 
@@ -130,13 +131,14 @@ export function HeroBeforeAfter() {
     <div className="hero-ba">
       {/* BEFORE card */}
       <div className="hero-ba-before">
-        <CardFallback show={!beforeReady} />
+        {!beforeReady && <VideoSkeleton progress={beforeProgress} />}
         <video
           ref={beforeVideoRef}
           muted
           loop
           playsInline
           className="relative z-[2] h-full w-full object-cover"
+          style={{ opacity: beforeReady ? 1 : 0, transition: "opacity 250ms ease" }}
           {...protectedVideoProps}
         />
         <VideoWatermark enabled={beforeReady} />
@@ -144,13 +146,14 @@ export function HeroBeforeAfter() {
 
       {/* AFTER card */}
       <div className="hero-ba-after group">
-        <CardFallback show={!afterReady} />
+        {!afterReady && <VideoSkeleton progress={afterProgress} />}
         <video
           ref={afterVideoRef}
           muted
           loop
           playsInline
           className="relative z-[2] h-full w-full object-cover"
+          style={{ opacity: afterReady ? 1 : 0, transition: "opacity 250ms ease" }}
           {...protectedVideoProps}
         />
         <VideoWatermark enabled={afterReady} />

@@ -52,9 +52,6 @@ export function WhatGoesIn() {
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="text-center mb-12">
           <Reveal>
-            <div className="mb-4 text-xs uppercase tracking-[0.3em] text-[var(--accent)] text-center">
-              WHAT&apos;S INSIDE
-            </div>
             <h2 className="font-display text-5xl md:text-7xl tracking-tighter">
               What Goes Into <span className="text-[var(--accent)] text-glow">Every Video</span>
             </h2>

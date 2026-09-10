@@ -7,6 +7,7 @@ import {
   useRouterState,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -35,7 +36,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -62,14 +63,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#141414" },
       { title: "Jepy | Built Different" },
-      { name: "description", content: "Jepy is a premium cinematic post-production studio crafting elevated edits for creators, brands and SaaS." },
+      { name: "description", content: "Jepy is a premium cinematic post-production studio crafting cinematic edits for creators, brands and SaaS." },
       { property: "og:site_name", content: "Jepy" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:title", content: "Jepy | Built Different" },
       { name: "twitter:title", content: "Jepy | Built Different" },
-      { property: "og:description", content: "Jepy is a premium cinematic post-production studio crafting elevated edits for creators, brands and SaaS." },
-      { name: "twitter:description", content: "Jepy is a premium cinematic post-production studio crafting elevated edits for creators, brands and SaaS." },
+      { property: "og:description", content: "Jepy is a premium cinematic post-production studio crafting cinematic edits for creators, brands and SaaS." },
+      { name: "twitter:description", content: "Jepy is a premium cinematic post-production studio crafting cinematic edits for creators, brands and SaaS." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/crUWaju6dwceyxGbiMreaEozCci2/social-images/social-1782166453906-1000003282.webp" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/crUWaju6dwceyxGbiMreaEozCci2/social-images/social-1782166453906-1000003282.webp" },
     ],
