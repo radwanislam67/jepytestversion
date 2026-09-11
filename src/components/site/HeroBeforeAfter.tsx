@@ -137,7 +137,7 @@ export function HeroBeforeAfter() {
             src="/video-posters/before.webp"
             alt=""
             aria-hidden
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-fill"
           />
         )}
         <video
@@ -147,7 +147,7 @@ export function HeroBeforeAfter() {
           playsInline
           preload="auto"
           poster="/video-posters/before.webp"
-          className="relative z-[2] h-full w-full object-cover"
+          className="relative z-[2] h-full w-full object-fill"
           style={{ opacity: beforeReady ? 1 : 0, transition: "opacity 250ms ease" }}
           {...protectedVideoProps}
         />
@@ -161,7 +161,7 @@ export function HeroBeforeAfter() {
             src="/video-posters/after.webp"
             alt=""
             aria-hidden
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-fill"
           />
         )}
         <video
@@ -171,7 +171,7 @@ export function HeroBeforeAfter() {
           playsInline
           preload="auto"
           poster="/video-posters/after.webp"
-          className="relative z-[2] h-full w-full object-cover"
+          className="relative z-[2] h-full w-full object-fill"
           style={{ opacity: afterReady ? 1 : 0, transition: "opacity 250ms ease" }}
           {...protectedVideoProps}
         />

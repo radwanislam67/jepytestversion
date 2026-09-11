@@ -29,8 +29,12 @@ export function posterFor(key: string): string | undefined {
  */
 const RATIOS: Record<string, number> = {
   "Showreel.mp4": 1280 / 830,
-  "Before.mp4": 120 / 179,
-  "After.mp4": 9 / 16,
+  // Before.mp4 and After.mp4 are coded 720x720 and their pasp box claims a portrait
+  // pixel aspect that the footage does not have (the boxes are internally consistent,
+  // they are simply wrong). The coded frame is the true picture, so these two are square
+  // and are drawn with object-fit: fill so the bogus sar never stretches them.
+  "Before.mp4": 1,
+  "After.mp4": 1,
   "Aron Before.mp4": 360 / 640,
   "After Aron.mp4": 406 / 720,
   "Car Before.mp4": 270 / 403,
