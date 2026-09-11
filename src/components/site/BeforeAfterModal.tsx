@@ -6,13 +6,6 @@ import { ratioFor, useProtectedVideo, warmVideos } from "@/hooks/useProtectedVid
 import { useAudioBus } from "@/lib/audioBus";
 import type { WorkProject } from "@/components/site/work-data";
 
-function fmt(t: number) {
-  if (!isFinite(t) || t < 0) t = 0;
-  const m = Math.floor(t / 60);
-  const s = Math.floor(t % 60);
-  return `${m}:${s.toString().padStart(2, "0")}`;
-}
-
 const tagPill: React.CSSProperties = {
   fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
   fontSize: 9,
@@ -37,20 +30,31 @@ const ctrlBtn: React.CSSProperties = {
   transition: "color .2s, border-color .2s",
 };
 
-const pillBtn: React.CSSProperties = {
-  background: "transparent",
-  border: "none",
-  color: "#e5e5e5",
-  padding: "8px 10px",
-  cursor: "pointer",
-  transition: "color .2s, background .2s",
-};
+/** BEFORE / AFTER sits inside its frame as a small chip — the usual pattern for a
+ *  comparison viewer, and it keeps the panel short enough to fit without scrolling. */
+const labelChip = (after: boolean): React.CSSProperties => ({
+  position: "absolute",
+  top: 8,
+  left: 8,
+  zIndex: 6,
+  fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+  fontSize: 9,
+  letterSpacing: "0.14em",
+  lineHeight: 1,
+  padding: "4px 9px",
+  borderRadius: 999,
+  color: after ? "#30d94b" : "#dcdcdc",
+  background: "rgba(0,0,0,.55)",
+  border: `1px solid ${after ? "rgba(48,217,75,.55)" : "rgba(255,255,255,.22)"}`,
+  backdropFilter: "blur(6px)",
+  pointerEvents: "none",
+});
 
 /** The clips are anamorphic, so each frame takes its own on-screen ratio — a hard-coded
  *  9:16 crops whichever clip is not 9:16. */
 const portraitFrameStyle = (ratio: string): React.CSSProperties => ({
   aspectRatio: ratio,
-  height: "min(62vh, 560px)",
+  height: "min(46vh, 430px)",
   width: "auto",
   background: "#0d0d0d",
   border: "1px solid #222",
@@ -222,8 +226,8 @@ export function BeforeAfterModal({
           background: "#111",
           border: "1px solid #2a2a2a",
           borderRadius: 16,
-          maxWidth: 900,
-          padding: 24,
+          maxWidth: 780,
+          padding: 16,
         }}
       >
         <div className="flex items-center justify-between gap-4">
@@ -243,8 +247,8 @@ export function BeforeAfterModal({
         </div>
 
         <div
-          className="mt-5 grid grid-cols-1 sm:grid-cols-2 justify-items-center"
-          style={{ gap: 12 }}
+          className="mt-3 grid grid-cols-1 sm:grid-cols-2 justify-items-center"
+          style={{ gap: 10 }}
         >
           <div>
             <div
@@ -264,17 +268,7 @@ export function BeforeAfterModal({
               />
               <VideoShield />
               <IpWatermark />
-            </div>
-            <div
-              className="mt-2 text-center"
-              style={{
-                fontFamily: "ui-monospace, monospace",
-                fontSize: 10,
-                color: "#aaa",
-                letterSpacing: 2,
-              }}
-            >
-              BEFORE
+              <span style={labelChip(false)}>BEFORE</span>
             </div>
           </div>
 
@@ -296,73 +290,54 @@ export function BeforeAfterModal({
               />
               <VideoShield />
               <IpWatermark />
-            </div>
-            <div
-              className="mt-2 text-center"
-              style={{
-                fontFamily: "ui-monospace, monospace",
-                fontSize: 10,
-                color: "#30d94b",
-                letterSpacing: 2,
-              }}
-            >
-              AFTER
+              <span style={labelChip(true)}>AFTER</span>
             </div>
           </div>
         </div>
 
-        {/* Sticky, pill-shaped and always visible: on a phone this bar used to sit far
-            below the fold, which made the transport controls unreachable. */}
-        <div
-          className="sticky bottom-0 mt-4 flex flex-wrap items-center gap-2"
-          style={{
-            background: "rgba(13,13,13,.94)",
-            backdropFilter: "blur(12px)",
-            border: "1px solid #262626",
-            borderRadius: 999,
-            padding: "8px 12px",
-          }}
-        >
-          <button
-            type="button"
-            onClick={toggleMute}
-            style={pillBtn}
-            className="ba-ctrl inline-flex items-center gap-1.5 rounded-full"
-            aria-label={muted ? "Unmute video" : "Mute video"}
-            aria-pressed={!muted}
-          >
-            {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-            <span style={{ fontSize: 11, fontFamily: "ui-monospace, monospace" }}>
-              {muted ? "UNMUTE" : "MUTE"}
-            </span>
-          </button>
-          <button
-            type="button"
-            onClick={togglePlay}
-            style={pillBtn}
-            className="ba-ctrl inline-flex items-center rounded-full"
-            aria-label={playing ? "Pause video" : "Play video"}
-          >
-            {playing ? <Pause size={16} /> : <Play size={16} />}
-          </button>
-          <button
-            type="button"
-            onClick={restart}
-            style={pillBtn}
-            className="ba-ctrl inline-flex items-center rounded-full"
-            aria-label="Replay video"
-          >
-            <RotateCcw size={16} />
-          </button>
-          <button
-            type="button"
-            onClick={onClose}
-            style={pillBtn}
-            className="ba-ctrl inline-flex items-center rounded-full"
-            aria-label="Close video"
-          >
-            <X size={16} />
-          </button>
+        {/* Sticky so it stays reachable, but it hugs its buttons instead of stretching
+            across the whole panel — matches the /work viewer. */}
+        <div className="sticky bottom-0 z-10 mt-2 flex justify-center">
+          <div className="flex w-fit max-w-full flex-wrap items-center justify-center gap-0.5 rounded-full bg-black/70 px-2 py-1.5 ring-1 ring-white/15 backdrop-blur-md">
+            <button
+              type="button"
+              onClick={toggleMute}
+              className="ba-ctrl inline-flex h-9 w-9 items-center justify-center rounded-full text-white transition hover:bg-white/10"
+              aria-label={muted ? "Unmute video" : "Mute video"}
+              aria-pressed={!muted}
+              title={muted ? "Unmute" : "Mute"}
+            >
+              {muted ? <VolumeX size={17} /> : <Volume2 size={17} />}
+            </button>
+            <button
+              type="button"
+              onClick={restart}
+              className="ba-ctrl inline-flex h-9 w-9 items-center justify-center rounded-full text-white transition hover:bg-white/10"
+              aria-label="Replay video"
+              title="Replay"
+            >
+              <RotateCcw size={17} />
+            </button>
+            <button
+              type="button"
+              onClick={togglePlay}
+              className="ba-ctrl inline-flex h-9 w-9 items-center justify-center rounded-full text-white transition hover:bg-white/10"
+              aria-label={playing ? "Pause video" : "Play video"}
+              title={playing ? "Pause" : "Play"}
+            >
+              {playing ? <Pause size={17} /> : <Play size={17} />}
+            </button>
+            <span className="mx-1 h-5 w-px bg-white/15" aria-hidden />
+            <button
+              type="button"
+              onClick={onClose}
+              className="ba-ctrl inline-flex h-9 w-9 items-center justify-center rounded-full text-white transition hover:bg-white/10"
+              aria-label="Close video"
+              title="Close"
+            >
+              <X size={17} />
+            </button>
+          </div>
         </div>
       </div>
     </div>
