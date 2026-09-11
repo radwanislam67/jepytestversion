@@ -62,9 +62,9 @@ function Home() {
 function Hero() {
   return (
     <section className="relative min-h-[100svh] flex items-center overflow-hidden pt-36 md:pt-40 pb-12 md:pb-16">
-      <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full flex flex-col md:flex-row items-center justify-between gap-10 md:gap-10">
         <div className="flex-1 min-w-0">
-          <h1 className="font-display font-semibold text-[clamp(3.25rem,12vw,4.5rem)] md:text-[clamp(3rem,6.2vw,7rem)] xl:text-[clamp(7rem,9.5vw,8.3rem)] leading-[0.95] tracking-[-0.04em]">
+          <h1 className="font-display font-semibold text-[clamp(3.25rem,12vw,4.5rem)] md:text-[clamp(3rem,6.6vw,7.25rem)] xl:text-[clamp(7rem,10vw,8.7rem)] leading-[0.95] tracking-[-0.04em]">
             <Reveal>Every Frame</Reveal>
             <Reveal delay={600} y={32}>
               <span>

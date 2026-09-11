@@ -54,7 +54,7 @@ const labelChip = (after: boolean): React.CSSProperties => ({
  *  9:16 crops whichever clip is not 9:16. */
 const portraitFrameStyle = (ratio: string): React.CSSProperties => ({
   aspectRatio: ratio,
-  height: "min(46vh, 430px)",
+  // Height lives in .ba-frame so it can shrink on phones.
   width: "auto",
   background: "#0d0d0d",
   border: "1px solid #222",
@@ -226,7 +226,7 @@ export function BeforeAfterModal({
           background: "#111",
           border: "1px solid #2a2a2a",
           borderRadius: 16,
-          maxWidth: 780,
+          maxWidth: 640,
           padding: 16,
         }}
       >
@@ -247,12 +247,11 @@ export function BeforeAfterModal({
         </div>
 
         <div
-          className="mt-3 grid grid-cols-1 sm:grid-cols-2 justify-items-center"
-          style={{ gap: 10 }}
+          className="mt-3 flex flex-wrap items-start justify-center gap-3"
         >
           <div>
             <div
-              className="relative overflow-hidden"
+              className="ba-frame relative overflow-hidden"
               style={portraitFrameStyle(ratioFor(project.beforeKey) ?? "9 / 16")}
             >
               {!beforeReady && <VideoSkeleton progress={beforeProgress} />}
@@ -274,7 +273,7 @@ export function BeforeAfterModal({
 
           <div>
             <div
-              className="relative overflow-hidden"
+              className="ba-frame relative overflow-hidden"
               style={portraitFrameStyle(ratioFor(project.afterKey) ?? "9 / 16")}
             >
               {!afterReady && <VideoSkeleton progress={afterProgress} />}
