@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Play } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { WORK_PROJECTS } from "@/components/site/work-data";
-import { BeforeAfterModal } from "@/components/site/BeforeAfterModal";
+import { VideoLightbox } from "@/components/site/VideoLightbox";
+import { useProtectedVideo } from "@/hooks/useProtectedVideo";
+import { PROTECTED_VIDEO_PROPS } from "@/components/site/VideoWatermark";
 
 type Slot = "hero" | "left" | "right";
 
@@ -27,6 +29,25 @@ const EXIT_STYLE: React.CSSProperties = {
   zIndex: 1,
 };
 
+/** Portrait 9:16 card preview. Sits paused on its own poster — playback happens in the
+ *  shared lightbox, so the section never plays three videos at once. */
+function CardPreview({ videoKey }: { videoKey: string }) {
+  const { videoRef, poster } = useProtectedVideo(videoKey);
+  return (
+    <video
+      ref={videoRef}
+      muted
+      loop
+      playsInline
+      preload="none"
+      poster={poster}
+      className="absolute inset-0 h-full w-full object-cover"
+      style={{ background: "#0d0d0d" }}
+      {...PROTECTED_VIDEO_PROPS}
+    />
+  );
+}
+
 export function StackedWork() {
   // order = [leftIndex, heroIndex, rightIndex]
   const [order, setOrder] = useState<[number, number, number]>([2, 0, 1]);
@@ -36,6 +57,7 @@ export function StackedWork() {
   const heroIndexRef = useRef(0);
   const rotationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef(0);
 
   const rotate = useCallback(() => {
     const exitingIndex = heroIndexRef.current;
@@ -85,6 +107,16 @@ export function StackedWork() {
     };
   }, [rotate, openIndex]);
 
+  const openProject = (i: number) => {
+    scrollRef.current = window.scrollY;
+    setOpenIndex(i);
+  };
+
+  const closeProject = useCallback(() => {
+    setOpenIndex(null);
+    requestAnimationFrame(() => window.scrollTo({ top: scrollRef.current, behavior: "auto" }));
+  }, []);
+
   const slotOf = (i: number): Slot =>
     order[1] === i ? "hero" : order[0] === i ? "left" : "right";
 
@@ -100,8 +132,8 @@ export function StackedWork() {
 
         <div
           ref={containerRef}
-          className="mt-20 relative mx-auto"
-          style={{ height: 430, maxWidth: 520, perspective: 1200 }}
+          className="mt-16 md:mt-20 relative mx-auto"
+          style={{ height: 460, maxWidth: 520, perspective: 1200 }}
         >
           {WORK_PROJECTS.map((p, i) => {
             const slot = slotOf(i);
@@ -111,15 +143,15 @@ export function StackedWork() {
               <button
                 key={p.id}
                 type="button"
-                onClick={() => (isHero ? setOpenIndex(i) : rotate())}
+                onClick={() => (isHero ? openProject(i) : rotate())}
                 aria-label={isHero ? `Open ${p.title}` : `Show ${p.title}`}
-                className={`stack-card absolute left-1/2 top-4 -ml-[110px] text-left ${
+                className={`stack-card absolute left-1/2 top-4 -ml-[110px] overflow-hidden text-left ${
                   isHero && !rotating ? "stack-float" : ""
                 } ${!isHero ? "stack-card-side" : ""}`}
                 style={{
                   width: 220,
-                  height: 370,
-                  background: "#181a19",
+                  height: 391,
+                  background: "#0d0d0d",
                   border: "1px solid rgba(255,255,255,0.14)",
                   borderRadius: 18,
                   transition:
@@ -127,8 +159,10 @@ export function StackedWork() {
                   ...style,
                 }}
               >
+                <CardPreview videoKey={p.afterKey} />
+
                 <span
-                  className="absolute"
+                  className="absolute z-10"
                   style={{
                     top: 12,
                     left: 12,
@@ -138,7 +172,7 @@ export function StackedWork() {
                     border: "1px solid #30d94b",
                     borderRadius: 20,
                     padding: "3px 10px",
-                    background: "rgba(0,0,0,0.5)",
+                    background: "rgba(0,0,0,0.55)",
                     letterSpacing: "0.1em",
                   }}
                 >
@@ -146,26 +180,30 @@ export function StackedWork() {
                 </span>
 
                 <span
-                  className="absolute left-1/2 top-1/2 flex items-center justify-center rounded-full"
+                  className="absolute left-1/2 top-1/2 z-10 flex items-center justify-center rounded-full"
                   style={{
                     width: 52,
                     height: 52,
                     marginLeft: -26,
                     marginTop: -26,
                     border: "2px solid #30d94b",
-                    background: "rgba(48, 217, 75,0.08)",
+                    background: "rgba(48, 217, 75,0.14)",
+                    backdropFilter: "blur(2px)",
                   }}
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#30d94b" aria-hidden>
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
+                  <Play size={18} fill="#30d94b" color="#30d94b" />
                 </span>
 
-                <span className="absolute left-0 right-0 px-4" style={{ bottom: 18 }}>
+                <span
+                  className="absolute inset-x-0 bottom-0 z-10 px-4 pb-4 pt-10"
+                  style={{
+                    background: "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.85) 60%)",
+                  }}
+                >
                   <span className="block" style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>
                     {p.title}
                   </span>
-                  <span className="block mt-1" style={{ fontSize: 10, color: "#a3a3a3" }}>
+                  <span className="mt-1 block" style={{ fontSize: 10, color: "#d0d0d0" }}>
                     {p.desc}
                   </span>
                 </span>
@@ -201,9 +239,16 @@ export function StackedWork() {
       </div>
 
       {openIndex !== null && (
-        <BeforeAfterModal
-          project={WORK_PROJECTS[openIndex]}
-          onClose={() => setOpenIndex(null)}
+        <VideoLightbox
+          item={{
+            id: WORK_PROJECTS[openIndex].id,
+            title: WORK_PROJECTS[openIndex].title,
+            subtitle: WORK_PROJECTS[openIndex].desc,
+            category: WORK_PROJECTS[openIndex].tag,
+            beforeKey: WORK_PROJECTS[openIndex].beforeKey,
+            afterKey: WORK_PROJECTS[openIndex].afterKey,
+          }}
+          onClose={closeProject}
         />
       )}
     </section>

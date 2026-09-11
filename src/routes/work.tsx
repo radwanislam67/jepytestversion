@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import { Pause, Play, RotateCcw, Volume2, VolumeX, X } from "lucide-react";
+import { Play } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { Stats } from "@/components/site/Stats";
 import { CTASection } from "@/components/site/CTASection";
+import { VideoLightbox } from "@/components/site/VideoLightbox";
 import { useProtectedVideo } from "@/hooks/useProtectedVideo";
 import { PROTECTED_VIDEO_PROPS } from "@/components/site/VideoWatermark";
 
@@ -29,7 +29,6 @@ const ITEMS = [
 
 const FILTERS = ["All", "Video Editing", "Motion Design", "Commercial", "Short Form"] as const;
 
-/** Hover-to-preview only makes sense on a real pointer; touch devices jump straight to the lightbox. */
 function WorkCard({
   item,
   onOpen,
@@ -88,7 +87,7 @@ function WorkCard({
           style={{ opacity: ready || poster ? 1 : 0, transition: "opacity 250ms ease" }}
           {...PROTECTED_VIDEO_PROPS}
         />
-        {/* Play affordance — hidden while the hover preview is rolling */}
+        {/* Play affordance — fades out while the hover preview is rolling */}
         <span
           aria-hidden
           className="absolute inset-0 z-[5] flex items-center justify-center opacity-100 transition-opacity duration-200 group-hover:opacity-0"
@@ -103,169 +102,6 @@ function WorkCard({
         <div className="text-sm text-[#a3a3a3] mt-1 line-clamp-1">{item.subtitle}</div>
       </div>
     </div>
-  );
-}
-
-/**
- * Fullscreen viewer: the backdrop blurs, the card's video zooms up on its own and
- * loops. Controls are unmute / replay / pause, and closing returns to the card the
- * viewer came from.
- */
-function VideoLightbox(props: { item: (typeof ITEMS)[number]; onClose: () => void }) {
-  // The portal target, and therefore the <video>, only exists on the client. Mount the
-  // stage in a second pass so the video element is in the tree before the hook's effect
-  // runs — otherwise the ref is still null and no source is ever attached.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
-  return <LightboxStage {...props} />;
-}
-
-function LightboxStage({
-  item,
-  onClose,
-}: {
-  item: (typeof ITEMS)[number];
-  onClose: () => void;
-}) {
-  const { videoRef, ready, poster } = useProtectedVideo(item.afterKey);
-  const [entered, setEntered] = useState(false);
-  const [muted, setMuted] = useState(true);
-  const [paused, setPaused] = useState(false);
-  const closing = useRef(false);
-
-  const requestClose = useCallback(() => {
-    if (closing.current) return;
-    closing.current = true;
-    setEntered(false);
-    window.setTimeout(onClose, 220);
-  }, [onClose]);
-
-  useEffect(() => {
-    const raf = requestAnimationFrame(() => setEntered(true));
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
-  // Lock the page behind the overlay.
-  useEffect(() => {
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = previous;
-    };
-  }, []);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") requestClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [requestClose]);
-
-  // Keep the element in sync with the controls.
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.muted = muted;
-    if (paused) {
-      v.pause();
-    } else {
-      void v.play().catch(() => {});
-    }
-  }, [ready, muted, paused, videoRef]);
-
-  const replay = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.currentTime = 0;
-    setPaused(false);
-    void v.play().catch(() => {});
-  };
-
-  return createPortal(
-    <div
-      className="fixed inset-0 z-[120] flex items-center justify-center p-4 md:p-8"
-      role="dialog"
-      aria-modal="true"
-      aria-label={item.title}
-    >
-      <div
-        className="absolute inset-0 bg-black/70 backdrop-blur-xl transition-opacity duration-200"
-        style={{ opacity: entered ? 1 : 0 }}
-        onClick={requestClose}
-      />
-
-      <div
-        className="relative z-10 flex max-h-full flex-col items-center gap-4"
-        style={{
-          opacity: entered ? 1 : 0,
-          transform: entered ? "scale(1)" : "scale(.86)",
-          transitionTimingFunction: "cubic-bezier(.22,1,.36,1)",
-          transitionDuration: "450ms",
-        }}
-      >
-        <div
-          className="relative overflow-hidden rounded-2xl"
-          style={{
-            background: "#0d0d0d",
-            border: "1px solid rgba(48,217,75,.28)",
-            boxShadow: "0 0 120px -30px rgba(48,217,75,.45), inset 0 1px 0 rgba(255,255,255,.06)",
-            maxHeight: "86vh",
-          }}
-        >
-          <video
-            ref={videoRef}
-            loop
-            playsInline
-            preload="auto"
-            poster={poster}
-            className="block object-contain"
-            style={{ maxHeight: "86vh", maxWidth: "min(92vw, 720px)" }}
-            {...PROTECTED_VIDEO_PROPS}
-          />
-        </div>
-
-        <div className="flex items-center gap-2 rounded-full bg-black/60 px-2 py-2 ring-1 ring-white/15 backdrop-blur-md">
-          <button
-            type="button"
-            onClick={() => setMuted((m) => !m)}
-            aria-label={muted ? "Unmute video" : "Mute video"}
-            aria-pressed={!muted}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white transition hover:bg-white/10"
-          >
-            {muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-          </button>
-          <button
-            type="button"
-            onClick={replay}
-            aria-label="Replay video"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white transition hover:bg-white/10"
-          >
-            <RotateCcw size={18} />
-          </button>
-          <button
-            type="button"
-            onClick={() => setPaused((p) => !p)}
-            aria-label={paused ? "Play video" : "Pause video"}
-            aria-pressed={paused}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white transition hover:bg-white/10"
-          >
-            {paused ? <Play size={18} /> : <Pause size={18} />}
-          </button>
-          <span className="mx-1 h-6 w-px bg-white/15" aria-hidden />
-          <button
-            type="button"
-            onClick={requestClose}
-            aria-label="Close video"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white transition hover:bg-white/10"
-          >
-            <X size={18} />
-          </button>
-        </div>
-      </div>
-    </div>,
-    document.body,
   );
 }
 

@@ -603,9 +603,13 @@ input[type="date"].date-input-custom {
 .jepy-marquee-track--reverse {
   animation: jepy-scroll-y 30s linear infinite reverse;
 }
-.jepy-marquee:hover .jepy-marquee-track,
-.jepy-marquee:focus-within .jepy-marquee-track {
-  animation-play-state: paused;
+/* Pause only for devices that can really hover. On a touch screen a tap leaves a
+   sticky :hover behind, which used to freeze the wall for good. */
+@media (hover: hover) and (pointer: fine) {
+  .jepy-marquee:hover .jepy-marquee-track,
+  .jepy-marquee:focus-within .jepy-marquee-track {
+    animation-play-state: paused;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .jepy-marquee-track {

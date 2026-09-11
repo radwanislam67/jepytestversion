@@ -207,7 +207,8 @@ export function Reviews() {
           <SummaryPill />
         </div>
 
-        {/* Animated vertical scroll wall (desktop + motion-safe only, aria-hidden) */}
+        {/* Animated vertical scroll wall (motion-safe only, aria-hidden).
+            One column on phones, two from md up. */}
         <div
           ref={wallRef}
           aria-hidden="true"
@@ -235,10 +236,11 @@ export function Reviews() {
           </div>
         </div>
 
-        {/* Static grid (mobile/tablet + reduced-motion + accessible content on desktop) */}
+        {/* Static grid — the accessible copy of the same reviews. Visible only when the
+            animated wall is hidden (reduced motion), so reviews never appear twice. */}
         <div
           ref={ref}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 motion-safe:lg:sr-only items-stretch"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 motion-safe:sr-only items-stretch"
           style={{ gap: 24 }}
         >
           {REVIEWS.map((r, i) => (
