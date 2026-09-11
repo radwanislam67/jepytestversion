@@ -354,26 +354,6 @@ export function BeforeAfterModal({
           >
             <RotateCcw size={16} />
           </button>
-          <input
-            type="range"
-            min={0}
-            max={100}
-            step={0.1}
-            value={progress}
-            onChange={(e) => seek(Number(e.target.value))}
-            aria-label="Seek"
-            className="ba-range flex-1"
-          />
-          <span
-            style={{
-              fontFamily: "ui-monospace, monospace",
-              fontSize: 11,
-              color: "#888",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {fmt(time.cur)} / {fmt(time.dur)}
-          </span>
           <button
             type="button"
             onClick={onClose}

@@ -4,6 +4,8 @@ import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { WORK_PROJECTS } from "@/components/site/work-data";
 import { BeforeAfterModal } from "@/components/site/BeforeAfterModal";
+import { ratioFor, useProtectedVideo } from "@/hooks/useProtectedVideo";
+import { PROTECTED_VIDEO_PROPS } from "@/components/site/VideoWatermark";
 
 type Slot = "hero" | "left" | "right";
 
@@ -26,6 +28,25 @@ const EXIT_STYLE: React.CSSProperties = {
   opacity: 0,
   zIndex: 1,
 };
+
+/** The card thumbnail: the clip's own poster, in a frame sized to that clip's own
+ *  on-screen ratio, so it is never squashed and never cropped. */
+function CardThumb({ videoKey }: { videoKey: string }) {
+  const { videoRef, poster } = useProtectedVideo(videoKey);
+  return (
+    <video
+      ref={videoRef}
+      muted
+      loop
+      playsInline
+      preload="none"
+      poster={poster}
+      className="absolute inset-0 h-full w-full object-cover"
+      style={{ background: "#181a19" }}
+      {...PROTECTED_VIDEO_PROPS}
+    />
+  );
+}
 
 export function StackedWork() {
   // order = [leftIndex, heroIndex, rightIndex]
@@ -118,15 +139,28 @@ export function StackedWork() {
                 } ${!isHero ? "stack-card-side" : ""}`}
                 style={{
                   width: 220,
-                  height: 370,
+                  aspectRatio: ratioFor(p.afterKey) ?? "9 / 16",
                   background: "#181a19",
                   border: "1px solid rgba(255,255,255,0.14)",
                   borderRadius: 18,
+                  overflow: "hidden",
                   transition:
                     "transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s ease, border-color .25s ease",
                   ...style,
                 }}
               >
+                <CardThumb videoKey={p.afterKey} />
+
+                {/* Scrim so the chip and the caption stay readable over the footage */}
+                <span
+                  aria-hidden
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 52%, rgba(0,0,0,.88) 100%)",
+                  }}
+                />
+
                 <span
                   className="absolute"
                   style={{

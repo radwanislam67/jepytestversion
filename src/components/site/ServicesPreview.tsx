@@ -118,14 +118,6 @@ export function ServicesPreview() {
                   ))}
                 </ul>
 
-                <div className="mt-auto pt-4">
-                  <Link
-                    to="/work"
-                    className="inline-flex items-center gap-1 text-sm text-[#30d94b] hover:text-[#d8ffdf] transition-colors"
-                  >
-                    See Examples →
-                  </Link>
-                </div>
               </div>
             </Reveal>
           ))}

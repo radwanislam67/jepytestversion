@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Particles } from "@/components/site/Particles";
 
 export const Route = createFileRoute("/privacy-policy")({
   head: () => ({
@@ -46,7 +47,10 @@ const SECTIONS = [
 
 function PrivacyPolicyPage() {
   return (
-    <div className="relative bg-[#141414] text-white">
+    // No opaque background here: the site's own glow and particle layer show through,
+    // so this page reads as part of the same site rather than a plain document.
+    <div className="relative text-white">
+      <Particles />
       <section className="pt-36 pb-16 md:pt-44 md:pb-20">
         <div className="mx-auto max-w-3xl px-5 md:px-8 text-center">
           <div className="text-xs uppercase tracking-[0.3em] text-[var(--accent)] mb-5">

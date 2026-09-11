@@ -14,6 +14,8 @@ export function Footer() {
             </Link>
             <p className="text-foreground/70 max-w-md leading-relaxed text-sm">
               Premium cinematic post-production for creators, brands and SaaS.
+              <br />
+              Intentional pacing, sound and motion — in every single frame.
             </p>
           </div>
 

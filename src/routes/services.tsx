@@ -246,38 +246,7 @@ function ServiceCard({ s, i, wide }: { s: Service; i: number; wide: boolean }) {
         ))}
       </ul>
 
-      {/* This page intentionally shows no video previews — send people to the work instead */}
-      {afterKey && (
-        <div className="mt-auto pt-4">
-          <Link
-            to="/work"
-            className="inline-flex items-center gap-1 text-sm text-[#30d94b] hover:text-[#d8ffdf] transition-colors"
-          >
-            See Examples →
-          </Link>
-        </div>
-      )}
-
-      {/* Non-wide cards with no video: expand control with tile fallbacks */}
-      {!wide && !afterKey && (
-        <div className="mt-auto pt-4">
-          <ExpandControl open={open} onToggle={() => setOpen((v) => !v)}>
-            <div className="pt-3 grid grid-cols-2 gap-3">
-              {[0, 1].map((k) => (
-                <TileFallback key={k} />
-              ))}
-            </div>
-            <div className="pt-3 text-right">
-              <Link
-                to="/work"
-                className="inline-flex items-center gap-1 text-xs text-[#a3a3a3] hover:text-white transition-colors"
-              >
-                View all work →
-              </Link>
-            </div>
-          </ExpandControl>
-        </div>
-      )}
+      {/* No per-card call to action here — one See Examples link sits at the foot of the page */}
     </div>
   );
 }
@@ -330,11 +299,11 @@ function ServicesPage() {
       </section>
       <div className="mb-8 text-center">
         <Link
-          to="/pricing"
+          to="/work"
           preload="render"
           className="group inline-flex items-center gap-2 rounded-full border border-[var(--accent)] bg-transparent px-6 py-3.5 text-base font-semibold uppercase tracking-[0.16em] text-[var(--accent)] transition-all duration-300 hover:bg-[var(--accent)] hover:text-[var(--accent-foreground)] hover:scale-[1.03]"
         >
-          View Pricing <span aria-hidden className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-[5px]">→</span>
+          See Examples <span aria-hidden className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-[5px]">→</span>
         </Link>
       </div>
       <CTASection />

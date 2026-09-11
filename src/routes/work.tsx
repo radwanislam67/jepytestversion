@@ -75,6 +75,12 @@ function WorkCard({
           aspectRatio: ratioFor(item.afterKey) ?? "9 / 16",
           background: "#0d0d0d",
           borderRadius: "10px",
+          // Paint the thumbnail as a CSS background too, so the frame shows the right
+          // picture the instant it lays out — no blank or odd-shaped placeholder while
+          // the <video> element is still fetching its poster.
+          backgroundImage: poster ? `url(${poster})` : undefined,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
         <span className="absolute top-3 left-3 z-10 text-xs uppercase tracking-[0.15em] px-2 py-1 rounded-full border border-[rgba(48,217,75,.35)] text-[#d8ffdf] bg-[rgba(20,20,20,.55)] backdrop-blur-sm">
