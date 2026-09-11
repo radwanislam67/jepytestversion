@@ -167,7 +167,7 @@ export function StackedWork() {
                     top: 12,
                     left: 12,
                     fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-                    fontSize: 9,
+                    fontSize: 11,
                     color: "#30d94b",
                     border: "1px solid #30d94b",
                     borderRadius: 20,
@@ -199,7 +199,7 @@ export function StackedWork() {
                   <span className="block" style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>
                     {p.title}
                   </span>
-                  <span className="block mt-1" style={{ fontSize: 10, color: "#a3a3a3" }}>
+                  <span className="block mt-1" style={{ fontSize: 12, color: "#a3a3a3" }}>
                     {p.desc}
                   </span>
                 </span>

@@ -113,7 +113,7 @@ function TileFallback() {
       }}
     >
       <span
-        className="text-[10px] uppercase tracking-[0.22em] text-white/45"
+        className="text-[11px] uppercase tracking-[0.22em] text-white/45"
         style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
       >
         Coming soon

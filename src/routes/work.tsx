@@ -161,7 +161,7 @@ function WorkPage() {
                   type="button"
                   onClick={() => setFilter(f)}
                   className={
-                    "rounded-full px-4 py-1.5 text-sm transition-all duration-200 border " +
+                    "inline-flex items-center justify-center rounded-full px-4 py-1.5 min-h-[44px] md:min-h-0 text-[15px] md:text-sm transition-all duration-200 border " +
                     (isActive
                       ? "bg-[rgba(48,217,75,.12)] text-[#d8ffdf] border-[rgba(48,217,75,.35)]"
                       : "text-foreground/55 border-white/10 hover:text-foreground hover:border-white/30")
@@ -173,7 +173,7 @@ function WorkPage() {
             })}
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-[rgba(255,255,255,.02)] p-6 transition-opacity duration-200">
+          <div className="rounded-3xl border border-white/10 bg-[rgba(255,255,255,.02)] p-4 md:p-6 transition-opacity duration-200">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {visible.map((w, i) => (
                 <Reveal key={w.id} delay={i * 80}>

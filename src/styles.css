@@ -309,7 +309,7 @@
 /* Hero before/after stacked cards */
 .hero-ba {
   position: relative;
-  width: 300px;
+  width: 270px;
   height: 380px;
   flex-shrink: 0;
   z-index: 5;
@@ -370,7 +370,18 @@
   .hero-ba-after { width: 100px; aspect-ratio: 9 / 16; }
 }
 @media (max-width: 479px) {
-  .hero-ba { display: none; }
+  .hero-ba { max-width: 176px; width: 100%; aspect-ratio: 300 / 380; height: auto; }
+  .hero-ba-before { width: 84px; }
+  .hero-ba-after { width: 90px; }
+}
+
+/* The before/after viewer: the panel has to hold two frames plus its header and
+   controls, so the frames shrink on phones instead of pushing the bar off-screen. */
+.ba-frame {
+  height: min(46vh, 430px);
+}
+@media (max-width: 640px) {
+  .ba-frame { height: min(30vh, 280px); }
 }
 
 

@@ -110,7 +110,7 @@ function CaseStudies() {
                 ].map(([t, d]) => (
                   <Reveal key={t}>
                     <div>
-                      <div className="text-[10px] uppercase tracking-[0.3em] text-[var(--accent)] mb-2">{t}</div>
+                      <div className="text-[11px] uppercase tracking-[0.3em] text-[var(--accent)] mb-2">{t}</div>
                       <div className="text-foreground/85">{d}</div>
                     </div>
                   </Reveal>
@@ -122,7 +122,7 @@ function CaseStudies() {
                   {c.metrics.map(([k, v]) => (
                     <div key={k} className="rounded-2xl border border-white/5 bg-[var(--surface)] p-6">
                       <div className="font-display text-3xl md:text-5xl tracking-tighter text-glow">{v}</div>
-                      <div className="mt-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">{k}</div>
+                      <div className="mt-2 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">{k}</div>
                     </div>
                   ))}
                 </div>

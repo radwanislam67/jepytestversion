@@ -72,7 +72,7 @@ function StatItem({ stat, delay }: { stat: Stat; delay: number }) {
         {n.toLocaleString()}
         {stat.suffix}
       </div>
-      <div className="mt-2 md:mt-3 text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.15em] md:tracking-[0.18em] text-foreground/50">
+      <div className="mt-2 md:mt-3 text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.15em] md:tracking-[0.18em] text-foreground/50">
         {stat.label}
       </div>
     </div>
@@ -83,7 +83,7 @@ export function Stats() {
   return (
     <section className="relative w-full py-16 md:py-20 section-light">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 md:gap-y-0">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 md:gap-x-0 md:gap-y-0">
           {STATS.map((s, i) => (
             <div
               key={s.label}
