@@ -31,7 +31,7 @@ const EXIT_STYLE: React.CSSProperties = {
 
 /** The card thumbnail: the clip's own poster, in a frame sized to that clip's own
  *  on-screen ratio, so it is never squashed and never cropped. */
-function CardThumb({ videoKey }: { videoKey: string }) {
+function CardThumb({ videoKey, thumb }: { videoKey: string; thumb?: string }) {
   const { videoRef, poster } = useProtectedVideo(videoKey);
   return (
     <video
@@ -40,7 +40,7 @@ function CardThumb({ videoKey }: { videoKey: string }) {
       loop
       playsInline
       preload="none"
-      poster={poster}
+      poster={thumb ?? poster}
       className="absolute inset-0 h-full w-full object-cover"
       style={{ background: "#181a19" }}
       {...PROTECTED_VIDEO_PROPS}
@@ -149,7 +149,7 @@ export function StackedWork() {
                   ...style,
                 }}
               >
-                <CardThumb videoKey={p.afterKey} />
+                <CardThumb videoKey={p.afterKey} thumb={p.thumb} />
 
                 {/* Scrim so the chip and the caption stay readable over the footage */}
                 <span

@@ -22,9 +22,9 @@ export const Route = createFileRoute("/work")({
 
 const ITEMS = [
   { id: "w1", title: "Property Film", subtitle: "A cinematic real estate film built to sell the space.", category: "Video Editing", afterKey: "After Aron.mp4" },
-  { id: "w2", title: "AI Video Generation Tutorial", subtitle: "Fast-paced tutorial on generating videos with AI.", category: "Motion Design", afterKey: "Car After.mp4" },
-  { id: "w3", title: "Finance Brand Film", subtitle: "Finance brand content cut for trust and retention.", category: "Commercial", afterKey: "Hadia After.mp4" },
-  { id: "w4", title: "AI Video Shorts", subtitle: "Short-form AI clips, cut to stop the scroll.", category: "Short Form", afterKey: "Cris Cordio.mp4" },
+  { id: "w2", title: "AI Video Generation Tutorial", subtitle: "Fast-paced tutorial on generating videos with AI.", category: "Motion Design", afterKey: "Car After.mp4", thumb: "https://cdn.jepystudio.com/thumb/enzo.webp" },
+  { id: "w3", title: "Finance Brand Film", subtitle: "Finance brand content cut for trust and retention.", category: "Commercial", afterKey: "Hadia After.mp4", thumb: "https://cdn.jepystudio.com/thumb/hedo.webp" },
+  { id: "w4", title: "AI Video Shorts", subtitle: "Short-form AI clips, cut to stop the scroll.", category: "Short Form", afterKey: "Cris Cordio.mp4", thumb: "https://cdn.jepystudio.com/thumb/cris.webp" },
 ];
 
 const FILTERS = ["All", "Video Editing", "Motion Design", "Commercial", "Short Form"] as const;
@@ -38,6 +38,8 @@ function WorkCard({
 }) {
   const { videoRef, ready, poster } = useProtectedVideo(item.afterKey);
   const [hovered, setHovered] = useState(false);
+  // Hand-made thumbnail when the project has one, otherwise the clip's own poster.
+  const thumb = item.thumb ?? poster;
 
   // Everything stays paused until the pointer is over the card. Hover is a quiet,
   // muted preview; the real viewing happens in the lightbox.
@@ -78,7 +80,7 @@ function WorkCard({
           // Paint the thumbnail as a CSS background too, so the frame shows the right
           // picture the instant it lays out — no blank or odd-shaped placeholder while
           // the <video> element is still fetching its poster.
-          backgroundImage: poster ? `url(${poster})` : undefined,
+          backgroundImage: thumb ? `url(${thumb})` : undefined,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -92,9 +94,9 @@ function WorkCard({
           loop
           playsInline
           preload="none"
-          poster={poster}
+          poster={thumb}
           className="h-full w-full object-cover"
-          style={{ opacity: ready || poster ? 1 : 0, transition: "opacity 250ms ease" }}
+          style={{ opacity: hovered && ready ? 1 : 0, transition: "opacity 250ms ease" }}
           {...PROTECTED_VIDEO_PROPS}
         />
         {/* Play affordance — fades out while the hover preview is rolling */}

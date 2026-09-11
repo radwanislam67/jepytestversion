@@ -5,6 +5,8 @@ export type WorkProject = {
   desc: string;
   beforeKey: string;
   afterKey: string;
+  /** Optional hand-made card thumbnail (R2 /thumb). Falls back to the clip's own poster. */
+  thumb?: string;
 };
 
 export const WORK_PROJECTS: WorkProject[] = [
@@ -23,6 +25,7 @@ export const WORK_PROJECTS: WorkProject[] = [
     desc: "Fast-paced tutorial on generating videos with AI.",
     beforeKey: "Car Before.mp4",
     afterKey: "Car After.mp4",
+    thumb: "https://cdn.jepystudio.com/thumb/enzo.webp",
   },
   {
     id: "p3",
@@ -31,5 +34,6 @@ export const WORK_PROJECTS: WorkProject[] = [
     desc: "Finance brand content cut for trust and retention.",
     beforeKey: "Hadia Before.mp4",
     afterKey: "Hadia After.mp4",
+    thumb: "https://cdn.jepystudio.com/thumb/hedo.webp",
   },
 ];
