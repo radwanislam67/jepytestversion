@@ -3,6 +3,7 @@ import { Pause, Play, RotateCcw, Volume2, VolumeX, X } from "lucide-react";
 import { IpWatermark, PROTECTED_VIDEO_PROPS, VideoShield } from "@/components/site/VideoWatermark";
 import { VideoSkeleton } from "@/components/site/VideoSkeleton";
 import { ratioFor, useProtectedVideo, warmVideos } from "@/hooks/useProtectedVideo";
+import { effectiveDuration } from "@/hooks/useClipWindow";
 import { useAudioBus } from "@/lib/audioBus";
 import type { WorkProject } from "@/components/site/work-data";
 
@@ -74,8 +75,8 @@ export function BeforeAfterModal({
   const [muted, setMuted] = useState(true);
   const audio = useAudioBus(afterRef, () => setMuted(true));
 
-  const [progress, setProgress] = useState(0);
-  const [time, setTime] = useState({ cur: 0, dur: 0 });
+const [progress, setProgress] = useState(0);
+const [time, setTime] = useState({ cur: 0, dur: 0 });
 
   // Warm both keys as soon as the modal opens
   useEffect(() => {
@@ -112,7 +113,8 @@ export function BeforeAfterModal({
     if (!b || !a) return;
 
     let seekPending = false;
-    const sharedDur = () => Math.min(b.duration || 0, a.duration || 0);
+    const sharedDur = () =>
+      Math.min(effectiveDuration(project.afterKey, b.duration || 0), effectiveDuration(project.afterKey, a.duration || 0));
 
     const onMasterTimeUpdate = () => {
       if (!a || !b || seekPending) return;
@@ -163,18 +165,19 @@ export function BeforeAfterModal({
       a.removeEventListener("play", onMasterPlay);
       a.removeEventListener("pause", onMasterPause);
     };
-  }, [beforeReady, afterReady, beforeRef, afterRef]);
+  }, [beforeReady, afterReady, beforeRef, afterRef, project.afterKey]);
 
   // Progress bar reads from master (after) only
   useEffect(() => {
     const id = setInterval(() => {
       const a = afterRef.current;
       if (!a || !a.duration) return;
-      setProgress((a.currentTime / a.duration) * 100);
-      setTime({ cur: a.currentTime, dur: a.duration });
+      const dur = effectiveDuration(project.afterKey, a.duration);
+      setProgress((a.currentTime / dur) * 100);
+      setTime({ cur: a.currentTime, dur });
     }, 250);
     return () => clearInterval(id);
-  }, []);
+  }, [project.afterKey]);
 
   const togglePlay = () => {
     const a = afterRef.current;
@@ -196,7 +199,7 @@ export function BeforeAfterModal({
   const seek = (pct: number) => {
     const a = afterRef.current;
     if (!a || !a.duration) return;
-    a.currentTime = (pct / 100) * a.duration;
+    a.currentTime = (pct / 100) * effectiveDuration(project.afterKey, a.duration);
     // The master timeupdate handler will mirror to before
   };
 

@@ -6,6 +6,7 @@ import { Stats } from "@/components/site/Stats";
 import { CTASection } from "@/components/site/CTASection";
 import { VideoLightbox } from "@/components/site/VideoLightbox";
 import { ratioFor, useProtectedVideo } from "@/hooks/useProtectedVideo";
+import { useClipWindow } from "@/hooks/useClipWindow";
 import { PROTECTED_VIDEO_PROPS } from "@/components/site/VideoWatermark";
 
 export const Route = createFileRoute("/work")({
@@ -37,6 +38,7 @@ function WorkCard({
   onOpen: (item: (typeof ITEMS)[number]) => void;
 }) {
   const { videoRef, ready, poster } = useProtectedVideo(item.afterKey);
+  useClipWindow(videoRef, item.afterKey);
   const [hovered, setHovered] = useState(false);
   // Hand-made thumbnail when the project has one, otherwise the clip's own poster.
   const thumb = item.thumb ?? poster;

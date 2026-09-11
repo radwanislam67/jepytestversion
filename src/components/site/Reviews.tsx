@@ -107,8 +107,17 @@ function Card({ r, index, visible }: { r: Review; index: number; visible: boolea
   );
 }
 
+/** The same client faces the logo marquee uses, so the pill shows real people
+ *  instead of empty coloured dots. */
+const PILL_AVATARS = [
+  { src: "https://cdn.jepystudio.com/clients/nate-herk-avatar.webp", name: "Nate Herk" },
+  { src: "https://cdn.jepystudio.com/clients/rj-talks-avatar.webp", name: "RJ Talks" },
+  { src: "https://cdn.jepystudio.com/clients/camille-adrian-avatar.webp", name: "Camille Adrian" },
+  { src: "https://cdn.jepystudio.com/clients/peter-mckinnon-avatar.webp", name: "Peter McKinnon" },
+  { src: "https://cdn.jepystudio.com/clients/matt-davella-avatar.webp", name: "Matt D'Avella" },
+];
+
 function SummaryPill() {
-  const avatars = ["#30d94b", "#d8ffdf", "#8a8a8a", "#F7F7F7"];
   return (
     <div
       className="group inline-flex items-center gap-3 transition-all duration-300 hover:shadow-[0_0_24px_rgba(48, 217, 75,0.35)]"
@@ -121,11 +130,17 @@ function SummaryPill() {
       }}
     >
       <div className="flex -space-x-2">
-        {avatars.map((c, i) => (
-          <span
-            key={i}
-            className="inline-block h-6 w-6 rounded-full border-2"
-            style={{ background: c, borderColor: "#0b0b0b" }}
+        {PILL_AVATARS.map((a) => (
+          <img
+            key={a.src}
+            src={a.src}
+            alt={a.name}
+            width={22}
+            height={22}
+            loading="lazy"
+            decoding="async"
+            className="inline-block h-[22px] w-[22px] rounded-full border-2 object-cover"
+            style={{ borderColor: "#0b0b0b", background: "#1b1b1b" }}
           />
         ))}
       </div>

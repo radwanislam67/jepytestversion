@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Pause, Play, RotateCcw, Volume2, VolumeX, X } from "lucide-react";
 import { useProtectedVideo } from "@/hooks/useProtectedVideo";
+import { useClipWindow } from "@/hooks/useClipWindow";
 import { useAudioBus } from "@/lib/audioBus";
 import { PROTECTED_VIDEO_PROPS } from "@/components/site/VideoWatermark";
 
@@ -36,6 +37,7 @@ function LightboxStage({ item, onClose }: { item: LightboxItem; onClose: () => v
   const activeKey = side === "before" && item.beforeKey ? item.beforeKey : item.afterKey;
 
   const { videoRef, ready, poster } = useProtectedVideo(activeKey);
+  useClipWindow(videoRef, activeKey);
   const [entered, setEntered] = useState(false);
   const [muted, setMuted] = useState(true);
   const [paused, setPaused] = useState(false);
