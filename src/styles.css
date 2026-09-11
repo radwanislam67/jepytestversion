@@ -310,7 +310,7 @@
 .hero-ba {
   position: relative;
   width: 300px;
-  height: 300px;
+  height: 380px;
   flex-shrink: 0;
   z-index: 5;
 }
@@ -319,7 +319,7 @@
   top: 10px;
   left: 0;
   width: 140px;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 120 / 179;
   z-index: 1;
   transform: rotate(-5deg);
   opacity: 0.80;
@@ -334,7 +334,7 @@
   bottom: 0;
   right: 0;
   width: 148px;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 9 / 16;
   z-index: 2;
   background: #06230c;
   border: 1.5px solid #30d94b;
@@ -365,9 +365,9 @@
   .hero-ba-after { animation: none; transform: rotate(4deg); }
 }
 @media (max-width: 767px) {
-  .hero-ba { max-width: 200px; width: 100%; height: auto; aspect-ratio: 300 / 300; }
-  .hero-ba-before { width: 95px; aspect-ratio: 1 / 1; }
-  .hero-ba-after { width: 100px; aspect-ratio: 1 / 1; }
+  .hero-ba { max-width: 200px; width: 100%; height: auto; aspect-ratio: 300 / 380; }
+  .hero-ba-before { width: 95px; aspect-ratio: 120 / 179; }
+  .hero-ba-after { width: 100px; aspect-ratio: 9 / 16; }
 }
 @media (max-width: 479px) {
   .hero-ba { display: none; }

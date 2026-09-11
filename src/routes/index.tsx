@@ -64,7 +64,7 @@ function Hero() {
     <section className="relative min-h-[100svh] flex items-center overflow-hidden pt-36 md:pt-40 pb-12 md:pb-16">
       <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16">
         <div className="flex-1 min-w-0">
-          <h1 className="font-display font-semibold text-[clamp(3rem,11.5vw,4rem)] md:text-[clamp(3.5rem,5.5vw,6.25rem)] xl:text-[clamp(6.25rem,9vw,8.75rem)] leading-[0.95] tracking-[-0.04em]">
+          <h1 className="font-display font-semibold text-[clamp(3.25rem,12vw,4.5rem)] md:text-[clamp(3rem,6.2vw,7rem)] xl:text-[clamp(7rem,9.5vw,8.3rem)] leading-[0.95] tracking-[-0.04em]">
             <Reveal>Every Frame</Reveal>
             <Reveal delay={600} y={32}>
               <span>
@@ -85,7 +85,7 @@ function Hero() {
             </Reveal>
           </h1>
           <Reveal delay={260}>
-            <p className="mt-8 max-w-xl text-[17px] md:text-xl text-foreground/70 leading-relaxed break-words">
+            <p className="mt-8 max-w-xl text-[18px] md:text-[22px] text-foreground/70 leading-relaxed break-words">
               Short-form, YouTube and brand content, edited with intentional pacing, sound and motion.
             </p>
           </Reveal>
