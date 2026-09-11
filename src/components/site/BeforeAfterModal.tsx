@@ -224,13 +224,12 @@ const [time, setTime] = useState({ cur: 0, dur: 0 });
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-full animate-[ba-in_.25s_cubic-bezier(0.175,0.885,0.32,1.275)] max-h-[92vh] overflow-y-auto"
+        className="w-fit max-w-[94vw] animate-[ba-in_.25s_cubic-bezier(0.175,0.885,0.32,1.275)] max-h-[92vh] overflow-y-auto"
         style={{
           background: "#111",
           border: "1px solid #2a2a2a",
           borderRadius: 16,
-          maxWidth: 640,
-          padding: 16,
+          padding: 14,
         }}
       >
         <div className="flex items-center justify-between gap-4">
@@ -250,7 +249,7 @@ const [time, setTime] = useState({ cur: 0, dur: 0 });
         </div>
 
         <div
-          className="mt-3 flex flex-wrap items-start justify-center gap-3"
+          className="mt-3 flex flex-wrap items-start justify-center gap-3.5"
         >
           <div>
             <div

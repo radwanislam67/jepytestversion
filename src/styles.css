@@ -378,7 +378,7 @@
 /* The before/after viewer: the panel has to hold two frames plus its header and
    controls, so the frames shrink on phones instead of pushing the bar off-screen. */
 .ba-frame {
-  height: min(46vh, 430px);
+  height: min(50vh, 470px);
 }
 @media (max-width: 640px) {
   .ba-frame { height: min(30vh, 280px); }
