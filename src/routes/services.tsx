@@ -12,8 +12,6 @@ import {
 } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { CTASection } from "@/components/site/CTASection";
-import { useProtectedVideo, warmVideos } from "@/hooks/useProtectedVideo";
-import { VideoSkeleton } from "@/components/site/VideoSkeleton";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -102,49 +100,6 @@ function usePrefersReducedMotion(): boolean {
   return reduced;
 }
 
-function ServiceVideoFrame({ videoKey, inView, label }: { videoKey: string; inView: boolean; label?: string }) {
-  const { videoRef, ready, poster } = useProtectedVideo(videoKey);
-  const reducedMotion = usePrefersReducedMotion();
-  const shouldPlay = inView && ready && !reducedMotion;
-
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (shouldPlay) {
-      void v.play().catch(() => {});
-    } else {
-      v.pause();
-    }
-  }, [shouldPlay, videoRef]);
-
-  return (
-    <div
-      className="relative w-full overflow-hidden"
-      style={{ aspectRatio: "9/16", borderRadius: 10, background: "#0d0d0d" }}
-    >
-      {!ready && <VideoSkeleton className="absolute inset-0" />}
-      <video
-        ref={videoRef}
-        muted
-        loop
-        playsInline
-        preload="none"
-        poster={poster}
-        className="h-full w-full object-cover"
-        style={{ opacity: ready ? 1 : 0, transition: "opacity 250ms ease" }}
-      />
-      {label && (
-        <div
-          className="absolute bottom-2 left-2 right-2 text-[10px] uppercase tracking-[0.18em] text-white/45"
-          style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
-        >
-          {label}
-        </div>
-      )}
-    </div>
-  );
-}
-
 function TileFallback() {
   return (
     <div
@@ -199,10 +154,7 @@ function ExpandControl({ open, onToggle, children }: { open: boolean; onToggle: 
 
 function ServiceCard({ s, i, wide }: { s: Service; i: number; wide: boolean }) {
   const spotlightRef = useRef<HTMLDivElement>(null);
-  const previewWrapRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
-  const [previewInView, setPreviewInView] = useState(false);
-  const reducedMotion = usePrefersReducedMotion();
   const number = String(i + 1).padStart(2, "0");
   const spanClass = SPAN_CLASSES[i] ?? "";
   const afterKey = s.afterKey;
@@ -216,36 +168,6 @@ function ServiceCard({ s, i, wide }: { s: Service; i: number; wide: boolean }) {
       spotlightRef.current.style.setProperty("--my", `${y}px`);
     }
   };
-
-  // Warm video on expand (non-wide) or on viewport approach (wide)
-  useEffect(() => {
-    if (!afterKey) return;
-    if (!wide && open) void warmVideos([afterKey]);
-  }, [open, afterKey, wide]);
-
-  useEffect(() => {
-    if (!wide || !afterKey) return;
-    const el = previewWrapRef.current;
-    if (!el) return;
-    if (typeof IntersectionObserver === "undefined") {
-      setPreviewInView(true);
-      void warmVideos([afterKey]);
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            setPreviewInView(true);
-            void warmVideos([afterKey]);
-          }
-        });
-      },
-      { rootMargin: "200px 0px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [wide, afterKey]);
 
   return (
     <div
@@ -324,52 +246,15 @@ function ServiceCard({ s, i, wide }: { s: Service; i: number; wide: boolean }) {
         ))}
       </ul>
 
-      {/* Wide cards: persistent preview panel on the right at lg */}
-      {wide && afterKey && (
-        <>
-          <div
-            ref={previewWrapRef}
-            className="mt-auto pt-4 hidden lg:grid"
-            style={{ gridTemplateColumns: "1fr 220px", gap: 24, alignItems: "end" }}
-          >
-            <div className="flex items-end">
-              <Link
-                to="/work"
-                className="inline-flex items-center gap-1 text-xs text-[#a3a3a3] hover:text-white transition-colors"
-              >
-                View all work →
-              </Link>
-            </div>
-            <ServiceVideoFrame videoKey={afterKey} inView={previewInView} label={s.title} />
-          </div>
-          {/* On smaller screens where the lg grid is hidden, fall back to a simple link */}
-          <div className="mt-auto pt-4 lg:hidden">
-            <Link
-              to="/work"
-              className="inline-flex items-center gap-1 text-sm text-[#30d94b] hover:text-[#d8ffdf] transition-colors"
-            >
-              See Examples →
-            </Link>
-          </div>
-        </>
-      )}
-
-      {/* Non-wide cards: expand control with preview strip */}
-      {!wide && afterKey && (
+      {/* This page intentionally shows no video previews — send people to the work instead */}
+      {afterKey && (
         <div className="mt-auto pt-4">
-          <ExpandControl open={open} onToggle={() => setOpen((v) => !v)}>
-            <div className="pt-3 max-w-[220px]">
-              <ServiceVideoFrame videoKey={afterKey} inView={open} label={s.title} />
-            </div>
-            <div className="pt-3 text-right">
-              <Link
-                to="/work"
-                className="inline-flex items-center gap-1 text-xs text-[#a3a3a3] hover:text-white transition-colors"
-              >
-                View all work →
-              </Link>
-            </div>
-          </ExpandControl>
+          <Link
+            to="/work"
+            className="inline-flex items-center gap-1 text-sm text-[#30d94b] hover:text-[#d8ffdf] transition-colors"
+          >
+            See Examples →
+          </Link>
         </div>
       )}
 

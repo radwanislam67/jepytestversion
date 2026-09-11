@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { X } from "lucide-react";
+import { Pause, Play, RotateCcw, Volume2, VolumeX, X } from "lucide-react";
 import { IpWatermark, PROTECTED_VIDEO_PROPS, VideoShield } from "@/components/site/VideoWatermark";
 import { VideoSkeleton } from "@/components/site/VideoSkeleton";
-import { useProtectedVideo, warmVideos } from "@/hooks/useProtectedVideo";
+import { ratioFor, useProtectedVideo, warmVideos } from "@/hooks/useProtectedVideo";
 import { useAudioBus } from "@/lib/audioBus";
 import type { WorkProject } from "@/components/site/work-data";
 
@@ -37,14 +37,25 @@ const ctrlBtn: React.CSSProperties = {
   transition: "color .2s, border-color .2s",
 };
 
-const portraitFrameStyle: React.CSSProperties = {
-  aspectRatio: "9 / 16",
+const pillBtn: React.CSSProperties = {
+  background: "transparent",
+  border: "none",
+  color: "#e5e5e5",
+  padding: "8px 10px",
+  cursor: "pointer",
+  transition: "color .2s, background .2s",
+};
+
+/** The clips are anamorphic, so each frame takes its own on-screen ratio — a hard-coded
+ *  9:16 crops whichever clip is not 9:16. */
+const portraitFrameStyle = (ratio: string): React.CSSProperties => ({
+  aspectRatio: ratio,
   height: "min(62vh, 560px)",
   width: "auto",
   background: "#0d0d0d",
   border: "1px solid #222",
   borderRadius: 10,
-};
+});
 
 export function BeforeAfterModal({
   project,
@@ -58,7 +69,7 @@ export function BeforeAfterModal({
   const [playing, setPlaying] = useState(true);
   const [muted, setMuted] = useState(true);
   const audio = useAudioBus(afterRef, () => setMuted(true));
-  const [hoverAfter, setHoverAfter] = useState(false);
+
   const [progress, setProgress] = useState(0);
   const [time, setTime] = useState({ cur: 0, dur: 0 });
 
@@ -202,7 +213,7 @@ export function BeforeAfterModal({
       aria-label={project.title}
       onClick={onClose}
       className="fixed inset-0 z-[200] flex items-center justify-center p-4"
-      style={{ background: "rgba(0,0,0,0.92)" }}
+      style={{ background: "rgba(0,0,0,0.78)", backdropFilter: "blur(20px)" }}
     >
       <div
         onClick={(e) => e.stopPropagation()}
@@ -238,7 +249,7 @@ export function BeforeAfterModal({
           <div>
             <div
               className="relative overflow-hidden"
-              style={portraitFrameStyle}
+              style={portraitFrameStyle(ratioFor(project.beforeKey) ?? "9 / 16")}
             >
               {!beforeReady && <VideoSkeleton progress={beforeProgress} />}
               <video
@@ -270,9 +281,7 @@ export function BeforeAfterModal({
           <div>
             <div
               className="relative overflow-hidden"
-              onMouseEnter={() => setHoverAfter(true)}
-              onMouseLeave={() => setHoverAfter(false)}
-              style={portraitFrameStyle}
+              style={portraitFrameStyle(ratioFor(project.afterKey) ?? "9 / 16")}
             >
               {!afterReady && <VideoSkeleton progress={afterProgress} />}
               <video
@@ -287,28 +296,6 @@ export function BeforeAfterModal({
               />
               <VideoShield />
               <IpWatermark />
-              <button
-                type="button"
-                onClick={toggleMute}
-                className="absolute"
-                style={{
-                  bottom: 10,
-                  right: 10,
-                  zIndex: 10,
-                  background: "rgba(0,0,0,0.7)",
-                  border: "1px solid #444",
-                  borderRadius: 8,
-                  padding: "6px 10px",
-                  color: "#fff",
-                  fontSize: 11,
-                  fontFamily: "ui-monospace, monospace",
-                  opacity: hoverAfter ? 1 : 0,
-                  transition: "opacity .2s",
-                  pointerEvents: hoverAfter ? "auto" : "none",
-                }}
-              >
-                {muted ? "🔊 UNMUTE" : "🔇 MUTE"}
-              </button>
             </div>
             <div
               className="mt-2 text-center"
@@ -324,15 +311,48 @@ export function BeforeAfterModal({
           </div>
         </div>
 
+        {/* Sticky, pill-shaped and always visible: on a phone this bar used to sit far
+            below the fold, which made the transport controls unreachable. */}
         <div
-          className="mt-4 flex items-center gap-3"
-          style={{ background: "#0d0d0d", borderRadius: 8, padding: "12px 16px" }}
+          className="sticky bottom-0 mt-4 flex flex-wrap items-center gap-2"
+          style={{
+            background: "rgba(13,13,13,.94)",
+            backdropFilter: "blur(12px)",
+            border: "1px solid #262626",
+            borderRadius: 999,
+            padding: "8px 12px",
+          }}
         >
-          <button type="button" onClick={togglePlay} style={ctrlBtn} className="ba-ctrl" aria-label="Play or pause">
-            {playing ? "⏸" : "▶"}
+          <button
+            type="button"
+            onClick={toggleMute}
+            style={pillBtn}
+            className="ba-ctrl inline-flex items-center gap-1.5 rounded-full"
+            aria-label={muted ? "Unmute video" : "Mute video"}
+            aria-pressed={!muted}
+          >
+            {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+            <span style={{ fontSize: 11, fontFamily: "ui-monospace, monospace" }}>
+              {muted ? "UNMUTE" : "MUTE"}
+            </span>
           </button>
-          <button type="button" onClick={restart} style={ctrlBtn} className="ba-ctrl" aria-label="Restart">
-            ↺
+          <button
+            type="button"
+            onClick={togglePlay}
+            style={pillBtn}
+            className="ba-ctrl inline-flex items-center rounded-full"
+            aria-label={playing ? "Pause video" : "Play video"}
+          >
+            {playing ? <Pause size={16} /> : <Play size={16} />}
+          </button>
+          <button
+            type="button"
+            onClick={restart}
+            style={pillBtn}
+            className="ba-ctrl inline-flex items-center rounded-full"
+            aria-label="Replay video"
+          >
+            <RotateCcw size={16} />
           </button>
           <input
             type="range"
@@ -354,6 +374,15 @@ export function BeforeAfterModal({
           >
             {fmt(time.cur)} / {fmt(time.dur)}
           </span>
+          <button
+            type="button"
+            onClick={onClose}
+            style={pillBtn}
+            className="ba-ctrl inline-flex items-center rounded-full"
+            aria-label="Close video"
+          >
+            <X size={16} />
+          </button>
         </div>
       </div>
     </div>

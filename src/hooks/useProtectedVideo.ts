@@ -21,6 +21,30 @@ export function posterFor(key: string): string | undefined {
   return slug ? `/video-posters/${slug}.webp` : undefined;
 }
 
+/**
+ * On-screen width / height of each clip, i.e. AFTER its pixel aspect ratio is applied.
+ * These are anamorphic files: Car After.mp4 is coded 1080x720 but renders 1080x1920, so
+ * a container that hard-codes 9:16 crops whichever clip does not happen to be 9:16.
+ * Sizing every frame from this map keeps the crop at zero.
+ */
+const RATIOS: Record<string, number> = {
+  "Showreel.mp4": 1280 / 830,
+  "Before.mp4": 120 / 179,
+  "After.mp4": 9 / 16,
+  "Aron Before.mp4": 360 / 640,
+  "After Aron.mp4": 406 / 720,
+  "Car Before.mp4": 270 / 403,
+  "Car After.mp4": 1080 / 1920,
+  "Hadia Before.mp4": 120 / 211,
+  "Hadia After.mp4": 720 / 1280,
+  "Cris Cordio.mp4": 1080 / 1732,
+};
+
+export function ratioFor(key: string): string | undefined {
+  const ratio = RATIOS[key];
+  return ratio ? String(ratio) : undefined;
+}
+
 interface SignedEntry {
   url: string;
   expiresAt: number;

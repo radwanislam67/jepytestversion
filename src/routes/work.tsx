@@ -5,7 +5,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { Stats } from "@/components/site/Stats";
 import { CTASection } from "@/components/site/CTASection";
 import { VideoLightbox } from "@/components/site/VideoLightbox";
-import { useProtectedVideo } from "@/hooks/useProtectedVideo";
+import { ratioFor, useProtectedVideo } from "@/hooks/useProtectedVideo";
 import { PROTECTED_VIDEO_PROPS } from "@/components/site/VideoWatermark";
 
 export const Route = createFileRoute("/work")({
@@ -71,7 +71,11 @@ function WorkCard({
         onClick={() => onOpen(item)}
         aria-label={`Play ${item.title}`}
         className="relative block w-full overflow-hidden text-left"
-        style={{ aspectRatio: "9 / 16", background: "#0d0d0d", borderRadius: "10px" }}
+        style={{
+          aspectRatio: ratioFor(item.afterKey) ?? "9 / 16",
+          background: "#0d0d0d",
+          borderRadius: "10px",
+        }}
       >
         <span className="absolute top-3 left-3 z-10 text-xs uppercase tracking-[0.15em] px-2 py-1 rounded-full border border-[rgba(48,217,75,.35)] text-[#d8ffdf] bg-[rgba(20,20,20,.55)] backdrop-blur-sm">
           {item.category}
