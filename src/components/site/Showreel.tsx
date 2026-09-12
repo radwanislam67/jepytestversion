@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import { IpWatermark, PROTECTED_VIDEO_PROPS, VideoShield } from "@/components/site/VideoWatermark";
 import { useProtectedVideo } from "@/hooks/useProtectedVideo";
-import { useAudioBus } from "@/lib/audioBus";
+import { useAudioBus, useOffscreenSilence } from "@/lib/audioBus";
 
 export function Showreel() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -11,6 +11,13 @@ export function Showreel() {
   const [muted, setMuted] = useState(true);
   const [boxRatio, setBoxRatio] = useState<string | null>(null);
   const audio = useAudioBus(videoRef, () => setMuted(true));
+
+  // Scrolling past the reel used to leave it talking. Cut the sound and hand the
+  // audio bus back as soon as the section leaves the viewport.
+  useOffscreenSilence(sectionRef, videoRef, () => {
+    audio.release();
+    setMuted(true);
+  });
 
   // Showreel.mp4 carries a non-square pixel aspect ratio (833:960), so its coded
   // 1280x720 is not its shape on screen. Size the box from the element itself so

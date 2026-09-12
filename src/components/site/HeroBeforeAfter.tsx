@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useProtectedVideo } from "@/hooks/useProtectedVideo";
-import { useAudioBus } from "@/lib/audioBus";
+import { useAudioBus, useOffscreenSilence } from "@/lib/audioBus";
 
 const mono = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
@@ -93,8 +93,16 @@ function VideoWatermark({ enabled = true }: { enabled?: boolean }) {
 export function HeroBeforeAfter() {
   const { videoRef: beforeVideoRef, ready: beforeReady } = useProtectedVideo("Before.mp4");
   const { videoRef: afterVideoRef, ready: afterReady } = useProtectedVideo("After.mp4");
+  const rootRef = useRef<HTMLDivElement>(null);
   const [afterMuted, setAfterMuted] = useState(true);
   const audio = useAudioBus(afterVideoRef, () => setAfterMuted(true));
+
+  // Pausing the AFTER clip pulls the BEFORE clip with it through the sync effect
+  // below, so the pair never drifts apart while off screen.
+  useOffscreenSilence(rootRef, afterVideoRef, () => {
+    audio.release();
+    setAfterMuted(true);
+  });
 
   useEffect(() => {
     if (!beforeReady || !afterReady) return;
@@ -129,7 +137,7 @@ export function HeroBeforeAfter() {
   }, [beforeReady, afterReady, beforeVideoRef, afterVideoRef]);
 
   return (
-    <div className="hero-ba">
+    <div className="hero-ba" ref={rootRef}>
       {/* BEFORE card */}
       <div className="hero-ba-before">
         {!beforeReady && (
