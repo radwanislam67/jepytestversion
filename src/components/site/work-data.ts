@@ -9,6 +9,21 @@ export type WorkProject = {
   thumb?: string;
 };
 
+/**
+ * R2 serves these thumbnails with `Cache-Control: max-age=14400`, and Cloudflare's
+ * edge then holds that copy for the whole window. Re-uploading a file to the same
+ * path therefore keeps serving the OLD bytes for up to four hours — `cf-cache-status:
+ * HIT`, R2 is never consulted, and a browser hard refresh cannot help because the
+ * request never leaves the edge. A changed query string is a new cache key, so the
+ * fresh object is fetched the moment this is bumped.
+ *
+ * Bump this whenever a thumbnail is re-uploaded to R2.
+ */
+export const THUMB_VERSION = "20260912a";
+
+export const thumbUrl = (name: string) =>
+  `https://cdn.jepystudio.com/thumb/${name}?v=${THUMB_VERSION}`;
+
 export const WORK_PROJECTS: WorkProject[] = [
   {
     id: "p1",
@@ -25,7 +40,7 @@ export const WORK_PROJECTS: WorkProject[] = [
     desc: "Fast-paced tutorial on generating videos with AI.",
     beforeKey: "Car Before.mp4",
     afterKey: "Car After.mp4",
-    thumb: "https://cdn.jepystudio.com/thumb/enzo.webp",
+    thumb: thumbUrl("enzo.webp"),
   },
   {
     id: "p3",
@@ -34,6 +49,6 @@ export const WORK_PROJECTS: WorkProject[] = [
     desc: "Finance brand content cut for trust and retention.",
     beforeKey: "Hadia Before.mp4",
     afterKey: "Hadia After.mp4",
-    thumb: "https://cdn.jepystudio.com/thumb/hedo.webp",
+    thumb: thumbUrl("hedo.webp"),
   },
 ];

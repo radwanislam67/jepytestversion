@@ -120,16 +120,19 @@ const PILL_AVATARS = [
 function SummaryPill() {
   return (
     <div
-      className="group inline-flex items-center gap-3 transition-all duration-300 hover:shadow-[0_0_24px_rgba(48, 217, 75,0.35)]"
+      // On phones this pill is wider than the viewport, and because a flex row does not
+      // wrap by default its children were being squeezed instead: the avatar stack has
+      // no intrinsic width of its own, so it collapsed under the -space-x-2 overlap and
+      // the stars spilt over the client faces. It now wraps onto a second line, and the
+      // groups that must not be squeezed are pinned with shrink-0.
+      className="group inline-flex max-w-full flex-wrap items-center justify-center gap-x-2 gap-y-2 rounded-2xl px-3.5 py-2 transition-all duration-300 hover:shadow-[0_0_24px_rgba(48, 217, 75,0.35)] md:gap-x-3 md:px-6 md:py-2.5 md:rounded-full"
       style={{
         background:
           "linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015))",
         border: "1px solid rgba(48, 217, 75,0.3)",
-        borderRadius: 999,
-        padding: "10px 24px",
       }}
     >
-      <div className="flex -space-x-2">
+      <div className="flex shrink-0 -space-x-2">
         {PILL_AVATARS.map((a) => (
           <img
             key={a.src}
@@ -144,7 +147,7 @@ function SummaryPill() {
           />
         ))}
       </div>
-      <div className="flex gap-0.5 items-center">
+      <div className="flex shrink-0 gap-0.5 items-center">
         {Array.from({ length: 4 }).map((_, i) => (
           <Star key={i} size={12} fill="#FFD700" stroke="#FFD700" />
         ))}
@@ -155,9 +158,11 @@ function SummaryPill() {
           </span>
         </span>
       </div>
-      <span className="text-sm font-bold text-white">4.9</span>
-      <span className="text-sm text-muted-foreground">50+ Clients Worldwide</span>
-      <ChevronRight size={14} className="text-muted-foreground" />
+      <span className="shrink-0 text-sm font-bold text-white">4.9</span>
+      <span className="whitespace-nowrap text-[13px] text-muted-foreground md:text-sm">
+        50+ Clients Worldwide
+      </span>
+      <ChevronRight size={14} className="shrink-0 text-muted-foreground" />
     </div>
   );
 }

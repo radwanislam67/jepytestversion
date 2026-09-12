@@ -7,7 +7,8 @@ import { CTASection } from "@/components/site/CTASection";
 import { VideoLightbox } from "@/components/site/VideoLightbox";
 import { ratioFor, useProtectedVideo } from "@/hooks/useProtectedVideo";
 import { useClipWindow } from "@/hooks/useClipWindow";
-import { PROTECTED_VIDEO_PROPS } from "@/components/site/VideoWatermark";
+import { IpWatermark, PROTECTED_VIDEO_PROPS, VideoShield } from "@/components/site/VideoWatermark";
+import { thumbUrl } from "@/components/site/work-data";
 
 export const Route = createFileRoute("/work")({
   head: () => ({
@@ -23,9 +24,9 @@ export const Route = createFileRoute("/work")({
 
 const ITEMS = [
   { id: "w1", title: "Property Film", subtitle: "A cinematic real estate film built to sell the space.", category: "Video Editing", afterKey: "After Aron.mp4" },
-  { id: "w2", title: "AI Video Generation Tutorial", subtitle: "Fast-paced tutorial on generating videos with AI.", category: "Motion Design", afterKey: "Car After.mp4", thumb: "https://cdn.jepystudio.com/thumb/enzo.webp" },
-  { id: "w3", title: "Finance Brand Film", subtitle: "Finance brand content cut for trust and retention.", category: "Commercial", afterKey: "Hadia After.mp4", thumb: "https://cdn.jepystudio.com/thumb/hedo.webp" },
-  { id: "w4", title: "AI Video Shorts", subtitle: "Short-form AI clips, cut to stop the scroll.", category: "Short Form", afterKey: "Cris Cordio.mp4", thumb: "https://cdn.jepystudio.com/thumb/cris.webp" },
+  { id: "w2", title: "AI Video Generation Tutorial", subtitle: "Fast-paced tutorial on generating videos with AI.", category: "Motion Design", afterKey: "Car After.mp4", thumb: thumbUrl("enzo.webp") },
+  { id: "w3", title: "Finance Brand Film", subtitle: "Finance brand content cut for trust and retention.", category: "Commercial", afterKey: "Hadia After.mp4", thumb: thumbUrl("hedo.webp") },
+  { id: "w4", title: "AI Video Shorts", subtitle: "Short-form AI clips, cut to stop the scroll.", category: "Short Form", afterKey: "Cris Cordio.mp4", thumb: thumbUrl("cris.webp") },
 ];
 
 const FILTERS = ["All", "Video Editing", "Motion Design", "Commercial", "Short Form"] as const;
@@ -101,6 +102,10 @@ function WorkCard({
           style={{ opacity: hovered && ready ? 1 : 0, transition: "opacity 250ms ease" }}
           {...PROTECTED_VIDEO_PROPS}
         />
+        {/* Same protection the home clips carry: a shield over the surface and a
+            repeating viewer-IP watermark so a screen recording is traceable. */}
+        <VideoShield />
+        <IpWatermark />
         {/* Play affordance — fades out while the hover preview is rolling */}
         <span
           aria-hidden

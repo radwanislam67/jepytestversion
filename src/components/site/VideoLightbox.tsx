@@ -4,7 +4,7 @@ import { Pause, Play, RotateCcw, Volume2, VolumeX, X } from "lucide-react";
 import { useProtectedVideo } from "@/hooks/useProtectedVideo";
 import { useClipWindow } from "@/hooks/useClipWindow";
 import { useAudioBus } from "@/lib/audioBus";
-import { PROTECTED_VIDEO_PROPS } from "@/components/site/VideoWatermark";
+import { IpWatermark, PROTECTED_VIDEO_PROPS, VideoShield } from "@/components/site/VideoWatermark";
 
 export interface LightboxItem {
   id: string;
@@ -155,6 +155,10 @@ function LightboxStage({ item, onClose }: { item: LightboxItem; onClose: () => v
             style={{ maxHeight: "calc(100svh - 140px)", maxWidth: "min(94vw, 760px)" }}
             {...PROTECTED_VIDEO_PROPS}
           />
+          {/* Same IP watermark the home viewer carries, so the full-size playback on
+              the work page is traceable too. */}
+          <VideoShield />
+          <IpWatermark />
         </div>
 
         <div className="flex max-w-full flex-wrap items-center justify-center gap-1 rounded-full bg-black/65 px-2 py-2 ring-1 ring-white/15 backdrop-blur-md">

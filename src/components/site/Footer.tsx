@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Linkedin, Twitter, Mail } from "lucide-react";
+import { Instagram, Mail } from "lucide-react";
 import jepyLogo from "@/assets/jepy-logo.png";
 
 export function Footer() {
@@ -55,24 +55,6 @@ export function Footer() {
                 className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/10 text-foreground/80 hover:text-[var(--accent)] hover:border-[var(--accent)]/60 transition-colors"
               >
                 <Instagram size={16} />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn"
-                className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/10 text-foreground/80 hover:text-[var(--accent)] hover:border-[var(--accent)]/60 transition-colors"
-              >
-                <Linkedin size={16} />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Twitter"
-                className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/10 text-foreground/80 hover:text-[var(--accent)] hover:border-[var(--accent)]/60 transition-colors"
-              >
-                <Twitter size={16} />
               </a>
             </div>
           </div>

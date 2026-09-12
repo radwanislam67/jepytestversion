@@ -21,16 +21,27 @@ export function VideoShield() {
   );
 }
 
+/** One lookup per page load, shared by every watermark on it — the work page alone
+ *  mounts several, and each one used to fire its own request. */
+let ipPromise: Promise<string> | null = null;
+
+function fetchClientIp(): Promise<string> {
+  if (!ipPromise) {
+    ipPromise = fetch("https://api.ipify.org?format=json")
+      .then((r) => r.json())
+      .then((d) => (d?.ip ? String(d.ip) : ""))
+      .catch(() => "");
+  }
+  return ipPromise;
+}
+
 export function useClientIp() {
   const [ip, setIp] = useState("");
   useEffect(() => {
     let alive = true;
-    fetch("https://api.ipify.org?format=json")
-      .then((r) => r.json())
-      .then((d) => {
-        if (alive && d?.ip) setIp(String(d.ip));
-      })
-      .catch(() => {});
+    void fetchClientIp().then((v) => {
+      if (alive) setIp(v);
+    });
     return () => {
       alive = false;
     };
